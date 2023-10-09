@@ -1,5 +1,12 @@
+import Router from "Router";
+import { AppLayout } from "components/Layouts";
+
 function App() {
-  return <div className="App">starter</div>;
+  return (
+    <AppLayout>
+      <Router />
+    </AppLayout>
+  );
 }
 
 export default App;

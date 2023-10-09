@@ -1,9 +1,24 @@
+:root {
+  --app-blue-main: #1e36e8;
+  --app-blue-light: #475be8;
+  --app-text-main: #808191;
+  --app-bg-main: #fcfcfc;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Manrope", sans-serif;
 }
 
 a {
   text-decoration: none !important;
+  color: inherit;
 }
 
 .my_profile-bg {

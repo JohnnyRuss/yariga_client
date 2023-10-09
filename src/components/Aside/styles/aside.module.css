@@ -1,0 +1,30 @@
+.aside_link {
+  text-transform: capitalize;
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--app-text-main);
+}
+
+.aside_link span {
+  min-width: 125px;
+}
+
+.aside_link:hover {
+  color: var(--app-bg-main);
+  background: var(--app-blue-light);
+}
+
+.aside_link.active {
+  color: var(--app-blue-main);
+  background: var(--app-bg-main);
+}
+
+@media (max-width: 900px) {
+  .aside_link span {
+    display: none;
+  }
+}
