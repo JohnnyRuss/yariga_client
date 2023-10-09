@@ -1,3 +1,5 @@
+import { nanoid } from "@reduxjs/toolkit";
+
 const propertyReferralsInfo = [
   {
     title: "Social Media",
@@ -26,4 +28,47 @@ const propertyReferralsInfo = [
   },
 ];
 
-export { propertyReferralsInfo };
+const PropertyTypes = [
+  {
+    id: nanoid(),
+    label: "Apartment",
+    value: "apartment",
+  },
+  {
+    id: nanoid(),
+    label: "Villa",
+    value: "villa",
+  },
+  {
+    id: nanoid(),
+    label: "Farmhouse",
+    value: "farmhouse",
+  },
+  {
+    id: nanoid(),
+    label: "Condos",
+    value: "condos",
+  },
+  {
+    id: nanoid(),
+    label: "Townhouse",
+    value: "townhouse",
+  },
+  {
+    id: nanoid(),
+    label: "Duplex",
+    value: "duplex",
+  },
+  {
+    id: nanoid(),
+    label: "Studio",
+    value: "studio",
+  },
+  {
+    id: nanoid(),
+    label: "Chalet",
+    value: "chalet",
+  },
+];
+
+export { propertyReferralsInfo, PropertyTypes };

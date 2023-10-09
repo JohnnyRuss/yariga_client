@@ -1,9 +1,8 @@
 import React from "react";
+import { Dashboard } from "components/Dashboard";
 
-interface DashboardPageT {}
-
-const DashboardPage: React.FC<DashboardPageT> = (props) => {
-  return <div>DashboardPage</div>;
+const DashboardPage: React.FC = () => {
+  return <Dashboard />;
 };
 
 export default DashboardPage;

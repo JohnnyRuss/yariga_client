@@ -19,8 +19,8 @@
 }
 
 .aside_link.active {
-  color: var(--app-blue-main);
-  background: var(--app-bg-main);
+  background: var(--app-blue-main);
+  color: var(--app-bg-main);
 }
 
 @media (max-width: 900px) {

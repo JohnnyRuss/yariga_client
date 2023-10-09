@@ -4,6 +4,10 @@ export const PropertiesPage = lazy(
   () => import("./PropertiesPage/PropertiesPage")
 );
 
+export const CreatePropertyPage = lazy(
+  () => import("./PropertiesPage/CreatePropertyPage")
+);
+
 export const DashboardPage = lazy(
   () => import("./DashboardPage/DashboardPage")
 );
@@ -17,7 +21,5 @@ export const MessagesPage = lazy(() => import("./MessagesPage/MessagesPage"));
 export const UserProfilePage = lazy(
   () => import("./UserProfilePage/UserProfilePage")
 );
-
-export const HomePage = lazy(() => import("./HomePage/HomePage"));
 
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));

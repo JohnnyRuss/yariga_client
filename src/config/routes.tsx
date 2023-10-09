@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 import paths from "./paths";
 import * as Pages from "pages/index";
@@ -12,9 +13,9 @@ interface RouteT {
 
 export const routes: RouteT[] = [
   {
-    name: "home-page",
-    path: paths.home_page,
-    element: <Pages.HomePage />,
+    name: "root-page",
+    path: paths.root_page,
+    element: <Navigate to={paths.dashboard_page} />,
   },
   {
     name: "dashboard-page",
@@ -25,6 +26,11 @@ export const routes: RouteT[] = [
     name: "properties-page",
     path: paths.properties_page,
     element: <Pages.PropertiesPage />,
+  },
+  {
+    name: "create-property-page",
+    path: paths.create_property_page,
+    element: <Pages.CreatePropertyPage />,
   },
   {
     name: "agents-page",
