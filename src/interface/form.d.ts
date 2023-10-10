@@ -19,3 +19,8 @@ export interface ReactHookFormFieldStatePropsT {
   isTouched: boolean;
   error?: FieldError | undefined;
 }
+
+export type FileChangeEventT = (
+  event: React.ChangeEvent<HTMLInputElement>,
+  fieldChangeEvent: (value: string[]) => void
+) => void;

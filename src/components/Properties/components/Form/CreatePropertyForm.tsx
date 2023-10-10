@@ -1,10 +1,8 @@
 import React from "react";
 // import { useNavigate } from "react-router-dom";
 
-import z from "zod";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createPropertyValidation } from "utils/zod";
+import { Controller } from "react-hook-form";
+import { useCreatePropertyQuery } from "hooks/api";
 
 import { Box, Stack } from "@mui/material";
 import { Button } from "components/Layouts";
@@ -15,19 +13,7 @@ interface CreatePropertyFormT {}
 
 const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
   // const navigate = useNavigate();
-
-  const form = useForm<z.infer<typeof createPropertyValidation>>({
-    defaultValues: {
-      title: "",
-      description: "",
-      propertyType: "",
-      price: "",
-      location: "",
-      image: "",
-      new_image: "",
-    },
-    resolver: zodResolver(createPropertyValidation),
-  });
+  const { form, onSubmit, onFileChange } = useCreatePropertyQuery();
 
   return (
     <Box
@@ -39,7 +25,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
       justifyContent="center"
       alignItems="flex-start"
     >
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <Controller
           name="title"
           control={form.control}
@@ -107,13 +93,14 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
         />
 
         <Controller
-          name="location"
+          name="new_images"
           control={form.control}
           render={({ field, fieldState }) => (
             <Form.FormFileField
-              label="Select file"
+              label="Select Property Picture"
               fieldProps={{ ...field }}
               fieldStateProps={{ ...fieldState }}
+              onFileChange={onFileChange}
             />
           )}
         />

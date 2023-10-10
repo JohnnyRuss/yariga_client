@@ -1,1 +1,1 @@
-export { default as createPropertyValidation } from "./createPropertyValidation";
+export { default as useCreatePropertyForm } from "./createPropertyValidation";

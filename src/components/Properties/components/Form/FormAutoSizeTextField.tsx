@@ -8,12 +8,8 @@ import {
   ReactHookFormFieldStatePropsT,
 } from "interface/form";
 
-interface FieldPropsT extends Omit<ReactHookFormFieldPropsT, "ref"> {
-  ref: React.Ref<HTMLTextAreaElement> | undefined;
-}
-
 interface FormAutoSizeTextFieldT {
-  fieldProps: FieldPropsT;
+  fieldProps: ReactHookFormFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
@@ -38,6 +34,7 @@ const FormAutoSizeTextField: React.FC<FormAutoSizeTextFieldT> = ({
         minRows={minRows}
         maxRows={maxRows}
         sx={{ background: "#fff" }}
+        {...fieldProps}
       />
 
       {fieldStateProps.error && (

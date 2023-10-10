@@ -1,7 +1,9 @@
 import React from "react";
 
-import { Button as MuiButton } from "@mui/material";
+import { useTheme } from "@mui/material";
+import generatePaletteColor from "./functions/generatePaleteColor";
 
+import * as MuiStyled from "./Button.styled";
 import { CustomButtonPropsT } from "interface/common";
 
 const Button: React.FC<CustomButtonPropsT> = ({
@@ -12,30 +14,20 @@ const Button: React.FC<CustomButtonPropsT> = ({
   fullWidth,
   icon,
   onClick,
-  type,
+  type = "button",
 }) => {
+  const { palette } = useTheme();
+
   return (
-    <MuiButton
+    <MuiStyled.Button
       onClick={onClick}
-      sx={{
-        flex: fullWidth ? 1 : "unset",
-        padding: "6px 15px",
-        width: fullWidth ? "100%" : "fit-content",
-        minWidth: 130,
-        backgroundColor: bgColor,
-        color,
-        fontSize: 16,
-        fontWeight: 600,
-        gap: "10px",
-        textTransform: "capitalize",
-        "&:hover": {
-          opacity: 0.9,
-          backgroundColor: bgColor,
-        },
-      }}
+      type={type}
+      fullWidth={fullWidth}
+      background_color={generatePaletteColor(bgColor, palette)}
+      text_color={generatePaletteColor(color, palette)}
     >
       {title}
-    </MuiButton>
+    </MuiStyled.Button>
   );
 };
 

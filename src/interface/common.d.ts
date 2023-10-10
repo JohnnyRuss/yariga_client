@@ -1,5 +1,5 @@
 export interface CustomButtonPropsT {
-  type?: string;
+  type?: "button" | "submit";
   title: string;
   bgColor: string;
   color: string;
