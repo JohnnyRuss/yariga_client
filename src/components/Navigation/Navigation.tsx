@@ -19,6 +19,7 @@ const Navigation: React.FC<NavigationT> = (props) => {
       height="56px"
       bgcolor="app_bg.main"
       position="sticky"
+      zIndex={99}
       top={0}
       overflow="hidden"
       boxSizing="border-box"

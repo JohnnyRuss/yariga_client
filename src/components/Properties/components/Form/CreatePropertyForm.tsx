@@ -34,7 +34,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
       mt={2.5}
       borderRadius="15px"
       padding="20px"
-      bgcolor="#fcfcfc"
+      bgcolor="app_text.light"
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
@@ -57,14 +57,18 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           control={form.control}
           render={({ field, fieldState }) => (
             <Form.FormAutoSizeTextField
-              placeholder="Description"
+              label="Description"
               fieldProps={{ ...field }}
               fieldStateProps={{ ...fieldState }}
             />
           )}
         />
 
-        <Stack direction="row" alignItems="flex-start" gap={4}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          alignItems={{ md: "flex-start" }}
+          gap={4}
+        >
           <Controller
             name="propertyType"
             control={form.control}
@@ -117,8 +121,9 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
         <Button
           type="submit"
           title={false ? "Submitting..." : "Submit"}
-          bgColor="#475be8"
-          color="#fcfcfc"
+          bgColor="app_blue.light"
+          color="app_text.light"
+          fullWidth={true}
         />
       </form>
     </Box>

@@ -18,15 +18,15 @@ const AllProperties: React.FC = () => {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography fontSize={25} fontWeight={700} color="#1142d">
+        <Typography fontSize={25} fontWeight={700} color="app_text.dark">
           All Properties
         </Typography>
 
         <Button
           title="Add Property"
           onClick={onAddProperty}
-          bgColor="#475be8"
-          color="#fcfcfc"
+          bgColor="app_blue.light"
+          color="app_text.light"
           icon={<Add />}
         />
       </Stack>

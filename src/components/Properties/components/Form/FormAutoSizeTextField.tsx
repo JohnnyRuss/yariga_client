@@ -1,7 +1,7 @@
 import React from "react";
 
 import FormHelperText from "./FormHelperText";
-import { FormControl, TextareaAutosize } from "@mui/material";
+import { FormControl, TextField } from "@mui/material";
 
 import {
   ReactHookFormFieldPropsT,
@@ -15,7 +15,7 @@ interface FieldPropsT extends Omit<ReactHookFormFieldPropsT, "ref"> {
 interface FormAutoSizeTextFieldT {
   fieldProps: FieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
-  placeholder: string;
+  label: string;
   required?: boolean;
   minRows?: number;
   maxRows?: number;
@@ -24,34 +24,22 @@ interface FormAutoSizeTextFieldT {
 const FormAutoSizeTextField: React.FC<FormAutoSizeTextFieldT> = ({
   fieldProps,
   fieldStateProps,
-  placeholder,
+  label,
   required = true,
   minRows = 5,
   maxRows = 10,
 }) => {
   return (
     <FormControl>
-      <TextareaAutosize
-        placeholder={placeholder}
+      <TextField
+        label={label}
         required={required}
+        multiline
         minRows={minRows}
         maxRows={maxRows}
-        {...fieldProps}
-        style={{
-          maxWidth: "100%",
-          background: "transparent",
-          fontSize: "16px",
-          borderColor: "rgba(0,0,0,0.23)",
-          borderRadius: 6,
-          padding: 10,
-          color: "#919191",
-          maxHeight: "300px",
-          overflowY: "auto",
-          resize: "none",
-          fontStyle: "inherit",
-          fontFamily: "inherit",
-        }}
+        sx={{ background: "#fff" }}
       />
+
       {fieldStateProps.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />
       )}

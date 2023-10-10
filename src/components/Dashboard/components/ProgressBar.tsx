@@ -12,11 +12,11 @@ const ProgressBar: React.FC<ProgressBarT> = ({ color, percentage, title }) => {
   return (
     <Box width="100%">
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography fontSize={16} fontWeight={500} color="#11142d">
+        <Typography fontSize={16} fontWeight={500} color="app_text.dark">
           {title}
         </Typography>
 
-        <Typography fontSize={16} fontWeight={500} color="#11142d">
+        <Typography fontSize={16} fontWeight={500} color="app_text.dark">
           {percentage}%
         </Typography>
       </Stack>
@@ -27,7 +27,7 @@ const ProgressBar: React.FC<ProgressBarT> = ({ color, percentage, title }) => {
         width="100%"
         height="8px"
         borderRadius={1}
-        bgcolor="#e4e8ef"
+        bgcolor="app_text.contrastText"
         overflow="hidden"
       >
         <Box width={`${percentage}%`} height="100%" bgcolor={color} />

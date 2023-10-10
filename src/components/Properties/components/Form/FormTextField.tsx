@@ -29,6 +29,7 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         variant="outlined"
         label={label}
         {...fieldProps}
+        sx={{ background: "#fff" }}
       />
 
       {fieldStateProps.error && (

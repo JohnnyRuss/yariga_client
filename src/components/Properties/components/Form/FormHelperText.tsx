@@ -12,7 +12,7 @@ const FormHelperText: React.FC<FormHelperTextT> = ({ text }) => {
         fontWeight: 500,
         margin: "10px 0",
         fontSize: 16,
-        color: "#11142d",
+        color: "app_text.dark",
       }}
     >
       {text}

@@ -8,6 +8,9 @@ const MuiTheme = createTheme({
     },
     app_text: {
       main: "#808191",
+      dark: "#11142d",
+      light: "#fcfcfc",
+      contrastText: "#e4e8ef",
     },
     app_bg: {
       main: "#fcfcfc",

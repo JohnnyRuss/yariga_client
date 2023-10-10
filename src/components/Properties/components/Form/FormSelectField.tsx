@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PropertyTypes } from "config/constants";
+import { PROPERTY_TYPES } from "config/constants";
 
 import {
   FormControl,
@@ -36,14 +36,20 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
     <FormControl sx={{ flex: 1 }}>
       <Select
         variant="outlined"
-        displayEmpty
         required={required}
-        inputProps={{ "aria-label": "Without label" }}
-        defaultValue="apartment"
         label={label}
-        {...fieldProps}
+        defaultValue={PROPERTY_TYPES[0].value}
+        ref={fieldProps.ref}
+        name={fieldProps.name}
+        onBlur={fieldProps.onBlur}
+        onChange={fieldProps.onChange}
+        sx={{
+          background: "#fff",
+          "& fieldset legend": { height: "20px" },
+          "& fieldset span": { opacity: 1 },
+        }}
       >
-        {PropertyTypes.map((type) => (
+        {PROPERTY_TYPES.map((type) => (
           <MenuItem key={type.id} value={type.value}>
             {type.label}
           </MenuItem>

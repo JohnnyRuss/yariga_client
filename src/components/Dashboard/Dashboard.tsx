@@ -12,7 +12,7 @@ import {
 const Dashboard: React.FC = () => {
   return (
     <Box>
-      <Typography fontSize={25} fontWeight={700} color="#11142d">
+      <Typography fontSize={25} fontWeight={700} color="app_text.dark">
         Dashboard
       </Typography>
 

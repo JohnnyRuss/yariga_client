@@ -3,7 +3,7 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { Box, Typography, Stack } from "@mui/material";
 
-import { PieChartPropsT } from "interface/home";
+import { PieChartPropsT } from "interface/dashboard";
 
 const PieChart: React.FC<PieChartPropsT> = ({
   colors,
@@ -25,13 +25,13 @@ const PieChart: React.FC<PieChartPropsT> = ({
       borderRadius="15px"
       minHeight="110px"
       width="fit-content"
-      bgcolor="#fcfcfc"
+      bgcolor="app_text.light"
     >
       <Stack>
-        <Typography fontSize={14} color="#808191">
+        <Typography fontSize={14} color="app_text.main">
           {title}
         </Typography>
-        <Typography fontSize={24} color="#11142d" fontWeight={700} mt={1}>
+        <Typography fontSize={24} color="app_text.dark" fontWeight={700} mt={1}>
           {value}
         </Typography>
       </Stack>
