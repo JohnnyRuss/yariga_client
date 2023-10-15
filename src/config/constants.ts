@@ -1,6 +1,8 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { ApexOptions } from "apexcharts";
 
+const YARIGA_JWT_KEY = "YARIGA_PASSPORT";
+
 const PROPERTY_REFERRALS_INFO = [
   {
     title: "Social Media",
@@ -164,6 +166,7 @@ const TOTAL_REVENUE_OPTIONS: ApexOptions = {
 };
 
 export {
+  YARIGA_JWT_KEY,
   PROPERTY_REFERRALS_INFO,
   PROPERTY_TYPES,
   PIE_CHARTS,

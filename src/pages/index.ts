@@ -22,4 +22,6 @@ export const UserProfilePage = lazy(
   () => import("./UserProfilePage/UserProfilePage")
 );
 
+export const AuthPage = lazy(() => import("./AuthPage/AuthPage"));
+
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));

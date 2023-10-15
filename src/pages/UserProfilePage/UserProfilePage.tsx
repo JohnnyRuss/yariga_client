@@ -1,8 +1,10 @@
 import React from "react";
 
-interface UserProfilePageT {}
+import { RouterHistory } from "config/config";
 
-const UserProfilePage: React.FC<UserProfilePageT> = (props) => {
+RouterHistory.redirectUnAuthorized();
+
+const UserProfilePage: React.FC = () => {
   return <div>UserProfilePage</div>;
 };
 

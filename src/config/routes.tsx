@@ -18,6 +18,11 @@ export const routes: RouteT[] = [
     element: <Navigate to={paths.dashboard_page} />,
   },
   {
+    name: "auth-page",
+    path: paths.auth_page,
+    element: <Pages.AuthPage />,
+  },
+  {
     name: "dashboard-page",
     path: paths.dashboard_page,
     element: <Pages.DashboardPage />,

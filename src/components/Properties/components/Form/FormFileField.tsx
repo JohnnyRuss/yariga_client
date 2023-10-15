@@ -8,7 +8,7 @@ import {
   ReactHookFormFieldPropsT,
   ReactHookFormFieldStatePropsT,
   FileChangeEventT,
-} from "interface/form";
+} from "interface/components/form";
 
 interface FieldPropsT
   extends Omit<ReactHookFormFieldPropsT, "value" | "onChange"> {

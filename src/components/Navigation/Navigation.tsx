@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import paths from "config/paths";
 
 import { yariga } from "assets";
+import UserToolbar from "./UserToolbar";
 import { Stack, Box } from "@mui/material";
 
 interface NavigationT {}
@@ -30,7 +31,7 @@ const Navigation: React.FC<NavigationT> = (props) => {
         </figure>
       </Box>
 
-      <span>user</span>
+      <UserToolbar />
     </Stack>
   );
 };

@@ -1,5 +1,5 @@
 import { useCreatePropertyForm } from "utils/zod";
-import { FileChangeEventT } from "interface/form";
+import { FileChangeEventT } from "interface/components/form";
 
 export default function useCreatePropertyQuery() {
   const form = useCreatePropertyForm();

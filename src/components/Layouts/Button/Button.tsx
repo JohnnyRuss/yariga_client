@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material";
 import generatePaletteColor from "./functions/generatePaleteColor";
 
 import * as MuiStyled from "./Button.styled";
-import { CustomButtonPropsT } from "interface/common";
+import { CustomButtonPropsT } from "interface/components/common";
 
 const Button: React.FC<CustomButtonPropsT> = ({
   bgColor,

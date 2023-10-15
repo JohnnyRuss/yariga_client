@@ -1,5 +1,6 @@
 const paths = {
   root_page: "/",
+  auth_page: "/auth",
   dashboard_page: "/dashboard",
   properties_page: "/properties",
   create_property_page: "/properties/create",

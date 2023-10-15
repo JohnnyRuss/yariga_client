@@ -3,7 +3,7 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { Box, Typography, Stack } from "@mui/material";
 
-import { PieChartPropsT } from "interface/dashboard";
+import { PieChartPropsT } from "interface/components/dashboard";
 
 const PieChart: React.FC<PieChartPropsT> = ({
   colors,

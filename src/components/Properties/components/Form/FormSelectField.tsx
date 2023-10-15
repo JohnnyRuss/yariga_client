@@ -13,7 +13,7 @@ import FormHelperText from "./FormHelperText";
 import {
   ReactHookFormFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/form";
+} from "interface/components/form";
 
 interface FieldPropsT extends Omit<ReactHookFormFieldPropsT, "onChange"> {
   onChange: (event: SelectChangeEvent<string>, child: React.ReactNode) => void;

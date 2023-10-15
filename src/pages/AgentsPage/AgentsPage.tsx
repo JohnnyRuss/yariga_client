@@ -1,8 +1,10 @@
 import React from "react";
 
-interface AgentsPageT {}
+import { RouterHistory } from "config/config";
 
-const AgentsPage: React.FC<AgentsPageT> = (props) => {
+RouterHistory.redirectUnAuthorized();
+
+const AgentsPage: React.FC = () => {
   return <div>AgentsPage</div>;
 };
 

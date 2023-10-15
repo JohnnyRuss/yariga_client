@@ -10,6 +10,7 @@
 *::before {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -51,4 +52,16 @@ a {
     width: 100%;
     height: auto;
   }
+}
+
+.auth_gradient {
+  margin: 0 !important;
+  height: 100vh;
+  background: rgb(10, 153, 233);
+  background: radial-gradient(
+    circle,
+    rgba(10, 153, 233, 0.6418942577030813) 0%,
+    rgba(48, 98, 190, 0.8015581232492998) 50%,
+    rgba(11, 98, 203, 1) 100%
+  );
 }

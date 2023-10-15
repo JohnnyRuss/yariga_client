@@ -1,17 +1,20 @@
 import React from "react";
 
 // import { TopAgent } from "components/Agent";
-// import { PropertyCard } from "components/Layouts";
-import { Typography, Box, Stack } from "@mui/material";
-import PieCharts from "./components/PieCharts";
+import {
+  // PropertyCard,
+  ContentBox,
+} from "components/Layouts";
 import {
   PropertyReferrals,
   TotalRevenue,
 } from "components/Dashboard/components";
+import PieCharts from "./components/PieCharts";
+import { Typography, Stack } from "@mui/material";
 
 const Dashboard: React.FC = () => {
   return (
-    <Box>
+    <ContentBox>
       <Typography fontSize={25} fontWeight={700} color="app_text.dark">
         Dashboard
       </Typography>
@@ -28,7 +31,7 @@ const Dashboard: React.FC = () => {
 
         <PropertyReferrals />
       </Stack>
-    </Box>
+    </ContentBox>
   );
 };
 

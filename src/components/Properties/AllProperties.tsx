@@ -1,14 +1,16 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import {
+  // PropertyCard
+  ContentBox,
+} from "components/Layouts";
 import AllPropertiesHeader from "./components/AllPropertiesHeader";
-// import { PropertyCard } from "components/Layouts";
 
 const AllProperties: React.FC = () => {
   return (
-    <Box>
+    <ContentBox>
       <AllPropertiesHeader />
-    </Box>
+    </ContentBox>
   );
 };
 

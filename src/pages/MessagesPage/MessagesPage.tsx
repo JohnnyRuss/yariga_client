@@ -1,8 +1,10 @@
 import React from "react";
 
-interface MessagesPageT {}
+import { RouterHistory } from "config/config";
 
-const MessagesPage: React.FC<MessagesPageT> = (props) => {
+RouterHistory.redirectUnAuthorized();
+
+const MessagesPage: React.FC = () => {
   return <div>MessagesPage</div>;
 };
 

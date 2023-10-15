@@ -1,8 +1,10 @@
 import React from "react";
 
-interface ReviewsPageT {}
+import { RouterHistory } from "config/config";
 
-const ReviewsPage: React.FC<ReviewsPageT> = (props) => {
+RouterHistory.redirectUnAuthorized();
+
+const ReviewsPage: React.FC = () => {
   return <div>ReviewsPage</div>;
 };
 
