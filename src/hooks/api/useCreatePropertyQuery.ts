@@ -1,7 +1,12 @@
+import { useAppDispatch } from "store/hooks";
 import { useCreatePropertyForm } from "utils/zod";
 import { FileChangeEventT } from "interface/components/form";
 
+import { propertiesActions } from "store/reducers/properties.reducer";
+
 export default function useCreatePropertyQuery() {
+  const dispatch = useAppDispatch();
+
   const form = useCreatePropertyForm();
 
   const onFileChange: FileChangeEventT = async (event, fieldChangeEvent) => {
@@ -28,7 +33,7 @@ export default function useCreatePropertyQuery() {
   };
 
   const onSubmit = form.handleSubmit(function (values) {
-    console.log(values);
+    dispatch(propertiesActions.createProperty(values));
   });
 
   return { form, onSubmit, onFileChange };

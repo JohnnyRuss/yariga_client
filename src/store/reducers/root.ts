@@ -3,6 +3,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
 import authReducer from "./auth.reducer";
+import propertiesReducer from "./properties.reducer";
 
 const persistedAuthReducer = persistReducer(
   {
@@ -15,6 +16,7 @@ const persistedAuthReducer = persistReducer(
 
 const rootReducer = combineReducers({
   auth: persistedAuthReducer,
+  properties: propertiesReducer,
 });
 
 export default rootReducer;

@@ -67,7 +67,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
             )}
           />
 
-          <Controller
+          {/* <Controller
             name="price"
             control={form.control}
             render={({ field, fieldState }) => (
@@ -77,15 +77,14 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
                 fieldStateProps={{ ...fieldState }}
               />
             )}
-          />
+          /> */}
         </Stack>
 
         <Controller
           name="location"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Form.FormTextField
-              label="Location"
+            <Form.LocationField
               fieldProps={{ ...field }}
               fieldStateProps={{ ...fieldState }}
             />

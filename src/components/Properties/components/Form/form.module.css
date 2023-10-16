@@ -6,6 +6,19 @@
   gap: 20px;
 }
 
+.locationField > div {
+  width: 100%;
+}
+
+.locationFieldItem {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.locationFieldItem:last-child {
+  border: none;
+}
+
 @media (max-width: 500px) {
   .form {
     width: 100%;

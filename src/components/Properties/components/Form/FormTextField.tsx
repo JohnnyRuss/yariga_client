@@ -1,7 +1,11 @@
 import React from "react";
 
 import FormHelperText from "./FormHelperText";
-import { FormControl, TextField } from "@mui/material";
+import {
+  FormControl,
+  TextField,
+  AutocompleteRenderInputParams,
+} from "@mui/material";
 
 import {
   ReactHookFormFieldPropsT,
@@ -13,6 +17,7 @@ interface FormTextFieldT {
   fieldStateProps: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
+  autoCompleteParams?: AutocompleteRenderInputParams;
 }
 
 const FormTextField: React.FC<FormTextFieldT> = ({
@@ -20,6 +25,7 @@ const FormTextField: React.FC<FormTextFieldT> = ({
   fieldStateProps,
   label,
   required = true,
+  autoCompleteParams,
 }) => {
   return (
     <FormControl>
@@ -29,6 +35,7 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         variant="outlined"
         label={label}
         {...fieldProps}
+        {...autoCompleteParams}
         sx={{ background: "#fff" }}
       />
 

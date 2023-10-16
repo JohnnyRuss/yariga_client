@@ -13,3 +13,12 @@ export interface DecodedUserT {
   exp: number;
   iat: number;
 }
+
+export interface OpenStreetMapLocationT {
+  type: string;
+  addresstype: string;
+  name: string;
+  display_name: string;
+  lat: string;
+  lon: string;
+}
