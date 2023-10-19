@@ -1,30 +1,36 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "store/hooks";
+
+import { selectPropertiesStatus } from "store/selectors/properties.selectors";
 
 import { Controller } from "react-hook-form";
 import { useCreatePropertyQuery } from "hooks/api";
 
-import { Box, Stack } from "@mui/material";
-import { Button } from "components/Layouts";
 import * as Form from "./";
+import { Box, Stack } from "@mui/material";
+import { Button, Spinner } from "components/Layouts";
 import styles from "./form.module.css";
 
 interface CreatePropertyFormT {}
 
 const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
-  // const navigate = useNavigate();
   const { form, onSubmit, onFileChange } = useCreatePropertyQuery();
+
+  const status = useAppSelector(selectPropertiesStatus);
 
   return (
     <Box
       mt={2.5}
-      borderRadius="15px"
       padding="20px"
+      borderRadius="15px"
       bgcolor="app_text.light"
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
+      position="relative"
     >
+      {status.loading && <Spinner />}
+
       <form className={styles.form} onSubmit={onSubmit}>
         <Controller
           name="title"
@@ -67,17 +73,22 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
             )}
           />
 
-          {/* <Controller
+          <Controller
             name="price"
             control={form.control}
             render={({ field, fieldState }) => (
               <Form.FormTextField
                 label="Price"
-                fieldProps={{ ...field }}
+                fieldProps={{
+                  ...field,
+                  value: field.value ? field.value.toString() : "",
+                  onChange: (e) =>
+                    field.onChange(+(e.target as HTMLInputElement).value),
+                }}
                 fieldStateProps={{ ...fieldState }}
               />
             )}
-          /> */}
+          />
         </Stack>
 
         <Controller

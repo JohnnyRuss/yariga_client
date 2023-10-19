@@ -13,9 +13,21 @@ const axiosPrivateQuery = axios.create({
   withCredentials: true,
 });
 
+const axiosPrivateFormDataQuery = axios.create({
+  baseURL: API_ENDPOINT,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
 let refreshTokenPromise: any = null;
 
 axiosPrivateQuery.interceptors.request.use(
+  async (config: InternalAxiosRequestConfig) => exchangeToken(config)
+);
+
+axiosPrivateFormDataQuery.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => exchangeToken(config)
 );
 
@@ -34,7 +46,7 @@ function exchangeToken(
   if (isExpired) {
     if (!refreshTokenPromise)
       refreshTokenPromise = axiosPublicQuery
-        .get("/auth/refresh")
+        .post("/auth/refresh")
         .then(({ data }) => data.accessToken)
         .catch((error: AxiosError) => {
           if (error.response?.status === 401) removeJWT();
@@ -54,4 +66,4 @@ function exchangeToken(
   return config;
 }
 
-export { axiosPublicQuery, axiosPrivateQuery };
+export { axiosPublicQuery, axiosPrivateQuery, axiosPrivateFormDataQuery };

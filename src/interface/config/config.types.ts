@@ -15,7 +15,6 @@ export interface DecodedUserT {
 }
 
 export interface OpenStreetMapLocationT {
-  type: string;
   addresstype: string;
   name: string;
   display_name: string;

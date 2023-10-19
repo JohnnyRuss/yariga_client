@@ -2,6 +2,7 @@ import { useAppDispatch } from "store/hooks";
 import { useCreatePropertyForm } from "utils/zod";
 import { FileChangeEventT } from "interface/components/form";
 
+import FileControl from "utils/FileControl";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
 export default function useCreatePropertyQuery() {
@@ -15,19 +16,8 @@ export default function useCreatePropertyQuery() {
 
     if (!Array.isArray(filesArray) || !filesArray[0]) return;
 
-    const readFile = (file: File) =>
-      new Promise<string>((resolve, _) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-
-        fileReader.onload = async (e) => {
-          resolve(e.target?.result?.toString() || "");
-        };
-      });
-
-    const filesBase64Array: string[] = await Promise.all(
-      filesArray.map(async (file) => readFile(file))
-    );
+    const filesBase64Array: string[] =
+      await FileControl.convertMultipleFilesToBase64Str(filesArray);
 
     fieldChangeEvent(filesBase64Array);
   };

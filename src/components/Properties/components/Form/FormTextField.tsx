@@ -1,11 +1,11 @@
 import React from "react";
 
-import FormHelperText from "./FormHelperText";
 import {
   FormControl,
   TextField,
   AutocompleteRenderInputParams,
 } from "@mui/material";
+import FormHelperText from "./FormHelperText";
 
 import {
   ReactHookFormFieldPropsT,
@@ -24,7 +24,7 @@ const FormTextField: React.FC<FormTextFieldT> = ({
   fieldProps,
   fieldStateProps,
   label,
-  required = true,
+  required = false,
   autoCompleteParams,
 }) => {
   return (

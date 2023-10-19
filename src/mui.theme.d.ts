@@ -7,11 +7,13 @@ declare module "@mui/material/styles" {
     app_blue?: PaletteColor;
     app_bg?: PaletteColor;
     app_text?: PaletteColor;
+    error?: PaletteColor;
   }
 
   interface PaletteOptions {
     app_blue?: PaletteColorOptions;
     app_bg?: PaletteColorOptions;
     app_text?: PaletteColorOptions;
+    error?: PaletteColorOptions;
   }
 }

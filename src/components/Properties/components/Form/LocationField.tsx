@@ -3,9 +3,10 @@ import { nanoid } from "@reduxjs/toolkit";
 
 import getOpenStreetMapLocation from "services/nominatimOpenStreetMap";
 
-import { Autocomplete, Box, Stack, Chip, Typography } from "@mui/material";
-import FormTextField from "./FormTextField";
 import styles from "./form.module.css";
+import FormTextField from "./FormTextField";
+import FormHelperText from "./FormHelperText";
+import { Autocomplete, Box, Stack, Chip, Typography } from "@mui/material";
 
 import {
   ReactHookFormFieldPropsT,
@@ -62,17 +63,23 @@ const LocationField: React.FC<LocationFieldT> = ({
       }
       getOptionLabel={(option) => `${option.name} - ${option.display_name}`}
       renderInput={(params) => (
-        <FormTextField
-          autoCompleteParams={params}
-          fieldProps={{
-            ...fieldProps,
-            value: locationSearch,
-            onChange: (e) =>
-              setLocationSearch((e.target as HTMLInputElement).value),
-          }}
-          fieldStateProps={fieldStateProps}
-          label="Location"
-        />
+        <>
+          <FormTextField
+            autoCompleteParams={params}
+            fieldProps={{
+              ...fieldProps,
+              value: locationSearch,
+              onChange: (e) =>
+                setLocationSearch((e.target as HTMLInputElement).value),
+            }}
+            fieldStateProps={fieldStateProps}
+            label="Location"
+          />
+
+          {fieldStateProps.error && (
+            <FormHelperText text="Please provide us property location" />
+          )}
+        </>
       )}
       renderOption={(props, option) => (
         <Box
@@ -82,7 +89,6 @@ const LocationField: React.FC<LocationFieldT> = ({
           borderBottom="1px solid"
           borderColor="app_text.main"
           className={styles.locationFieldItem}
-          // onClick={() => onSelectLocation(option)}
         >
           <Stack direction="column">
             <Stack direction="row" alignItems="center" mb="5px">

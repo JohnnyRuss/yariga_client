@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 import FormHelperText from "./FormHelperText";
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import styles from "./form.module.css";
 
 import {
   ReactHookFormFieldPropsT,
@@ -61,34 +62,19 @@ const FormFileField: React.FC<FormFileFieldT> = ({
           if (fileRef.current) fileRef.current.value = "";
         }}
         name={fieldProps.name}
+        multiple={true}
         disabled={fieldProps.disabled}
         onChange={(e) => onFileChange(e, fieldProps.onChange)}
       />
 
-      {fieldProps.value[0] &&
-        fieldProps.value.map((base64) => (
-          <Box
-            key={nanoid()}
-            component="figure"
-            width="100%"
-            height="200px"
-            overflow="hidden"
-            borderRadius="5px"
-            bgcolor="app_text.light"
-          >
-            <img
-              style={{
-                objectFit: "contain",
-                width: "100%",
-                maxWidth: "100%",
-                maxHeight: "100%",
-                height: "100%",
-              }}
-              src={base64}
-              alt="property"
-            />
-          </Box>
-        ))}
+      <div className={styles.chosenMediaContainer}>
+        {fieldProps.value[0] &&
+          fieldProps.value.map((base64) => (
+            <figure key={nanoid()} className={styles.chosenMediaFig}>
+              <img src={base64} alt="property" />
+            </figure>
+          ))}
+      </div>
 
       {fieldStateProps.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />

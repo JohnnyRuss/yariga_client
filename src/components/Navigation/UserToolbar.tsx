@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "store/hooks";
 
 import { useAuthQuery } from "hooks/api";
 import { selectUser } from "store/selectors/auth.selectors";
@@ -8,7 +8,7 @@ import { selectUser } from "store/selectors/auth.selectors";
 import { Button, Menu, MenuList, MenuItem, Avatar } from "@mui/material";
 
 const UserToolbar: React.FC = () => {
-  const user = useSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

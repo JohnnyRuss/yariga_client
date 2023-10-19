@@ -21,7 +21,7 @@ const FormAutoSizeTextField: React.FC<FormAutoSizeTextFieldT> = ({
   fieldProps,
   fieldStateProps,
   label,
-  required = true,
+  required = false,
   minRows = 5,
   maxRows = 10,
 }) => {

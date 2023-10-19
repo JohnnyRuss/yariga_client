@@ -11,8 +11,9 @@ const FormHelperText: React.FC<FormHelperTextT> = ({ text }) => {
       sx={{
         fontWeight: 500,
         margin: "10px 0",
-        fontSize: 16,
-        color: "app_text.dark",
+        fontSize: 13,
+        color: "error.main",
+        textAlign: "center",
       }}
     >
       {text}

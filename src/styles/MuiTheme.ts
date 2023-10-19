@@ -15,6 +15,9 @@ const MuiTheme = createTheme({
     app_bg: {
       main: "#fcfcfc",
     },
+    error: {
+      main: "#d01345",
+    },
   },
 });
 

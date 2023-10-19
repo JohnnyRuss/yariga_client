@@ -10,7 +10,6 @@ export default async function getOpenStreetMapLocation(
 
   return data.map((item) => ({
     addresstype: item.addresstype,
-    type: item.type,
     display_name: item.display_name,
     name: item.name,
     lat: item.lat,
