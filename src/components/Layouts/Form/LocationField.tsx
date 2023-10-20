@@ -4,24 +4,18 @@ import { nanoid } from "@reduxjs/toolkit";
 import getOpenStreetMapLocation from "services/nominatimOpenStreetMap";
 
 import styles from "./form.module.css";
-import FormTextField from "./FormTextField";
 import FormHelperText from "./FormHelperText";
+import FormTextField from "./FormTextField";
 import { Autocomplete, Box, Stack, Chip, Typography } from "@mui/material";
 
 import {
-  ReactHookFormFieldPropsT,
+  ReactHookFormLocationFieldPropsT,
   ReactHookFormFieldStatePropsT,
 } from "interface/components/form";
 import { OpenStreetMapLocationT } from "interface/config/config.types";
 
-interface FieldPropsT
-  extends Omit<ReactHookFormFieldPropsT, "value" | "onChange"> {
-  value: OpenStreetMapLocationT;
-  onChange: (args: OpenStreetMapLocationT) => void;
-}
-
 interface LocationFieldT {
-  fieldProps: FieldPropsT;
+  fieldProps: ReactHookFormLocationFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
 }
 
@@ -69,8 +63,7 @@ const LocationField: React.FC<LocationFieldT> = ({
             fieldProps={{
               ...fieldProps,
               value: locationSearch,
-              onChange: (e) =>
-                setLocationSearch((e.target as HTMLInputElement).value),
+              onChange: (value) => setLocationSearch(value),
             }}
             fieldStateProps={fieldStateProps}
             label="Location"
@@ -93,6 +86,7 @@ const LocationField: React.FC<LocationFieldT> = ({
           <Stack direction="column">
             <Stack direction="row" alignItems="center" mb="5px">
               <span style={{ fontWeight: 600 }}>{option.name}</span>
+
               <Chip
                 label={option.addresstype}
                 variant="filled"
@@ -101,6 +95,7 @@ const LocationField: React.FC<LocationFieldT> = ({
                 sx={{ marginLeft: "16px" }}
               />
             </Stack>
+
             <Typography color="app_text.main" fontSize="14px">
               {option.display_name}
             </Typography>

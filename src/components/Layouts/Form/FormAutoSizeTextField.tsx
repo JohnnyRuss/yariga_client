@@ -4,12 +4,12 @@ import FormHelperText from "./FormHelperText";
 import { FormControl, TextField } from "@mui/material";
 
 import {
-  ReactHookFormFieldPropsT,
+  ReactHookFormTextFieldPropsT,
   ReactHookFormFieldStatePropsT,
 } from "interface/components/form";
 
 interface FormAutoSizeTextFieldT {
-  fieldProps: ReactHookFormFieldPropsT;
+  fieldProps: ReactHookFormTextFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
@@ -33,8 +33,16 @@ const FormAutoSizeTextField: React.FC<FormAutoSizeTextFieldT> = ({
         multiline
         minRows={minRows}
         maxRows={maxRows}
+        inputProps={{
+          className: "custom_scrollbar",
+        }}
         sx={{ background: "#fff" }}
-        {...fieldProps}
+        name={fieldProps.name}
+        value={fieldProps.value}
+        disabled={fieldProps.disabled}
+        ref={fieldProps.ref}
+        onChange={(e) => fieldProps.onChange(e.target.value)}
+        onBlur={fieldProps.onBlur}
       />
 
       {fieldStateProps.error && (

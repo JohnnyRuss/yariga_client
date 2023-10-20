@@ -2,7 +2,7 @@ import React from "react";
 
 import { Typography } from "@mui/material";
 import { ContentBox } from "components/Layouts";
-import { CreatePropertyForm } from "./components/Form";
+import CreatePropertyForm from "./components/CreatePropertyForm";
 
 const CreateProperty: React.FC = () => {
   return (

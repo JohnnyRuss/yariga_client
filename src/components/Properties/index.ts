@@ -1,2 +1,2 @@
-export { default as AllProperties } from "./AllProperties";
-export { default as CreateProperty } from "./CreateProperty";
+export { default as AllProperties } from "./AllProperties/AllProperties";
+export { default as CreateProperty } from "./CreateProperty/CreateProperty";

@@ -2,6 +2,9 @@
   --app-blue-main: #1e36e8;
   --app-blue-light: #475be8;
   --app-text-main: #808191;
+  --app-text-dark: #11142d;
+  --app-text-light: #fcfcfc;
+  --app-text-contrastText: #e4e8ef;
   --app-bg-main: #fcfcfc;
 }
 
@@ -11,6 +14,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -64,4 +68,25 @@ a {
     rgba(48, 98, 190, 0.8015581232492998) 50%,
     rgba(11, 98, 203, 1) 100%
   );
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+body::-webkit-scrollbar,
+.custom_scrollbar::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+body::-webkit-scrollbar-thumb,
+.custom_scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--app-text-dark);
+  border-radius: 1rem;
+}
+
+body::-webkit-scrollbar-track,
+.custom_scrollbar::-webkit-scrollbar-track {
+  border-radius: 1rem;
+  background-color: var(--app-text-contrastText);
 }

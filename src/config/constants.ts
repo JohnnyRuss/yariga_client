@@ -31,49 +31,6 @@ const PROPERTY_REFERRALS_INFO = [
   },
 ];
 
-const PROPERTY_TYPES = [
-  {
-    id: nanoid(),
-    label: "Apartment",
-    value: "apartment",
-  },
-  {
-    id: nanoid(),
-    label: "Villa",
-    value: "villa",
-  },
-  {
-    id: nanoid(),
-    label: "Farmhouse",
-    value: "farmhouse",
-  },
-  {
-    id: nanoid(),
-    label: "Condos",
-    value: "condos",
-  },
-  {
-    id: nanoid(),
-    label: "Townhouse",
-    value: "townhouse",
-  },
-  {
-    id: nanoid(),
-    label: "Duplex",
-    value: "duplex",
-  },
-  {
-    id: nanoid(),
-    label: "Studio",
-    value: "studio",
-  },
-  {
-    id: nanoid(),
-    label: "Chalet",
-    value: "chalet",
-  },
-];
-
 const PIE_CHARTS = [
   {
     id: nanoid(),
@@ -168,7 +125,6 @@ const TOTAL_REVENUE_OPTIONS: ApexOptions = {
 export {
   YARIGA_JWT_KEY,
   PROPERTY_REFERRALS_INFO,
-  PROPERTY_TYPES,
   PIE_CHARTS,
   TOTAL_REVENUE_SERIES,
   TOTAL_REVENUE_OPTIONS,

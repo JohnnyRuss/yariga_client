@@ -6,19 +6,13 @@ import { Stack, Typography } from "@mui/material";
 import styles from "./form.module.css";
 
 import {
-  ReactHookFormFieldPropsT,
-  ReactHookFormFieldStatePropsT,
   FileChangeEventT,
+  ReactHookFormFileFieldPropsT,
+  ReactHookFormFieldStatePropsT,
 } from "interface/components/form";
 
-interface FieldPropsT
-  extends Omit<ReactHookFormFieldPropsT, "value" | "onChange"> {
-  value: string[];
-  onChange: (value: string[]) => void;
-}
-
 interface FormFileFieldT {
-  fieldProps: FieldPropsT;
+  fieldProps: ReactHookFormFileFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
   onFileChange: FileChangeEventT;
   label: string;
@@ -69,9 +63,14 @@ const FormFileField: React.FC<FormFileFieldT> = ({
 
       <div className={styles.chosenMediaContainer}>
         {fieldProps.value[0] &&
-          fieldProps.value.map((base64) => (
+          fieldProps.value.slice(0, 6).map((base64, index) => (
             <figure key={nanoid()} className={styles.chosenMediaFig}>
               <img src={base64} alt="property" />
+              {fieldProps.value.length > 6 && index === 5 && (
+                <span className={styles.extraAssetsLayout}>
+                  +{fieldProps.value.length - 6}
+                </span>
+              )}
             </figure>
           ))}
       </div>

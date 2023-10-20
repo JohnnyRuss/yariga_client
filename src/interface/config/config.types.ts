@@ -14,10 +14,26 @@ export interface DecodedUserT {
   iat: number;
 }
 
-export interface OpenStreetMapLocationT {
-  addresstype: string;
+export interface OpenStreetMapLocationResponseT {
+  address: {
+    city: string;
+    country: string;
+    state: string | undefined;
+  };
   name: string;
   display_name: string;
+  addresstype: string;
+  lat: string;
+  lon: string;
+}
+
+export interface OpenStreetMapLocationT {
+  name: string;
+  display_name: string;
+  city: string;
+  country: string;
+  state: string;
+  addresstype: string;
   lat: string;
   lon: string;
 }
