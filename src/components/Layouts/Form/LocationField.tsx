@@ -3,10 +3,10 @@ import { nanoid } from "@reduxjs/toolkit";
 
 import getOpenStreetMapLocation from "services/nominatimOpenStreetMap";
 
+import LocationAutocompleteRenderInput from "./components/LocationAutocompleteRenderInput";
+import LocationAutocompleteDropdown from "./components/LocationAutocompleteDropdown";
+import { Autocomplete } from "@mui/material";
 import styles from "./form.module.css";
-import FormHelperText from "./FormHelperText";
-import FormTextField from "./FormTextField";
-import { Autocomplete, Box, Stack, Chip, Typography } from "@mui/material";
 
 import {
   ReactHookFormLocationFieldPropsT,
@@ -26,17 +26,22 @@ const LocationField: React.FC<LocationFieldT> = ({
   const [locationSearch, setLocationSearch] = useState("");
   const [optionsList, setOptionsList] = useState<OpenStreetMapLocationT[]>([]);
 
-  function onSelectLocation(location: OpenStreetMapLocationT) {
+  const onSelectLocation = (location: OpenStreetMapLocationT) =>
     fieldProps.onChange(location);
-  }
+
+  const onChangeLocation = (_: any, option: OpenStreetMapLocationT | null) =>
+    option && onSelectLocation(option);
+
+  const getOptionLabel = (option: OpenStreetMapLocationT) =>
+    `${option.name} - ${option.display_name}`;
 
   useEffect(() => {
     if (!locationSearch) return;
 
     const timeOutId = setTimeout(async () => {
       const result = await getOpenStreetMapLocation(locationSearch);
-      setOptionsList(result.length > 0 ? result : []);
-    }, 600);
+      setOptionsList(() => result);
+    }, 500);
 
     return () => {
       clearTimeout(timeOutId);
@@ -46,61 +51,27 @@ const LocationField: React.FC<LocationFieldT> = ({
   return (
     <Autocomplete
       fullWidth
-      disablePortal
-      autoHighlight
-      autoSelect={true}
       blurOnSelect={true}
       options={optionsList}
       className={styles.locationField}
-      onChange={(_, option) =>
-        onSelectLocation(option as OpenStreetMapLocationT)
-      }
-      getOptionLabel={(option) => `${option.name} - ${option.display_name}`}
+      onChange={onChangeLocation}
+      getOptionLabel={getOptionLabel}
+      filterOptions={(options) => options}
       renderInput={(params) => (
-        <>
-          <FormTextField
-            autoCompleteParams={params}
-            fieldProps={{
-              ...fieldProps,
-              value: locationSearch,
-              onChange: (value) => setLocationSearch(value),
-            }}
-            fieldStateProps={fieldStateProps}
-            label="Location"
-          />
-
-          {fieldStateProps.error && (
-            <FormHelperText text="Please provide us property location" />
-          )}
-        </>
+        <LocationAutocompleteRenderInput
+          params={params}
+          fieldProps={fieldProps}
+          fieldStateProps={fieldStateProps}
+          locationSearch={locationSearch}
+          setLocationSearch={setLocationSearch}
+        />
       )}
       renderOption={(props, option) => (
-        <Box
+        <LocationAutocompleteDropdown
           key={nanoid()}
-          component="li"
-          {...props}
-          borderBottom="1px solid"
-          borderColor="app_text.main"
-          className={styles.locationFieldItem}
-        >
-          <Stack direction="column">
-            <Stack direction="row" alignItems="center" mb="5px">
-              <span style={{ fontWeight: 600 }}>{option.name}</span>
-
-              <Chip
-                label={option.addresstype}
-                variant="filled"
-                color="primary"
-                size="small"
-                sx={{ marginLeft: "16px" }}
-              />
-            </Stack>
-
-            <Typography color="app_text.main" fontSize="14px">
-              {option.display_name}
-            </Typography>
-          </Stack>
-        </Box>
+          props={props}
+          option={option}
+        />
       )}
     />
   );

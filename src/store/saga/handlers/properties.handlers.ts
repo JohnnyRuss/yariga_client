@@ -24,8 +24,8 @@ export function* createProperty({
   payload,
 }: PayloadAction<CreatePropertyArgsT>) {
   try {
-    // yield call(propertiesAPI.createProperty, payload);
-    // yield put(propertiesActions.setCreateProperty());
+    yield call(propertiesAPI.createProperty, payload);
+    yield put(propertiesActions.setCreateProperty());
   } catch (error) {
     console.log(error);
   }

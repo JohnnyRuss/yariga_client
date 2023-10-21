@@ -1,6 +1,7 @@
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { PropertyStatus } from "interface/db/properties.types";
 
 const isNumeric = {
   validator: (data: string): boolean => /^[0-9]*$/.test(data),
@@ -15,9 +16,9 @@ const greaterThanZero = {
 const CreatePropertyValidationSchema = z
   .object({
     title: z.string().trim().toLowerCase().min(3),
-    status: z.object({
-      value: z.string().trim().min(1),
-      _id: z.string().trim().min(1),
+    propertyStatus: z.object({
+      value: z.enum(["SALE", "RENT"]),
+      _id: z.string(),
     }),
     price: z
       .string()
@@ -94,7 +95,7 @@ const useCreatePropertyForm = () =>
   useForm<CreatePropertyFormT>({
     defaultValues: {
       title: "",
-      status: { value: "", _id: "" },
+      propertyStatus: { value: PropertyStatus.SALE, _id: "" },
       price: "",
       propertyType: { value: "", _id: "" },
       area: "",

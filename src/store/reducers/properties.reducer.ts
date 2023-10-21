@@ -75,10 +75,9 @@ export const propertiesActions = propertiesSlice.actions;
 export default propertiesSlice.reducer;
 
 function prepareDataForDB(data: CreatePropertyFormT): CreatePropertyArgsT {
-  console.log(data);
   const credentials: CreatePropertyArgsT = {
     title: data.title,
-    status: data.status._id,
+    propertyStatus: data.propertyStatus.value,
     price: +data.price,
     propertyType: data.propertyType._id,
     area: +data.area,

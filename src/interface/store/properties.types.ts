@@ -1,5 +1,6 @@
 import {
   PropertyT,
+  PropertyStatus,
   PropertyLocationT,
   PropertySuggestionsT,
 } from "interface/db/properties.types";
@@ -13,7 +14,7 @@ export interface PropertiesStateT {
 
 export interface CreatePropertyArgsT {
   title: string;
-  status: string;
+  propertyStatus: keyof typeof PropertyStatus;
   price: number;
   propertyType: string;
   area: number;

@@ -22,7 +22,7 @@ interface PropertyCardT {
 const PropertyCard: React.FC<PropertyCardT> = ({ property }) => {
   return (
     <Card
-      elevation={0}
+      elevation={2}
       sx={{
         width: "350px",
         padding: "10px",
@@ -85,7 +85,7 @@ const PropertyCard: React.FC<PropertyCardT> = ({ property }) => {
           alignItems="center"
         >
           <Chip
-            label={property.propertyType}
+            label={property.propertyType.label}
             variant="outlined"
             color="success"
             sx={{ flex: 1, textTransform: "capitalize" }}

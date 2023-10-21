@@ -49,9 +49,9 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
       <Select
         variant="outlined"
         required={required}
-        defaultValue={list[0]?._id || ""}
         ref={fieldProps.ref}
         name={fieldProps.name}
+        value={fieldProps.value?._id ?? ""}
         onBlur={fieldProps.onBlur}
         onChange={onChangeHandler}
         input={<OutlinedInput label={label} />}
@@ -69,7 +69,7 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
         {list.map((type) => (
           <MenuItem
             key={type._id}
-            value={type._id}
+            value={type._id ?? ""}
             sx={{ textTransform: "capitalize" }}
           >
             {type.label}

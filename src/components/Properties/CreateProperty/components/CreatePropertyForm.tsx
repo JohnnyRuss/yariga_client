@@ -51,7 +51,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
 
         <Form.FormDuplexBox>
           <Controller
-            name="status"
+            name="propertyStatus"
             control={form.control}
             render={({ field, fieldState }) => (
               <Form.FormSelectField
@@ -69,7 +69,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
             render={({ field, fieldState }) => (
               <Form.FormTextField
                 label={
-                  form.watch("status").value !== "rent"
+                  form.watch("propertyStatus").value !== "RENT"
                     ? "Price"
                     : "Price Per Day"
                 }

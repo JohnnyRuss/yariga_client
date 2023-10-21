@@ -7,13 +7,19 @@ export interface PropertySuggestionsT {
 
 export interface PropertyT {
   _id: string;
-  title: string;
-  description: string;
-  propertyType: string;
-  location: PropertyLocationT;
-  price: number;
-  images: Array<string>;
   owner: PropertyOwnerT;
+  title: string;
+  propertyStatus: keyof typeof PropertyStatus;
+  price: number;
+  propertyType: PropertyTypeT;
+  area: number;
+  rooms: Array<RoomTypeT>;
+  features: Array<PropertyFeatureT>;
+  bedroomsAmount: number;
+  bathroomsAmount?: number;
+  location: PropertyLocationT;
+  description: string;
+  images: Array<string>;
 }
 
 export interface PropertyLocationT {
@@ -25,6 +31,11 @@ export interface PropertyLocationT {
   addressType: string;
   lat: string;
   lon: string;
+}
+
+export enum PropertyStatus {
+  SALE = "SALE",
+  RENT = "RENT",
 }
 
 interface PropertyOwnerT {
