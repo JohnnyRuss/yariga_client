@@ -1,0 +1,9 @@
+.extraDetailLabel {
+  display: flex;
+  align-items: center;
+}
+
+.extraDetailLabel,
+.extraDetailLabel span {
+  line-height: 1;
+}

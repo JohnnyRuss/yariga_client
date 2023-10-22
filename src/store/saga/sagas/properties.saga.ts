@@ -15,6 +15,11 @@ export default function* propertiesSaga() {
   );
 
   yield takeLatest(
+    propertiesActions.getPropertyFilter,
+    propertiesHandlers.getPropertyFilter
+  );
+
+  yield takeLatest(
     propertiesActions.getAllProperties,
     propertiesHandlers.getAllProperties
   );

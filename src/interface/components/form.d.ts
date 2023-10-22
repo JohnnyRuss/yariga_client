@@ -5,12 +5,12 @@ import { ChangeEvent } from "react";
 interface CommonT {
   name: string;
   disabled?: boolean | undefined;
-  ref:
+  ref?:
     | ((instance: HTMLDivElement | null) => void)
     | React.RefObject<HTMLDivElement>
     | null
     | undefined;
-  onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
 export interface ReactHookFormTextFieldPropsT extends CommonT {

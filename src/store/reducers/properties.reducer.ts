@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { nanoid } from "@reduxjs/toolkit";
 
 import {
   PropertiesStateT,
   CreatePropertyArgsT,
 } from "interface/store/properties.types";
-import { PropertyT, PropertySuggestionsT } from "interface/db/properties.types";
+import {
+  PropertyShortInfoT,
+  PropertySuggestionsT,
+  PropertyFilterResponseT,
+} from "interface/db/properties.types";
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 
 import paths from "config/paths";
@@ -20,6 +25,15 @@ const initialState: PropertiesStateT = {
     propertyStatuses: [],
     propertyTypes: [],
     roomTypes: [],
+  },
+  filter: {
+    statuses: [],
+    cities: [],
+    countries: [],
+    propertyFeatures: [],
+    propertyTypes: [],
+    roomTypes: [],
+    states: [],
   },
 };
 
@@ -54,6 +68,30 @@ const propertiesSlice = createSlice({
       state.status = status.default();
     },
 
+    getPropertyFilter(state) {},
+
+    setPropertyFilter(
+      state,
+      { payload }: PayloadAction<PropertyFilterResponseT>
+    ) {
+      const moderator = (data: Array<string>) =>
+        data.map((value) => ({
+          _id: nanoid(),
+          label: value,
+          value: value,
+        }));
+
+      state.filter = {
+        cities: moderator(payload.cities),
+        countries: moderator(payload.countries),
+        states: moderator(payload.states),
+        propertyFeatures: payload.propertyFeatures,
+        propertyTypes: payload.propertyTypes,
+        roomTypes: payload.roomTypes,
+        statuses: payload.statuses,
+      };
+    },
+
     getAllProperties: {
       prepare: (payload) => {
         return { payload: {} };
@@ -64,7 +102,10 @@ const propertiesSlice = createSlice({
       },
     },
 
-    setAllProperties(state, { payload }: PayloadAction<Array<PropertyT>>) {
+    setAllProperties(
+      state,
+      { payload }: PayloadAction<Array<PropertyShortInfoT>>
+    ) {
       state.properties = payload;
       state.status = status.default();
     },

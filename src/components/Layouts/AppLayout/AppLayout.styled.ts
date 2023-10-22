@@ -1,18 +1,23 @@
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
-export const MainContainerBox = styled(Box)(() => ({
+export const MainContainerBox = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  background: theme.palette.app_bg?.dark,
+  minHeight: "100vh",
 }));
 
 export const BodyContainer = styled(Box)(() => ({
   display: "flex",
-  gap: "15px",
   alignItems: "flex-start",
+  minHeight: "100%",
 }));
 
 export const ContentContainerBox = styled(Box)(() => ({
   flex: 1,
-  // padding: "5px",
+  minHeight: "100%",
+  alignSelf: "stretch",
+  padding: "20px",
+  boxSizing: "border-box",
 }));

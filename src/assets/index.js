@@ -1,7 +1,2 @@
-import logo from './logo.svg';
-import yariga from './yariga.svg';
-
-export {
-  logo,
-  yariga,
-};
+export { default as AppLogo } from "./yariga.svg";
+export { default as AppLogoSmall } from "./logo.svg";

@@ -52,7 +52,7 @@ const FormFileField: React.FC<FormFileFieldT> = ({
         id="property_image"
         ref={fileRef}
         onBlur={(e) => {
-          fieldProps.onBlur(e);
+          fieldProps.onBlur && fieldProps.onBlur(e);
           if (fileRef.current) fileRef.current.value = "";
         }}
         name={fieldProps.name}

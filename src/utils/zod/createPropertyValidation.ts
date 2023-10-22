@@ -63,7 +63,7 @@ const CreatePropertyValidationSchema = z
     bathroomsAmount: z.string(),
     location: z.object({
       name: z.string().trim().toLowerCase().min(1),
-      display_name: z.string().trim().toLowerCase().min(1),
+      display_name: z.string().trim().min(1),
       city: z.string().trim().toLowerCase().min(1),
       country: z.string().trim().toLowerCase().min(1),
       state: z.string().trim().toLowerCase(),

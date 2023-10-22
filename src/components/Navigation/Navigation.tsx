@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 
 import paths from "config/paths";
 
-import { yariga } from "assets";
+import { AppLogo } from "assets";
 import UserToolbar from "./UserToolbar";
 import { Stack, Box } from "@mui/material";
 
-interface NavigationT {}
-
-const Navigation: React.FC<NavigationT> = (props) => {
+const Navigation: React.FC = () => {
   return (
     <Stack
       component="nav"
@@ -27,7 +25,7 @@ const Navigation: React.FC<NavigationT> = (props) => {
     >
       <Box component={Link} to={paths.root_page}>
         <figure>
-          <img src={yariga} alt="yariga logo" />
+          <img src={AppLogo.toString()} alt="yariga logo" />
         </figure>
       </Box>
 

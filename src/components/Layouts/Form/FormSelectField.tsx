@@ -17,7 +17,7 @@ import {
 
 interface FormSelectFieldT {
   fieldProps: ReactHookFormSelectFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
   list: Array<{
@@ -49,10 +49,10 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
       <Select
         variant="outlined"
         required={required}
-        ref={fieldProps.ref}
+        ref={fieldProps.ref ? fieldProps.ref : null}
         name={fieldProps.name}
         value={fieldProps.value?._id ?? ""}
-        onBlur={fieldProps.onBlur}
+        onBlur={fieldProps.onBlur ? fieldProps.onBlur : () => {}}
         onChange={onChangeHandler}
         input={<OutlinedInput label={label} />}
         MenuProps={{
@@ -77,7 +77,7 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
         ))}
       </Select>
 
-      {fieldStateProps.error && (
+      {fieldStateProps?.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />
       )}
     </FormControl>

@@ -1,5 +1,5 @@
 export interface PropertySuggestionsT {
-  propertyFeatures: PropertyFeatureT[];
+  propertyFeatures: PropertyFeatureSuggestionT[];
   propertyTypes: PropertyTypeT[];
   roomTypes: RoomTypeT[];
   propertyStatuses: PropertyStatusT[];
@@ -22,6 +22,32 @@ export interface PropertyT {
   images: Array<string>;
 }
 
+export interface PropertyShortInfoT {
+  _id: string;
+  images: Array<string>;
+  title: string;
+  price: number;
+  propertyStatus: keyof typeof PropertyStatus;
+  propertyType: PropertyTypeT;
+  location: PropertyLocationT;
+  owner: PropertyOwnerT;
+  area: number;
+  bedroomsAmount: number;
+  bathroomsAmount?: number;
+}
+
+export interface PropertyFilterResponseT {
+  statuses: Array<PropertyStatusT>;
+  propertyTypes: Array<PropertyTypeT>;
+  roomTypes: Array<RoomTypeT>;
+  propertyFeatures: Array<PropertyFeatureT>;
+  countries: Array<string>;
+  cities: Array<string>;
+  states: Array<string>;
+}
+
+// PARTIALS
+
 export interface PropertyLocationT {
   name: string;
   displayName: string;
@@ -38,33 +64,35 @@ export enum PropertyStatus {
   RENT = "RENT",
 }
 
-interface PropertyOwnerT {
+export interface PropertyOwnerT {
   _id: string;
   email: string;
   username: string;
   avatar: string;
 }
 
-interface PropertyFeatureT {
+export interface PropertyTypeT {
+  _id: string;
+  label: string;
+  value: string;
+}
+
+export interface PropertyFeatureT {
   _id: string;
   label: string;
   value: string;
   icon: string;
 }
 
-interface PropertyTypeT {
+type PropertyFeatureSuggestionT = Omit<PropertyFeatureT, "icon">;
+
+export interface RoomTypeT {
   _id: string;
   label: string;
   value: string;
 }
 
-interface RoomTypeT {
-  _id: string;
-  label: string;
-  value: string;
-}
-
-interface PropertyStatusT {
+export interface PropertyStatusT {
   _id: string;
   label: string;
   value: string;

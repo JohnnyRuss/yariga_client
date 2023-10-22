@@ -14,6 +14,7 @@ const PropertiesPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(propertiesActions.getAllProperties({}));
+    dispatch(propertiesActions.getPropertyFilter());
   }, []);
 
   return <AllProperties />;
