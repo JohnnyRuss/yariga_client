@@ -1,38 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { useAppSelector } from "store/hooks";
-
 import { selectPropertyFilter } from "store/selectors/properties.selectors";
+import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
 
-import {
-  Stack,
-  TextField,
-  InputAdornment,
-  Button,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import { Search } from "@mui/icons-material";
+import MoreFilterBody from "./MoreFilterBody";
+import MoreFilterButton from "./MoreFilterButton";
 import * as Form from "components/Layouts/Form";
+import { Search } from "@mui/icons-material";
+import { Stack, TextField, InputAdornment, MenuItem } from "@mui/material";
 
-interface FilterT {}
+const menuItemStyles = { "&:hover": { background: "transparent" } };
 
-const Filter: React.FC<FilterT> = () => {
+const Filter: React.FC = () => {
   const filter = useAppSelector(selectPropertyFilter);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { onSelectSearchParams, onMultipleSelectSearchParams, searchParams } =
+    usePropertyFilterContext();
 
   return (
     <Stack direction="row" flexWrap="wrap" gap={3} mb={2} mt={4}>
       <TextField
         placeholder="Enter an address, city or title"
-        sx={{ flex: 1 }}
+        sx={{ flex: 1, flexBasis: "140px" }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -43,71 +33,100 @@ const Filter: React.FC<FilterT> = () => {
       />
 
       <Form.FormSelectField
+        label="Sort By"
+        passEvent={true}
+        list={filter.sort}
         fieldProps={{
-          name: "",
-          onChange: () => {},
-          value: { _id: "", value: "" },
+          name: "sort",
+          onChange: onSelectSearchParams,
+          value: searchParams.sort,
         }}
+      />
+
+      <Form.FormSelectField
         label="Status"
+        passEvent={true}
         list={filter.statuses}
+        fieldProps={{
+          name: "statuses",
+          onChange: onSelectSearchParams,
+          value: searchParams.statuses,
+        }}
       />
 
       <Form.FormSelectField
-        fieldProps={{
-          name: "",
-          onChange: () => {},
-          value: { _id: "", value: "" },
-        }}
         label="Type"
+        passEvent={true}
         list={filter.propertyTypes}
+        fieldProps={{
+          name: "propertyTypes",
+          onChange: onSelectSearchParams,
+          value: searchParams.propertyTypes,
+        }}
       />
 
       <Form.FormSelectField
-        fieldProps={{
-          name: "",
-          onChange: () => {},
-          value: { _id: "", value: "" },
-        }}
         label="Country"
+        passEvent={true}
         list={filter.countries}
-      />
-
-      <Form.FormSelectField
         fieldProps={{
-          name: "",
-          onChange: () => {},
-          value: { _id: "", value: "" },
+          name: "countries",
+          onChange: onSelectSearchParams,
+          value: searchParams.countries,
         }}
-        label="State"
-        list={filter.states}
       />
 
       <div>
-        <Button
-          onClick={handleClick}
-          variant="contained"
-          sx={{ height: "100%" }}
-        >
-          More
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          sx={{ marginTop: "10px", minWidth: "300px" }}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <TextField placeholder="min price" sx={{ margin: "0 10px" }} />
-          <MenuItem onClick={handleClose}>min price</MenuItem>
-          <MenuItem onClick={handleClose}>max price</MenuItem>
-        </Menu>
+        <MoreFilterButton />
+
+        <MoreFilterBody>
+          <MenuItem sx={menuItemStyles}>
+            <Form.FormSelectField
+              label="State"
+              passEvent={true}
+              list={filter.states}
+              fieldProps={{
+                name: "states",
+                onChange: onSelectSearchParams,
+                value: searchParams.states,
+              }}
+            />
+          </MenuItem>
+
+          <MenuItem sx={menuItemStyles}>
+            <Form.FormMultipleSelectField
+              label="Room Types"
+              passEvent={true}
+              list={filter.roomTypes}
+              fieldProps={{
+                name: "roomTypes",
+                onChange: onMultipleSelectSearchParams,
+                value: searchParams.roomTypes,
+              }}
+            />
+          </MenuItem>
+
+          <MenuItem sx={menuItemStyles}>
+            <Form.FormMultipleSelectField
+              label="Features"
+              passEvent={true}
+              list={filter.propertyFeatures}
+              fieldProps={{
+                name: "propertyFeatures",
+                onChange: onMultipleSelectSearchParams,
+                value: searchParams.propertyFeatures,
+              }}
+            />
+          </MenuItem>
+
+          <MenuItem sx={menuItemStyles}>
+            <TextField placeholder="Min Price" fullWidth />
+          </MenuItem>
+
+          <MenuItem sx={menuItemStyles}>
+            <TextField placeholder="Max Price" fullWidth />
+          </MenuItem>
+        </MoreFilterBody>
       </div>
     </Stack>
   );

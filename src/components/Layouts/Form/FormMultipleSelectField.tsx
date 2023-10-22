@@ -19,7 +19,8 @@ import {
 
 interface FormMultipleSelectFieldT {
   fieldProps: ReactHookFormMultipleSelectFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
+  passEvent?: boolean;
   label: string;
   list: Array<{
     _id: string;
@@ -33,6 +34,7 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
   label,
   fieldProps,
   fieldStateProps,
+  passEvent = false,
 }) => {
   const handleChange = (e: SelectChangeEvent<typeof fieldProps.value>) => {
     const values = e.target.value;
@@ -40,15 +42,19 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
 
     const selectedItem = list.find((item) => item._id === itemId);
 
+    if (!selectedItem) return;
+
     const isExistingSelection = fieldProps.value.some(
       (v) => v.value === selectedItem?.value
     );
 
     const valueToSet = isExistingSelection
-      ? fieldProps.value.filter((v) => v.value !== selectedItem?.value)
+      ? fieldProps.value.filter((v) => v.value !== selectedItem.value)
       : [...fieldProps.value, selectedItem];
 
-    if (selectedItem) fieldProps.onChange(valueToSet);
+    passEvent
+      ? fieldProps.onChange(valueToSet, e)
+      : fieldProps.onChange(valueToSet);
   };
 
   return (
@@ -90,7 +96,7 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
         ))}
       </Select>
 
-      {fieldStateProps.error && (
+      {fieldStateProps?.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />
       )}
     </FormControl>

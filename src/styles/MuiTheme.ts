@@ -15,6 +15,7 @@ const MuiTheme = createTheme({
     app_bg: {
       main: "#fcfcfc",
       dark: "#f4f4f4",
+      contrastText: "#f3f3f3",
     },
     error: {
       main: "#d01345",

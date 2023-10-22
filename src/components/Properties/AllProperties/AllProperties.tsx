@@ -33,7 +33,6 @@ const AllProperties: React.FC = () => {
 
         {status.loading && <Spinner />}
 
-        {/* <Box bgcolor="app_bg.main"> */}
         <Box height="100%" display="flex" flexDirection="column">
           {!status.loading && (
             <>

@@ -5,6 +5,7 @@ import { useAppDispatch } from "store/hooks";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
 import { AllProperties } from "components/Properties";
+import PropertyFilterProvider from "providers/PropertyFilterProvider";
 
 import { RouterHistory } from "config/config";
 RouterHistory.redirectUnAuthorized();
@@ -17,7 +18,11 @@ const PropertiesPage: React.FC = () => {
     dispatch(propertiesActions.getPropertyFilter());
   }, []);
 
-  return <AllProperties />;
+  return (
+    <PropertyFilterProvider>
+      <AllProperties />
+    </PropertyFilterProvider>
+  );
 };
 
 export default PropertiesPage;

@@ -20,6 +20,7 @@ interface FormSelectFieldT {
   fieldStateProps?: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
+  passEvent?: boolean;
   list: Array<{
     _id: string;
     label: string;
@@ -32,6 +33,7 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
   fieldStateProps,
   label,
   list,
+  passEvent = false,
   required = true,
 }) => {
   function onChangeHandler(e: SelectChangeEvent) {
@@ -39,16 +41,20 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
 
     const selectedItem = list.find((item) => item._id === value);
 
-    if (selectedItem) fieldProps.onChange(selectedItem);
+    if (selectedItem)
+      passEvent
+        ? fieldProps.onChange(selectedItem, e)
+        : fieldProps.onChange(selectedItem);
   }
 
   return (
-    <FormControl sx={{ flex: 1 }}>
+    <FormControl sx={{ flex: 1, flexBasis: "140px" }}>
       <InputLabel>{label}</InputLabel>
 
       <Select
         variant="outlined"
         required={required}
+        displayEmpty={true}
         ref={fieldProps.ref ? fieldProps.ref : null}
         name={fieldProps.name}
         value={fieldProps.value?._id ?? ""}
@@ -68,6 +74,11 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
       >
         {list.map((type) => (
           <MenuItem
+            onClick={() => {
+              passEvent &&
+                type.value === fieldProps.value.value &&
+                fieldProps.onChange(type, null, fieldProps.name);
+            }}
             key={type._id}
             value={type._id ?? ""}
             sx={{ textTransform: "capitalize" }}

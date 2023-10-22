@@ -37,6 +37,7 @@ export interface PropertyShortInfoT {
 }
 
 export interface PropertyFilterResponseT {
+  sort: Array<{ label: string; value: string }>;
   statuses: Array<PropertyStatusT>;
   propertyTypes: Array<PropertyTypeT>;
   roomTypes: Array<RoomTypeT>;
@@ -84,7 +85,7 @@ export interface PropertyFeatureT {
   icon: string;
 }
 
-type PropertyFeatureSuggestionT = Omit<PropertyFeatureT, "icon">;
+export type PropertyFeatureSuggestionT = Omit<PropertyFeatureT, "icon">;
 
 export interface RoomTypeT {
   _id: string;

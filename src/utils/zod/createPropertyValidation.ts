@@ -17,6 +17,7 @@ const CreatePropertyValidationSchema = z
   .object({
     title: z.string().trim().toLowerCase().min(3),
     propertyStatus: z.object({
+      label: z.string(),
       value: z.enum(["SALE", "RENT"]),
       _id: z.string(),
     }),
@@ -27,6 +28,7 @@ const CreatePropertyValidationSchema = z
       })
       .refine(greaterThanZero.validator, { message: greaterThanZero.message }),
     propertyType: z.object({
+      label: z.string(),
       value: z.string().trim().min(1),
       _id: z.string().trim().min(1),
     }),
@@ -95,9 +97,9 @@ const useCreatePropertyForm = () =>
   useForm<CreatePropertyFormT>({
     defaultValues: {
       title: "",
-      propertyStatus: { value: PropertyStatus.SALE, _id: "" },
+      propertyStatus: { label: "", value: PropertyStatus.SALE, _id: "" },
       price: "",
-      propertyType: { value: "", _id: "" },
+      propertyType: { label: "", value: "", _id: "" },
       area: "",
       rooms: [],
       features: [],

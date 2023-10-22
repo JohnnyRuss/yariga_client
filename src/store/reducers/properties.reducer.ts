@@ -19,14 +19,20 @@ import { controlStatus as status } from "./helpers";
 
 const initialState: PropertiesStateT = {
   status: status.default(),
+
+  filterStatus: status.default(),
+
   properties: [],
+
   suggestions: {
     propertyFeatures: [],
     propertyStatuses: [],
     propertyTypes: [],
     roomTypes: [],
   },
+
   filter: {
+    sort: [],
     statuses: [],
     cities: [],
     countries: [],
@@ -68,7 +74,9 @@ const propertiesSlice = createSlice({
       state.status = status.default();
     },
 
-    getPropertyFilter(state) {},
+    getPropertyFilter(state) {
+      state.filterStatus = status.loading();
+    },
 
     setPropertyFilter(
       state,
@@ -82,6 +90,7 @@ const propertiesSlice = createSlice({
         }));
 
       state.filter = {
+        sort: payload.sort.map((value) => ({ _id: nanoid(), ...value })),
         cities: moderator(payload.cities),
         countries: moderator(payload.countries),
         states: moderator(payload.states),
@@ -90,6 +99,8 @@ const propertiesSlice = createSlice({
         roomTypes: payload.roomTypes,
         statuses: payload.statuses,
       };
+
+      state.filterStatus = status.success("SUCCESS");
     },
 
     getAllProperties: {

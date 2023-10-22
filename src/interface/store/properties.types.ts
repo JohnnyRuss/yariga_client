@@ -4,7 +4,7 @@ import {
   PropertyStatusT,
   PropertyTypeT,
   RoomTypeT,
-  PropertyFeatureT,
+  PropertyFeatureSuggestionT,
   PropertyLocationT,
   PropertySuggestionsT,
 } from "interface/db/properties.types";
@@ -12,19 +12,41 @@ import { LoadingStatusT } from "./common.types";
 
 export interface PropertiesStateT {
   status: LoadingStatusT;
+  filterStatus: LoadingStatusT;
   properties: Array<PropertyShortInfoT>;
   suggestions: PropertySuggestionsT;
   filter: PropertyFilterT;
 }
 
+export interface CommonFilterT {
+  _id: string;
+  label: string;
+  value: string;
+}
+
 export interface PropertyFilterT {
+  sort: Array<CommonFilterT>;
   statuses: Array<PropertyStatusT>;
   propertyTypes: Array<PropertyTypeT>;
+  countries: Array<CommonFilterT>;
+  cities: Array<CommonFilterT>;
+  states: Array<CommonFilterT>;
   roomTypes: Array<RoomTypeT>;
-  propertyFeatures: Array<PropertyFeatureT>;
-  countries: Array<{ _id: string; value: string; label: string }>;
-  cities: Array<{ _id: string; value: string; label: string }>;
-  states: Array<{ _id: string; value: string; label: string }>;
+  propertyFeatures: Array<PropertyFeatureSuggestionT>;
+}
+
+export interface ActivePropertyFilterT {
+  search: string;
+  minPrice: string;
+  maxPrice: string;
+  sort: CommonFilterT;
+  statuses: PropertyStatusT;
+  propertyTypes: PropertyTypeT;
+  countries: CommonFilterT;
+  cities: CommonFilterT;
+  states: CommonFilterT;
+  roomTypes: Array<RoomTypeT>;
+  propertyFeatures: Array<PropertyFeatureSuggestionT>;
 }
 
 export interface CreatePropertyArgsT {

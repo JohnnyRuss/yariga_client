@@ -1,6 +1,7 @@
 import { FieldError } from "react-hook-form";
 import { OpenStreetMapLocationT } from "interface/config/config.types";
 import { ChangeEvent } from "react";
+import { SelectChangeEvent } from "@mui/material";
 
 interface CommonT {
   name: string;
@@ -13,20 +14,31 @@ interface CommonT {
   onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
+interface CommonValueT {
+  label: string;
+  value: string;
+  _id: string;
+}
+
 export interface ReactHookFormTextFieldPropsT extends CommonT {
   value: string;
   onChange: (value: string) => void;
 }
 
 export interface ReactHookFormSelectFieldPropsT extends CommonT {
-  value: { value: string; _id: string };
-  onChange: (value: { value: string; _id: string }) => void;
+  value: CommonValueT;
+  onChange: (
+    value: CommonValueT,
+    e?: SelectChangeEvent | null,
+    targetName?: string
+  ) => void;
 }
 
 export interface ReactHookFormMultipleSelectFieldPropsT extends CommonT {
-  value: { label: string; value: string }[];
+  value: CommonValueT[];
   onChange: (
-    event: SelectChangeEvent<{ label: string; value: string }>
+    value: Array<CommonValueT>,
+    e?: SelectChangeEvent<CommonValueT[]> | null
   ) => void;
 }
 
