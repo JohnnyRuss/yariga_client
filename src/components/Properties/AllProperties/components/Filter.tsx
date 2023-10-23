@@ -15,12 +15,19 @@ const menuItemStyles = { "&:hover": { background: "transparent" } };
 const Filter: React.FC = () => {
   const filter = useAppSelector(selectPropertyFilter);
 
-  const { onSelectSearchParams, onMultipleSelectSearchParams, searchParams } =
-    usePropertyFilterContext();
+  const {
+    onChangeSearchParams,
+    onSelectSearchParams,
+    onMultipleSelectSearchParams,
+    searchParams,
+  } = usePropertyFilterContext();
 
   return (
     <Stack direction="row" flexWrap="wrap" gap={3} mb={2} mt={4}>
       <TextField
+        name="search"
+        value={searchParams.search}
+        onChange={onChangeSearchParams}
         placeholder="Enter an address, city or title"
         sx={{ flex: 1, flexBasis: "140px" }}
         InputProps={{
@@ -120,11 +127,23 @@ const Filter: React.FC = () => {
           </MenuItem>
 
           <MenuItem sx={menuItemStyles}>
-            <TextField placeholder="Min Price" fullWidth />
+            <TextField
+              name="minPrice[gte]"
+              value={searchParams["minPrice[gte]"]}
+              onChange={onChangeSearchParams}
+              placeholder="Min Price"
+              fullWidth
+            />
           </MenuItem>
 
           <MenuItem sx={menuItemStyles}>
-            <TextField placeholder="Max Price" fullWidth />
+            <TextField
+              name="maxPrice[lte]"
+              value={searchParams["maxPrice[lte]"]}
+              onChange={onChangeSearchParams}
+              placeholder="Max Price"
+              fullWidth
+            />
           </MenuItem>
         </MoreFilterBody>
       </div>

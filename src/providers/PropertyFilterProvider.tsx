@@ -1,5 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import {
@@ -19,8 +25,8 @@ import {
 
 const searchParamsDefaults = {
   search: "",
-  minPrice: "",
-  maxPrice: "",
+  "minPrice[gte]": "",
+  "maxPrice[lte]": "",
   cities: {
     _id: "",
     label: "",
@@ -71,6 +77,7 @@ interface PropertyFilterContextT {
   searchParams: ActivePropertyFilterT;
   onSelectSearchParams: ReactHookFormSelectFieldPropsT["onChange"];
   onMultipleSelectSearchParams: ReactHookFormMultipleSelectFieldPropsT["onChange"];
+  onChangeSearchParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PropertyFilterContext = createContext<PropertyFilterContextT>({
@@ -82,6 +89,7 @@ const PropertyFilterContext = createContext<PropertyFilterContextT>({
   searchParams: searchParamsDefaults,
   onSelectSearchParams: () => {},
   onMultipleSelectSearchParams: () => {},
+  onChangeSearchParams: () => {},
 });
 
 const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
@@ -115,59 +123,55 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
 
   const urlSearchParams = new URLSearchParams(search);
 
-  const onSelectSearchParams: ReactHookFormSelectFieldPropsT["onChange"] = (
-    value,
-    e,
-    target
-  ) => {
-    const targetName = e?.target.name
-      ? (e?.target.name as SearchParamsKeyT)
-      : target
-      ? (target as SearchParamsKeyT)
-      : "";
+  const onSelectSearchParams: ReactHookFormSelectFieldPropsT["onChange"] =
+    useCallback((value, e, target) => {
+      const targetName = e?.target.name
+        ? (e?.target.name as SearchParamsKeyT)
+        : target
+        ? (target as SearchParamsKeyT)
+        : "";
 
-    if (!targetName) return;
+      if (!targetName) return;
 
-    if (urlSearchParams.get(targetName) === value.value) {
-      urlSearchParams.delete(targetName);
-      setSearchParams((prev) => ({
-        ...prev,
-        [targetName]: searchParamsDefaults[targetName],
-      }));
-    } else {
-      urlSearchParams.append(targetName, value.value);
-      setSearchParams((prev) => ({
-        ...prev,
-        [targetName]: value,
-      }));
-    }
+      if (urlSearchParams.get(targetName) === value.value) {
+        urlSearchParams.delete(targetName);
 
-    navigate(`${pathname}?${urlSearchParams.toString()}`);
-  };
+        setSearchParams((prev) => ({
+          ...prev,
+          [targetName]: searchParamsDefaults[targetName],
+        }));
+      } else {
+        urlSearchParams.set(targetName, value.value);
+
+        setSearchParams((prev) => ({
+          ...prev,
+          [targetName]: value,
+        }));
+      }
+
+      navigate(`${pathname}?${urlSearchParams.toString()}`);
+    }, []);
 
   const onMultipleSelectSearchParams: ReactHookFormMultipleSelectFieldPropsT["onChange"] =
-    (value, e) => {
+    useCallback((value, e) => {
       const targetName = e?.target.name
         ? (e?.target.name as SearchParamsKeyT)
         : "";
 
       if (!targetName) return;
 
-      const urlValueArray = urlSearchParams.get(targetName)?.split(",") || [];
+      const urlValuesArray = urlSearchParams.get(targetName)?.split(",") || [];
       const selectedValues = value.map((item) => item.value);
 
-      if (selectedValues.length > urlValueArray.length) {
-        urlSearchParams.delete(targetName);
-        urlSearchParams.append(targetName, selectedValues.join(","));
-      } else {
-        const filteredParams = urlValueArray
+      if (selectedValues.length > urlValuesArray.length)
+        urlSearchParams.set(targetName, selectedValues.join(","));
+      else {
+        const filteredParams = urlValuesArray
           .filter((param) => selectedValues.includes(param))
           .join(",");
 
-        urlSearchParams.delete(targetName);
-
-        if (value.length > 0)
-          urlSearchParams.append(targetName, filteredParams);
+        if (value.length > 0) urlSearchParams.set(targetName, filteredParams);
+        else urlSearchParams.delete(targetName);
       }
 
       setSearchParams((prev) => ({
@@ -176,7 +180,32 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
       }));
 
       navigate(`${pathname}?${urlSearchParams.toString()}`);
-    };
+    }, []);
+
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const DEBOUNCE_DELAY = 2000;
+
+  const onChangeSearchParams = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const targetName = e.target.name as SearchParamsKeyT;
+      const { value } = e.target;
+
+      setSearchParams((prev) => ({
+        ...prev,
+        [targetName]: value,
+      }));
+
+      if (timeoutId) clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        if (value) urlSearchParams.set(targetName, value);
+        else urlSearchParams.delete(targetName);
+
+        navigate(`${pathname}?${urlSearchParams.toString()}`);
+      }, DEBOUNCE_DELAY);
+    },
+    []
+  );
 
   /////////////////////////////////////////
   // Set searchParams Defaults on Mount //
@@ -234,6 +263,23 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
     }));
   }, [filterStatus.status]);
 
+  ///////////////
+  // Cleanups //
+  /////////////
+
+  useEffect(() => {
+    const existingPage = urlSearchParams.get("page");
+
+    if (existingPage) return;
+
+    urlSearchParams.set("page", "1");
+    navigate(`${pathname}?${urlSearchParams.toString()}`);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <PropertyFilterContext.Provider
       value={{
@@ -246,6 +292,7 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
         searchParams,
         onSelectSearchParams,
         onMultipleSelectSearchParams,
+        onChangeSearchParams,
       }}
     >
       {children}

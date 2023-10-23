@@ -14,7 +14,7 @@ import {
 
 interface FormTextFieldT {
   fieldProps: ReactHookFormTextFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
   type?: string;
@@ -47,7 +47,7 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         sx={{ background: "#fff" }}
       />
 
-      {fieldStateProps.error && (
+      {fieldStateProps?.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />
       )}
     </FormControl>

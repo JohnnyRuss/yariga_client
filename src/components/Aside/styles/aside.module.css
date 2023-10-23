@@ -14,13 +14,13 @@
 }
 
 .aside_link:hover {
-  color: var(--app-bg-main);
-  background: var(--app-blue-light);
+  color: var(--app-text-light);
+  background: var(--app-blue-main);
 }
 
 .aside_link.active {
-  background: var(--app-blue-main);
-  color: var(--app-bg-main);
+  color: var(--app-text-light);
+  background: var(--app-blue-light);
 }
 
 @media (max-width: 900px) {

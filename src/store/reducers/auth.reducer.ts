@@ -39,7 +39,7 @@ const authSlice = createSlice({
       console.log("runs");
       removeJWT();
       state.user = null;
-      RouterHistory.navigate(paths.auth_page);
+      RouterHistory.navigate(paths.auth_page_root);
     },
   },
 });

@@ -26,7 +26,7 @@ export default function useAuth() {
 
   function redirectUnAuthorized() {
     const isAuthenticatedUser = checkIsAuthenticatedUser();
-    if (!isAuthenticatedUser) navigate(paths.auth_page);
+    if (!isAuthenticatedUser) navigate(paths.auth_page_signin);
   }
 
   function redirectAuthorized() {

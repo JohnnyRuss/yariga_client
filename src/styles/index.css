@@ -6,6 +6,8 @@
   --app-text-light: #fcfcfc;
   --app-text-contrastText: #e4e8ef;
   --app-bg-main: #fcfcfc;
+  --app-bg-dark: #f4f4f4;
+  --app-bg-contrastText: #f3f3f3;
 }
 
 *,
@@ -56,6 +58,12 @@ a {
     width: 100%;
     height: auto;
   }
+}
+
+/* UTILITY CLASSES */
+
+.underline {
+  text-decoration: underline !important;
 }
 
 .auth_gradient {

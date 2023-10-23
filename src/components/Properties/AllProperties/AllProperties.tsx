@@ -1,10 +1,7 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
-import {
-  selectAllProperties,
-  selectPropertiesStatus,
-} from "store/selectors/properties.selectors";
+import * as propertySelectors from "store/selectors/properties.selectors";
 
 import {
   Spinner,
@@ -15,54 +12,43 @@ import {
 import { Box } from "@mui/material";
 import Filter from "./components/Filter";
 import AllPropertiesHeader from "./components/AllPropertiesHeader";
+import * as MuiStyled from "./components/styles/AllProperties.styled";
 
 const AllProperties: React.FC = () => {
-  const status = useAppSelector(selectPropertiesStatus);
-  const properties = useAppSelector(selectAllProperties);
+  const filterStatus = useAppSelector(
+    propertySelectors.selectPropertyFilterStatus
+  );
+  const status = useAppSelector(propertySelectors.selectPropertiesStatus);
+  const properties = useAppSelector(propertySelectors.selectAllProperties);
 
   return (
     <ContentBox flex={true}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <MuiStyled.AllPropertiesContainer>
         <AllPropertiesHeader />
 
         {status.loading && <Spinner />}
 
         <Box height="100%" display="flex" flexDirection="column">
-          {!status.loading && (
-            <>
-              <Filter />
+          {!filterStatus.loading && <Filter />}
 
-              <Box
-                mt="20px"
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent:
-                    properties.length > 1 ? "space-evenly" : "flex-start",
-                  gap: 3,
-                }}
-              >
-                {properties.map((property) => (
-                  <PropertyCardHorizontal
-                    key={property._id}
-                    property={property}
-                  />
-                ))}
-              </Box>
-            </>
+          {!status.loading && (
+            <MuiStyled.AllPropertiesList
+              justify={properties.length > 1 ? "space-evenly" : "flex-start"}
+            >
+              {properties.map((property) => (
+                <PropertyCardHorizontal
+                  key={property._id}
+                  property={property}
+                />
+              ))}
+            </MuiStyled.AllPropertiesList>
           )}
 
           <Box mt="auto" ml="auto">
-            <Pagination />
+            <Pagination page={1} />
           </Box>
         </Box>
-      </Box>
+      </MuiStyled.AllPropertiesContainer>
     </ContentBox>
   );
 };

@@ -18,5 +18,5 @@ export async function getPropertyFilterQuery() {
 }
 
 export async function getAllPropertiesQuery() {
-  return axiosPublicQuery.get("/properties");
+  return axiosPublicQuery.get(`/properties${window.location.search}`);
 }

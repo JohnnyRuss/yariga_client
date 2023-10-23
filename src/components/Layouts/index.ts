@@ -5,3 +5,4 @@ export { default as Pagination } from "./Pagination/Pagination";
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";
 export { default as PropertyCardHorizontal } from "./PropertyCard/PropertyCardHorizontal";
 export { default as Spinner } from "./Spinner/Spinner";
+export { default as SVG } from "./SVG/SVG";

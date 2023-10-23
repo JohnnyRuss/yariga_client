@@ -18,9 +18,34 @@ export const routes: RouteT[] = [
     element: <Navigate to={paths.dashboard_page} />,
   },
   {
-    name: "auth-page",
-    path: paths.auth_page,
-    element: <Pages.AuthPage />,
+    name: "auth-page-root",
+    path: paths.auth_page_root,
+    element: <Navigate to={paths.auth_page_signin} />,
+  },
+  {
+    name: "auth-page-signin",
+    path: paths.auth_page_signin,
+    element: <Pages.SignInPage />,
+  },
+  {
+    name: "auth-page-signup",
+    path: paths.auth_page_signup,
+    element: <Pages.SignUpPage />,
+  },
+  {
+    name: "auth-page-forgot-password",
+    path: paths.auth_page_forgot_password,
+    element: <Pages.ForgotPasswordPage />,
+  },
+  {
+    name: "auth-page-confirm-email",
+    path: paths.auth_page_confirm_email,
+    element: <Pages.ConfirmEmailPage />,
+  },
+  {
+    name: "auth-page-update-password",
+    path: paths.auth_page_update_password,
+    element: <Pages.UpdatePasswordPage />,
   },
   {
     name: "dashboard-page",

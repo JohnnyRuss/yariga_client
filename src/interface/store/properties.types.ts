@@ -37,8 +37,8 @@ export interface PropertyFilterT {
 
 export interface ActivePropertyFilterT {
   search: string;
-  minPrice: string;
-  maxPrice: string;
+  "minPrice[gte]": string;
+  "maxPrice[lte]": string;
   sort: CommonFilterT;
   statuses: PropertyStatusT;
   propertyTypes: PropertyTypeT;
