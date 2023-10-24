@@ -1,47 +1,45 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "store/hooks";
 
-import OtpInput from "react-otp-input";
+import { useConfirmEmailQuery } from "hooks/api/auth";
+import { selectAuthStatus } from "store/selectors/auth.selectors";
 
-import { Button } from "components/Layouts";
+import { Controller } from "react-hook-form";
+
 import * as UI from "./components";
-import * as Form from "components/Layouts/Form";
+import { Button, Spinner } from "components/Layouts";
+import { FormOTPField } from "components/Layouts/Form";
 import styles from "./components/auth.module.css";
 
 const ConfirmEmail: React.FC = () => {
-  const navigate = useNavigate();
+  const status = useAppSelector(selectAuthStatus);
 
-  const onConfirm = () => navigate("/auth/update-password");
+  const { form, onConfirmEmail } = useConfirmEmailQuery();
 
   return (
     <UI.AuthLayout
       mainText="Confirm your E-mail"
       secondaryText="PIN is valid for 10 minutes"
     >
-      <form className={styles.authForm}>
-        <div className={styles.otpField}>
-          <OtpInput
-            numInputs={6}
-            // {...fieldProps}
-            onChange={(value) => {}}
-            renderSeparator={<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>}
-            renderInput={(props) => (
-              <input
-                {...{
-                  ...props,
-                  // ref,
-                  type: "number",
-                  className: styles["otp-inp"],
-                  placeholder: "*",
-                }}
-              />
-            )}
-          />
-        </div>
+      {status.loading && <Spinner />}
+
+      <form className={styles.authForm} onSubmit={onConfirmEmail}>
+        <Controller
+          control={form.control}
+          name="pin"
+          render={({ field: { ref, ...field }, fieldState }) => (
+            <FormOTPField
+              fieldProps={field}
+              fieldStateProps={fieldState}
+              label="enter your pin"
+            />
+          )}
+        />
 
         <Button
-          onClick={onConfirm}
+          type="submit"
           fullWidth={true}
+          disabled={status.loading}
           bgColor="app_blue.light"
           color="app_text.light"
           title="Confirm"

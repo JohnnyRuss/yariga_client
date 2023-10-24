@@ -44,3 +44,50 @@
 .locationFieldItem:last-child {
   border: none;
 }
+
+.otpFieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otpFieldContainer label {
+  text-transform: capitalize;
+  padding-left: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.otpField {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.otp-inp {
+  border: 1px solid var(--app-text-main);
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.otp-inp:focus {
+  border: 1px solid var(--app-blue-main);
+}
+
+.otp-inp::-webkit-inner-spin-button {
+  display: none;
+}
+
+.otp-inp::placeholder {
+  font-weight: bold;
+  font-size: 18px;
+  transform: translateY(0.5rem);
+}

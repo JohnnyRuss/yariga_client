@@ -10,6 +10,8 @@ import {
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
+import { GoogleLoginArgsT } from "interface/store/auth.types";
+
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
   authDomain: FIREBASE_AUTH_DOMAIN,
@@ -25,7 +27,7 @@ const app: FirebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
-async function firebaseGoogleLogin() {
+async function firebaseGoogleLogin(): Promise<GoogleLoginArgsT> {
   try {
     const { user } = await signInWithPopup(auth, googleAuthProvider);
 

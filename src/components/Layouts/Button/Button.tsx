@@ -21,6 +21,7 @@ const Button: React.FC<CustomButtonPropsT> = ({
   return (
     <MuiStyled.Button
       onClick={onClick}
+      disabled={disabled}
       type={type}
       fullWidth={fullWidth}
       background_color={generatePaletteColor(bgColor, palette)}

@@ -23,5 +23,10 @@ export const Button = styled(MuiButton)<ButtonProps>(
       opacity: 0.9,
       background: background_color,
     },
+
+    ":disabled": {
+      opacity: 0.7,
+      color: text_color,
+    },
   })
 );

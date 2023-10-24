@@ -1,9 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 import { RootStateT } from "store/store";
-import { AuthStateT } from "interface/store/auth.types";
 
-const selectedUser = ({ auth }: RootStateT): AuthStateT["user"] => ({
+const selectedAuthStatus = ({ auth }: RootStateT) => ({
+  error: auth.status.error,
+  loading: auth.status.loading,
+  message: auth.status.message,
+  status: auth.status.status,
+});
+
+const selectedUser = ({ auth }: RootStateT) => ({
   _id: auth.user?._id || "",
   email: auth.user?.email || "",
   avatar: auth.user?.avatar || "",
@@ -13,4 +19,6 @@ const selectedUser = ({ auth }: RootStateT): AuthStateT["user"] => ({
 
 const selectUser = createSelector(selectedUser, (user) => user);
 
-export { selectUser };
+const selectAuthStatus = createSelector(selectedAuthStatus, (status) => status);
+
+export { selectUser, selectAuthStatus };

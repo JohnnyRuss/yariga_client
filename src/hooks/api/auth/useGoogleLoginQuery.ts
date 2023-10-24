@@ -7,12 +7,8 @@ export default function useAuthQuery() {
 
   async function onLogin() {
     const user = await firebaseGoogleLogin();
-    dispatch(authActions.login(user));
+    dispatch(authActions.googleLogin(user));
   }
 
-  function onLogout() {
-    dispatch(authActions.logout());
-  }
-
-  return { onLogin, onLogout };
+  return { onLogin };
 }

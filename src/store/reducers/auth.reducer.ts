@@ -1,7 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import {
+  AuthStateT,
+  GoogleLoginArgsT,
+  SignInArgsT,
+  SignUpArgsT,
+  ForgotPasswordArgsT,
+  ConfirmEmailArgsT,
+  UpdatePasswordArgsT,
+} from "interface/store/auth.types";
 import { LoginResponseT } from "interface/db/user.types";
-import { AuthStateT, LoginArgsT } from "interface/store/auth.types";
 
 import paths from "config/paths";
 import { controlStatus } from "./helpers";
@@ -17,8 +25,26 @@ const authSlice = createSlice({
   name: "yariga-auth",
   initialState,
   reducers: {
-    login: {
-      prepare: (payload: LoginArgsT) => {
+    googleLogin: {
+      prepare: (payload: GoogleLoginArgsT) => {
+        return { payload };
+      },
+      reducer: (state) => {
+        state.status = controlStatus.loading();
+      },
+    },
+
+    signIn: {
+      prepare: (payload: SignInArgsT) => {
+        return { payload };
+      },
+      reducer: (state) => {
+        state.status = controlStatus.loading();
+      },
+    },
+
+    signUp: {
+      prepare: (payload: SignUpArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -36,10 +62,51 @@ const authSlice = createSlice({
     logout() {},
 
     cleanUpUser(state) {
-      console.log("runs");
       removeJWT();
       state.user = null;
       RouterHistory.navigate(paths.auth_page_root);
+    },
+
+    forgotPassword: {
+      prepare: (payload: ForgotPasswordArgsT) => {
+        return { payload };
+      },
+      reducer: (state) => {
+        state.status = controlStatus.loading();
+      },
+    },
+
+    setForgotPassword(state) {
+      RouterHistory.navigate(paths.auth_page_confirm_email);
+      state.status = controlStatus.default();
+    },
+
+    confirmEmail: {
+      prepare: (payload: ConfirmEmailArgsT) => {
+        return { payload };
+      },
+      reducer: (state) => {
+        state.status = controlStatus.loading();
+      },
+    },
+
+    setConfirmEmail(state) {
+      RouterHistory.navigate(paths.auth_page_update_password);
+      state.status = controlStatus.default();
+    },
+
+    updatePassword: {
+      prepare: (payload: UpdatePasswordArgsT) => {
+        return { payload };
+      },
+      reducer: (state) => {
+        state.status = controlStatus.loading();
+      },
+    },
+
+    setUpdatePassword(state) {
+      RouterHistory.navigate(paths.auth_page_signin);
+      state.status = controlStatus.default();
     },
   },
 });

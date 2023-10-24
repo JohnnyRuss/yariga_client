@@ -1,43 +1,59 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "store/hooks";
+
+import { useUpdatePasswordQuery } from "hooks/api/auth";
+import { selectAuthStatus } from "store/selectors/auth.selectors";
+
+import { Controller } from "react-hook-form";
 
 import * as UI from "./components";
 import * as Form from "components/Layouts/Form";
-import { Button } from "components/Layouts";
+import { Button, Spinner } from "components/Layouts";
 import styles from "./components/auth.module.css";
 
 const UpdatePassword: React.FC = () => {
-  const navigate = useNavigate();
+  const status = useAppSelector(selectAuthStatus);
 
-  const onConfirm = () => navigate("/auth/signin");
+  const { form, onUpdatePassword } = useUpdatePasswordQuery();
 
   return (
     <UI.AuthLayout
       mainText="Update Password"
       secondaryText="Enter your new password"
     >
-      <form className={styles.authForm}>
-        <Form.FormTextField
-          label="New Password"
-          fieldProps={{
-            name: "email",
-            value: "",
-            onChange: () => {},
-          }}
+      {status.loading && <Spinner />}
+
+      <form className={styles.authForm} onSubmit={onUpdatePassword}>
+        <Controller
+          control={form.control}
+          name="new_password"
+          render={({ field, fieldState }) => (
+            <Form.FormTextField
+              type="password"
+              label="New Password"
+              fieldProps={field}
+              fieldStateProps={fieldState}
+            />
+          )}
         />
 
-        <Form.FormTextField
-          label="Confirm Password"
-          fieldProps={{
-            name: "email",
-            value: "",
-            onChange: () => {},
-          }}
+        <Controller
+          control={form.control}
+          name="confirm_password"
+          render={({ field, fieldState }) => (
+            <Form.FormTextField
+              type="password"
+              label="Confirm Password"
+              fieldProps={field}
+              fieldStateProps={fieldState}
+            />
+          )}
         />
 
         <Button
-          onClick={onConfirm}
+          type="submit"
           fullWidth={true}
+          disabled={status.loading}
           bgColor="app_blue.light"
           color="app_text.light"
           title="Confirm"

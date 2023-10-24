@@ -1,18 +1,23 @@
 import React from "react";
 
-import { useAuthQuery } from "hooks/api";
+import { useGoogleLoginQuery } from "hooks/api/auth";
 
 import { Button } from "@mui/material";
 import { GoogleIcon } from "assets/icons";
 import { SVG } from "components/Layouts";
 
-const GoogleButton: React.FC = () => {
-  const { onLogin } = useAuthQuery();
+interface GoogleButtonT {
+  disabled?: boolean;
+}
+
+const GoogleButton: React.FC<GoogleButtonT> = ({ disabled }) => {
+  const { onLogin } = useGoogleLoginQuery();
 
   return (
     <Button
       variant="outlined"
       onClick={onLogin}
+      disabled={disabled}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -24,6 +29,10 @@ const GoogleButton: React.FC = () => {
         color: "app_text.dark",
         borderColor: "app_text.main",
         background: "app_bg.main",
+
+        "&:disabled": {
+          opacity: 0.85,
+        },
       }}
     >
       <SVG src={GoogleIcon.toString()} />

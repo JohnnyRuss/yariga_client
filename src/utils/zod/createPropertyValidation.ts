@@ -3,15 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PropertyStatus } from "interface/db/properties.types";
 
-const isNumeric = {
-  validator: (data: string): boolean => /^[0-9]*$/.test(data),
-  message: "please enter the number",
-};
-
-const greaterThanZero = {
-  validator: (data: string): boolean => parseFloat(data) > 0,
-  message: "please enter number above 0",
-};
+import { greaterThanZero, isNumeric } from "utils/zod/helpers/customValidators";
 
 const CreatePropertyValidationSchema = z
   .object({

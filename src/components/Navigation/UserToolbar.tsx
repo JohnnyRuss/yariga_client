@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
-import { useAuthQuery } from "hooks/api";
+import { useLogoutQuery } from "hooks/api/auth";
 import { selectUser } from "store/selectors/auth.selectors";
 
 import { Button, Menu, MenuList, MenuItem, Avatar } from "@mui/material";
@@ -19,7 +19,7 @@ const UserToolbar: React.FC = () => {
 
   const handleClose = () => setAnchorEl(null);
 
-  const { onLogout } = useAuthQuery();
+  const { onLogout } = useLogoutQuery();
 
   return (
     <div>

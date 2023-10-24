@@ -1,34 +1,46 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "store/hooks";
+
+import { useForgotPasswordQuery } from "hooks/api/auth";
+import { selectAuthStatus } from "store/selectors/auth.selectors";
+
+import { Controller } from "react-hook-form";
 
 import * as UI from "./components";
 import * as Form from "components/Layouts/Form";
-import { Button } from "components/Layouts";
+import { Button, Spinner } from "components/Layouts";
 import styles from "./components/auth.module.css";
 
 const ForgotPassword: React.FC = () => {
-  const navigate = useNavigate();
+  const status = useAppSelector(selectAuthStatus);
 
-  const onConfirm = () => navigate("/auth/confirm-email");
+  const { form, onSendEmail } = useForgotPasswordQuery();
 
   return (
     <UI.AuthLayout
       mainText="Forgot Password"
       secondaryText="Password reset PIN will be sent to your email"
     >
-      <form className={styles.authForm}>
-        <Form.FormTextField
-          label="Email"
-          fieldProps={{
-            name: "email",
-            value: "",
-            onChange: () => {},
-          }}
+      {status.loading && <Spinner />}
+
+      <form className={styles.authForm} onSubmit={onSendEmail}>
+        <Controller
+          control={form.control}
+          name="email"
+          render={({ field, fieldState }) => (
+            <Form.FormTextField
+              type="email"
+              label="Email"
+              fieldProps={field}
+              fieldStateProps={fieldState}
+            />
+          )}
         />
 
         <Button
-          onClick={onConfirm}
+          type="submit"
           fullWidth={true}
+          disabled={status.loading}
           bgColor="app_blue.light"
           color="app_text.light"
           title="Send"
