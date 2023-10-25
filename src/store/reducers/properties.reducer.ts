@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "@reduxjs/toolkit";
 
 import {
+  GetPropertyArgsT,
   PropertiesStateT,
   CreatePropertyArgsT,
 } from "interface/store/properties.types";
 import {
+  PropertyT,
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
@@ -23,6 +25,41 @@ const initialState: PropertiesStateT = {
   filterStatus: status.default(),
 
   properties: [],
+
+  property: {
+    _id: "",
+    owner: {
+      _id: "",
+      avatar: "",
+      email: "",
+      username: "",
+    },
+    title: "",
+    description: "",
+    propertyStatus: "RENT",
+    propertyType: {
+      _id: "",
+      label: "",
+      value: "",
+    },
+    area: NaN,
+    rooms: [],
+    features: [],
+    bedroomsAmount: NaN,
+    bathroomsAmount: NaN,
+    price: NaN,
+    location: {
+      name: "",
+      displayName: "",
+      country: "",
+      state: "",
+      city: "",
+      addressType: "",
+      lat: "",
+      lon: "",
+    },
+    images: [],
+  },
 
   suggestions: {
     propertyFeatures: [],
@@ -118,6 +155,23 @@ const propertiesSlice = createSlice({
       { payload }: PayloadAction<Array<PropertyShortInfoT>>
     ) {
       state.properties = payload;
+      state.status = status.default();
+    },
+
+    getProperty: {
+      prepare: (payload: GetPropertyArgsT) => {
+        return {
+          payload,
+        };
+      },
+
+      reducer: (state) => {
+        state.status = status.loading();
+      },
+    },
+
+    setProperty(state, { payload }: PayloadAction<PropertyT>) {
+      state.property = payload;
       state.status = status.default();
     },
   },

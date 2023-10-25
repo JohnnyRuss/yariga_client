@@ -23,4 +23,9 @@ export default function* propertiesSaga() {
     propertiesActions.getAllProperties,
     propertiesHandlers.getAllProperties
   );
+
+  yield takeLatest(
+    propertiesActions.getProperty,
+    propertiesHandlers.getProperty
+  );
 }

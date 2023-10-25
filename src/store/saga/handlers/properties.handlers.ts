@@ -4,13 +4,17 @@ import * as propertiesAPI from "store/saga/api/properties.api";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
 import {
+  PropertyT,
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
 } from "interface/db/properties.types";
+import {
+  GetPropertyArgsT,
+  CreatePropertyArgsT,
+} from "interface/store/properties.types";
 import { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CreatePropertyArgsT } from "interface/store/properties.types";
 
 export function* getPropertyFormSuggestions() {
   try {
@@ -54,6 +58,19 @@ export function* getAllProperties({ payload }: PayloadAction<{}>) {
     );
 
     yield put(propertiesActions.setAllProperties(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* getProperty({ payload }: PayloadAction<GetPropertyArgsT>) {
+  try {
+    const { data }: AxiosResponse<PropertyT> = yield call(
+      propertiesAPI.getPropertyQuery,
+      payload
+    );
+
+    yield put(propertiesActions.setProperty(data));
   } catch (error) {
     console.log(error);
   }

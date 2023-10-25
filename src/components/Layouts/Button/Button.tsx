@@ -7,25 +7,32 @@ import * as MuiStyled from "./Button.styled";
 import { CustomButtonPropsT } from "interface/components/common";
 
 const Button: React.FC<CustomButtonPropsT> = ({
+  title,
+  icon,
   bgColor,
   color,
-  title,
-  disabled,
-  fullWidth,
-  icon,
-  onClick,
+  disabled = false,
+  fullWidth = false,
+  onClick = () => {},
   type = "button",
+  variant = "contained",
 }) => {
   const { palette } = useTheme();
 
   return (
     <MuiStyled.Button
+      type={type}
+      variant={variant}
       onClick={onClick}
       disabled={disabled}
-      type={type}
       fullWidth={fullWidth}
-      background_color={generatePaletteColor(bgColor, palette)}
-      text_color={generatePaletteColor(color, palette)}
+      sx={{ height: "max-content", display: "flex" }}
+      background_color={
+        bgColor ? generatePaletteColor(bgColor, palette) : "app_blue.light"
+      }
+      text_color={
+        color ? generatePaletteColor(color, palette) : "app_text.light"
+      }
     >
       {title}
     </MuiStyled.Button>

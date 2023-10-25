@@ -5,6 +5,7 @@ declare module "@mui/material/styles" {
 
   interface Palette {
     app_blue?: PaletteColor;
+    app_green?: PaletteColor;
     app_bg?: PaletteColor;
     app_text?: PaletteColor;
     error?: PaletteColor;
@@ -12,6 +13,7 @@ declare module "@mui/material/styles" {
 
   interface PaletteOptions {
     app_blue?: PaletteColorOptions;
+    app_green?: PaletteColorOptions;
     app_bg?: PaletteColorOptions;
     app_text?: PaletteColorOptions;
     error?: PaletteColorOptions;

@@ -58,6 +58,11 @@ export const routes: RouteT[] = [
     element: <Pages.PropertiesPage />,
   },
   {
+    name: "property-page",
+    path: paths.property_page,
+    element: <Pages.PropertyPage />,
+  },
+  {
     name: "create-property-page",
     path: paths.create_property_page,
     element: <Pages.CreatePropertyPage />,

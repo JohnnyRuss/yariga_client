@@ -27,6 +27,23 @@ const selectedPropertyFilter = ({ properties }: RootStateT) => ({
   states: properties.filter.states,
 });
 
+const selectedProperty = ({ properties }: RootStateT) => ({
+  _id: properties.property._id,
+  owner: properties.property.owner,
+  title: properties.property.title,
+  description: properties.property.description,
+  propertyStatus: properties.property.propertyStatus,
+  propertyType: properties.property.propertyType,
+  area: properties.property.area,
+  rooms: properties.property.rooms,
+  features: properties.property.features,
+  bedroomsAmount: properties.property.bathroomsAmount,
+  bathroomsAmount: properties.property.bathroomsAmount,
+  price: properties.property.price,
+  location: properties.property.location,
+  images: properties.property.images,
+});
+
 const selectedPropertySuggestions = ({ properties }: RootStateT) =>
   properties.suggestions;
 
@@ -50,13 +67,16 @@ const selectPropertyFilter = createSelector(
   (filter) => filter
 );
 
+const selectProperty = createSelector(selectedProperty, (property) => property);
+
 const selectAllProperties = ({ properties }: RootStateT) =>
   properties.properties;
 
 export {
   selectPropertiesStatus,
   selectPropertyFilterStatus,
-  selectAllProperties,
   selectPropertySuggestions,
   selectPropertyFilter,
+  selectAllProperties,
+  selectProperty,
 };

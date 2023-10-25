@@ -1,9 +1,8 @@
 import {
-  axiosPrivateFormDataQuery,
-  axiosPublicQuery,
-  axiosPrivateQuery,
-} from "services/axios";
-import { CreatePropertyArgsT } from "interface/store/properties.types";
+  CreatePropertyArgsT,
+  GetPropertyArgsT,
+} from "interface/store/properties.types";
+import { axiosPrivateFormDataQuery, axiosPrivateQuery } from "services/axios";
 
 export async function getPropertyFormSuggestionsQuery() {
   return axiosPrivateQuery.get("/properties/suggestions");
@@ -14,9 +13,13 @@ export async function createPropertyQuery(data: CreatePropertyArgsT) {
 }
 
 export async function getPropertyFilterQuery() {
-  return axiosPublicQuery.get("/properties/filter");
+  return axiosPrivateQuery.get("/properties/filter");
 }
 
 export async function getAllPropertiesQuery() {
-  return axiosPublicQuery.get(`/properties${window.location.search}`);
+  return axiosPrivateQuery.get(`/properties`);
+}
+
+export async function getPropertyQuery(data: GetPropertyArgsT) {
+  return axiosPrivateQuery.get(`/properties/${data.propertyId}`);
 }

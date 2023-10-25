@@ -8,10 +8,9 @@ export default function useSignUpQuery() {
 
   const form = useSignUpForm();
 
-  const onSignup = form.handleSubmit((values) => {
-    console.log(values);
-    dispatch(authActions.signUp(values));
-  });
+  const onSignup = form.handleSubmit((values) =>
+    dispatch(authActions.signUp(values))
+  );
 
   return { form, onSignup };
 }

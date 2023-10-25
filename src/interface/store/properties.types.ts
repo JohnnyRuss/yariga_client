@@ -1,21 +1,23 @@
 import {
-  PropertyShortInfoT,
+  PropertyT,
+  RoomTypeT,
+  PropertyTypeT,
   PropertyStatus,
   PropertyStatusT,
-  PropertyTypeT,
-  RoomTypeT,
-  PropertyFeatureSuggestionT,
   PropertyLocationT,
+  PropertyShortInfoT,
   PropertySuggestionsT,
+  PropertyFeatureSuggestionT,
 } from "interface/db/properties.types";
 import { LoadingStatusT } from "./common.types";
 
 export interface PropertiesStateT {
   status: LoadingStatusT;
   filterStatus: LoadingStatusT;
-  properties: Array<PropertyShortInfoT>;
   suggestions: PropertySuggestionsT;
   filter: PropertyFilterT;
+  properties: Array<PropertyShortInfoT>;
+  property: PropertyT;
 }
 
 export interface CommonFilterT {
@@ -64,4 +66,8 @@ export interface CreatePropertyArgsT {
   images?: Array<string>;
   new_images?: Array<File>;
   images_to_delete: Array<string>;
+}
+
+export interface GetPropertyArgsT {
+  propertyId: string;
 }

@@ -6,3 +6,4 @@ export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVert
 export { default as PropertyCardHorizontal } from "./PropertyCard/PropertyCardHorizontal";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as SVG } from "./SVG/SVG";
+export { default as GoBackButton } from "./GoBackButton/GoBackButton";

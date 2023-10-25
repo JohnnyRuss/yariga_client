@@ -18,13 +18,13 @@ export const DashboardPage = lazy(
   () => import("./DashboardPage/DashboardPage")
 );
 
-export const PropertiesPage = lazy(
-  () => import("./PropertiesPage/PropertiesPage")
-);
+export const PropertiesPage = lazy(() => import("./Properties/PropertiesPage"));
 
 export const CreatePropertyPage = lazy(
-  () => import("./PropertiesPage/CreatePropertyPage")
+  () => import("./Properties/CreatePropertyPage")
 );
+
+export const PropertyPage = lazy(() => import("./Properties/PropertyPage"));
 
 export const AgentsPage = lazy(() => import("./AgentsPage/AgentsPage"));
 

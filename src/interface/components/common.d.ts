@@ -1,8 +1,9 @@
 export interface CustomButtonPropsT {
   type?: "button" | "submit";
   title: string;
-  bgColor: string;
-  color: string;
+  bgColor?: string;
+  color?: string;
+  variant?: "contained" | "outlined" | "text";
   fullWidth?: boolean;
   icon?: ReactNode;
   disabled?: boolean;

@@ -9,6 +9,7 @@ const paths = {
   dashboard_page: "/dashboard",
   properties_page: "/properties",
   create_property_page: "/properties/create",
+  property_page: "/properties/:propertyId",
   agents_page: "/agents",
   reviews_page: "/reviews",
   messages_page: "/messages",
