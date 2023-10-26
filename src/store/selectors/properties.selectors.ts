@@ -72,11 +72,15 @@ const selectProperty = createSelector(selectedProperty, (property) => property);
 const selectAllProperties = ({ properties }: RootStateT) =>
   properties.properties;
 
+const selectPropertyRoomTypes = ({ properties }: RootStateT) =>
+  properties.allRoomTypes;
+
 export {
   selectPropertiesStatus,
   selectPropertyFilterStatus,
   selectPropertySuggestions,
   selectPropertyFilter,
   selectAllProperties,
+  selectPropertyRoomTypes,
   selectProperty,
 };

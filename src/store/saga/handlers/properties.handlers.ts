@@ -5,6 +5,7 @@ import { propertiesActions } from "store/reducers/properties.reducer";
 
 import {
   PropertyT,
+  RoomTypeT,
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
@@ -58,6 +59,18 @@ export function* getAllProperties({ payload }: PayloadAction<{}>) {
     );
 
     yield put(propertiesActions.setAllProperties(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* getAllRoomTypes() {
+  try {
+    const { data }: AxiosResponse<Array<RoomTypeT>> = yield call(
+      propertiesAPI.getAllRoomTypesQuery
+    );
+
+    yield put(propertiesActions.setAllRoomTypes(data));
   } catch (error) {
     console.log(error);
   }

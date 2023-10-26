@@ -25,6 +25,11 @@ export default function* propertiesSaga() {
   );
 
   yield takeLatest(
+    propertiesActions.getAllRoomTypes,
+    propertiesHandlers.getAllRoomTypes
+  );
+
+  yield takeLatest(
     propertiesActions.getProperty,
     propertiesHandlers.getProperty
   );

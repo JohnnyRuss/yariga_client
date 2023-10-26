@@ -1,21 +1,35 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
 import { Box, Stack, Typography } from "@mui/material";
+import { SliderModal } from "components/Layouts";
 
 const PropertyView: React.FC = () => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+
   const { images } = useAppSelector(selectProperty);
+
+  const searchParams = new URLSearchParams(search);
+
+  const onGoToGallery = () => {
+    searchParams.set("active-tab", "gallery");
+    navigate(`?${searchParams.toString()}`);
+  };
 
   return (
     <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
-      <PropertyFig src={images[0]} />
+      <SliderModal images={images} />
+
+      <PropertyFig src={images?.[0]} onClick={onGoToGallery} />
 
       <Stack width="32%" gap="22px">
-        <ThumbnailFig src={images[1]} />
+        <ThumbnailFig src={images?.[1]} onClick={onGoToGallery} />
 
-        <ThumbnailFig src={images[2]}>
+        <ThumbnailFig src={images?.[2]} onClick={onGoToGallery}>
           <Box
             position="absolute"
             display="flex"
@@ -35,14 +49,16 @@ const PropertyView: React.FC = () => {
 
 export default PropertyView;
 
-function PropertyFig({ src }: { src: string }) {
+function PropertyFig({ src, onClick }: { src: string; onClick: () => void }) {
   return (
     <figure
+      onClick={onClick}
       style={{
         width: "68%",
         height: "100%",
         borderRadius: "10px",
         overflow: "hidden",
+        cursor: "pointer",
       }}
     >
       <img
@@ -60,19 +76,23 @@ function PropertyFig({ src }: { src: string }) {
 
 function ThumbnailFig({
   src,
+  onClick,
   children,
 }: {
   src: string;
+  onClick: () => void;
   children?: React.ReactNode;
 }) {
   return (
     <figure
+      onClick={onClick}
       style={{
         flex: 1,
         width: "100%",
         position: "relative",
         borderRadius: "10px",
         overflow: "hidden",
+        cursor: "pointer",
       }}
     >
       {children}

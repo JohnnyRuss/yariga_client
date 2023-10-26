@@ -16,10 +16,15 @@ const PropertyPage: React.FC = () => {
   const { propertyId } = useParams();
 
   useEffect(() => {
+    dispatch(propertiesActions.getAllRoomTypes());
+  }, []);
+
+  useEffect(() => {
     if (!propertyId) return;
 
     dispatch(propertiesActions.getProperty({ propertyId }));
   }, [propertyId]);
+
   return <Property />;
 };
 

@@ -2,16 +2,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "@reduxjs/toolkit";
 
 import {
-  GetPropertyArgsT,
   PropertiesStateT,
+  GetPropertyArgsT,
   CreatePropertyArgsT,
 } from "interface/store/properties.types";
+
 import {
   PropertyT,
+  RoomTypeT,
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
 } from "interface/db/properties.types";
+
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 
 import paths from "config/paths";
@@ -24,7 +27,11 @@ const initialState: PropertiesStateT = {
 
   filterStatus: status.default(),
 
+  roomTypesStatus: status.default(),
+
   properties: [],
+
+  allRoomTypes: [],
 
   property: {
     _id: "",
@@ -156,6 +163,15 @@ const propertiesSlice = createSlice({
     ) {
       state.properties = payload;
       state.status = status.default();
+    },
+
+    getAllRoomTypes(state) {
+      state.roomTypesStatus = status.loading();
+    },
+
+    setAllRoomTypes(state, { payload }: PayloadAction<RoomTypeT[]>) {
+      state.allRoomTypes = payload;
+      state.roomTypesStatus = status.default();
     },
 
     getProperty: {

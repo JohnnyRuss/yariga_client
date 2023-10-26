@@ -4,21 +4,24 @@ import { useAppSelector } from "store/hooks";
 import { selectProperty } from "store/selectors/properties.selectors";
 
 import Rating from "./Rating";
+import { PropertyStatus } from "components/Layouts";
 import { Stack, Box, Typography } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
 
-interface PropertyDetailsHeaderT {}
-
-const PropertyDetailsHeader: React.FC<PropertyDetailsHeaderT> = (props) => {
+const PropertyDetailsHeader: React.FC = () => {
   const { title, location, propertyType, price, propertyStatus } =
     useAppSelector(selectProperty);
 
   return (
     <Stack direction="row" justifyContent="space-between">
       <Stack gap="9px">
-        <Typography textTransform="capitalize" fontSize={18} fontWeight={500}>
-          {propertyType.label}
-        </Typography>
+        <Stack direction="row" alignItems="center" gap="15px">
+          <Typography textTransform="capitalize" fontSize={18} fontWeight={500}>
+            {propertyType.label}
+          </Typography>
+
+          <PropertyStatus status={propertyStatus} />
+        </Stack>
 
         <Typography fontSize={22} fontWeight={500} textTransform="capitalize">
           {title}

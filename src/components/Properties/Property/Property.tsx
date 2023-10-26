@@ -23,6 +23,8 @@ const Property: React.FC = () => {
 
             <UI.PropertyDetailsHeader />
 
+            <UI.PropertyRooms />
+
             <UI.PropertyFacilities />
 
             <UI.PropertyDescription />

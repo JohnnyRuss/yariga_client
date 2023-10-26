@@ -14,10 +14,12 @@ import { LoadingStatusT } from "./common.types";
 export interface PropertiesStateT {
   status: LoadingStatusT;
   filterStatus: LoadingStatusT;
+  roomTypesStatus: LoadingStatusT;
   suggestions: PropertySuggestionsT;
   filter: PropertyFilterT;
   properties: Array<PropertyShortInfoT>;
   property: PropertyT;
+  allRoomTypes: RoomTypeT[];
 }
 
 export interface CommonFilterT {

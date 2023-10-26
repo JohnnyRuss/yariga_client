@@ -20,6 +20,10 @@ export async function getAllPropertiesQuery() {
   return axiosPrivateQuery.get(`/properties`);
 }
 
+export async function getAllRoomTypesQuery() {
+  return axiosPrivateQuery.get(`/properties/rooms`);
+}
+
 export async function getPropertyQuery(data: GetPropertyArgsT) {
   return axiosPrivateQuery.get(`/properties/${data.propertyId}`);
 }

@@ -6,4 +6,5 @@ export { default as PropertyDescription } from "./PropertyDescription";
 export { default as PropertyDetailsHeader } from "./PropertyDetailsHeader";
 export { default as PropertyFacilities } from "./PropertyFacilities";
 export { default as PropertyMain } from "./PropertyMain";
+export { default as PropertyRooms } from "./PropertyRooms";
 export { default as PropertyView } from "./PropertyView";
