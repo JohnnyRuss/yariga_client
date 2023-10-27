@@ -15,6 +15,7 @@ interface SliderMainViewT {
   FreeMode: SwiperModuleT;
   Navigation: SwiperModuleT;
   initialSlide?: number;
+  onSlideChange?: (data: SwiperClass) => void;
 }
 
 const SliderMainView: React.FC<SliderMainViewT> = ({
@@ -23,6 +24,7 @@ const SliderMainView: React.FC<SliderMainViewT> = ({
   FreeMode,
   Navigation,
   thumbsSwiper,
+  onSlideChange,
   initialSlide = 0,
 }) => {
   return (
@@ -34,6 +36,7 @@ const SliderMainView: React.FC<SliderMainViewT> = ({
         navigation={true}
         className="app-swiper__main"
         initialSlide={initialSlide}
+        onSlideChange={onSlideChange ?? undefined}
       >
         {images.map((image) => (
           <SwiperSlide key={nanoid()}>

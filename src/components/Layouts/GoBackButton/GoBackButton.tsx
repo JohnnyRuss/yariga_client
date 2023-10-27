@@ -3,15 +3,17 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "@mui/material";
 import { ArrowBackIos } from "@mui/icons-material";
+import SectionTitle from "../SectionTitle/SectionTitle";
 
 interface GoBackButtonT {
   children?: React.ReactNode;
+  path?: string;
 }
 
-const GoBackButton: React.FC<GoBackButtonT> = ({ children }) => {
+const GoBackButton: React.FC<GoBackButtonT> = ({ children, path }) => {
   const navigate = useNavigate();
 
-  const onBack = () => navigate(-1);
+  const onBack = () => (path ? navigate(path) : navigate(-1));
 
   return (
     <Button
@@ -21,14 +23,15 @@ const GoBackButton: React.FC<GoBackButtonT> = ({ children }) => {
         fontSize: "22px",
         display: "flex",
         alignItems: "center",
-        gap: "15px",
         fontWeight: 600,
         color: "app_text.dark",
+        lineHeight: 1,
+        textTransform: "none",
       }}
     >
       <ArrowBackIos />
 
-      {children}
+      <SectionTitle title={children as string} />
     </Button>
   );
 };

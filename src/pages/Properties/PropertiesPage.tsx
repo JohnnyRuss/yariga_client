@@ -16,6 +16,11 @@ const PropertiesPage: React.FC = () => {
   useEffect(() => {
     dispatch(propertiesActions.getAllProperties({}));
     dispatch(propertiesActions.getPropertyFilter());
+
+    return () => {
+      dispatch(propertiesActions.cleanUpAllProperties());
+      dispatch(propertiesActions.cleanUpFilter());
+    };
   }, []);
 
   return (

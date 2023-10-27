@@ -14,8 +14,12 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
   property,
 }) => {
   return (
-    <Link to={`/properties/${property._id}`}>
-      <MuiStyled.CardHorizontal elevation={2}>
+    <Link
+      to={`/properties/${property._id}`}
+      style={{ flex: 1, flexBasis: "400px", maxWidth: "520px" }}
+      className="app__card"
+    >
+      <MuiStyled.CardHorizontal >
         <CardMedia
           component="img"
           src={property.images[0]}

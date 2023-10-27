@@ -103,6 +103,10 @@ const propertiesSlice = createSlice({
       state.status = status.default();
     },
 
+    cleanUpPropertySuggestions(state) {
+      state.suggestions = initialState.suggestions;
+    },
+
     createProperty: {
       prepare: (payload: CreatePropertyFormT) => {
         return { payload: prepareDataForDB(payload) };
@@ -147,6 +151,10 @@ const propertiesSlice = createSlice({
       state.filterStatus = status.success("SUCCESS");
     },
 
+    cleanUpFilter(state) {
+      state.filter = initialState.filter;
+    },
+
     getAllProperties: {
       prepare: (payload) => {
         return { payload: {} };
@@ -165,6 +173,10 @@ const propertiesSlice = createSlice({
       state.status = status.default();
     },
 
+    cleanUpAllProperties(state) {
+      state.properties = initialState.properties;
+    },
+
     getAllRoomTypes(state) {
       state.roomTypesStatus = status.loading();
     },
@@ -172,6 +184,10 @@ const propertiesSlice = createSlice({
     setAllRoomTypes(state, { payload }: PayloadAction<RoomTypeT[]>) {
       state.allRoomTypes = payload;
       state.roomTypesStatus = status.default();
+    },
+
+    cleanUpRoomTypes(state) {
+      state.allRoomTypes = initialState.allRoomTypes;
     },
 
     getProperty: {
@@ -189,6 +205,10 @@ const propertiesSlice = createSlice({
     setProperty(state, { payload }: PayloadAction<PropertyT>) {
       state.property = payload;
       state.status = status.default();
+    },
+
+    cleanUpProperty(state) {
+      state.property = initialState.property;
     },
   },
 });

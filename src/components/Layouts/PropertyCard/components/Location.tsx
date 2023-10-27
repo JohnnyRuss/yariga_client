@@ -12,7 +12,12 @@ const Location: React.FC<LocationT> = ({ location }) => {
     <Stack direction="row" gap={0.5} alignItems="flex-start">
       <Place sx={{ fontSize: 18, color: "app_text.dark" }} />
 
-      <Typography fontSize={14} color="app_text.main">
+      <Typography
+        fontSize={14}
+        color="app_text.main"
+        className="line-clamp-1"
+        title={location}
+      >
         {location}
       </Typography>
     </Stack>

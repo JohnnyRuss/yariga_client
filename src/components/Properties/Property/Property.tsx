@@ -1,44 +1,41 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
+import paths from "config/paths";
 import { selectPropertiesStatus } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";
 import { Stack } from "@mui/material";
-import { Spinner, ContentBox, GoBackButton } from "components/Layouts";
+import { ContentBox, GoBackButton } from "components/Layouts";
 
 const Property: React.FC = () => {
   const status = useAppSelector(selectPropertiesStatus);
 
   return (
     <ContentBox>
-      <GoBackButton>Details</GoBackButton>
+      <GoBackButton path={paths.properties_page}>Property Details</GoBackButton>
 
-      {status.loading && <Spinner />}
+      <Stack direction="row" gap={4} className="content__box">
+        <UI.PropertyMain>
+          <UI.PropertyView loading={status.loading} />
 
-      {!status.loading && (
-        <Stack direction="row" gap={4}>
-          <UI.PropertyMain>
-            <UI.PropertyView />
+          <UI.PropertyDetailsHeader loading={status.loading} />
 
-            <UI.PropertyDetailsHeader />
+          <UI.PropertyRooms loading={status.loading} />
 
-            <UI.PropertyRooms />
+          <UI.PropertyFacilities loading={status.loading} />
 
-            <UI.PropertyFacilities />
+          <UI.PropertyDescription loading={status.loading} />
+        </UI.PropertyMain>
 
-            <UI.PropertyDescription />
-          </UI.PropertyMain>
+        <UI.PropertyAside>
+          <UI.Agent loading={status.loading} />
 
-          <UI.PropertyAside>
-            <UI.Agent />
+          <UI.Map loading={status.loading} />
 
-            <UI.Map />
-
-            <UI.BookButton />
-          </UI.PropertyAside>
-        </Stack>
-      )}
+          <UI.BookButton loading={status.loading} />
+        </UI.PropertyAside>
+      </Stack>
     </ContentBox>
   );
 };

@@ -1,2 +1,2 @@
-export { default as AgentCard } from "./AgentCard";
-export { default as TopAgent } from "./TopAgent";
+export { default as Agents } from "./Agents";
+export { default as Agent } from "./Agent";

@@ -8,11 +8,11 @@ import "leaflet/dist/leaflet.css";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import { Paper, Button } from "@mui/material";
 import { LocationIcon } from "assets/icons";
 import { GpsFixed } from "@mui/icons-material";
+import { Paper, Button, Skeleton } from "@mui/material";
 
-const Map: React.FC = () => {
+const Map: React.FC<{ loading: boolean }> = ({ loading }) => {
   const { location } = useAppSelector(selectProperty);
 
   const mapRef = useRef<L.Map | null>(null);
@@ -23,7 +23,22 @@ const Map: React.FC = () => {
     mapRef.current.setView([+location.lat, +location.lon], 17);
   };
 
-  return (
+  return loading ? (
+    <Paper
+      elevation={2}
+      sx={{
+        minHeight: "320px",
+        maxHeight: "320px",
+        width: "100%",
+        borderRadius: "10px",
+        overflow: "hidden",
+        border: "1px solid",
+        borderColor: "app_text.contrastText",
+      }}
+    >
+      <Skeleton variant="rectangular" width="100%" height="100%" />
+    </Paper>
+  ) : (
     <Paper
       elevation={2}
       sx={{

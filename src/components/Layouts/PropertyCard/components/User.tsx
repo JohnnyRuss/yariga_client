@@ -9,15 +9,29 @@ interface UserT {
 
 const User: React.FC<UserT> = ({ owner }) => {
   return (
-    <Stack direction="row" gap={1} py={1}>
+    <Stack
+      direction="row"
+      gap={1}
+      justifyContent="flex-start"
+      flexWrap="wrap"
+      width="100%"
+    >
       <Avatar
         src={owner.avatar}
         alt={owner.username}
-        sx={{ width: 32, height: 32 }}
+        sizes="30px 30px"
+        imgProps={{
+          style: {
+            minWidth: "100%",
+            height: "100%",
+            objectFit: "cover",
+          },
+        }}
       >
         {owner.username[0].toUpperCase()}
       </Avatar>
-      <Stack>
+
+      <Stack width="max-content">
         <Typography textTransform="capitalize" fontWeight={600}>
           {owner.username}
         </Typography>

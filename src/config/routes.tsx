@@ -73,6 +73,11 @@ export const routes: RouteT[] = [
     element: <Pages.AgentsPage />,
   },
   {
+    name: "agent-page",
+    path: paths.agent_page,
+    element: <Pages.AgentPage />,
+  },
+  {
     name: "reviews-page",
     path: paths.reviews_page,
     element: <Pages.ReviewsPage />,

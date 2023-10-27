@@ -12,7 +12,9 @@ const Title: React.FC<TitleT> = ({ title }) => {
       fontSize={16}
       fontWeight={600}
       color="app_text.dark"
-      sx={{ "&:first-letter": { textTransform: "capitalize" } }}
+      className="line-clamp-1"
+      title={title}
+      textTransform="capitalize"
     >
       {title}
     </Typography>

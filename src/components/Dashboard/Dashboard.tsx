@@ -1,23 +1,17 @@
 import React from "react";
 
-// import { TopAgent } from "components/Agent";
 import {
-  // PropertyCard,
-  ContentBox,
-} from "components/Layouts";
-import {
-  PropertyReferrals,
   TotalRevenue,
+  PropertyReferrals,
 } from "components/Dashboard/components";
+import { Stack } from "@mui/material";
 import PieCharts from "./components/PieCharts";
-import { Typography, Stack } from "@mui/material";
+import { ContentBox, SectionTitle } from "components/Layouts";
 
 const Dashboard: React.FC = () => {
   return (
     <ContentBox>
-      <Typography fontSize={25} fontWeight={700} color="app_text.dark">
-        Dashboard
-      </Typography>
+      <SectionTitle title="Dashboard" />
 
       <PieCharts />
 

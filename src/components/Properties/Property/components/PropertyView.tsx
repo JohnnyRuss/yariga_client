@@ -4,10 +4,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import { Box, Stack, Typography } from "@mui/material";
 import { SliderModal } from "components/Layouts";
+import PropertyViewMain from "./PropertyViewMain";
+import PropertyViewThumb from "./PropertyViewThumb";
+import { Box, Stack, Typography, Skeleton } from "@mui/material";
 
-const PropertyView: React.FC = () => {
+const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
   const navigate = useNavigate();
   const { search } = useLocation();
 
@@ -15,21 +17,49 @@ const PropertyView: React.FC = () => {
 
   const searchParams = new URLSearchParams(search);
 
+  const activeTab = searchParams.get("active-tab") || "";
+  const isActiveModal = activeTab === "gallery";
+
   const onGoToGallery = () => {
     searchParams.set("active-tab", "gallery");
     navigate(`?${searchParams.toString()}`);
   };
 
-  return (
+  return loading ? (
     <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
-      <SliderModal images={images} />
+      <Skeleton
+        variant="rectangular"
+        width="70%"
+        height="100%"
+        sx={{ borderRadius: "10px" }}
+      />
 
-      <PropertyFig src={images?.[0]} onClick={onGoToGallery} />
+      <Stack width="30%" gap="22px">
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height="100%"
+          sx={{ borderRadius: "10px" }}
+        />
 
-      <Stack width="32%" gap="22px">
-        <ThumbnailFig src={images?.[1]} onClick={onGoToGallery} />
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height="100%"
+          sx={{ borderRadius: "10px" }}
+        />
+      </Stack>
+    </Stack>
+  ) : (
+    <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
+      {isActiveModal && <SliderModal images={images} />}
 
-        <ThumbnailFig src={images?.[2]} onClick={onGoToGallery}>
+      <PropertyViewMain src={images?.[0]} onClick={onGoToGallery} />
+
+      <Stack width="30%" gap="22px">
+        <PropertyViewThumb src={images?.[1]} onClick={onGoToGallery} />
+
+        <PropertyViewThumb src={images?.[2]} onClick={onGoToGallery}>
           <Box
             position="absolute"
             display="flex"
@@ -41,71 +71,10 @@ const PropertyView: React.FC = () => {
               +{images.length - 3}
             </Typography>
           </Box>
-        </ThumbnailFig>
+        </PropertyViewThumb>
       </Stack>
     </Stack>
   );
 };
 
 export default PropertyView;
-
-function PropertyFig({ src, onClick }: { src: string; onClick: () => void }) {
-  return (
-    <figure
-      onClick={onClick}
-      style={{
-        width: "68%",
-        height: "100%",
-        borderRadius: "10px",
-        overflow: "hidden",
-        cursor: "pointer",
-      }}
-    >
-      <img
-        src={src}
-        alt="property"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-      />
-    </figure>
-  );
-}
-
-function ThumbnailFig({
-  src,
-  onClick,
-  children,
-}: {
-  src: string;
-  onClick: () => void;
-  children?: React.ReactNode;
-}) {
-  return (
-    <figure
-      onClick={onClick}
-      style={{
-        flex: 1,
-        width: "100%",
-        position: "relative",
-        borderRadius: "10px",
-        overflow: "hidden",
-        cursor: "pointer",
-      }}
-    >
-      {children}
-      <img
-        src={src}
-        alt="property thumbnail"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
-      />
-    </figure>
-  );
-}

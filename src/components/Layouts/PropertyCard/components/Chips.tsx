@@ -14,7 +14,7 @@ const Chips: React.FC<ChipsT> = ({ addressType, propertyType }) => {
         label={addressType}
         variant="outlined"
         color="success"
-        sx={{ flex: 1, textTransform: "capitalize" }}
+        sx={{ flex: 1, textTransform: "capitalize", height: "25px" }}
         title="Address type"
       />
 
@@ -22,7 +22,7 @@ const Chips: React.FC<ChipsT> = ({ addressType, propertyType }) => {
         label={propertyType}
         variant="outlined"
         color="success"
-        sx={{ flex: 1, textTransform: "capitalize" }}
+        sx={{ flex: 1, textTransform: "capitalize", height: "25px" }}
         title="Property type"
       />
     </Stack>

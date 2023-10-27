@@ -26,7 +26,9 @@ export const CreatePropertyPage = lazy(
 
 export const PropertyPage = lazy(() => import("./Properties/PropertyPage"));
 
-export const AgentsPage = lazy(() => import("./AgentsPage/AgentsPage"));
+export const AgentsPage = lazy(() => import("./Agents/AgentsPage"));
+
+export const AgentPage = lazy(() => import("./Agents/AgentPage"));
 
 export const ReviewsPage = lazy(() => import("./ReviewsPage/ReviewsPage"));
 

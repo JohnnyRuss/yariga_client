@@ -14,6 +14,10 @@ const CreatePropertyPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(propertiesActions.getPropertyFormSuggestions());
+
+    return () => {
+      dispatch(propertiesActions.cleanUpPropertySuggestions());
+    };
   }, []);
 
   return <CreateProperty />;

@@ -1,11 +1,13 @@
 import React from "react";
 
+import Messages from "components/Messages/Messages";
+
 import { RouterHistory } from "config/config";
 
 RouterHistory.redirectUnAuthorized();
 
 const MessagesPage: React.FC = () => {
-  return <div>MessagesPage</div>;
+  return <Messages />;
 };
 
 export default MessagesPage;

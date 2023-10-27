@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Gallery from "./Gallery";
 import SliderView from "./SliderView";
 import { Modal } from "components/Layouts";
-import { Typography, Box, Stack, Button } from "@mui/material";
 import { ArrowBackIos } from "@mui/icons-material";
+import { Typography, Box, Stack, Button } from "@mui/material";
 
 interface SliderModalT {
   images: string[];
@@ -16,31 +16,27 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
   const navigate = useNavigate();
   const { search } = useLocation();
 
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number | undefined>(
+    undefined
+  );
+
   const searchParams = new URLSearchParams(search);
 
-  const activeTab = searchParams.get("active-tab");
-  const activeViewIndex = searchParams.get("view-index");
+  const activeTabParam = searchParams.get("active-tab");
+  const isActiveTab = activeTabParam === "gallery";
 
-  const onActivateSlider = (index: number) => {
-    searchParams.set("active-tab", "view");
-    searchParams.set("view-index", index.toString());
-    navigate(`?${searchParams.toString()}`);
-  };
+  const onActivateSlider = (index: number) => setActiveSlideIndex(index);
 
-  const onBackToGallery = () => {
-    searchParams.set("active-tab", "gallery");
-    searchParams.delete("view-index");
-    navigate(`?${searchParams.toString()}`);
-  };
+  const onBackToGallery = () => setActiveSlideIndex(undefined);
 
   const onClose = () => {
-    searchParams.delete("view-index");
     searchParams.delete("active-tab");
+    setActiveSlideIndex(undefined);
     navigate(`?${searchParams.toString()}`);
   };
 
   return (
-    <Modal open={activeTab ? true : false} onClose={onClose}>
+    <Modal open={isActiveTab} onClose={onClose}>
       <Box
         sx={{
           padding: 2,
@@ -49,7 +45,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
         }}
       >
         <Stack direction="row" gap="15px" alignItems="center" pb={1}>
-          {activeTab === "view" && (
+          {activeSlideIndex && (
             <Button variant="text" onClick={onBackToGallery}>
               <ArrowBackIos sx={{ fontSize: "28px" }} />
             </Button>
@@ -60,15 +56,12 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
           </Typography>
         </Stack>
 
-        {activeTab === "gallery" && (
+        {!activeSlideIndex && (
           <Gallery images={images} onActivateSlider={onActivateSlider} />
         )}
 
-        {activeTab === "view" && (
-          <SliderView
-            images={images}
-            initialSlide={activeViewIndex ? +activeViewIndex : 0}
-          />
+        {activeSlideIndex && (
+          <SliderView images={images} initialSlide={activeSlideIndex} />
         )}
       </Box>
     </Modal>

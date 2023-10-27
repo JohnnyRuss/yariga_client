@@ -16,9 +16,14 @@ import SliderMainView from "./SliderMainView";
 interface SliderT {
   images: string[];
   initialSlide?: number;
+  onSlideChange?: (data: SwiperClass) => void;
 }
 
-const Slider: React.FC<SliderT> = ({ images, initialSlide = 0 }) => {
+const Slider: React.FC<SliderT> = ({
+  images,
+  initialSlide = 0,
+  onSlideChange,
+}) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
 
   return (
@@ -30,6 +35,7 @@ const Slider: React.FC<SliderT> = ({ images, initialSlide = 0 }) => {
         Navigation={Navigation}
         thumbsSwiper={thumbsSwiper}
         initialSlide={initialSlide}
+        onSlideChange={onSlideChange}
       />
 
       <SliderThumbnails
@@ -39,6 +45,7 @@ const Slider: React.FC<SliderT> = ({ images, initialSlide = 0 }) => {
         Navigation={Navigation}
         setThumbsSwiper={setThumbsSwiper}
         initialSlide={initialSlide}
+        onSlideChange={onSlideChange}
       />
     </Stack>
   );

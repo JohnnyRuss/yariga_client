@@ -11,6 +11,7 @@ const paths = {
   create_property_page: "/properties/create",
   property_page: "/properties/:propertyId",
   agents_page: "/agents",
+  agent_page: "/agents/:agentId",
   reviews_page: "/reviews",
   messages_page: "/messages",
   user_profile_page: "/user/:userId",

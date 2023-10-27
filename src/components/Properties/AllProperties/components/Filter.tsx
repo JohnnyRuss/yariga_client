@@ -1,18 +1,25 @@
 import React from "react";
+import { nanoid } from "@reduxjs/toolkit";
 
 import { useAppSelector } from "store/hooks";
 import { selectPropertyFilter } from "store/selectors/properties.selectors";
 import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
 
+import {
+  Stack,
+  TextField,
+  InputAdornment,
+  MenuItem,
+  Skeleton,
+} from "@mui/material";
+import { Search } from "@mui/icons-material";
 import MoreFilterBody from "./MoreFilterBody";
 import MoreFilterButton from "./MoreFilterButton";
 import * as Form from "components/Layouts/Form";
-import { Search } from "@mui/icons-material";
-import { Stack, TextField, InputAdornment, MenuItem } from "@mui/material";
 
 const menuItemStyles = { "&:hover": { background: "transparent" } };
 
-const Filter: React.FC = () => {
+const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
   const filter = useAppSelector(selectPropertyFilter);
 
   const {
@@ -22,8 +29,26 @@ const Filter: React.FC = () => {
     searchParams,
   } = usePropertyFilterContext();
 
-  return (
-    <Stack direction="row" flexWrap="wrap" gap={3} mb={2} mt={4}>
+  return loading ? (
+    <Stack direction="row" flexWrap="wrap" gap={3}>
+      {Array.from(new Array(5)).map(() => (
+        <Skeleton
+          key={nanoid()}
+          variant="rectangular"
+          height="60px"
+          sx={{ flex: 1, borderRadius: "5px" }}
+        />
+      ))}
+
+      <Skeleton
+        variant="rectangular"
+        height="60px"
+        width="130px"
+        sx={{ borderRadius: "5px" }}
+      />
+    </Stack>
+  ) : (
+    <Stack direction="row" flexWrap="wrap" gap={3}>
       <TextField
         name="search"
         value={searchParams.search}

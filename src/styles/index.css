@@ -62,24 +62,46 @@ a {
 
 /* UTILITY CLASSES */
 
+.content__box {
+  background: var(--app-bg-main);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 27px;
+}
+
 .underline {
   text-decoration: underline !important;
 }
 
-.auth_gradient {
-  margin: 0 !important;
-  height: 100vh;
-  background: rgb(10, 153, 233);
-  background: radial-gradient(
-    circle,
-    rgba(10, 153, 233, 0.6418942577030813) 0%,
-    rgba(48, 98, 190, 0.8015581232492998) 50%,
-    rgba(11, 98, 203, 1) 100%
-  );
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.app__card {
+  display: inline-flex;
+  padding: 8px;
+  height: fit-content;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: rgba(176, 176, 176, 0.3);
+  transition: all 0.2s ease;
+}
+
+.app__card:hover {
+  box-shadow: 10px 15px 25px rgba(176, 176, 176, 0.2);
+  transform: translateY(-10px);
 }
 
 input[type="number"]::-webkit-inner-spin-button {
   display: none;
+}
+
+.custom_scrollbar {
+  overflow-y: auto;
 }
 
 body::-webkit-scrollbar,

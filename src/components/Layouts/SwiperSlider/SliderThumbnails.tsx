@@ -15,6 +15,7 @@ interface SliderThumbnailsT {
   Thumbs: SwiperModuleT;
   FreeMode: SwiperModuleT;
   initialSlide?: number;
+  onSlideChange?: (data: SwiperClass) => void;
 }
 
 const SliderThumbnails: React.FC<SliderThumbnailsT> = ({
@@ -22,6 +23,7 @@ const SliderThumbnails: React.FC<SliderThumbnailsT> = ({
   Thumbs,
   FreeMode,
   Navigation,
+  onSlideChange,
   setThumbsSwiper,
   initialSlide = 0,
 }) => {
@@ -36,6 +38,7 @@ const SliderThumbnails: React.FC<SliderThumbnailsT> = ({
         modules={[Thumbs, Navigation, FreeMode]}
         className="app-swiper__thumbnails"
         initialSlide={initialSlide}
+        onSlideChange={onSlideChange ?? undefined}
       >
         {images.map((image) => (
           <SwiperSlide key={nanoid()}>
