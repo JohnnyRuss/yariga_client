@@ -1,14 +1,25 @@
 import React from "react";
+import { useAppSelector } from "store/hooks";
 
-import { PIE_CHARTS } from "config/constants";
+import { selectAgentDetails } from "store/selectors/agent.selectors";
+
 import { Box, Typography, Divider, Stack } from "@mui/material";
-import { PieChart } from "components/Dashboard/components";
+import AgentDetailsListedItem from "./AgentDetailsListedItem";
+import AgentDetailsSkeleton from "./AgentDetailsSkeleton";
+import AgentDetailsPieCharts from "./AgentDetailsPieCharts";
 
-interface AgentDetailsT {}
+interface AgentDetailsT {
+  loading: boolean;
+}
 
-const AgentDetails: React.FC<AgentDetailsT> = () => {
-  return (
+const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
+  const details = useAppSelector(selectAgentDetails);
+
+  return loading ? (
+    <AgentDetailsSkeleton />
+  ) : (
     <Box
+      boxShadow={3}
       sx={{
         backgroundColor: "app_bg.main",
         borderRadius: "10px",
@@ -23,64 +34,23 @@ const AgentDetails: React.FC<AgentDetailsT> = () => {
       <Divider />
 
       <Typography color="app_text.main" mt="20px">
-        Talent customers tend to earn a basic salary in the range of £15,000 to
-        £35,000 per annum. However, talented customers also earn a commission
-        for finding their client's work. Typically, agents receive around 10% of
-        what the client is paid.
+        {details.bio}
       </Typography>
 
       <Stack gap="10px" mt="30px" pb="25px">
-        <Stack direction="row" alignItems="center">
-          <Box>✔</Box>
-          <Typography ml="15px" width="150px" fontSize={14}>
-            Agency
-          </Typography>
-          <Typography component="span" fontSize={14}>
-            :
-          </Typography>
-          <Typography ml="30px" fontSize={14} color="app_text.main">
-            All American Real Estate
-          </Typography>
-        </Stack>
+        <AgentDetailsListedItem label="Agency" value={details.agency.title} />
 
-        <Stack direction="row" alignItems="center">
-          <Box>✔</Box>
-          <Typography ml="15px" width="150px" fontSize={14}>
-            Agent License
-          </Typography>
-          <Typography component="span" fontSize={14}>
-            :
-          </Typography>
-          <Typography ml="30px" fontSize={14} color="app_text.main">
-            3124 9764 9700 234
-          </Typography>
-        </Stack>
+        <AgentDetailsListedItem
+          label="Agent License"
+          value={details.agency.agencyLicense}
+        />
 
-        <Stack direction="row" alignItems="center">
-          <Box>✔</Box>
-          <Typography ml="15px" width="150px" fontSize={14}>
-            Tax Number
-          </Typography>
-          <Typography component="span" fontSize={14}>
-            :
-          </Typography>
-          <Typography ml="30px" fontSize={14} color="app_text.main">
-            TX 87D0 678H PQ45
-          </Typography>
-        </Stack>
+        <AgentDetailsListedItem label="Tax Number" value={details.taxNumber} />
 
-        <Stack direction="row" alignItems="center">
-          <Box>✔</Box>
-          <Typography ml="15px" width="150px" fontSize={14}>
-            Service area
-          </Typography>
-          <Typography component="span" fontSize={14}>
-            :
-          </Typography>
-          <Typography ml="30px" fontSize={14} color="app_text.main">
-            Chicago, Los Angeles, New York, Miami beach
-          </Typography>
-        </Stack>
+        <AgentDetailsListedItem
+          label="Service Area"
+          value={details.serviceArea}
+        />
       </Stack>
 
       <Divider />
@@ -89,17 +59,7 @@ const AgentDetails: React.FC<AgentDetailsT> = () => {
         Agent Status
       </Typography>
 
-      <Box display="flex" flexWrap="wrap" gap={4}>
-        {PIE_CHARTS.map((chart) => (
-          <PieChart
-            key={chart.id}
-            title={chart.title}
-            value={chart.value}
-            series={chart.series}
-            colors={chart.colors}
-          />
-        ))}
-      </Box>
+      <AgentDetailsPieCharts />
     </Box>
   );
 };

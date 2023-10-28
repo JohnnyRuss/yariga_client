@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 
 import authReducer from "./auth.reducer";
 import propertiesReducer from "./properties.reducer";
+import agentReducer from "./agent.reducer";
 
 const persistedAuthReducer = persistReducer(
   {
@@ -17,6 +18,7 @@ const persistedAuthReducer = persistReducer(
 const rootReducer = combineReducers({
   auth: persistedAuthReducer,
   properties: propertiesReducer,
+  agent: agentReducer,
 });
 
 export default rootReducer;

@@ -20,18 +20,27 @@ import {
 } from "@mui/icons-material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
-interface AgentCardT {}
+import { AgentShortInfoT } from "interface/db/agent.types";
 
-const AgentCard: React.FC<AgentCardT> = () => {
+interface AgentCardT {
+  agent: AgentShortInfoT;
+}
+
+const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
   const onOptions = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
   return (
-    <Link to="/agents/123" className="app__card">
+    <Link
+      to={`/agents/${agent._id}`}
+      className="app__card"
+      style={{ width: "100%" }}
+    >
       <Card
         sx={{
+          width: "100%",
           display: "flex",
           flexDirection: "row",
           maxHeight: "230px",
@@ -54,10 +63,17 @@ const AgentCard: React.FC<AgentCardT> = () => {
 
         <CardMedia
           component="figure"
-          sx={{ width: "30%", borderRadius: "10px", overflow: "hidden" }}
+          sx={{
+            width: "35%",
+            height: "200px",
+            borderRadius: "10px",
+            overflow: "hidden",
+            border: "1px solid rgba(176, 176, 176, 0.3)",
+          }}
         >
           <img
-            src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1283"
+            src={agent.avatar}
+            alt={agent.avatar}
             style={{
               width: "100%",
               height: "100%",
@@ -71,7 +87,7 @@ const AgentCard: React.FC<AgentCardT> = () => {
           <Stack width="100%" height="100%" justifyContent="space-between">
             <Box>
               <Typography fontSize={22} fontWeight={600}>
-                Karen Eilla Boyette
+                {agent.username}
               </Typography>
 
               <CommonTypography label="Agent" />
@@ -79,15 +95,21 @@ const AgentCard: React.FC<AgentCardT> = () => {
 
             <Stack direction="row" justifyContent="space-between">
               <Stack gap={1}>
-                <CommonTypography label="email@io.com" Icon={Email} />
+                <CommonTypography label={agent.email} Icon={Email} />
 
-                <CommonTypography label="+995-555-700-700" Icon={Phone} />
+                <CommonTypography label={agent.phone} Icon={Phone} />
               </Stack>
 
               <Stack alignItems="flex-end" gap={1}>
-                <CommonTypography label="Manchester" Icon={LocationOn} />
+                <CommonTypography
+                  label={agent.location.city}
+                  Icon={LocationOn}
+                />
 
-                <CommonTypography label="15 Properties" Icon={HomeWork} />
+                <CommonTypography
+                  label={agent.listing.length.toString()}
+                  Icon={HomeWork}
+                />
               </Stack>
             </Stack>
           </Stack>

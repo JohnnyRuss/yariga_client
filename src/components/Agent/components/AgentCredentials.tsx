@@ -1,12 +1,33 @@
 import React from "react";
+import { useAppSelector } from "store/hooks";
+
+import { selectAgentCredentials } from "store/selectors/agent.selectors";
 
 import { Box, Stack, Avatar, Typography } from "@mui/material";
+import AgentCredentialsSkeleton from "./AgentCredentialsSkeleton";
 
-interface AgentCredentialsT {}
+interface AgentCredentialsT {
+  loading: boolean;
+}
 
-const AgentCredentials: React.FC<AgentCredentialsT> = () => {
-  return (
+const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
+  const agent = useAppSelector(selectAgentCredentials);
+
+  const calcAge = (date: string): number => {
+    const dateToFormat = new Date(date);
+
+    return Math.abs(
+      new Date(Date.now() - dateToFormat.getTime()).getFullYear() - 1970
+    );
+  };
+
+  const age = calcAge(agent.birthDate);
+
+  return loading ? (
+    <AgentCredentialsSkeleton />
+  ) : (
     <Box
+      boxShadow={3}
       sx={{
         overflow: "hidden",
         borderRadius: "10px",
@@ -30,13 +51,10 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
         gap="30px"
       >
         <Stack direction="row" gap={2}>
-          <Avatar
-            sx={{ width: "100px", height: "100px" }}
-            src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1283"
-          />
+          <Avatar sx={{ width: "100px", height: "100px" }} src={agent.avatar} />
 
           <Box mt="50px">
-            <Typography fontWeight={600}>John Russ</Typography>
+            <Typography fontWeight={600}>{agent.username}</Typography>
 
             <Typography fontSize={14} color="app_text.main">
               Agent
@@ -51,7 +69,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              26
+              {age}
             </Typography>
           </Stack>
 
@@ -61,19 +79,21 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              New York City
+              {agent.location.city}
             </Typography>
           </Stack>
 
-          <Stack direction="row">
-            <Typography width="25%" color="app_text.main" fontSize={14}>
-              State:
-            </Typography>
+          {agent.location.state && (
+            <Stack direction="row">
+              <Typography width="25%" color="app_text.main" fontSize={14}>
+                State:
+              </Typography>
 
-            <Typography width="75%" fontSize={14} fontWeight={600}>
-              New York
-            </Typography>
-          </Stack>
+              <Typography width="75%" fontSize={14} fontWeight={600}>
+                {agent.location.state}
+              </Typography>
+            </Stack>
+          )}
 
           <Stack direction="row">
             <Typography width="25%" color="app_text.main" fontSize={14}>
@@ -81,7 +101,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              USA
+              {agent.location.country}
             </Typography>
           </Stack>
 
@@ -91,7 +111,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              1001
+              {agent.location.postcode}
             </Typography>
           </Stack>
 
@@ -101,7 +121,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              #18457 865 8745
+              {agent.agentId}
             </Typography>
           </Stack>
 
@@ -111,7 +131,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              +021 541 236 4580
+              {agent.phone}
             </Typography>
           </Stack>
 
@@ -121,7 +141,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = () => {
             </Typography>
 
             <Typography width="75%" fontSize={14} fontWeight={600}>
-              russ@io.com
+              {agent.email}
             </Typography>
           </Stack>
         </Stack>

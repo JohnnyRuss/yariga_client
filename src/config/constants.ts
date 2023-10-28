@@ -31,7 +31,7 @@ const PROPERTY_REFERRALS_INFO = [
   },
 ];
 
-const PIE_CHARTS = [
+const DASHBOARD_PIE_CHARTS = [
   {
     id: nanoid(),
     title: "Properties for Sale",
@@ -124,8 +124,8 @@ const TOTAL_REVENUE_OPTIONS: ApexOptions = {
 
 export {
   YARIGA_JWT_KEY,
-  PROPERTY_REFERRALS_INFO,
-  PIE_CHARTS,
+  DASHBOARD_PIE_CHARTS,
   TOTAL_REVENUE_SERIES,
   TOTAL_REVENUE_OPTIONS,
+  PROPERTY_REFERRALS_INFO,
 };

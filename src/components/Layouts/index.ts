@@ -14,3 +14,4 @@ export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as SliderModal } from "./SliderModal/SliderModal";
 export { default as SVG } from "./SVG/SVG";
 export { default as SwiperSlider } from "./SwiperSlider/Slider";
+export { default as PieChart } from "./PieChart/PieChart";

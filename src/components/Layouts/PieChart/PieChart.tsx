@@ -10,24 +10,25 @@ const PieChart: React.FC<PieChartPropsT> = ({
   series,
   title,
   value,
+  mainBoxProps,
+  labelBoxProps,
 }) => {
   return (
     <Box
       id="chart"
       flex={1}
       display="flex"
-      flexDirection="row"
       justifyContent="space-between"
       alignItems="center"
-      pl={3.5}
       py={2}
       gap={2}
       borderRadius="15px"
       minHeight="110px"
       width="fit-content"
       bgcolor="app_text.light"
+      {...mainBoxProps}
     >
-      <Stack>
+      <Stack {...labelBoxProps}>
         <Typography fontSize={14} color="app_text.main">
           {title}
         </Typography>

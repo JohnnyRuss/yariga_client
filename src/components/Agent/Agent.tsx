@@ -1,4 +1,7 @@
 import React from "react";
+import { useAppSelector } from "store/hooks";
+
+import { selectAgentStatus } from "store/selectors/agent.selectors";
 
 import { Box, Grid } from "@mui/material";
 import { ContentBox, GoBackButton } from "components/Layouts";
@@ -7,6 +10,8 @@ import AgentCredentials from "./components/AgentCredentials";
 import AgentActiveListing from "./components/AgentActiveListing";
 
 const Agent: React.FC = () => {
+  const status = useAppSelector(selectAgentStatus);
+
   return (
     <ContentBox>
       <GoBackButton>Agent Details</GoBackButton>
@@ -20,11 +25,11 @@ const Agent: React.FC = () => {
           justifyContent="space-between"
         >
           <Grid item xs={3}>
-            <AgentCredentials />
+            <AgentCredentials loading={status.loading} />
           </Grid>
 
           <Grid item xs={9}>
-            <AgentDetails />
+            <AgentDetails loading={status.loading} />
           </Grid>
 
           <Grid item xs={12}>
