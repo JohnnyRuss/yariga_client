@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
-import paths from "config/paths";
+import { paths } from "config/paths";
 import { selectPropertiesStatus } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";

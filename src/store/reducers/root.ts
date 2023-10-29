@@ -3,8 +3,9 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
 import authReducer from "./auth.reducer";
-import propertiesReducer from "./properties.reducer";
 import agentReducer from "./agent.reducer";
+import usersReducer from "./users.reducer";
+import propertiesReducer from "./properties.reducer";
 
 const persistedAuthReducer = persistReducer(
   {
@@ -16,9 +17,10 @@ const persistedAuthReducer = persistReducer(
 );
 
 const rootReducer = combineReducers({
+  user: usersReducer,
+  agent: agentReducer,
   auth: persistedAuthReducer,
   properties: propertiesReducer,
-  agent: agentReducer,
 });
 
 export default rootReducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-import paths from "./paths";
+import { paths } from "./paths";
 import * as Pages from "pages/index";
 
 interface RouteT {
@@ -86,6 +86,11 @@ export const routes: RouteT[] = [
     name: "messages-page",
     path: paths.messages_page,
     element: <Pages.MessagesPage />,
+  },
+  {
+    name: "iuser-profile-page",
+    path: paths.user_iprofile_page,
+    element: <Pages.IProfilePage />,
   },
   {
     name: "user-profile-page",

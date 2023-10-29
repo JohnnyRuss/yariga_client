@@ -1,13 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { useUserPath } from "hooks/utils";
 
 import { Stack, Avatar, Typography } from "@mui/material";
 
 import { PropertyOwnerT } from "interface/db/properties.types";
+
 interface UserT {
   owner: PropertyOwnerT;
 }
 
 const User: React.FC<UserT> = ({ owner }) => {
+  const { userPath } = useUserPath(owner._id);
+
   return (
     <Stack
       direction="row"
@@ -32,9 +38,16 @@ const User: React.FC<UserT> = ({ owner }) => {
       </Avatar>
 
       <Stack width="max-content">
-        <Typography textTransform="capitalize" fontWeight={600}>
-          {owner.username}
-        </Typography>
+        <Link to={userPath}>
+          <Typography
+            textTransform="capitalize"
+            fontWeight={600}
+            sx={{ ":hover": { textDecoration: "underline" } }}
+          >
+            {owner.username}
+          </Typography>
+        </Link>
+
         <Typography fontSize={13} mt="-3px">
           {owner.email}
         </Typography>

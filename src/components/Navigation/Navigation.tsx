@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import paths from "config/paths";
+import { paths } from "config/paths";
 
 import { AppLogo } from "assets";
 import UserToolbar from "./UserToolbar";

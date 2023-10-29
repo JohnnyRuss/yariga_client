@@ -1,8 +1,9 @@
 import React from "react";
 
-import { AutocompleteRenderInputParams } from "@mui/material";
 import FormHelperText from "../FormHelperText";
 import FormTextField from "../FormTextField";
+import { LocationOn } from "@mui/icons-material";
+import { AutocompleteRenderInputParams } from "@mui/material";
 
 import {
   ReactHookFormLocationFieldPropsT,
@@ -10,10 +11,11 @@ import {
 } from "interface/components/form";
 
 interface LocationAutocompleteRenderInputT {
+  showIcon?: boolean;
+  locationSearch: string;
   params: AutocompleteRenderInputParams;
   fieldProps: ReactHookFormLocationFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
-  locationSearch: string;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
   setLocationSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -21,6 +23,7 @@ const LocationAutocompleteRenderInput: React.FC<
   LocationAutocompleteRenderInputT
 > = ({
   params,
+  showIcon,
   fieldProps,
   fieldStateProps,
   locationSearch,
@@ -29,17 +32,18 @@ const LocationAutocompleteRenderInput: React.FC<
   return (
     <>
       <FormTextField
-        autoCompleteParams={params}
         fieldProps={{
           ...fieldProps,
           value: locationSearch,
           onChange: (value) => setLocationSearch(value),
         }}
-        fieldStateProps={fieldStateProps}
         label="Location"
+        autoCompleteParams={params}
+        fieldStateProps={fieldStateProps}
+        icon={showIcon ? <LocationOn /> : null}
       />
 
-      {fieldStateProps.error && (
+      {fieldStateProps?.error && (
         <FormHelperText text="Please provide us property location" />
       )}
     </>

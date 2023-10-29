@@ -14,7 +14,17 @@ const paths = {
   agent_page: "/agents/:agentId",
   reviews_page: "/reviews",
   messages_page: "/messages",
+  user_iprofile_page: "/iuser",
   user_profile_page: "/user/:userId",
 };
 
-export default paths;
+const dynamic_paths = {
+  property_page: (propertyId: string) =>
+    paths.property_page.replace(":propertyId", propertyId),
+  agent_page: (agentId: string) =>
+    paths.agent_page.replace(":agentId", agentId),
+  profile_page: (userId: string) =>
+    paths.user_profile_page.replace(":userId", userId),
+};
+
+export { paths, dynamic_paths };

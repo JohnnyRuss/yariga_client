@@ -1,24 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import {
-  Box,
-  Card,
-  Stack,
-  Button,
-  CardMedia,
-  Typography,
-  CardContent,
-  SvgIconTypeMap,
-} from "@mui/material";
-import {
-  Email,
-  Phone,
-  LocationOn,
-  HomeWork,
-  MoreHoriz,
-} from "@mui/icons-material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { dynamic_paths } from "config/paths";
+
+import { Card } from "@mui/material";
+import AgentCardMedia from "./components/AgentCardMedia";
+import AgentMoreButton from "./components/AgentMoreButton";
+import AgentCardContent from "./components/AgentCardContent";
 
 import { AgentShortInfoT } from "interface/db/agent.types";
 
@@ -27,14 +15,9 @@ interface AgentCardT {
 }
 
 const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
-  const onOptions = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   return (
     <Link
-      to={`/agents/${agent._id}`}
+      to={dynamic_paths.agent_page(agent._id)}
       className="app__card"
       style={{ width: "100%" }}
     >
@@ -48,94 +31,20 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
           position: "relative",
         }}
       >
-        <Button
-          onClick={onOptions}
-          variant="text"
-          sx={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            color: "app_text.dark",
-          }}
-        >
-          <MoreHoriz sx={{ fontSize: "28px" }} />
-        </Button>
+        <AgentMoreButton />
 
-        <CardMedia
-          component="figure"
-          sx={{
-            width: "35%",
-            height: "200px",
-            borderRadius: "10px",
-            overflow: "hidden",
-            border: "1px solid rgba(176, 176, 176, 0.3)",
-          }}
-        >
-          <img
-            src={agent.avatar}
-            alt={agent.avatar}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "top",
-            }}
-          />
-        </CardMedia>
+        <AgentCardMedia src={agent.avatar} />
 
-        <CardContent sx={{ width: "100%" }}>
-          <Stack width="100%" height="100%" justifyContent="space-between">
-            <Box>
-              <Typography fontSize={22} fontWeight={600}>
-                {agent.username}
-              </Typography>
-
-              <CommonTypography label="Agent" />
-            </Box>
-
-            <Stack direction="row" justifyContent="space-between">
-              <Stack gap={1}>
-                <CommonTypography label={agent.email} Icon={Email} />
-
-                <CommonTypography label={agent.phone} Icon={Phone} />
-              </Stack>
-
-              <Stack alignItems="flex-end" gap={1}>
-                <CommonTypography
-                  label={agent.location.city}
-                  Icon={LocationOn}
-                />
-
-                <CommonTypography
-                  label={agent.listing.length.toString()}
-                  Icon={HomeWork}
-                />
-              </Stack>
-            </Stack>
-          </Stack>
-        </CardContent>
+        <AgentCardContent
+          email={agent.email}
+          phone={agent.phone}
+          username={agent.username}
+          city={agent.location.city}
+          listingAmount={agent.listing.length}
+        />
       </Card>
     </Link>
   );
 };
 
 export default AgentCard;
-
-function CommonTypography({
-  Icon,
-  label,
-}: {
-  label: string;
-  Icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-}) {
-  return (
-    <Typography
-      fontSize={14}
-      color="app_text.main"
-      sx={{ display: "flex", alignItems: "center", gap: 2 }}
-    >
-      {Icon && <Icon sx={{ fontSize: "18px" }} />}
-      {label}
-    </Typography>
-  );
-}

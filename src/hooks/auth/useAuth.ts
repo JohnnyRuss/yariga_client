@@ -2,15 +2,16 @@ import decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
-import paths from "config/paths";
 import { getJWT } from "utils/jwt";
+import { paths } from "config/paths";
+import { selectAuthenticatedUser } from "store/selectors/auth.selectors";
+
 import { DecodedUserT } from "interface/config/config.types";
-import { selectUser } from "store/selectors/auth.selectors";
 
 export default function useAuth() {
   const navigate = useNavigate();
 
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectAuthenticatedUser);
 
   function checkIsAuthenticatedUser(): boolean {
     let isAuthenticatedUser = false;

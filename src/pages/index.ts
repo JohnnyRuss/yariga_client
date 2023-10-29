@@ -2,6 +2,8 @@ import { lazy } from "react";
 
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));
 
+// AUTH
+
 export const SignInPage = lazy(() => import("./AuthPage/SignInPage"));
 export const SignUpPage = lazy(() => import("./AuthPage/SignUpPage"));
 export const ForgotPasswordPage = lazy(
@@ -13,6 +15,8 @@ export const ConfirmEmailPage = lazy(
 export const UpdatePasswordPage = lazy(
   () => import("./AuthPage/UpdatePasswordPage")
 );
+
+// PAGES
 
 export const DashboardPage = lazy(
   () => import("./DashboardPage/DashboardPage")
@@ -37,3 +41,5 @@ export const MessagesPage = lazy(() => import("./MessagesPage/MessagesPage"));
 export const UserProfilePage = lazy(
   () => import("./UserProfilePage/UserProfilePage")
 );
+
+export const IProfilePage = lazy(() => import("./UserProfilePage/IProfile"));

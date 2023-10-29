@@ -17,7 +17,7 @@ import {
 
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 
-import paths from "config/paths";
+import { paths } from "config/paths";
 import FileControl from "utils/FileControl";
 import { RouterHistory } from "config/config";
 import { controlStatus as status } from "./helpers";

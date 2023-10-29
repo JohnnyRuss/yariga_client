@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
 import { useLogoutQuery } from "hooks/api/auth";
-import { selectUser } from "store/selectors/auth.selectors";
+import { selectAuthenticatedUser } from "store/selectors/auth.selectors";
 
 import { Button, Menu, MenuList, MenuItem, Avatar } from "@mui/material";
 
 const UserToolbar: React.FC = () => {
-  const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectAuthenticatedUser);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

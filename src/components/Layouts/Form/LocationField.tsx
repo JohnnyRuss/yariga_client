@@ -15,13 +15,15 @@ import {
 import { OpenStreetMapLocationT } from "interface/config/config.types";
 
 interface LocationFieldT {
+  showIcon?: boolean;
   fieldProps: ReactHookFormLocationFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
 }
 
 const LocationField: React.FC<LocationFieldT> = ({
   fieldProps,
   fieldStateProps,
+  showIcon = false,
 }) => {
   const [locationSearch, setLocationSearch] = useState("");
   const [optionsList, setOptionsList] = useState<OpenStreetMapLocationT[]>([]);
@@ -60,9 +62,10 @@ const LocationField: React.FC<LocationFieldT> = ({
       renderInput={(params) => (
         <LocationAutocompleteRenderInput
           params={params}
+          showIcon={showIcon}
           fieldProps={fieldProps}
-          fieldStateProps={fieldStateProps}
           locationSearch={locationSearch}
+          fieldStateProps={fieldStateProps}
           setLocationSearch={setLocationSearch}
         />
       )}

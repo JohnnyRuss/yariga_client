@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { dynamic_paths } from "config/paths";
+
 import * as UI from "./components";
 import * as MuiStyled from "./PropertyCard.styled";
 import { CardMedia, Divider } from "@mui/material";
 
 import { PropertyShortInfoT } from "interface/db/properties.types";
+
 interface PropertyCardHorizontalT {
   property: PropertyShortInfoT;
 }
@@ -15,11 +18,11 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
 }) => {
   return (
     <Link
-      to={`/properties/${property._id}`}
+      to={dynamic_paths.property_page(property._id)}
       style={{ flex: 1, flexBasis: "400px", maxWidth: "520px" }}
       className="app__card"
     >
-      <MuiStyled.CardHorizontal >
+      <MuiStyled.CardHorizontal>
         <CardMedia
           component="img"
           src={property.images[0]}

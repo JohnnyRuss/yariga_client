@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import paths from "config/paths";
+import { paths } from "config/paths";
 
 import { Add } from "@mui/icons-material";
 import { Stack } from "@mui/material";

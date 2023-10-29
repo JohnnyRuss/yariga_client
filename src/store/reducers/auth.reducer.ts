@@ -11,7 +11,7 @@ import {
 } from "interface/store/auth.types";
 import { LoginResponseT } from "interface/db/user.types";
 
-import paths from "config/paths";
+import { paths } from "config/paths";
 import { controlStatus } from "./helpers";
 import { setJWT, removeJWT } from "utils/jwt";
 import { RouterHistory } from "config/config";

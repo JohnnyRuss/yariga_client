@@ -3,11 +3,11 @@ import { useAppSelector } from "store/hooks";
 
 import * as propertySelectors from "store/selectors/properties.selectors";
 
-import { ContentBox, Pagination } from "components/Layouts";
 import { Box } from "@mui/material";
 import Filter from "./components/Filter";
 import AllPropertiesHeader from "./components/AllPropertiesHeader";
 import PropertiesList from "./components/PropertiesList";
+import { ContentBox, Pagination } from "components/Layouts";
 import * as MuiStyled from "./components/styles/AllProperties.styled";
 
 const AllProperties: React.FC = () => {

@@ -3,6 +3,7 @@ import React from "react";
 import {
   TextField,
   FormControl,
+  InputAdornment,
   AutocompleteRenderInputParams,
 } from "@mui/material";
 import FormHelperText from "./FormHelperText";
@@ -18,14 +19,16 @@ interface FormTextFieldT {
   label: string;
   required?: boolean;
   type?: string;
+  icon?: React.ReactNode | null;
   autoCompleteParams?: AutocompleteRenderInputParams;
 }
 
 const FormTextField: React.FC<FormTextFieldT> = ({
+  label,
+  icon,
+  type = "text",
   fieldProps,
   fieldStateProps,
-  label,
-  type = "text",
   required = false,
   autoCompleteParams,
 }) => {
@@ -45,6 +48,15 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         onChange={(e) => fieldProps.onChange(e.target.value)}
         onBlur={fieldProps.onBlur}
         sx={{ background: "#fff" }}
+        InputProps={
+          icon
+            ? {
+                startAdornment: (
+                  <InputAdornment position="start">{icon}</InputAdornment>
+                ),
+              }
+            : undefined
+        }
       />
 
       {fieldStateProps?.error && (

@@ -1,4 +1,4 @@
-import paths from "config/paths";
+import { paths } from "config/paths";
 import { nanoid } from "@reduxjs/toolkit";
 
 import {
@@ -49,9 +49,9 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
-    label: "user profile",
+    label: "my profile",
     icon: <AccountCircle />,
-    path: paths.user_profile_page,
+    path: paths.user_iprofile_page,
     id: nanoid(),
   },
 ];

@@ -36,4 +36,5 @@ export interface OpenStreetMapLocationT {
   addresstype: string;
   lat: string;
   lon: string;
+  postcode?: string;
 }
