@@ -3,15 +3,18 @@ import { nanoid } from "@reduxjs/toolkit";
 
 import getOpenStreetMapLocation from "services/nominatimOpenStreetMap";
 
-import LocationAutocompleteRenderInput from "./components/LocationAutocompleteRenderInput";
-import LocationAutocompleteDropdown from "./components/LocationAutocompleteDropdown";
-import { Autocomplete } from "@mui/material";
+// Components & Styles
 import styles from "./form.module.css";
+import { Autocomplete } from "@mui/material";
+import LocationAutocompleteDropdown from "./components/LocationAutocompleteDropdown";
+import LocationAutocompleteRenderInput from "./components/LocationAutocompleteRenderInput";
 
+// TYPES
 import {
   ReactHookFormLocationFieldPropsT,
   ReactHookFormFieldStatePropsT,
 } from "interface/components/form";
+import { AutocompleteRenderInputParams } from "@mui/material";
 import { OpenStreetMapLocationT } from "interface/config/config.types";
 
 interface LocationFieldT {
@@ -37,6 +40,30 @@ const LocationField: React.FC<LocationFieldT> = ({
   const getOptionLabel = (option: OpenStreetMapLocationT) =>
     `${option.name} - ${option.display_name}`;
 
+  const filterOptions = (options: OpenStreetMapLocationT[]) => options;
+
+  const renderInput = (params: AutocompleteRenderInputParams) => (
+    <LocationAutocompleteRenderInput
+      params={params}
+      showIcon={showIcon}
+      fieldProps={fieldProps}
+      locationSearch={locationSearch}
+      fieldStateProps={fieldStateProps}
+      setLocationSearch={setLocationSearch}
+    />
+  );
+
+  const renderOptions = (
+    props: React.HTMLAttributes<HTMLElement>,
+    option: OpenStreetMapLocationT
+  ) => (
+    <LocationAutocompleteDropdown
+      key={nanoid()}
+      props={props}
+      option={option}
+    />
+  );
+
   useEffect(() => {
     if (!locationSearch) return;
 
@@ -53,29 +80,15 @@ const LocationField: React.FC<LocationFieldT> = ({
   return (
     <Autocomplete
       fullWidth
+      disablePortal
       blurOnSelect={true}
       options={optionsList}
+      renderInput={renderInput}
       className={styles.locationField}
       onChange={onChangeLocation}
+      filterOptions={filterOptions}
       getOptionLabel={getOptionLabel}
-      filterOptions={(options) => options}
-      renderInput={(params) => (
-        <LocationAutocompleteRenderInput
-          params={params}
-          showIcon={showIcon}
-          fieldProps={fieldProps}
-          locationSearch={locationSearch}
-          fieldStateProps={fieldStateProps}
-          setLocationSearch={setLocationSearch}
-        />
-      )}
-      renderOption={(props, option) => (
-        <LocationAutocompleteDropdown
-          key={nanoid()}
-          props={props}
-          option={option}
-        />
-      )}
+      renderOption={renderOptions}
     />
   );
 };

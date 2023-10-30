@@ -40,23 +40,20 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         variant="outlined"
         type={type}
         label={label}
-        {...autoCompleteParams}
         name={fieldProps.name}
         value={fieldProps.value}
         disabled={fieldProps.disabled}
         ref={fieldProps.ref}
         onChange={(e) => fieldProps.onChange(e.target.value)}
         onBlur={fieldProps.onBlur}
+        {...autoCompleteParams}
         sx={{ background: "#fff" }}
-        InputProps={
-          icon
-            ? {
-                startAdornment: (
-                  <InputAdornment position="start">{icon}</InputAdornment>
-                ),
-              }
-            : undefined
-        }
+        InputProps={{
+          ...autoCompleteParams?.InputProps,
+          startAdornment: icon ? (
+            <InputAdornment position="start">{icon}</InputAdornment>
+          ) : undefined,
+        }}
       />
 
       {fieldStateProps?.error && (

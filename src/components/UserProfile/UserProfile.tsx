@@ -6,6 +6,7 @@ import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 import { Stack, Box } from "@mui/material";
 import { ContentBox, SectionTitle } from "components/Layouts";
 import ProfileImages from "./components/ProfileImages";
+import UserProperties from "./components/UserProperties";
 import UserFormDetails from "./components/UserFormDetails";
 import UserDetailsHeader from "./components/UserDetailsHeader";
 import UserStaticDetails from "./components/UserStaticDetails";
@@ -27,7 +28,9 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
   const searchParams = new URLSearchParams(window.location.search);
   const isEditProfileTab = searchParams.get("active-tab") === "profile-edit";
 
-  const onCancelEdit = () => {
+  const onCancelEdit = (e: React.MouseEvent) => {
+    e.preventDefault();
+
     searchParams.delete("active-tab");
     navigate(pathname);
   };
@@ -40,7 +43,13 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
         }
       />
 
-      <Stack className="content__box" direction="row" gap="60px" width="100%">
+      <Stack
+        className="content__box"
+        direction="row"
+        gap="60px"
+        width="100%"
+        boxShadow={3}
+      >
         <ProfileImages
           avatar={user.avatar}
           username={user.username}
@@ -69,6 +78,8 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
           )}
         </Box>
       </Stack>
+
+      <UserProperties />
     </ContentBox>
   );
 };

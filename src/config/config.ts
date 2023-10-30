@@ -13,6 +13,9 @@ const RouterHistory: RouterHistoryT = {
   redirectAuthorized: () => {},
 };
 
+const OPEN_STREET_MAP_NOMINATIM_API_END_POINT =
+  "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=";
+
 const MAP_TILE_API_URL = "http://www.maptilesapi.com/";
 const MAP_TILE_API_OSM_URL = "https://www.openstreetmap.org/copyright";
 const MAP_TILE_RAPID_API_KEY =
@@ -21,4 +24,9 @@ const MAP_TILE_RAPID_API_URL = `https://maptiles.p.rapidapi.com/en/map/v1/{z}/{x
 
 const MAP_TILE_ATTRIBUTION = `&copy; <a href='${MAP_TILE_API_URL}'>MapTiles API</a>, &copy; <a href='${MAP_TILE_API_OSM_URL}'>OpenStreetMap</a> contributors`;
 
-export { RouterHistory, MAP_TILE_ATTRIBUTION, MAP_TILE_RAPID_API_URL };
+export {
+  RouterHistory,
+  MAP_TILE_ATTRIBUTION,
+  MAP_TILE_RAPID_API_URL,
+  OPEN_STREET_MAP_NOMINATIM_API_END_POINT,
+};

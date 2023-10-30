@@ -7,7 +7,7 @@ export interface CustomButtonPropsT {
   fullWidth?: boolean;
   icon?: ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export interface ProfilePropsT {

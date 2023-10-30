@@ -25,8 +25,8 @@ const LocationAutocompleteRenderInput: React.FC<
   params,
   showIcon,
   fieldProps,
-  fieldStateProps,
   locationSearch,
+  fieldStateProps,
   setLocationSearch,
 }) => {
   return (

@@ -18,7 +18,7 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
     <Box
       width="100%"
       maxWidth="440px"
-      maxHeight="320px"
+      maxHeight="330px"
       position="relative"
       sx={{
         borderTopLeftRadius: "10px",

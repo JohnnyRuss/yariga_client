@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useUserPath } from "hooks/utils";
 
@@ -12,6 +12,7 @@ interface UserT {
 }
 
 const User: React.FC<UserT> = ({ owner }) => {
+  const navigate = useNavigate();
   const { userPath } = useUserPath(owner._id);
 
   return (
@@ -38,15 +39,14 @@ const User: React.FC<UserT> = ({ owner }) => {
       </Avatar>
 
       <Stack width="max-content">
-        <Link to={userPath}>
-          <Typography
-            textTransform="capitalize"
-            fontWeight={600}
-            sx={{ ":hover": { textDecoration: "underline" } }}
-          >
-            {owner.username}
-          </Typography>
-        </Link>
+        <Typography
+          fontWeight={600}
+          textTransform="capitalize"
+          onClick={() => navigate(userPath)}
+          sx={{ ":hover": { textDecoration: "underline" } }}
+        >
+          {owner.username}
+        </Typography>
 
         <Typography fontSize={13} mt="-3px">
           {owner.email}

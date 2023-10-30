@@ -19,10 +19,10 @@ const LocationAutocompleteDropdown: React.FC<LocationAutocompleteDropdownT> = ({
   return (
     <Box
       component="li"
-      {...props}
       borderBottom="1px solid"
       borderColor="app_text.main"
       className={styles.locationFieldItem}
+      {...props}
     >
       <Stack direction="column">
         <Stack direction="row" alignItems="center" mb="5px">

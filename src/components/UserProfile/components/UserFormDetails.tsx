@@ -1,9 +1,13 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
+import { Controller } from "react-hook-form";
+import { useEditProfileQuery } from "hooks/api";
 
 import { Stack } from "@mui/material";
 import { Button } from "components/Layouts";
 import { Phone, Email } from "@mui/icons-material";
-import { LocationField, FormTextField } from "components/Layouts/Form";
+import * as Form from "components/Layouts/Form";
 
 import { UserT } from "interface/db/user.types";
 
@@ -11,7 +15,7 @@ interface UserFormDetailsT {
   email: UserT["email"];
   phone?: UserT["phone"];
   location?: UserT["location"];
-  onCancelEdit: () => void;
+  onCancelEdit: (e: React.MouseEvent) => void;
 }
 
 const UserFormDetails: React.FC<UserFormDetailsT> = ({
@@ -20,64 +24,86 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
   location,
   onCancelEdit,
 }) => {
+  const { form, onSubmit } = useEditProfileQuery();
+
+  useEffect(() => {
+    form.reset({
+      email: email || "",
+      phone: phone || "",
+      location: location || {
+        name: "",
+        display_name: "",
+        addresstype: "",
+        country: "",
+        city: "",
+        state: "",
+        lat: "",
+        lon: "",
+      },
+    });
+  }, [email, phone, location]);
+
   return (
     <Stack mt="30px">
-      <LocationField
-        showIcon={true}
-        fieldProps={{
-          name: "address",
-          onChange: () => {},
-          value: {
-            name: location?.name || "",
-            display_name: location?.displayName || "",
-            addresstype: location?.addressType || "",
-            country: location?.country || "",
-            city: location?.city || "",
-            state: location?.state || "",
-            lat: location?.lat || "",
-            lon: location?.lon || "",
-          },
-        }}
-      />
-
-      <Stack direction="row" gap={3} mt="20px">
-        <FormTextField
-          label="Phone Number"
-          icon={<Phone />}
-          fieldProps={{
-            name: "phone",
-            onChange: () => {},
-            value: phone || "",
-          }}
+      <form onSubmit={onSubmit}>
+        <Controller
+          control={form.control}
+          name="location"
+          render={({ field, fieldState }) => (
+            <Form.LocationField
+              showIcon={true}
+              fieldProps={field}
+              fieldStateProps={fieldState}
+            />
+          )}
         />
 
-        <FormTextField
-          label="Email"
-          icon={<Email />}
-          fieldProps={{
-            name: "email",
-            onChange: () => {},
-            value: email || "",
-          }}
-        />
-      </Stack>
+        <Stack direction="row" gap={3} mt="20px">
+          <Controller
+            name="phone"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Form.FormTextField
+                label="Phone Number"
+                icon={<Phone />}
+                fieldProps={field}
+                fieldStateProps={fieldState}
+              />
+            )}
+          />
 
-      <Stack
-        direction="row"
-        gap={2}
-        width="100%"
-        justifyContent="flex-end"
-        mt="30px"
-      >
-        <Button
-          title="Cancel"
-          onClick={onCancelEdit}
-          color="app_text.main"
-          bgColor="app_bg.contrastText"
-        />
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Form.FormTextField
+                label="Email"
+                icon={<Email />}
+                fieldProps={field}
+                fieldStateProps={fieldState}
+              />
+            )}
+          />
+        </Stack>
 
-        <Button title="Save" />
-      </Stack>
+        <Stack
+          direction="row"
+          gap={2}
+          width="100%"
+          justifyContent="flex-end"
+          mt="30px"
+        >
+          <Button
+            title="Cancel"
+            type="button"
+            onClick={onCancelEdit}
+            color="app_text.main"
+            bgColor="app_bg.contrastText"
+          />
+
+          <Button title="Save" type="submit" />
+        </Stack>
+      </form>
     </Stack>
   );
 };

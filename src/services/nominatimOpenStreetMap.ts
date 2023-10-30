@@ -1,16 +1,15 @@
-import axios, { AxiosResponse } from "axios";
 import {
   OpenStreetMapLocationT,
   OpenStreetMapLocationResponseT,
 } from "interface/config/config.types";
+import axios, { AxiosResponse } from "axios";
+import { OPEN_STREET_MAP_NOMINATIM_API_END_POINT } from "config/config";
 
 export default async function getOpenStreetMapLocation(
   search: string
 ): Promise<OpenStreetMapLocationT[]> {
   const { data }: AxiosResponse<OpenStreetMapLocationResponseT[]> =
-    await axios.get(
-      `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${search}`
-    );
+    await axios.get(`${OPEN_STREET_MAP_NOMINATIM_API_END_POINT}${search}`);
 
   return data.map((item) => ({
     name: item.name,
