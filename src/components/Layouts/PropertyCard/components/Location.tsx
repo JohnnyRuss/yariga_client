@@ -17,6 +17,7 @@ const Location: React.FC<LocationT> = ({ location }) => {
         color="app_text.main"
         className="line-clamp-1"
         title={location}
+        textTransform="capitalize"
       >
         {location}
       </Typography>

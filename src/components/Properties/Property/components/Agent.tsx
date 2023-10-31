@@ -1,59 +1,21 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
+import useGoToUser from "hooks/utils/useGoToUser";
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import {
-  Paper,
-  Stack,
-  Avatar,
-  Typography,
-  Button,
-  Skeleton,
-} from "@mui/material";
+import ContactButton from "./ContactButton";
+import AgentSkeleton from "./AgentSkeleton";
 import { LocationOn, Call, Message } from "@mui/icons-material";
+import { Paper, Stack, Avatar, Typography } from "@mui/material";
 
 const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
   const { owner, title } = useAppSelector(selectProperty);
 
+  const { onGoToUser } = useGoToUser(owner._id);
+
   return loading ? (
-    <Paper
-      elevation={2}
-      sx={{
-        padding: "35px 25px 25px 25px",
-        border: "1px solid",
-        borderColor: "app_text.contrastText",
-        borderRadius: "10px",
-      }}
-    >
-      <Stack mt="10px" justifyContent="center" alignItems="center" gap="15px">
-        <Skeleton variant="circular" width={90} height={90} />
-
-        <Stack alignItems="center" width="100%">
-          <Skeleton variant="text" width="200px" sx={{ fontSize: 18 }} />
-
-          <Skeleton variant="text" width="150px" sx={{ fontSize: 14 }} />
-
-          <Skeleton variant="text" width="170px" sx={{ fontSize: 14 }} />
-
-          <Skeleton variant="text" width="120px" sx={{ fontSize: 16 }} />
-
-          <Stack direction="row" width="100%" gap="20px" mt="10px">
-            <Skeleton
-              variant="rectangular"
-              height="40px"
-              sx={{ flex: 1, borderRadius: "5px" }}
-            />
-
-            <Skeleton
-              variant="rectangular"
-              height="40px"
-              sx={{ flex: 1, borderRadius: "5px" }}
-            />
-          </Stack>
-        </Stack>
-      </Stack>
-    </Paper>
+    <AgentSkeleton />
   ) : (
     <Paper
       elevation={2}
@@ -74,7 +36,16 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
         </Avatar>
 
         <Stack alignItems="center">
-          <Typography textTransform="capitalize" fontWeight={600} fontSize={18}>
+          <Typography
+            fontSize={18}
+            fontWeight={600}
+            onClick={onGoToUser}
+            textTransform="capitalize"
+            sx={{
+              cursor: "pointer",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
             {owner.username}
           </Typography>
 
@@ -117,54 +88,3 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
 };
 
 export default Agent;
-
-function ContactButton({
-  address,
-  bgColor,
-  color,
-  label,
-  icon,
-}: {
-  address: string;
-  label: string;
-  bgColor: string;
-  color: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <Button
-      fullWidth
-      variant="contained"
-      sx={{
-        padding: 0,
-        color: color,
-        backgroundColor: bgColor,
-        borderRadius: "5px",
-        overflow: "hidden",
-
-        "&:hover": {
-          color: color,
-          backgroundColor: bgColor,
-        },
-      }}
-    >
-      <a
-        href={address}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "8px",
-          height: "100%",
-          width: "100%",
-          padding: "10px 15px",
-        }}
-      >
-        {icon}
-
-        {label}
-      </a>
-    </Button>
-  );
-}

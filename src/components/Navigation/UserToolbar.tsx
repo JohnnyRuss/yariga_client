@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
 import { useLogoutQuery } from "hooks/api/auth";
-import { selectAuthenticatedUser } from "store/selectors/auth.selectors";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import { Button, Menu, MenuList, MenuItem, Avatar } from "@mui/material";
 

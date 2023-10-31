@@ -5,15 +5,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Edit } from "@mui/icons-material";
 import { DropdownMenu } from "components/Layouts";
 import { Typography, Stack, MenuItem } from "@mui/material";
+import UserDetailsHeaderSkeleton from "./UserDetailsHeaderSkeleton";
 
 interface UserDetailsHeaderT {
   username: string;
   isAuthenticatedUser: boolean;
+  loading: boolean;
 }
 
 const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
   username,
   isAuthenticatedUser,
+  loading,
 }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -26,7 +29,9 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
-  return (
+  return loading ? (
+    <UserDetailsHeaderSkeleton />
+  ) : (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography fontSize={22} fontWeight={600} textTransform="capitalize">

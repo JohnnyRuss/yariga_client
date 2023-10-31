@@ -6,8 +6,8 @@ import styles from "../form.module.css";
 interface LocationAutocompleteDropdownT {
   option: {
     name: string;
-    addresstype: string;
-    display_name: string;
+    addressType: string;
+    displayName: string;
   };
   props: React.HTMLAttributes<HTMLLIElement>;
 }
@@ -29,7 +29,7 @@ const LocationAutocompleteDropdown: React.FC<LocationAutocompleteDropdownT> = ({
           <span style={{ fontWeight: 600 }}>{option.name}</span>
 
           <Chip
-            label={option.addresstype}
+            label={option.addressType}
             variant="filled"
             color="primary"
             size="small"
@@ -38,7 +38,7 @@ const LocationAutocompleteDropdown: React.FC<LocationAutocompleteDropdownT> = ({
         </Stack>
 
         <Typography color="app_text.main" fontSize="14px">
-          {option.display_name}
+          {option.displayName}
         </Typography>
       </Stack>
     </Box>

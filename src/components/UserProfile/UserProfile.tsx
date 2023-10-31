@@ -15,9 +15,10 @@ import { UserT } from "interface/db/user.types";
 
 interface UserProfileT {
   user: UserT;
+  loading?: boolean;
 }
 
-const UserProfile: React.FC<UserProfileT> = ({ user }) => {
+const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -51,6 +52,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
         boxShadow={3}
       >
         <ProfileImages
+          loading={loading}
           avatar={user.avatar}
           username={user.username}
           isAuthenticatedUser={isAuthenticatedUser}
@@ -58,6 +60,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
 
         <Box py="35px" width="100%">
           <UserDetailsHeader
+            loading={loading}
             username={user.username}
             isAuthenticatedUser={isAuthenticatedUser}
           />
@@ -71,6 +74,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
             />
           ) : (
             <UserStaticDetails
+              loading={loading}
               email={user.email}
               phone={user.phone}
               location={user.location}
@@ -79,7 +83,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user }) => {
         </Box>
       </Stack>
 
-      <UserProperties />
+      <UserProperties userId={user._id} />
     </ContentBox>
   );
 };

@@ -43,8 +43,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           render={({ field, fieldState }) => (
             <Form.FormTextField
               label="Title"
-              fieldProps={{ ...field }}
-              fieldStateProps={{ ...fieldState }}
+              fieldProps={field}
+              fieldStateProps={fieldState}
             />
           )}
         />
@@ -57,8 +57,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
               <Form.FormSelectField
                 label="Property Status"
                 list={suggestions.propertyStatuses}
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -74,8 +74,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
                     : "Price Per Day"
                 }
                 type="number"
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -89,8 +89,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
               <Form.FormSelectField
                 label="Property Type"
                 list={suggestions.propertyTypes}
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -102,8 +102,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
               <Form.FormTextField
                 label="Area (m²)"
                 type="number"
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -117,8 +117,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
               <Form.FormMultipleSelectField
                 label="Rooms"
                 list={suggestions.roomTypes}
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -130,8 +130,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
               <Form.FormMultipleSelectField
                 list={suggestions.propertyFeatures}
                 label="Property Features"
-                fieldProps={{ ...field }}
-                fieldStateProps={{ ...fieldState }}
+                fieldProps={field}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -144,9 +144,9 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
             render={({ field, fieldState }) => (
               <Form.FormTextField
                 label="Bedrooms Amount"
-                fieldProps={{ ...field }}
+                fieldProps={field}
                 type="number"
-                fieldStateProps={{ ...fieldState }}
+                fieldStateProps={fieldState}
               />
             )}
           />
@@ -159,8 +159,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
                 <Form.FormTextField
                   label="Bathrooms Amount"
                   type="number"
-                  fieldProps={{ ...field }}
-                  fieldStateProps={{ ...fieldState }}
+                  fieldProps={field}
+                  fieldStateProps={fieldState}
                 />
               )}
             />
@@ -172,8 +172,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           control={form.control}
           render={({ field, fieldState }) => (
             <Form.LocationField
-              fieldProps={{ ...field }}
-              fieldStateProps={{ ...fieldState }}
+              fieldProps={field}
+              fieldStateProps={fieldState}
             />
           )}
         />
@@ -184,8 +184,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           render={({ field, fieldState }) => (
             <Form.FormAutoSizeTextField
               label="Description"
-              fieldProps={{ ...field }}
-              fieldStateProps={{ ...fieldState }}
+              fieldProps={field}
+              fieldStateProps={fieldState}
             />
           )}
         />
@@ -196,8 +196,8 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           render={({ field, fieldState }) => (
             <Form.FormFileField
               label="Select Property Picture"
-              fieldProps={{ ...field }}
-              fieldStateProps={{ ...fieldState }}
+              fieldProps={field}
+              fieldStateProps={fieldState}
               onFileChange={onFileChange}
             />
           )}
@@ -209,6 +209,7 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
           bgColor="app_blue.light"
           color="app_text.light"
           fullWidth={true}
+          disabled={status.loading}
         />
       </form>
     </Box>

@@ -26,13 +26,14 @@ const Button: React.FC<CustomButtonPropsT> = ({
       onClick={onClick}
       disabled={disabled}
       fullWidth={fullWidth}
-      sx={{ height: "max-content", display: "flex" }}
+      sx={{ height: "max-content" }}
       background_color={
         bgColor ? generatePaletteColor(bgColor, palette) : "app_blue.light"
       }
       text_color={
         color ? generatePaletteColor(color, palette) : "app_text.light"
       }
+      startIcon={icon}
     >
       {title}
     </MuiStyled.Button>

@@ -33,4 +33,9 @@ export default function* propertiesSaga() {
     propertiesActions.getProperty,
     propertiesHandlers.getProperty
   );
+
+  yield takeLatest(
+    propertiesActions.getUserProperties,
+    propertiesHandlers.getUserProperties
+  );
 }

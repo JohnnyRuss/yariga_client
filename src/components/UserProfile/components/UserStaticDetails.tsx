@@ -2,20 +2,26 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 import { LocationOn, Phone, Email } from "@mui/icons-material";
+import UserStaticDetailsSkeleton from "./UserStaticDetailsSkeleton";
+
 import { UserT } from "interface/db/user.types";
 
 interface UserStaticDetailsT {
   email: UserT["email"];
   location?: UserT["location"];
   phone?: UserT["phone"];
+  loading: boolean;
 }
 
 const UserStaticDetails: React.FC<UserStaticDetailsT> = ({
   email,
   phone,
   location,
+  loading,
 }) => {
-  return (
+  return loading ? (
+    <UserStaticDetailsSkeleton />
+  ) : (
     <>
       <Stack gap="6px" mt="30px">
         <Typography color="app_text.main" lineHeight="22px" fontSize={14}>

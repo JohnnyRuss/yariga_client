@@ -29,12 +29,11 @@ export interface OpenStreetMapLocationResponseT {
 
 export interface OpenStreetMapLocationT {
   name: string;
-  display_name: string;
+  displayName: string;
   city: string;
   country: string;
   state: string;
-  addresstype: string;
+  addressType: string;
   lat: string;
   lon: string;
-  postcode?: string;
 }

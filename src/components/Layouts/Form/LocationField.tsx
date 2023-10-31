@@ -38,7 +38,7 @@ const LocationField: React.FC<LocationFieldT> = ({
     option && onSelectLocation(option);
 
   const getOptionLabel = (option: OpenStreetMapLocationT) =>
-    `${option.name} - ${option.display_name}`;
+    `${option.name} - ${option.displayName}`;
 
   const filterOptions = (options: OpenStreetMapLocationT[]) => options;
 
@@ -81,6 +81,7 @@ const LocationField: React.FC<LocationFieldT> = ({
     <Autocomplete
       fullWidth
       disablePortal
+      value={fieldProps.value}
       blurOnSelect={true}
       options={optionsList}
       renderInput={renderInput}

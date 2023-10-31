@@ -16,9 +16,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const [activeSlideIndex, setActiveSlideIndex] = useState<number | undefined>(
-    undefined
-  );
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(NaN);
 
   const searchParams = new URLSearchParams(search);
 
@@ -27,13 +25,15 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
 
   const onActivateSlider = (index: number) => setActiveSlideIndex(index);
 
-  const onBackToGallery = () => setActiveSlideIndex(undefined);
+  const onBackToGallery = () => setActiveSlideIndex(NaN);
 
   const onClose = () => {
     searchParams.delete("active-tab");
-    setActiveSlideIndex(undefined);
+    setActiveSlideIndex(NaN);
     navigate(`?${searchParams.toString()}`);
   };
+
+  console.log({ activeSlideIndex });
 
   return (
     <Modal open={isActiveTab} onClose={onClose}>
@@ -45,7 +45,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
         }}
       >
         <Stack direction="row" gap="15px" alignItems="center" pb={1}>
-          {activeSlideIndex && (
+          {!isNaN(activeSlideIndex) && (
             <Button variant="text" onClick={onBackToGallery}>
               <ArrowBackIos sx={{ fontSize: "28px" }} />
             </Button>
@@ -56,11 +56,11 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
           </Typography>
         </Stack>
 
-        {!activeSlideIndex && (
+        {isNaN(activeSlideIndex) && (
           <Gallery images={images} onActivateSlider={onActivateSlider} />
         )}
 
-        {activeSlideIndex && (
+        {!isNaN(activeSlideIndex) && (
           <SliderView images={images} initialSlide={activeSlideIndex} />
         )}
       </Box>

@@ -5,7 +5,7 @@ import { SwiperSlider } from "components/Layouts";
 
 interface SliderViewT {
   images: string[];
-  initialSlide: number;
+  initialSlide?: number;
 }
 
 const SliderView: React.FC<SliderViewT> = ({ images, initialSlide }) => {

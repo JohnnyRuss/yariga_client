@@ -1,5 +1,5 @@
 import { useAppSelector } from "store/hooks";
-import { selectAuthenticatedUser } from "store/selectors/auth.selectors";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 export default function useIsAuthenticatedUser(candidateUserId: string): {
   isAuthenticatedUser: boolean;

@@ -1,7 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
-import { useUserPath } from "hooks/utils";
+import useGoToUser from "hooks/utils/useGoToUser";
 
 import { Stack, Avatar, Typography } from "@mui/material";
 
@@ -12,8 +11,7 @@ interface UserT {
 }
 
 const User: React.FC<UserT> = ({ owner }) => {
-  const navigate = useNavigate();
-  const { userPath } = useUserPath(owner._id);
+  const { onGoToUser } = useGoToUser(owner._id);
 
   return (
     <Stack
@@ -42,7 +40,7 @@ const User: React.FC<UserT> = ({ owner }) => {
         <Typography
           fontWeight={600}
           textTransform="capitalize"
-          onClick={() => navigate(userPath)}
+          onClick={onGoToUser}
           sx={{ ":hover": { textDecoration: "underline" } }}
         >
           {owner.username}

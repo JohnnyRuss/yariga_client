@@ -6,15 +6,13 @@ import * as propertySelectors from "store/selectors/properties.selectors";
 import { Box } from "@mui/material";
 import Filter from "./components/Filter";
 import AllPropertiesHeader from "./components/AllPropertiesHeader";
-import PropertiesList from "./components/PropertiesList";
-import { ContentBox, Pagination } from "components/Layouts";
+import { ContentBox, Pagination, PropertiesList } from "components/Layouts";
 import * as MuiStyled from "./components/styles/AllProperties.styled";
 
 const AllProperties: React.FC = () => {
   const filterStatus = useAppSelector(
     propertySelectors.selectPropertyFilterStatus
   );
-  const status = useAppSelector(propertySelectors.selectPropertiesStatus);
 
   return (
     <ContentBox flex={true}>
@@ -30,7 +28,7 @@ const AllProperties: React.FC = () => {
         >
           <Filter loading={filterStatus.loading} />
 
-          <PropertiesList loading={status.loading} />
+          <PropertiesList />
 
           <Box mt="auto" ml="auto">
             <Pagination page={1} />

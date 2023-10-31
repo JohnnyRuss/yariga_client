@@ -14,7 +14,7 @@ interface SliderThumbnailsT {
   Navigation: SwiperModuleT;
   Thumbs: SwiperModuleT;
   FreeMode: SwiperModuleT;
-  initialSlide?: number;
+  initialSlide: number;
   onSlideChange?: (data: SwiperClass) => void;
 }
 

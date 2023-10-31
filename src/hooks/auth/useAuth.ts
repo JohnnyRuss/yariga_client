@@ -4,7 +4,7 @@ import { useAppSelector } from "store/hooks";
 
 import { getJWT } from "utils/jwt";
 import { paths } from "config/paths";
-import { selectAuthenticatedUser } from "store/selectors/auth.selectors";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import { DecodedUserT } from "interface/config/config.types";
 

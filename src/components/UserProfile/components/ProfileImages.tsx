@@ -2,19 +2,24 @@ import React from "react";
 
 import { Box, Avatar } from "@mui/material";
 import ChangeImageButton from "./ChangeImageButton";
+import ProfileImagesSkeleton from "./ProfileImagesSkeleton";
 
 interface ProfileImagesT {
   avatar: string;
   username: string;
   isAuthenticatedUser: boolean;
+  loading: boolean;
 }
 
 const ProfileImages: React.FC<ProfileImagesT> = ({
   avatar,
   username,
   isAuthenticatedUser,
+  loading,
 }) => {
-  return (
+  return loading ? (
+    <ProfileImagesSkeleton />
+  ) : (
     <Box
       width="100%"
       maxWidth="440px"

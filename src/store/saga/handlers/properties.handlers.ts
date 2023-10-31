@@ -9,11 +9,10 @@ import {
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
-} from "interface/db/properties.types";
-import {
-  GetPropertyArgsT,
   CreatePropertyArgsT,
-} from "interface/store/properties.types";
+  GetPropertyArgsT,
+  GetUserPropertiesArgsT,
+} from "interface/db/properties.types";
 import { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 
@@ -84,6 +83,21 @@ export function* getProperty({ payload }: PayloadAction<GetPropertyArgsT>) {
     );
 
     yield put(propertiesActions.setProperty(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* getUserProperties({
+  payload,
+}: PayloadAction<GetUserPropertiesArgsT>) {
+  try {
+    const { data }: AxiosResponse<Array<PropertyShortInfoT>> = yield call(
+      propertiesAPI.getUserPropertiesQuery,
+      payload
+    );
+
+    yield put(propertiesActions.setAllProperties(data));
   } catch (error) {
     console.log(error);
   }

@@ -1,7 +1,8 @@
 import {
-  CreatePropertyArgsT,
   GetPropertyArgsT,
-} from "interface/store/properties.types";
+  CreatePropertyArgsT,
+  GetUserPropertiesArgsT,
+} from "interface/db/properties.types";
 import { axiosPrivateFormDataQuery, axiosPrivateQuery } from "services/axios";
 
 export async function getPropertyFormSuggestionsQuery() {
@@ -26,4 +27,10 @@ export async function getAllRoomTypesQuery() {
 
 export async function getPropertyQuery(data: GetPropertyArgsT) {
   return axiosPrivateQuery.get(`/properties/${data.propertyId}`);
+}
+
+export async function getUserPropertiesQuery(data: GetUserPropertiesArgsT) {
+  return axiosPrivateQuery.get(
+    `/properties/user/${data.userId}?limit=${data.limit}`
+  );
 }

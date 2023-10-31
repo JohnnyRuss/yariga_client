@@ -9,20 +9,6 @@ const selectedAuthStatus = ({ auth }: RootStateT) => ({
   status: auth.status.status,
 });
 
-const selectedAuthenticatedUser = ({ auth }: RootStateT) => ({
-  _id: auth.user?._id || "",
-  email: auth.user?.email || "",
-  avatar: auth.user?.avatar || "",
-  username: auth.user?.username || "",
-  phone: auth.user?.phone || "",
-  location: auth.user?.location,
-});
-
-const selectAuthenticatedUser = createSelector(
-  selectedAuthenticatedUser,
-  (user) => user
-);
-
 const selectAuthStatus = createSelector(selectedAuthStatus, (status) => status);
 
-export { selectAuthenticatedUser, selectAuthStatus };
+export { selectAuthStatus };

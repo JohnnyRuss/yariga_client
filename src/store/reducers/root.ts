@@ -4,22 +4,22 @@ import { persistReducer } from "redux-persist";
 
 import authReducer from "./auth.reducer";
 import agentReducer from "./agent.reducer";
-import usersReducer from "./users.reducer";
+import userReducer from "./user.reducer";
 import propertiesReducer from "./properties.reducer";
 
-const persistedAuthReducer = persistReducer(
+const persistedUserReducer = persistReducer(
   {
     storage,
     key: "YARIGA_USER",
     whitelist: ["user"],
   },
-  authReducer
+  userReducer
 );
 
 const rootReducer = combineReducers({
-  user: usersReducer,
+  user: persistedUserReducer,
   agent: agentReducer,
-  auth: persistedAuthReducer,
+  auth: authReducer,
   properties: propertiesReducer,
 });
 

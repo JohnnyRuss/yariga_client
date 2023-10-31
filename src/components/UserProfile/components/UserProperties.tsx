@@ -1,25 +1,20 @@
 import React from "react";
 
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Stack } from "@mui/material";
+import { PropertiesList } from "components/Layouts";
+import UserPropertiesHeader from "./UserPropertiesHeader";
 
-interface UserPropertiesT {}
+interface UserPropertiesT {
+  userId: string;
+}
 
-const UserProperties: React.FC<UserPropertiesT> = (props) => {
+const UserProperties: React.FC<UserPropertiesT> = ({ userId }) => {
   return (
-    <Box className="content__box" boxShadow={3}>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography fontSize={18} fontWeight={600}>
-          Your Properties
-        </Typography>
+    <Stack className="content__box" boxShadow={3} gap={2}>
+      <UserPropertiesHeader userId={userId} />
 
-        <Button
-          variant="outlined"
-          sx={{ color: "app_text.main", borderColor: "app_text.main" }}
-        >
-          View All
-        </Button>
-      </Stack>
-    </Box>
+      <PropertiesList skeletonCount={3} />
+    </Stack>
   );
 };
 

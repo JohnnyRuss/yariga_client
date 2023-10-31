@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "@reduxjs/toolkit";
 
-import {
-  PropertiesStateT,
-  GetPropertyArgsT,
-  CreatePropertyArgsT,
-} from "interface/store/properties.types";
+import { PropertiesStateT } from "interface/store/properties.types";
 
 import {
   PropertyT,
@@ -13,6 +9,9 @@ import {
   PropertyShortInfoT,
   PropertySuggestionsT,
   PropertyFilterResponseT,
+  CreatePropertyArgsT,
+  GetPropertyArgsT,
+  GetUserPropertiesArgsT,
 } from "interface/db/properties.types";
 
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
@@ -165,6 +164,21 @@ const propertiesSlice = createSlice({
       },
     },
 
+    getUserProperties: {
+      prepare: (payload: GetUserPropertiesArgsT) => {
+        return {
+          payload: {
+            userId: payload.userId,
+            limit: payload.limit || 3,
+          },
+        };
+      },
+
+      reducer: (state) => {
+        state.status = status.loading();
+      },
+    },
+
     setAllProperties(
       state,
       { payload }: PayloadAction<Array<PropertyShortInfoT>>
@@ -226,16 +240,7 @@ function prepareDataForDB(data: CreatePropertyFormT): CreatePropertyArgsT {
     rooms: data.rooms.map((item) => item._id),
     features: data.features.map((item) => item._id),
     bedroomsAmount: +data.bedroomsAmount,
-    location: {
-      name: data.location.name,
-      displayName: data.location.display_name,
-      city: data.location.city,
-      country: data.location.country,
-      state: data.location.state,
-      addressType: data.location.addresstype,
-      lat: data.location.lat,
-      lon: data.location.lon,
-    },
+    location: data.location,
     description: data.description,
     images: data.images || [],
     images_to_delete: data.images_to_delete || [],

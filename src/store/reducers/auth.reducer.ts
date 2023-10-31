@@ -9,7 +9,6 @@ import {
   ConfirmEmailArgsT,
   UpdatePasswordArgsT,
 } from "interface/store/auth.types";
-import { LoginResponseT } from "interface/db/user.types";
 
 import { paths } from "config/paths";
 import { controlStatus } from "./helpers";
@@ -18,7 +17,6 @@ import { RouterHistory } from "config/config";
 
 const initialState: AuthStateT = {
   status: controlStatus.default(),
-  user: null,
 };
 
 const authSlice = createSlice({
@@ -52,9 +50,11 @@ const authSlice = createSlice({
       },
     },
 
-    setAuthenticatedUser(state, { payload }: PayloadAction<LoginResponseT>) {
+    setAuthenticatedUser(
+      state,
+      { payload }: PayloadAction<{ accessToken: string }>
+    ) {
       setJWT(payload.accessToken);
-      state.user = payload.user;
       RouterHistory.navigate(paths.root_page);
       state.status = controlStatus.default();
     },
@@ -63,7 +63,6 @@ const authSlice = createSlice({
 
     cleanUpUser(state) {
       removeJWT();
-      state.user = null;
       RouterHistory.navigate(paths.auth_page_root);
     },
 

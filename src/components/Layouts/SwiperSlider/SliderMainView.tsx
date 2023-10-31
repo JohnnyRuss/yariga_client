@@ -14,7 +14,7 @@ interface SliderMainViewT {
   Thumbs: SwiperModuleT;
   FreeMode: SwiperModuleT;
   Navigation: SwiperModuleT;
-  initialSlide?: number;
+  initialSlide: number;
   onSlideChange?: (data: SwiperClass) => void;
 }
 
@@ -25,17 +25,17 @@ const SliderMainView: React.FC<SliderMainViewT> = ({
   Navigation,
   thumbsSwiper,
   onSlideChange,
-  initialSlide = 0,
+  initialSlide,
 }) => {
   return (
     <Box className="app-swiper__main-container">
       <Swiper
-        modules={[Thumbs, Navigation, FreeMode]}
-        thumbs={{ swiper: thumbsSwiper }}
         slidesPerView={1}
         navigation={true}
         className="app-swiper__main"
         initialSlide={initialSlide}
+        thumbs={{ swiper: thumbsSwiper }}
+        modules={[Thumbs, Navigation, FreeMode]}
         onSlideChange={onSlideChange ?? undefined}
       >
         {images.map((image) => (

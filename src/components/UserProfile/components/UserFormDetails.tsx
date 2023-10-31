@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import { useAppSelector } from "store/hooks";
 
 import { Controller } from "react-hook-form";
 import { useEditProfileQuery } from "hooks/api";
+import { selectEditProfileStatus } from "store/selectors/user.selectors";
 
 import { Stack } from "@mui/material";
-import { Button } from "components/Layouts";
 import { Phone, Email } from "@mui/icons-material";
 import * as Form from "components/Layouts/Form";
+import { Button, Spinner } from "components/Layouts";
 
 import { UserT } from "interface/db/user.types";
 
@@ -24,6 +26,8 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
   location,
   onCancelEdit,
 }) => {
+  const status = useAppSelector(selectEditProfileStatus);
+
   const { form, onSubmit } = useEditProfileQuery();
 
   useEffect(() => {
@@ -32,8 +36,8 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
       phone: phone || "",
       location: location || {
         name: "",
-        display_name: "",
-        addresstype: "",
+        displayName: "",
+        addressType: "",
         country: "",
         city: "",
         state: "",
@@ -44,7 +48,9 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
   }, [email, phone, location]);
 
   return (
-    <Stack mt="30px">
+    <Stack mt="30px" position="relative">
+      {status.loading && <Spinner />}
+
       <form onSubmit={onSubmit}>
         <Controller
           control={form.control}
@@ -99,9 +105,10 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
             onClick={onCancelEdit}
             color="app_text.main"
             bgColor="app_bg.contrastText"
+            disabled={status.loading}
           />
 
-          <Button title="Save" type="submit" />
+          <Button title="Save" type="submit" disabled={status.loading} />
         </Stack>
       </form>
     </Stack>
