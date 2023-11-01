@@ -4,7 +4,7 @@ import { useAppSelector } from "store/hooks";
 
 import {
   selectAllAgents,
-  selectAgentStatus,
+  selectAgentsStatus,
 } from "store/selectors/agent.selectors";
 
 import { Grid } from "@mui/material";
@@ -12,15 +12,15 @@ import { AgentCard, AgentCardSkeleton } from "components/Layouts";
 
 const AgentsList: React.FC = () => {
   const allAgents = useAppSelector(selectAllAgents);
-  const status = useAppSelector(selectAgentStatus);
+  const status = useAppSelector(selectAgentsStatus);
 
   return (
     <Grid
       container
       height="100%"
+      spacing="25px"
       alignContent="start"
       justifyContent="space-between"
-      spacing="25px"
     >
       {status.loading &&
         Array.from(new Array(12)).map(() => (

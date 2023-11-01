@@ -4,10 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
+import ViewSkeleton from "./ViewSkeleton";
 import { SliderModal } from "components/Layouts";
 import PropertyViewMain from "./PropertyViewMain";
 import PropertyViewThumb from "./PropertyViewThumb";
-import { Box, Stack, Typography, Skeleton } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
   const navigate = useNavigate();
@@ -26,30 +27,7 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
   };
 
   return loading ? (
-    <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
-      <Skeleton
-        variant="rectangular"
-        width="70%"
-        height="100%"
-        sx={{ borderRadius: "10px" }}
-      />
-
-      <Stack width="30%" gap="22px">
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height="100%"
-          sx={{ borderRadius: "10px" }}
-        />
-
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height="100%"
-          sx={{ borderRadius: "10px" }}
-        />
-      </Stack>
-    </Stack>
+    <ViewSkeleton />
   ) : (
     <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
       {isActiveModal && <SliderModal images={images} />}

@@ -1,21 +1,15 @@
 import React from "react";
-import { nanoid } from "@reduxjs/toolkit";
 
 import { useAppSelector } from "store/hooks";
 import { selectPropertyFilter } from "store/selectors/properties.selectors";
 import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
 
-import {
-  Stack,
-  TextField,
-  InputAdornment,
-  MenuItem,
-  Skeleton,
-} from "@mui/material";
-import { Search } from "@mui/icons-material";
+import FilterSkeleton from "./FilterSkeleton";
 import MoreFilterBody from "./MoreFilterBody";
 import MoreFilterButton from "./MoreFilterButton";
+import { Search } from "@mui/icons-material";
 import * as Form from "components/Layouts/Form";
+import { Stack, TextField, InputAdornment, MenuItem } from "@mui/material";
 
 const menuItemStyles = { "&:hover": { background: "transparent" } };
 
@@ -23,30 +17,14 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
   const filter = useAppSelector(selectPropertyFilter);
 
   const {
+    searchParams,
     onChangeSearchParams,
     onSelectSearchParams,
     onMultipleSelectSearchParams,
-    searchParams,
   } = usePropertyFilterContext();
 
   return loading ? (
-    <Stack direction="row" flexWrap="wrap" gap={3}>
-      {Array.from(new Array(5)).map(() => (
-        <Skeleton
-          key={nanoid()}
-          variant="rectangular"
-          height="60px"
-          sx={{ flex: 1, borderRadius: "5px" }}
-        />
-      ))}
-
-      <Skeleton
-        variant="rectangular"
-        height="60px"
-        width="130px"
-        sx={{ borderRadius: "5px" }}
-      />
-    </Stack>
+    <FilterSkeleton />
   ) : (
     <Stack direction="row" flexWrap="wrap" gap={3}>
       <TextField

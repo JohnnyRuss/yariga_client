@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Box, Rating as MuiRating } from "@mui/material";
 import { Star } from "@mui/icons-material";
+import { Box, Rating as MuiRating } from "@mui/material";
 
 interface RatingT {}
 
-const Rating: React.FC<RatingT> = (props) => {
+const Rating: React.FC<RatingT> = () => {
   return (
     <Box
       sx={{

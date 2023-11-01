@@ -9,6 +9,7 @@ export { default as AgentCardSkeleton } from "./AgentCard/AgentCardSkeleton";
 export { default as Button } from "./Button/Button";
 export { default as DropdownMenu } from "./DropdownMenu/DropdownMenu";
 export { default as GoBackButton } from "./GoBackButton/GoBackButton";
+export { default as HireAgentModal } from "./HireAgentModal/HireAgentModal";
 export { default as Modal } from "./Modal/Modal";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as PieChart } from "./PieChart/PieChart";

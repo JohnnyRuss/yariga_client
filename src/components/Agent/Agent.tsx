@@ -5,9 +5,9 @@ import { selectAgentStatus } from "store/selectors/agent.selectors";
 
 import { Box, Grid } from "@mui/material";
 import { ContentBox, GoBackButton } from "components/Layouts";
-import AgentDetails from "./components/AgentDetails";
-import AgentCredentials from "./components/AgentCredentials";
-import AgentActiveListing from "./components/AgentActiveListing";
+import AgentActiveListing from "./components/AgentActiveListing/AgentActiveListing";
+import AgentDetails from "./components/AgentDetails/AgentDetails";
+import AgentCredentials from "./components/AgentCredentials/AgentCredentials";
 
 const Agent: React.FC = () => {
   const status = useAppSelector(selectAgentStatus);

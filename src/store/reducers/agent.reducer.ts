@@ -6,7 +6,11 @@ import { AgentShortInfoT, AgentT } from "interface/db/agent.types";
 
 const initialState: AgentStateT = {
   agentStatus: status.default(),
+
+  agentsStatus: status.default(),
+
   agents: [],
+
   agent: {
     _id: "",
     username: "",
@@ -52,12 +56,12 @@ const agentSlice = createSlice({
   initialState,
   reducers: {
     getAllAgents(state) {
-      state.agentStatus = status.loading();
+      state.agentsStatus = status.loading();
     },
 
     setAllAgents(state, { payload }: PayloadAction<Array<AgentShortInfoT>>) {
       state.agents = payload;
-      state.agentStatus = status.default();
+      state.agentsStatus = status.default();
     },
 
     cleanUpAgents(state) {

@@ -1,10 +1,10 @@
-export { default as Agent } from "./Agent";
+export { default as PropertyView } from "./View/PropertyView";
+export { default as PropertyDetailsHeader } from "./DetailsHeader/PropertyDetailsHeader";
+export { default as PropertyRooms } from "./Rooms/PropertyRooms";
+export { default as PropertyFacilities } from "./Facilities/PropertyFacilities";
+export { default as PropertyDescription } from "./Description/PropertyDescription";
+export { default as Agent } from "./Agent/Agent";
+export { default as Map } from "./Map/Map";
 export { default as BookButton } from "./BookButton";
-export { default as Map } from "./Map";
 export { default as PropertyAside } from "./PropertyAside";
-export { default as PropertyDescription } from "./PropertyDescription";
-export { default as PropertyDetailsHeader } from "./PropertyDetailsHeader";
-export { default as PropertyFacilities } from "./PropertyFacilities";
 export { default as PropertyMain } from "./PropertyMain";
-export { default as PropertyRooms } from "./PropertyRooms";
-export { default as PropertyView } from "./PropertyView";

@@ -33,9 +33,9 @@ const AgentDetailsListedItem: React.FC<AgentDetailsListedItemT> = ({
           <path
             d="M8 1.5L3.10002 6.5L1 4.35713"
             stroke="#FCFCFC"
-            stroke-width="1.07143"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.07143"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Box>

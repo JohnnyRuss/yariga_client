@@ -17,7 +17,8 @@ const AgentCardSkeleton: React.FC = () => {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        maxHeight: "230px",
+        minHeight: "220px",
+        maxHeight: "220px",
         position: "relative",
         padding: "8px",
         borderRadius: "10px",
@@ -27,11 +28,11 @@ const AgentCardSkeleton: React.FC = () => {
         variant="text"
         width="40px"
         sx={{
-          position: "absolute",
           top: "10px",
           right: "10px",
-          color: "app_text.dark",
           fontSize: 28,
+          position: "absolute",
+          color: "app_text.dark",
         }}
       />
 

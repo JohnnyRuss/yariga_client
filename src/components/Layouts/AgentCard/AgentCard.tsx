@@ -31,7 +31,7 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
           position: "relative",
         }}
       >
-        <AgentMoreButton />
+        {/* <AgentMoreButton /> */}
 
         <AgentCardMedia src={agent.avatar} />
 

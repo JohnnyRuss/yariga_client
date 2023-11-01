@@ -11,15 +11,21 @@ import { PropertyShortInfoT } from "interface/db/properties.types";
 
 interface PropertyCardHorizontalT {
   property: PropertyShortInfoT;
+  fullWidth?: boolean;
 }
 
 const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
   property,
+  fullWidth = false,
 }) => {
   return (
     <Link
       to={dynamic_paths.property_page(property._id)}
-      style={{ flex: 1, flexBasis: "400px", maxWidth: "520px" }}
+      style={{
+        flex: 1,
+        flexBasis: "400px",
+        maxWidth: fullWidth ? "100%" : "520px",
+      }}
       className="app__card"
     >
       <MuiStyled.CardHorizontal>
