@@ -30,6 +30,7 @@ const selectedPropertyFilter = ({ properties }: RootStateT) => ({
 const selectedProperty = ({ properties }: RootStateT) => ({
   _id: properties.property._id,
   owner: properties.property.owner,
+  agent: properties.property.agent,
   title: properties.property.title,
   description: properties.property.description,
   propertyStatus: properties.property.propertyStatus,

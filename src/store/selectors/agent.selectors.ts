@@ -15,7 +15,15 @@ const selectedAgentsStatus = ({ agent }: RootStateT) => ({
   status: agent.agentsStatus.status,
 });
 
+const selectedHireAgentStatus = ({ agent }: RootStateT) => ({
+  error: agent.hireAgentsStatus.error,
+  loading: agent.hireAgentsStatus.loading,
+  message: agent.hireAgentsStatus.message,
+  status: agent.hireAgentsStatus.status,
+});
+
 const selectedAgentCredentials = ({ agent }: RootStateT) => ({
+  _id: agent.agent._id,
   birthDate: agent.agent.birthDate,
   location: agent.agent.location,
   agentId: agent.agent.agentId,
@@ -46,6 +54,11 @@ const selectAgentsStatus = createSelector(
   (status) => status
 );
 
+const selectHireAgentStatus = createSelector(
+  selectedHireAgentStatus,
+  (status) => status
+);
+
 const selectAgentCredentials = createSelector(
   selectedAgentCredentials,
   (credentials) => credentials
@@ -59,6 +72,7 @@ const selectAgentDetails = createSelector(
 export {
   selectAgentStatus,
   selectAgentsStatus,
+  selectHireAgentStatus,
   selectAllAgents,
   selectAgentCredentials,
   selectAgentDetails,

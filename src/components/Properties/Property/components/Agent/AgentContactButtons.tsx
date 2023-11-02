@@ -6,12 +6,14 @@ import { Stack } from "@mui/material";
 
 interface AgentContactButtonsT {
   email: string;
+  phone: string;
   title: string;
 }
 
 const AgentContactButtons: React.FC<AgentContactButtonsT> = ({
   title,
   email,
+  phone,
 }) => {
   return (
     <Stack direction="row" width="100%" gap="20px" mt="10px">
@@ -25,7 +27,7 @@ const AgentContactButtons: React.FC<AgentContactButtonsT> = ({
 
       <ContactButton
         label="Call"
-        address="tel:+001133"
+        address={`tel:${phone}`}
         bgColor="app_green.main"
         color="aoo_text.light"
         icon={<Call />}

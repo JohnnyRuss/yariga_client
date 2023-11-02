@@ -1,20 +1,35 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import useAuth from "hooks/auth/useAuth";
 import { RouterHistory } from "config/config";
 
-interface AppContextT {}
+import { Snackbar } from "components/Layouts";
+
+interface AppContextT {
+  setSnackbar: React.Dispatch<
+    React.SetStateAction<{
+      open: boolean;
+      message: string;
+      severity: "success" | "error";
+    }>
+  >;
+}
 
 interface AppProviderT {
   children: React.ReactNode;
 }
 
-const AppContext = createContext<AppContextT>({});
+const AppContext = createContext<AppContextT>({
+  setSnackbar: () => {},
+});
 
 const AppProvider: React.FC<AppProviderT> = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  ///////////////////////////////////////////////
+  ////////////// Router History ////////////////
 
   const { redirectUnAuthorized, redirectAuthorized } = useAuth();
 
@@ -23,7 +38,38 @@ const AppProvider: React.FC<AppProviderT> = ({ children }) => {
   RouterHistory.redirectUnAuthorized = redirectUnAuthorized;
   RouterHistory.redirectAuthorized = redirectAuthorized;
 
-  return <AppContext.Provider value={{}}>{children}</AppContext.Provider>;
+  /////////////////////////////////////////
+  ////////////// Snackbar ////////////////
+
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: "success" | "error";
+  }>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const onCloseSnackbar = () =>
+    setSnackbar({
+      open: false,
+      message: "",
+      severity: "success",
+    });
+
+  return (
+    <AppContext.Provider value={{ setSnackbar }}>
+      <Snackbar
+        open={snackbar.open}
+        severity={snackbar.severity}
+        message={snackbar.message}
+        onClose={onCloseSnackbar}
+      />
+
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 const useAppContext = () => useContext(AppContext);

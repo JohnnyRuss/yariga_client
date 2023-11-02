@@ -18,9 +18,10 @@ import { Stack, Box } from "@mui/material";
 
 interface HireByPropertyT {
   searchStr: string;
+  onHire: (args: { propertyId: string }) => void;
 }
 
-const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr }) => {
+const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector(selectAuthenticatedUser);
@@ -60,7 +61,12 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr }) => {
               : property
           )
           .map((property) => (
-            <Box key={property._id} position="relative">
+            <Box
+              key={property._id}
+              position="relative"
+              sx={{ height: "fit-content" }}
+              onClick={() => onHire({ propertyId: property._id })}
+            >
               <PropertyCardHorizontal property={property} fullWidth={true} />
               <Box
                 position="absolute"

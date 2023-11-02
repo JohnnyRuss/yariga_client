@@ -13,6 +13,7 @@ import {
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
 } from "interface/db/properties.types";
+import { HireAgentResponseT } from "interface/db/agent.types";
 
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 
@@ -39,7 +40,20 @@ const initialState: PropertiesStateT = {
       avatar: "",
       email: "",
       username: "",
+      phone: "",
+      properties: [],
+      location: {
+        name: "",
+        displayName: "",
+        country: "",
+        state: "",
+        city: "",
+        addressType: "",
+        lat: "",
+        lon: "",
+      },
     },
+    agent: null,
     title: "",
     description: "",
     propertyStatus: "RENT",
@@ -223,6 +237,13 @@ const propertiesSlice = createSlice({
 
     cleanUpProperty(state) {
       state.property = initialState.property;
+    },
+
+    setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {
+      state.property.agent = {
+        ...payload,
+        listing: payload.listing.map((property) => property._id),
+      };
     },
   },
 });

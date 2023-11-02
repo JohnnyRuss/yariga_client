@@ -1,3 +1,5 @@
+import { AgentShortInfoT } from "./agent.types";
+
 export interface PropertySuggestionsT {
   propertyFeatures: PropertyFeatureSuggestionT[];
   propertyTypes: PropertyTypeT[];
@@ -8,6 +10,7 @@ export interface PropertySuggestionsT {
 export interface PropertyT {
   _id: string;
   owner: PropertyOwnerT;
+  agent?: AgentShortInfoT | null;
   title: string;
   propertyStatus: keyof typeof PropertyStatus;
   price: number;
@@ -31,6 +34,7 @@ export interface PropertyShortInfoT {
   propertyType: PropertyTypeT;
   location: PropertyLocationT;
   owner: PropertyOwnerT;
+  agent?: AgentShortInfoT | null;
   area: number;
   bedroomsAmount: number;
   bathroomsAmount?: number;
@@ -70,6 +74,9 @@ export interface PropertyOwnerT {
   email: string;
   username: string;
   avatar: string;
+  phone: string;
+  properties: Array<string>;
+  location: PropertyLocationT;
 }
 
 export interface PropertyTypeT {

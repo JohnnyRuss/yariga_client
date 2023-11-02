@@ -6,10 +6,11 @@ import { selectAgentCredentials } from "store/selectors/agent.selectors";
 import AgentCoverImage from "./AgentCoverImage";
 import AgentCredentialsItem from "./AgentCredentialsItem";
 import AgentCredentialsSkeleton from "./AgentCredentialsSkeleton";
+import AgentAvatarAndUsername from "./AgentAvatarAndUsername";
 import { Button, HireAgentModal } from "components/Layouts";
 
+import { Box, Stack } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
-import { Box, Stack, Avatar, Typography } from "@mui/material";
 
 interface AgentCredentialsT {
   loading: boolean;
@@ -48,27 +49,17 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
           <AgentCoverImage />
 
           <Stack
+            gap="30px"
             sx={{
               padding: "0 20px",
               marginBottom: "-20px",
               transform: "translateY(-40px)",
             }}
-            gap="30px"
           >
-            <Stack direction="row" gap={2}>
-              <Avatar
-                sx={{ width: "100px", height: "100px" }}
-                src={agent.avatar}
-              />
-
-              <Box mt="50px">
-                <Typography fontWeight={600}>{agent.username}</Typography>
-
-                <Typography fontSize={14} color="app_text.main">
-                  Agent
-                </Typography>
-              </Box>
-            </Stack>
+            <AgentAvatarAndUsername
+              avatar={agent.avatar}
+              username={agent.username}
+            />
 
             <Stack width="100%" gap="15px">
               <AgentCredentialsItem label="Age" value={age.toString()} />
@@ -110,7 +101,8 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
       )}
 
       <HireAgentModal
-        by="PROPERTY"
+        hiredBy="PROPERTY"
+        agentId={agent._id}
         open={openHireAgent}
         onClose={onCloseHireAgent}
       />

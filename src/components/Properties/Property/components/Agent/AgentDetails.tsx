@@ -35,16 +35,20 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ owner }) => {
         </Typography>
       </Stack>
 
-      <Typography
-        color="app_text.main"
-        fontSize={14}
-        sx={{ display: "flex", alignItems: "center", gap: "10px" }}
-      >
-        <LocationOn sx={{ fontSize: "18px" }} />
-        North Carolina, USA
-      </Typography>
+      {owner.location && (
+        <Typography
+          color="app_text.main"
+          fontSize={14}
+          sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+        >
+          <LocationOn sx={{ fontSize: "18px" }} />
+          {owner.location?.displayName}
+        </Typography>
+      )}
 
-      <Typography fontWeight={600}>10 Properties</Typography>
+      <Typography fontWeight={600}>
+        {owner.properties?.length} Properties
+      </Typography>
     </>
   );
 };

@@ -4,22 +4,25 @@ import { useAppSelector } from "store/hooks";
 import { useIsCurrentUser } from "hooks/utils";
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import { PersonAdd } from "@mui/icons-material";
-import { Paper, Stack, Avatar, Box } from "@mui/material";
-
 import AgentDetails from "./AgentDetails";
 import AgentSkeleton from "./AgentSkeleton";
+import HireAgentButtons from "./HireAgentButtons";
 import AgentContactButtons from "./AgentContactButtons";
-import { Button, HireAgentModal } from "components/Layouts";
+import { HireAgentModal } from "components/Layouts";
+import { Paper, Stack, Avatar } from "@mui/material";
 
 const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
-  const { owner, title } = useAppSelector(selectProperty);
+  const { owner, agent, title, _id } = useAppSelector(selectProperty);
 
   const { isAuthenticatedUser } = useIsCurrentUser(owner._id);
 
   const [openHireAgent, setOpenHireAgent] = useState(false);
 
   const onCloseHireAgent = () => setOpenHireAgent(false);
+
+  const ownerData = agent
+    ? { ...agent, location: agent.serviceArea, properties: agent.listing }
+    : owner;
 
   return (
     <>
@@ -42,35 +45,36 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
             justifyContent="center"
           >
             <Avatar
-              src={owner.avatar}
-              alt={owner.username}
+              src={ownerData.avatar}
+              alt={ownerData.username}
               sx={{ width: "90px", height: "90px" }}
             >
-              {owner.username[0]?.toUpperCase()}
+              {ownerData.username[0]?.toUpperCase()}
             </Avatar>
 
-            <AgentDetails owner={owner} />
+            <AgentDetails owner={ownerData} />
 
-            {!isAuthenticatedUser && (
-              <AgentContactButtons title={title} email={owner.email} />
+            {(!isAuthenticatedUser || agent !== null) && (
+              <AgentContactButtons
+                title={title}
+                email={ownerData.email}
+                phone={ownerData.phone}
+              />
             )}
 
             {isAuthenticatedUser && (
-              <Box mt="10px" width="100%">
-                <Button
-                  fullWidth={true}
-                  icon={<PersonAdd />}
-                  title="Hire The Agent"
-                  onClick={() => setOpenHireAgent(true)}
-                />
-              </Box>
+              <HireAgentButtons
+                setOpenHireAgent={setOpenHireAgent}
+                hasAgent={agent ? true : false}
+              />
             )}
           </Stack>
         </Paper>
       )}
 
       <HireAgentModal
-        by="AGENT"
+        hiredBy="AGENT"
+        propertyId={_id}
         open={openHireAgent}
         onClose={onCloseHireAgent}
       />

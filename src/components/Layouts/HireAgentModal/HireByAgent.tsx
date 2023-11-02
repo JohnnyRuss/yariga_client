@@ -14,9 +14,10 @@ import { AgentCard, AgentCardSkeleton } from "components/Layouts";
 
 interface HireByAgentT {
   searchStr: string;
+  onHire: (args: { agentId: string }) => void;
 }
 
-const HireByAgent: React.FC<HireByAgentT> = ({ searchStr }) => {
+const HireByAgent: React.FC<HireByAgentT> = ({ searchStr, onHire }) => {
   const dispatch = useAppDispatch();
 
   const status = useAppSelector(selectAgentsStatus);
@@ -52,7 +53,12 @@ const HireByAgent: React.FC<HireByAgentT> = ({ searchStr }) => {
               : agent
           )
           .map((agent) => (
-            <Box key={agent._id} position="relative">
+            <Box
+              key={agent._id}
+              position="relative"
+              sx={{ height: "fit-content" }}
+              onClick={() => onHire({ agentId: agent._id })}
+            >
               <AgentCard agent={agent} />
               <Box
                 position="absolute"

@@ -15,6 +15,7 @@ const PropertyAside: React.FC<PropertyAsideT> = ({ children }) => {
       position="sticky"
       top="70px"
       height="90vh"
+      p="4px"
       sx={{
         overflowY: "auto",
         "&::-webkit-scrollbar": {

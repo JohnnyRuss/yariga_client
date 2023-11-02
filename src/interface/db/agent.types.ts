@@ -1,3 +1,5 @@
+import { PropertyStatus } from "./properties.types";
+
 export interface AgentShortInfoT {
   _id: string;
   username: string;
@@ -5,7 +7,7 @@ export interface AgentShortInfoT {
   phone: string;
   avatar: string;
   listing: Array<string>;
-  location: {
+  serviceArea: {
     name: string;
     displayName: string;
     city: string;
@@ -43,7 +45,7 @@ export interface AgentT {
     title: string;
     agencyLicense: string;
   };
-  listing: Array<string>;
+  listing: Array<AgentListingShortT>;
   serviceArea: {
     name: string;
     displayName: string;
@@ -55,4 +57,24 @@ export interface AgentT {
     lon: string;
     postcode: string;
   };
+}
+
+export enum HireByT {
+  AGENT = "AGENT",
+  PROPERTY = "PROPERTY",
+}
+
+export interface HireAgentArgsT {
+  agentId: string;
+  propertyId: string;
+  hiredBy: keyof typeof HireByT;
+}
+
+export interface AgentListingShortT {
+  _id: string;
+  propertyStatus: keyof typeof PropertyStatus;
+}
+
+export interface HireAgentResponseT extends Omit<AgentShortInfoT, "listing"> {
+  listing: Array<AgentListingShortT>;
 }

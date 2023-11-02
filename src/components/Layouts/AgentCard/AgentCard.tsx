@@ -5,7 +5,7 @@ import { dynamic_paths } from "config/paths";
 
 import { Card } from "@mui/material";
 import AgentCardMedia from "./components/AgentCardMedia";
-import AgentMoreButton from "./components/AgentMoreButton";
+// import AgentMoreButton from "./components/AgentMoreButton";
 import AgentCardContent from "./components/AgentCardContent";
 
 import { AgentShortInfoT } from "interface/db/agent.types";
@@ -39,7 +39,7 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
           email={agent.email}
           phone={agent.phone}
           username={agent.username}
-          city={agent.location.city}
+          city={agent.serviceArea.city}
           listingAmount={agent.listing.length}
         />
       </Card>

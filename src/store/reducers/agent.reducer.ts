@@ -1,13 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { controlStatus as status } from "./helpers";
+import { StatusT } from "interface/store/common.types";
 
 import { AgentStateT } from "interface/store/agent.types";
-import { AgentShortInfoT, AgentT } from "interface/db/agent.types";
+import {
+  AgentT,
+  HireAgentArgsT,
+  HireAgentResponseT,
+  AgentShortInfoT,
+} from "interface/db/agent.types";
 
 const initialState: AgentStateT = {
   agentStatus: status.default(),
 
   agentsStatus: status.default(),
+
+  hireAgentsStatus: status.default(),
 
   agents: [],
 
@@ -87,6 +95,33 @@ const agentSlice = createSlice({
 
     cleanUpAgent(state) {
       state.agent = initialState.agent;
+    },
+
+    hireAgent: {
+      prepare: (payload: HireAgentArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.hireAgentsStatus = status.loading();
+      },
+    },
+
+    setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {
+      state.agent.listing = payload.listing;
+    },
+
+    setHireAgentStatus(
+      state,
+      {
+        payload: { message, status: reqStatus },
+      }: PayloadAction<{ message?: string; status: StatusT }>
+    ) {
+      if (reqStatus === "FAIL")
+        state.hireAgentsStatus = status.error(
+          message || "Fail to Hire The Agent"
+        );
+      else state.hireAgentsStatus = status.success(reqStatus);
     },
   },
 });
