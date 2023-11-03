@@ -13,5 +13,11 @@ export default function useHireAgentQuery() {
     dispatch(agentActions.hireAgent({ agentId, hiredBy, propertyId }));
   };
 
-  return { hireAgentQuery };
+  const fireAgentQuery = ({ agentId, propertyId, hiredBy }: HireAgentArgsT) => {
+    if (!agentId || !propertyId) return;
+
+    dispatch(agentActions.fireAgent({ agentId, hiredBy, propertyId }));
+  };
+
+  return { hireAgentQuery, fireAgentQuery };
 }

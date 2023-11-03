@@ -8,6 +8,7 @@ import { PieChartPropsT } from "interface/components/dashboard";
 const PieChart: React.FC<PieChartPropsT> = ({
   colors,
   series,
+  labels,
   title,
   value,
   mainBoxProps,
@@ -46,6 +47,7 @@ const PieChart: React.FC<PieChartPropsT> = ({
           legend: { show: false },
           chart: { type: "donut" },
           dataLabels: { enabled: false },
+          labels: labels || ["", ""],
         }}
       />
     </Box>

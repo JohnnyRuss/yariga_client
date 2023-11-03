@@ -10,22 +10,21 @@ export interface CustomButtonPropsT {
   onClick?: (e: React.MouseEvent) => void;
 }
 
-export interface ProfilePropsT {
-  type: string;
-  name: string;
-  avatar: string;
-  email: string;
-  properties: Array | undefined;
+export interface SnackbarT {
+  open: boolean;
+  message: string;
+  severity: "success" | "error";
 }
 
-export interface PropertyPropsT {
-  _id: string;
-  title: string;
-  description: string;
-  location: string;
-  price: string;
-  photo: string;
-  creator: string;
+export interface DialogT {
+  open?: boolean;
+  title?: string;
+  titleAlignment?: "center" | "start";
+  message: string;
+  messageAlignment?: "center" | "start";
+  keyWord?: string;
+  onConfirm: () => void;
+  variant?: "success" | "danger";
 }
 
 export interface FormPropsT {

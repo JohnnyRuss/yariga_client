@@ -12,6 +12,7 @@ import {
   CreatePropertyArgsT,
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
+  GetAgentPropertiesArgsT,
 } from "interface/db/properties.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
 
@@ -193,6 +194,21 @@ const propertiesSlice = createSlice({
       },
     },
 
+    getAgentProperties: {
+      prepare: (payload: GetAgentPropertiesArgsT) => {
+        return {
+          payload: {
+            agentId: payload.agentId,
+            limit: payload.limit || 3,
+          },
+        };
+      },
+
+      reducer: (state) => {
+        state.status = status.loading();
+      },
+    },
+
     setAllProperties(
       state,
       { payload }: PayloadAction<Array<PropertyShortInfoT>>
@@ -244,6 +260,10 @@ const propertiesSlice = createSlice({
         ...payload,
         listing: payload.listing.map((property) => property._id),
       };
+    },
+
+    setFiredAgent(state) {
+      state.property.agent = null;
     },
   },
 });

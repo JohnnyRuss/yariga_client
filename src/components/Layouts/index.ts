@@ -7,6 +7,7 @@ export { default as AgentCard } from "./AgentCard/AgentCard";
 export { default as AddPropertyButton } from "./AddPropertyButton/AddPropertyButton";
 export { default as AgentCardSkeleton } from "./AgentCard/AgentCardSkeleton";
 export { default as Button } from "./Button/Button";
+export { default as Dialog } from "./Dialog/Dialog";
 export { default as DropdownMenu } from "./DropdownMenu/DropdownMenu";
 export { default as GoBackButton } from "./GoBackButton/GoBackButton";
 export { default as HireAgentModal } from "./HireAgentModal/HireAgentModal";

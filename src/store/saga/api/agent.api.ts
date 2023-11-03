@@ -15,3 +15,9 @@ export async function hireAgentQuery(data: HireAgentArgsT) {
     `/agents/hire/${data.agentId}/${data.propertyId}`
   );
 }
+
+export async function fireAgentQuery(data: HireAgentArgsT) {
+  return axiosPrivateQuery.delete(
+    `/agents/hire/${data.agentId}/${data.propertyId}`
+  );
+}

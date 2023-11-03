@@ -18,6 +18,8 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
   property,
   fullWidth = false,
 }) => {
+  const ownerData = property.agent ? property.agent : property.owner;
+
   return (
     <Link
       to={dynamic_paths.property_page(property._id)}
@@ -52,7 +54,7 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
 
           <Divider />
 
-          <UI.User owner={property.owner} />
+          <UI.User owner={ownerData} />
 
           <Divider />
 

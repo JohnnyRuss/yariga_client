@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "store/hooks";
 import { RouterHistory } from "config/config";
 import { agentActions } from "store/reducers/agent.reducer";
+import { propertiesActions } from "store/reducers/properties.reducer";
 
 import { Agent } from "components/Agent";
 
@@ -19,9 +20,11 @@ const AgentPage: React.FC = () => {
     if (!agentId) return;
 
     dispatch(agentActions.getAgent({ agentId }));
+    dispatch(propertiesActions.getAgentProperties({ agentId }));
 
     return () => {
       dispatch(agentActions.cleanUpAgent());
+      dispatch(propertiesActions.cleanUpAllProperties());
     };
   }, []);
 

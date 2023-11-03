@@ -6,12 +6,14 @@ import { Button } from "components/Layouts";
 
 interface HireAgentButtonsT {
   hasAgent: boolean;
-  setOpenHireAgent: React.Dispatch<React.SetStateAction<boolean>>;
+  onOpenHireAgent: () => void;
+  onFireAgent: () => void;
 }
 
 const HireAgentButtons: React.FC<HireAgentButtonsT> = ({
   hasAgent,
-  setOpenHireAgent,
+  onFireAgent,
+  onOpenHireAgent,
 }) => {
   return (
     <Box mt="10px" width="100%">
@@ -21,14 +23,14 @@ const HireAgentButtons: React.FC<HireAgentButtonsT> = ({
           icon={<PersonRemove />}
           title="Fire The Agent"
           bgColor="error.main"
-          onClick={() => setOpenHireAgent(true)}
+          onClick={onFireAgent}
         />
       ) : (
         <Button
           fullWidth={true}
           icon={<PersonAdd />}
           title="Hire The Agent"
-          onClick={() => setOpenHireAgent(true)}
+          onClick={onOpenHireAgent}
         />
       )}
     </Box>

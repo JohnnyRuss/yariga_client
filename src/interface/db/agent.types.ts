@@ -57,6 +57,8 @@ export interface AgentT {
     lon: string;
     postcode: string;
   };
+  rent: number;
+  sold: number;
 }
 
 export enum HireByT {

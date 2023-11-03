@@ -12,6 +12,7 @@ import {
   CreatePropertyArgsT,
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
+  GetAgentPropertiesArgsT,
 } from "interface/db/properties.types";
 import { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -98,6 +99,21 @@ export function* getUserProperties({
     );
 
     yield put(propertiesActions.setAllProperties(data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* getAgentProperties({
+  payload,
+}: PayloadAction<GetAgentPropertiesArgsT>) {
+  try {
+    const {
+      data,
+    }: AxiosResponse<{ _id: string; listing: Array<PropertyShortInfoT> }> =
+      yield call(propertiesAPI.getAgentPropertiesQuery, payload);
+
+    yield put(propertiesActions.setAllProperties(data.listing));
   } catch (error) {
     console.log(error);
   }

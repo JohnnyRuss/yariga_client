@@ -33,8 +33,8 @@ export interface PropertyShortInfoT {
   propertyStatus: keyof typeof PropertyStatus;
   propertyType: PropertyTypeT;
   location: PropertyLocationT;
-  owner: PropertyOwnerT;
-  agent?: AgentShortInfoT | null;
+  owner: PropertyOwnerShortT;
+  agent?: PropertyOwnerShortT | null;
   area: number;
   bedroomsAmount: number;
   bathroomsAmount?: number;
@@ -67,6 +67,13 @@ export interface PropertyLocationT {
 export enum PropertyStatus {
   SALE = "SALE",
   RENT = "RENT",
+}
+
+export interface PropertyOwnerShortT {
+  _id: string;
+  email: string;
+  username: string;
+  avatar: string;
 }
 
 export interface PropertyOwnerT {
@@ -130,5 +137,10 @@ export interface GetPropertyArgsT {
 
 export interface GetUserPropertiesArgsT {
   userId: string;
+  limit?: number;
+}
+
+export interface GetAgentPropertiesArgsT {
+  agentId: string;
   limit?: number;
 }

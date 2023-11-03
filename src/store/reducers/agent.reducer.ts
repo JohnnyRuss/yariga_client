@@ -56,6 +56,8 @@ const initialState: AgentStateT = {
       postcode: "",
       state: "",
     },
+    rent: 0,
+    sold: 0,
   },
 };
 
@@ -108,7 +110,21 @@ const agentSlice = createSlice({
     },
 
     setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {
-      state.agent.listing = payload.listing;
+      // state.agent.listing = payload.listing;
+    },
+
+    fireAgent: {
+      prepare: (payload: HireAgentArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.hireAgentsStatus = status.loading();
+      },
+    },
+
+    setFiredAgent(state) {
+      // state.agent.listing = payload.listing;
     },
 
     setHireAgentStatus(

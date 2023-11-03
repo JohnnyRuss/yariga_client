@@ -47,10 +47,33 @@ export function* hireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
       payload
     );
 
-    if (payload.hiredBy === "AGENT")
+    if (payload.hiredBy === "PROPERTY")
       yield put(agentActions.setHiredAgent(data));
-    else if (payload.hiredBy === "PROPERTY")
+    else if (payload.hiredBy === "AGENT")
       yield put(propertiesActions.setHiredAgent(data));
+
+    yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));
+  } catch (error: any) {
+    yield setError({
+      location: "hireAgent",
+      errorSetter: agentActions.setHireAgentStatus,
+      errorSetterArgs: { status: "FAIL" },
+      error,
+    });
+  }
+}
+
+export function* fireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
+  try {
+    yield call(agentAPI.fireAgentQuery, payload);
+    // const { data }: AxiosResponse<HireAgentResponseT> = yield call(
+    //   agentAPI.fireAgentQuery,
+    //   payload
+    // );
+
+    if (payload.hiredBy === "AGENT") yield put(agentActions.setFiredAgent());
+    else if (payload.hiredBy === "PROPERTY")
+      yield put(propertiesActions.setFiredAgent());
 
     yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));
   } catch (error: any) {

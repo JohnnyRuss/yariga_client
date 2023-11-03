@@ -6,4 +6,5 @@ export default function* agentSaga() {
   yield takeLatest(agentActions.getAllAgents, agentHandlers.getAllAgents);
   yield takeLatest(agentActions.getAgent, agentHandlers.getAgent);
   yield takeLatest(agentActions.hireAgent, agentHandlers.hireAgent);
+  yield takeLatest(agentActions.fireAgent, agentHandlers.fireAgent);
 }

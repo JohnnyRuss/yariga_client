@@ -38,6 +38,9 @@ const selectedAgentDetails = ({ agent }: RootStateT) => ({
   agency: agent.agent.agency,
   taxNumber: agent.agent.taxNumber,
   serviceArea: agent.agent.serviceArea.displayName,
+  listing: agent.agent.listing,
+  rent: agent.agent.rent,
+  sold: agent.agent.sold,
 });
 
 // Selectors

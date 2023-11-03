@@ -11,6 +11,7 @@ import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
 import {
+  NoContentMessage,
   PropertyCardHorizontal,
   PropertyCardHorizontalSkeleton,
 } from "components/Layouts";
@@ -28,6 +29,10 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
 
   const status = useAppSelector(selectPropertiesStatus);
   const allProperties = useAppSelector(selectAllProperties);
+
+  const propertiesToRender = allProperties.filter(
+    (property) => !property.agent || property.agent === null
+  );
 
   useEffect(() => {
     dispatch(propertiesActions.getUserProperties({ userId: user._id }));
@@ -52,8 +57,8 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
           <PropertyCardHorizontalSkeleton key={nanoid()} />
         ))}
 
-      {!status.loading &&
-        allProperties
+      {!status.loading && propertiesToRender[0] ? (
+        propertiesToRender
           .filter((property) =>
             searchStr !== ""
               ? new RegExp(searchStr, "i").test(property.title) ||
@@ -73,7 +78,10 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
                 sx={{ inset: 0, borderRadius: "10px", cursor: "pointer" }}
               />
             </Box>
-          ))}
+          ))
+      ) : (
+        <NoContentMessage message="There are no Available Properties" />
+      )}
     </Stack>
   );
 };

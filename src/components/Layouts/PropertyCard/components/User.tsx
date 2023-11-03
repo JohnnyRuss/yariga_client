@@ -4,10 +4,10 @@ import useGoToUser from "hooks/utils/useGoToUser";
 
 import { Stack, Avatar, Typography } from "@mui/material";
 
-import { PropertyOwnerT } from "interface/db/properties.types";
+import { PropertyOwnerShortT } from "interface/db/properties.types";
 
 interface UserT {
-  owner: PropertyOwnerT;
+  owner: PropertyOwnerShortT;
 }
 
 const User: React.FC<UserT> = ({ owner }) => {
