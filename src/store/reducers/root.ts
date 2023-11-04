@@ -6,6 +6,9 @@ import authReducer from "./auth.reducer";
 import agentReducer from "./agent.reducer";
 import userReducer from "./user.reducer";
 import propertiesReducer from "./properties.reducer";
+import propertiesFilterReducer from "./propertiesFilter.reducer";
+import createPropertyFormReducer from "./createPropertyForm.reducer";
+import roomTypesReducer from "./roomTypes.reducer";
 
 const persistedUserReducer = persistReducer(
   {
@@ -21,6 +24,9 @@ const rootReducer = combineReducers({
   agent: agentReducer,
   auth: authReducer,
   properties: propertiesReducer,
+  propertiesFilter: propertiesFilterReducer,
+  createPropertyForm: createPropertyFormReducer,
+  roomTypes: roomTypesReducer,
 });
 
 export default rootReducer;

@@ -11,13 +11,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   selectPropertyFilter,
   selectPropertyFilterStatus,
-} from "store/selectors/properties.selectors";
+} from "store/selectors/propertiesFilter.selectors";
 import { useAppSelector } from "store/hooks";
 
 import {
   CommonFilterT,
   ActivePropertyFilterT,
-} from "interface/store/properties.types";
+} from "interface/store/propertiesFilter.types";
 import {
   ReactHookFormSelectFieldPropsT,
   ReactHookFormMultipleSelectFieldPropsT,

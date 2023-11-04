@@ -5,6 +5,7 @@ import { useAppDispatch } from "store/hooks";
 
 import { RouterHistory } from "config/config";
 import { propertiesActions } from "store/reducers/properties.reducer";
+import { roomTypesActions } from "store/reducers/roomTypes.reducer";
 
 import { Property } from "components/Properties";
 
@@ -22,10 +23,10 @@ const PropertyPage: React.FC = () => {
   }, [propertyId]);
 
   useEffect(() => {
-    dispatch(propertiesActions.getAllRoomTypes());
+    dispatch(roomTypesActions.getAllRoomTypes());
 
     return () => {
-      dispatch(propertiesActions.cleanUpRoomTypes());
+      dispatch(roomTypesActions.cleanUpRoomTypes());
       dispatch(propertiesActions.cleanUpProperty());
     };
   }, []);

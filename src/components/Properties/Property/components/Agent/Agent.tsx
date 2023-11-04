@@ -80,7 +80,7 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
               {ownerData.username[0]?.toUpperCase()}
             </Avatar>
 
-            <AgentDetails owner={ownerData} />
+            <AgentDetails owner={ownerData} isAgent={agent ? true : false} />
 
             {(!isAuthenticatedUser || agent) && (
               <AgentContactButtons

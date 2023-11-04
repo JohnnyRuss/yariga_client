@@ -2,17 +2,18 @@ import React from "react";
 
 import { useGoToUser } from "hooks/utils";
 
-import { Stack, Typography } from "@mui/material";
 import { LocationOn } from "@mui/icons-material";
+import { Stack, Typography, Box } from "@mui/material";
 
 import { PropertyOwnerT } from "interface/db/properties.types";
 
 interface AgentDetailsT {
   owner: PropertyOwnerT;
+  isAgent: boolean;
 }
 
-const AgentDetails: React.FC<AgentDetailsT> = ({ owner }) => {
-  const { onGoToUser } = useGoToUser(owner._id);
+const AgentDetails: React.FC<AgentDetailsT> = ({ owner, isAgent }) => {
+  const { onGoToUser } = useGoToUser(owner._id, isAgent);
 
   return (
     <>
@@ -45,6 +46,18 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ owner }) => {
           {owner.location?.displayName}
         </Typography>
       )}
+
+      <Box
+        px={1.5}
+        py={0.5}
+        borderRadius={1}
+        bgcolor={isAgent ? "success.light" : "info.light"}
+        height="fit-content"
+      >
+        <Typography fontSize={12} fontWeight={600} color="app_text.light">
+          {isAgent ? "AGENT" : "OWNER"}
+        </Typography>
+      </Box>
 
       <Typography fontWeight={600}>
         {owner.properties?.length} Properties

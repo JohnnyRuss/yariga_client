@@ -21,7 +21,7 @@ const IProfile: React.FC = () => {
     );
 
     return () => {
-      dispatch(propertiesActions.cleanUpAllProperties());
+      dispatch(propertiesActions.cleanUpUserProperties());
     };
   }, []);
 

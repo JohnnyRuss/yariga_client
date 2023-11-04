@@ -2,9 +2,9 @@ import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import {
-  selectPropertiesStatus,
   selectPropertySuggestions,
-} from "store/selectors/properties.selectors";
+  selectCreatePropertyStatus,
+} from "store/selectors/createPropertyForm.selectors";
 
 import { Controller } from "react-hook-form";
 import { useCreatePropertyQuery } from "hooks/api";
@@ -19,7 +19,7 @@ interface CreatePropertyFormT {}
 const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
   const { form, onSubmit, onFileChange } = useCreatePropertyQuery();
 
-  const status = useAppSelector(selectPropertiesStatus);
+  const status = useAppSelector(selectCreatePropertyStatus);
 
   const suggestions = useAppSelector(selectPropertySuggestions);
 

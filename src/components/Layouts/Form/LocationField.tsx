@@ -38,7 +38,7 @@ const LocationField: React.FC<LocationFieldT> = ({
     option && onSelectLocation(option);
 
   const getOptionLabel = (option: OpenStreetMapLocationT) =>
-    `${option.name} - ${option.displayName}`;
+    Object.values(option)[0] ? `${option.name} - ${option.displayName}` : "";
 
   const filterOptions = (options: OpenStreetMapLocationT[]) => options;
 

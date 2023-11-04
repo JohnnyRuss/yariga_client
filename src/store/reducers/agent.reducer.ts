@@ -110,7 +110,7 @@ const agentSlice = createSlice({
     },
 
     setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {
-      // state.agent.listing = payload.listing;
+      state.agent.listing = payload.listing;
     },
 
     fireAgent: {

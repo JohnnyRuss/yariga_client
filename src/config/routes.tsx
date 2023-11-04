@@ -17,6 +17,9 @@ export const routes: RouteT[] = [
     path: paths.root_page,
     element: <Navigate to={paths.dashboard_page} />,
   },
+
+  // AUTH
+
   {
     name: "auth-page-root",
     path: paths.auth_page_root,
@@ -47,11 +50,17 @@ export const routes: RouteT[] = [
     path: paths.auth_page_update_password,
     element: <Pages.UpdatePasswordPage />,
   },
+
+  // DASHBOARD
+
   {
     name: "dashboard-page",
     path: paths.dashboard_page,
     element: <Pages.DashboardPage />,
   },
+
+  // PROPERTIES
+
   {
     name: "properties-page",
     path: paths.properties_page,
@@ -67,6 +76,9 @@ export const routes: RouteT[] = [
     path: paths.create_property_page,
     element: <Pages.CreatePropertyPage />,
   },
+
+  // AGENTS
+
   {
     name: "agents-page",
     path: paths.agents_page,
@@ -78,25 +90,52 @@ export const routes: RouteT[] = [
     element: <Pages.AgentPage />,
   },
   {
+    name: "agent-properties-page",
+    path: paths.agent_properties_page,
+    element: <Pages.AgentPropertiesPage />,
+  },
+
+  // REVIEWS
+
+  {
     name: "reviews-page",
     path: paths.reviews_page,
     element: <Pages.ReviewsPage />,
   },
+
+  // MESSAGES
+
   {
     name: "messages-page",
     path: paths.messages_page,
     element: <Pages.MessagesPage />,
   },
+
+  // USER PROFILE
+
   {
     name: "iuser-profile-page",
     path: paths.user_iprofile_page,
     element: <Pages.IProfilePage />,
   },
   {
+    name: "iuser-properties-page",
+    path: paths.iuser_properties_page,
+    element: <Pages.IUserPropertiesPage />,
+  },
+  {
     name: "user-profile-page",
     path: paths.user_profile_page,
     element: <Pages.UserProfilePage />,
   },
+  {
+    name: "user-properties-page",
+    path: paths.user_properties_page,
+    element: <Pages.UserPropertiesPage />,
+  },
+
+  // NOT FOUND
+
   {
     name: "not-found-page",
     path: "*",

@@ -1,10 +1,11 @@
 import { call, put } from "redux-saga/effects";
-
 import { setError } from "./helpers/AppError";
 
 import * as agentAPI from "store/saga/api/agent.api";
 import { agentActions } from "store/reducers/agent.reducer";
 import { propertiesActions } from "store/reducers/properties.reducer";
+
+import { getAgentProperties } from "./properties.handlers";
 
 import {
   AgentT,
@@ -47,10 +48,15 @@ export function* hireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
       payload
     );
 
-    if (payload.hiredBy === "PROPERTY")
+    if (payload.hiredBy === "PROPERTY") {
       yield put(agentActions.setHiredAgent(data));
-    else if (payload.hiredBy === "AGENT")
+      yield getAgentProperties({
+        payload: { agentId: payload.agentId, limit: 3 },
+        type: "",
+      });
+    } else if (payload.hiredBy === "AGENT") {
       yield put(propertiesActions.setHiredAgent(data));
+    }
 
     yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));
   } catch (error: any) {
@@ -66,13 +72,8 @@ export function* hireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
 export function* fireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
   try {
     yield call(agentAPI.fireAgentQuery, payload);
-    // const { data }: AxiosResponse<HireAgentResponseT> = yield call(
-    //   agentAPI.fireAgentQuery,
-    //   payload
-    // );
 
-    if (payload.hiredBy === "AGENT") yield put(agentActions.setFiredAgent());
-    else if (payload.hiredBy === "PROPERTY")
+    if (payload.hiredBy === "PROPERTY")
       yield put(propertiesActions.setFiredAgent());
 
     yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));

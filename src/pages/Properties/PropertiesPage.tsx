@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 
 import { useAppDispatch } from "store/hooks";
 import { propertiesActions } from "store/reducers/properties.reducer";
+import { propertiesFilterActions } from "store/reducers/propertiesFilter.reducer";
 
 import { AllProperties } from "components/Properties";
 import PropertyFilterProvider from "providers/PropertyFilterProvider";
@@ -15,11 +16,11 @@ const PropertiesPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(propertiesActions.getAllProperties({}));
-    dispatch(propertiesActions.getPropertyFilter());
+    dispatch(propertiesFilterActions.getPropertyFilter());
 
     return () => {
+      dispatch(propertiesFilterActions.cleanUpFilter());
       dispatch(propertiesActions.cleanUpAllProperties());
-      dispatch(propertiesActions.cleanUpFilter());
     };
   }, []);
 

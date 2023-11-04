@@ -3,7 +3,7 @@ import { useCreatePropertyForm } from "utils/zod";
 import { FileChangeEventT } from "interface/components/form";
 
 import FileControl from "utils/FileControl";
-import { propertiesActions } from "store/reducers/properties.reducer";
+import { createPropertyFormActions } from "store/reducers/createPropertyForm.reducer";
 
 export default function useCreatePropertyQuery() {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export default function useCreatePropertyQuery() {
   };
 
   const onSubmit = form.handleSubmit(function (values) {
-    dispatch(propertiesActions.createProperty(values));
+    dispatch(createPropertyFormActions.createProperty(values));
   });
 
   return { form, onSubmit, onFileChange };

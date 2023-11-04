@@ -1,19 +1,18 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
-import { paths } from "config/paths";
-import { selectPropertiesStatus } from "store/selectors/properties.selectors";
+import { selectSinglePropertyStatus } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";
 import { Stack } from "@mui/material";
 import { ContentBox, GoBackButton } from "components/Layouts";
 
 const Property: React.FC = () => {
-  const status = useAppSelector(selectPropertiesStatus);
+  const status = useAppSelector(selectSinglePropertyStatus);
 
   return (
     <ContentBox>
-      <GoBackButton path={paths.properties_page}>Property Details</GoBackButton>
+      <GoBackButton>Property Details</GoBackButton>
 
       <Stack direction="row" gap={4} className="content__box">
         <UI.PropertyMain>

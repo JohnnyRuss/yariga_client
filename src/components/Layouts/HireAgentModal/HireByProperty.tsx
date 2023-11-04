@@ -4,8 +4,8 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 
 import {
-  selectAllProperties,
-  selectPropertiesStatus,
+  selectUserProperties,
+  selectUserPropertiesStatus,
 } from "store/selectors/properties.selectors";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 import { propertiesActions } from "store/reducers/properties.reducer";
@@ -27,18 +27,20 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
 
   const user = useAppSelector(selectAuthenticatedUser);
 
-  const status = useAppSelector(selectPropertiesStatus);
-  const allProperties = useAppSelector(selectAllProperties);
+  const status = useAppSelector(selectUserPropertiesStatus);
+  const allProperties = useAppSelector(selectUserProperties);
 
   const propertiesToRender = allProperties.filter(
     (property) => !property.agent || property.agent === null
   );
 
   useEffect(() => {
-    dispatch(propertiesActions.getUserProperties({ userId: user._id }));
+    dispatch(
+      propertiesActions.getUserProperties({ userId: user._id, limit: 15 })
+    );
 
     return () => {
-      dispatch(propertiesActions.cleanUpAllProperties());
+      dispatch(propertiesActions.cleanUpUserProperties());
     };
   }, []);
 

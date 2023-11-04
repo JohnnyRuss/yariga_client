@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { paths } from "config/paths";
+import { dynamic_paths, paths } from "config/paths";
 import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 
 import { AddPropertyButton } from "components/Layouts";
@@ -9,24 +9,28 @@ import { Stack, Typography, Button as MuiButton } from "@mui/material";
 
 interface UserPropertiesHeaderT {
   userId: string;
+  username: string;
 }
 
-const UserPropertiesHeader: React.FC<UserPropertiesHeaderT> = ({ userId }) => {
+const UserPropertiesHeader: React.FC<UserPropertiesHeaderT> = ({
+  userId,
+  username,
+}) => {
   const navigate = useNavigate();
 
   const { isAuthenticatedUser } = useIsAuthenticatedUser(userId);
 
-  const searchParams = new URLSearchParams(window.location.search);
-
-  const onViewAllProperties = () => {
-    searchParams.set("user", userId);
-    navigate(`${paths.properties_page}?${searchParams.toString()}`);
-  };
+  const onViewAllProperties = () =>
+    navigate(
+      isAuthenticatedUser
+        ? paths.iuser_properties_page
+        : dynamic_paths.user_properties_page(userId)
+    );
 
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
-      <Typography fontSize={18} fontWeight={600}>
-        Your Properties
+      <Typography fontSize={18} fontWeight={600} textTransform="capitalize">
+        {username} Properties
       </Typography>
 
       <Stack direction="row" alignItems="center" gap={3}>

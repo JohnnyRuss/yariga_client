@@ -13,7 +13,7 @@ const PriceBox: React.FC = () => {
       <Typography fontWeight={600}>Price</Typography>
 
       <Typography fontSize={25} fontWeight={700} color="app_blue.light">
-        ${price}&nbsp;
+        ${price.toLocaleString()}&nbsp;
         {propertyStatus === "RENT" && (
           <Typography
             component="small"

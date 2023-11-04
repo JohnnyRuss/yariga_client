@@ -24,7 +24,7 @@ const AgentPage: React.FC = () => {
 
     return () => {
       dispatch(agentActions.cleanUpAgent());
-      dispatch(propertiesActions.cleanUpAllProperties());
+      dispatch(propertiesActions.cleanUpAgentProperties());
     };
   }, []);
 

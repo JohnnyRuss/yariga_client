@@ -42,7 +42,7 @@ const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
 
           <Divider />
 
-          <UI.User owner={property.owner} />
+          <UI.User owner={property.owner} isAgent={true} />
 
           <Divider />
 

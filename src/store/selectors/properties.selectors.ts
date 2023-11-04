@@ -2,29 +2,34 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootStateT } from "store/store";
 
-const selectedPropertiesStatus = ({ properties }: RootStateT) => ({
-  error: properties.status.error,
-  loading: properties.status.loading,
-  message: properties.status.message,
-  status: properties.status.status,
+// MEMORISED SELECTORS
+
+const selectedAllPropertiesStatus = ({ properties }: RootStateT) => ({
+  error: properties.allPropertiesStatus.error,
+  loading: properties.allPropertiesStatus.loading,
+  message: properties.allPropertiesStatus.message,
+  status: properties.allPropertiesStatus.status,
 });
 
-const selectedPropertyFilterStatus = ({ properties }: RootStateT) => ({
-  error: properties.filterStatus.error,
-  loading: properties.filterStatus.loading,
-  message: properties.filterStatus.message,
-  status: properties.filterStatus.status,
+const selectedSinglePropertyStatus = ({ properties }: RootStateT) => ({
+  error: properties.singlePropertyStatus.error,
+  loading: properties.singlePropertyStatus.loading,
+  message: properties.singlePropertyStatus.message,
+  status: properties.singlePropertyStatus.status,
 });
 
-const selectedPropertyFilter = ({ properties }: RootStateT) => ({
-  sort: properties.filter.sort,
-  statuses: properties.filter.statuses,
-  cities: properties.filter.cities,
-  countries: properties.filter.countries,
-  propertyFeatures: properties.filter.propertyFeatures,
-  propertyTypes: properties.filter.propertyTypes,
-  roomTypes: properties.filter.roomTypes,
-  states: properties.filter.states,
+const selectedUserPropertiesStatus = ({ properties }: RootStateT) => ({
+  error: properties.userPropertiesStatus.error,
+  loading: properties.userPropertiesStatus.loading,
+  message: properties.userPropertiesStatus.message,
+  status: properties.userPropertiesStatus.status,
+});
+
+const selectedAgentPropertiesStatus = ({ properties }: RootStateT) => ({
+  error: properties.agentPropertiesStatus.error,
+  loading: properties.agentPropertiesStatus.loading,
+  message: properties.agentPropertiesStatus.message,
+  status: properties.agentPropertiesStatus.status,
 });
 
 const selectedProperty = ({ properties }: RootStateT) => ({
@@ -45,27 +50,26 @@ const selectedProperty = ({ properties }: RootStateT) => ({
   images: properties.property.images,
 });
 
-const selectedPropertySuggestions = ({ properties }: RootStateT) =>
-  properties.suggestions;
+// SELECTORS
 
-const selectPropertiesStatus = createSelector(
-  selectedPropertiesStatus,
+const selectAllPropertiesStatus = createSelector(
+  selectedAllPropertiesStatus,
   (status) => status
 );
 
-const selectPropertyFilterStatus = createSelector(
-  selectedPropertyFilterStatus,
+const selectSinglePropertyStatus = createSelector(
+  selectedSinglePropertyStatus,
   (status) => status
 );
 
-const selectPropertySuggestions = createSelector(
-  selectedPropertySuggestions,
-  (suggestions) => suggestions
+const selectUserPropertiesStatus = createSelector(
+  selectedUserPropertiesStatus,
+  (status) => status
 );
 
-const selectPropertyFilter = createSelector(
-  selectedPropertyFilter,
-  (filter) => filter
+const selectAgentPropertiesStatus = createSelector(
+  selectedAgentPropertiesStatus,
+  (status) => status
 );
 
 const selectProperty = createSelector(selectedProperty, (property) => property);
@@ -73,15 +77,19 @@ const selectProperty = createSelector(selectedProperty, (property) => property);
 const selectAllProperties = ({ properties }: RootStateT) =>
   properties.properties;
 
-const selectPropertyRoomTypes = ({ properties }: RootStateT) =>
-  properties.allRoomTypes;
+const selectAgentProperties = ({ properties }: RootStateT) =>
+  properties.agentProperties;
+
+const selectUserProperties = ({ properties }: RootStateT) =>
+  properties.userProperties;
 
 export {
-  selectPropertiesStatus,
-  selectPropertyFilterStatus,
-  selectPropertySuggestions,
-  selectPropertyFilter,
+  selectAllPropertiesStatus,
+  selectSinglePropertyStatus,
+  selectUserPropertiesStatus,
+  selectAgentPropertiesStatus,
   selectAllProperties,
-  selectPropertyRoomTypes,
+  selectAgentProperties,
+  selectUserProperties,
   selectProperty,
 };

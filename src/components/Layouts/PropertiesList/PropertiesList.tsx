@@ -1,11 +1,5 @@
 import React from "react";
 import { nanoid } from "@reduxjs/toolkit";
-import { useAppSelector } from "store/hooks";
-
-import {
-  selectAllProperties,
-  selectPropertiesStatus,
-} from "store/selectors/properties.selectors";
 
 import {
   NoContentMessage,
@@ -14,14 +8,20 @@ import {
 } from "components/Layouts";
 import { Stack } from "@mui/material";
 
+import { LoadingStatusT } from "interface/store/common.types";
+import { PropertyShortInfoT } from "interface/db/properties.types";
+
 interface PropertiesListT {
   skeletonCount?: number;
+  status: LoadingStatusT;
+  list: Array<PropertyShortInfoT>;
 }
 
-const PropertiesList: React.FC<PropertiesListT> = ({ skeletonCount = 9 }) => {
-  const status = useAppSelector(selectPropertiesStatus);
-  const properties = useAppSelector(selectAllProperties);
-
+const PropertiesList: React.FC<PropertiesListT> = ({
+  status,
+  skeletonCount = 9,
+  list,
+}) => {
   return status.loading ? (
     <PropertiesListContainer>
       {Array.from(new Array(skeletonCount)).map(() => (
@@ -29,9 +29,9 @@ const PropertiesList: React.FC<PropertiesListT> = ({ skeletonCount = 9 }) => {
       ))}
     </PropertiesListContainer>
   ) : (
-    <PropertiesListContainer propertiesLength={properties.length}>
-      {properties[0] ? (
-        properties.map((property) => (
+    <PropertiesListContainer propertiesLength={list.length}>
+      {list[0] ? (
+        list.map((property) => (
           <PropertyCardHorizontal key={property._id} property={property} />
         ))
       ) : (

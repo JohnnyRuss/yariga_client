@@ -1,7 +1,11 @@
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
-import * as propertySelectors from "store/selectors/properties.selectors";
+import {
+  selectAllProperties,
+  selectAllPropertiesStatus,
+} from "store/selectors/properties.selectors";
+import { selectPropertyFilterStatus } from "store/selectors/propertiesFilter.selectors";
 
 import { Box } from "@mui/material";
 import Filter from "./components/Filter";
@@ -10,9 +14,10 @@ import { ContentBox, Pagination, PropertiesList } from "components/Layouts";
 import * as MuiStyled from "./components/styles/AllProperties.styled";
 
 const AllProperties: React.FC = () => {
-  const filterStatus = useAppSelector(
-    propertySelectors.selectPropertyFilterStatus
-  );
+  const filterStatus = useAppSelector(selectPropertyFilterStatus);
+
+  const status = useAppSelector(selectAllPropertiesStatus);
+  const propertiesList = useAppSelector(selectAllProperties);
 
   return (
     <ContentBox flex={true}>
@@ -28,7 +33,7 @@ const AllProperties: React.FC = () => {
         >
           <Filter loading={filterStatus.loading} />
 
-          <PropertiesList />
+          <PropertiesList status={status} list={propertiesList} />
 
           <Box mt="auto" ml="auto">
             <Pagination page={1} />

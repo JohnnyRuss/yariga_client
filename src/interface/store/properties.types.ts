@@ -1,52 +1,15 @@
-import {
-  PropertyT,
-  RoomTypeT,
-  PropertyTypeT,
-  PropertyStatusT,
-  PropertyShortInfoT,
-  PropertySuggestionsT,
-  PropertyFeatureSuggestionT,
-} from "interface/db/properties.types";
 import { LoadingStatusT } from "./common.types";
+import { PropertyT, PropertyShortInfoT } from "interface/db/properties.types";
 
 export interface PropertiesStateT {
-  status: LoadingStatusT;
-  filterStatus: LoadingStatusT;
-  roomTypesStatus: LoadingStatusT;
-  suggestions: PropertySuggestionsT;
-  filter: PropertyFilterT;
-  properties: Array<PropertyShortInfoT>;
+  // STATUS
+  singlePropertyStatus: LoadingStatusT;
+  allPropertiesStatus: LoadingStatusT;
+  userPropertiesStatus: LoadingStatusT;
+  agentPropertiesStatus: LoadingStatusT;
+  // CONTENT DATA
   property: PropertyT;
-  allRoomTypes: RoomTypeT[];
-}
-
-export interface CommonFilterT {
-  _id: string;
-  label: string;
-  value: string;
-}
-
-export interface PropertyFilterT {
-  sort: Array<CommonFilterT>;
-  statuses: Array<PropertyStatusT>;
-  propertyTypes: Array<PropertyTypeT>;
-  countries: Array<CommonFilterT>;
-  cities: Array<CommonFilterT>;
-  states: Array<CommonFilterT>;
-  roomTypes: Array<RoomTypeT>;
-  propertyFeatures: Array<PropertyFeatureSuggestionT>;
-}
-
-export interface ActivePropertyFilterT {
-  search: string;
-  "minPrice[gte]": string;
-  "maxPrice[lte]": string;
-  sort: CommonFilterT;
-  statuses: PropertyStatusT;
-  propertyTypes: PropertyTypeT;
-  countries: CommonFilterT;
-  cities: CommonFilterT;
-  states: CommonFilterT;
-  roomTypes: Array<RoomTypeT>;
-  propertyFeatures: Array<PropertyFeatureSuggestionT>;
+  properties: Array<PropertyShortInfoT>;
+  agentProperties: Array<PropertyShortInfoT>;
+  userProperties: Array<PropertyShortInfoT>;
 }

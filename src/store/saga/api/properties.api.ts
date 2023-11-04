@@ -1,29 +1,12 @@
 import {
   GetPropertyArgsT,
-  CreatePropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
 } from "interface/db/properties.types";
-import { axiosPrivateFormDataQuery, axiosPrivateQuery } from "services/axios";
-
-export async function getPropertyFormSuggestionsQuery() {
-  return axiosPrivateQuery.get("/properties/suggestions");
-}
-
-export async function createPropertyQuery(data: CreatePropertyArgsT) {
-  return axiosPrivateFormDataQuery.post("/properties", data);
-}
-
-export async function getPropertyFilterQuery() {
-  return axiosPrivateQuery.get("/properties/filter");
-}
+import { axiosPrivateQuery } from "services/axios";
 
 export async function getAllPropertiesQuery() {
   return axiosPrivateQuery.get(`/properties`);
-}
-
-export async function getAllRoomTypesQuery() {
-  return axiosPrivateQuery.get(`/properties/rooms`);
 }
 
 export async function getPropertyQuery(data: GetPropertyArgsT) {

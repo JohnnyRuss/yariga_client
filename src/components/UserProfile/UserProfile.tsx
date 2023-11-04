@@ -83,7 +83,10 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         </Box>
       </Stack>
 
-      <UserProperties userId={user._id} />
+      <UserProperties
+        userId={user._id}
+        username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
+      />
     </ContentBox>
   );
 };

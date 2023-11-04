@@ -54,7 +54,7 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
 
           <Divider />
 
-          <UI.User owner={ownerData} />
+          <UI.User owner={ownerData} isAgent={property.agent ? true : false} />
 
           <Divider />
 

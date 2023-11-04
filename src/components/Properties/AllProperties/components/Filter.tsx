@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAppSelector } from "store/hooks";
-import { selectPropertyFilter } from "store/selectors/properties.selectors";
+import { selectPropertyFilter } from "store/selectors/propertiesFilter.selectors";
 import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
 
 import FilterSkeleton from "./FilterSkeleton";

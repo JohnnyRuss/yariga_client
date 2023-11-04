@@ -8,10 +8,11 @@ import { PropertyOwnerShortT } from "interface/db/properties.types";
 
 interface UserT {
   owner: PropertyOwnerShortT;
+  isAgent: boolean;
 }
 
-const User: React.FC<UserT> = ({ owner }) => {
-  const { onGoToUser } = useGoToUser(owner._id);
+const User: React.FC<UserT> = ({ owner, isAgent }) => {
+  const { onGoToUser } = useGoToUser(owner._id, isAgent);
 
   return (
     <Stack
@@ -46,7 +47,7 @@ const User: React.FC<UserT> = ({ owner }) => {
           {owner.username}
         </Typography>
 
-        <Typography fontSize={13} mt="-3px">
+        <Typography fontSize={13} mt="-3px" color="app_text.main">
           {owner.email}
         </Typography>
       </Stack>

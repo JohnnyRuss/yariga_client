@@ -2,7 +2,9 @@ import { lazy } from "react";
 
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));
 
-// AUTH
+/////////////////
+///// AUTH /////
+///////////////
 
 export const SignInPage = lazy(() => import("./AuthPage/SignInPage"));
 export const SignUpPage = lazy(() => import("./AuthPage/SignUpPage"));
@@ -16,11 +18,17 @@ export const UpdatePasswordPage = lazy(
   () => import("./AuthPage/UpdatePasswordPage")
 );
 
-// PAGES
+//////////////////////
+///// DASHBOARD /////
+////////////////////
 
 export const DashboardPage = lazy(
   () => import("./DashboardPage/DashboardPage")
 );
+
+///////////////////////
+///// PROPERTIES /////
+/////////////////////
 
 export const PropertiesPage = lazy(() => import("./Properties/PropertiesPage"));
 
@@ -30,16 +38,44 @@ export const CreatePropertyPage = lazy(
 
 export const PropertyPage = lazy(() => import("./Properties/PropertyPage"));
 
+//////////////////
+///// AGENT /////
+////////////////
+
 export const AgentsPage = lazy(() => import("./Agents/AgentsPage"));
 
 export const AgentPage = lazy(() => import("./Agents/AgentPage"));
 
+export const AgentPropertiesPage = lazy(
+  () => import("./Agents/AgentPropertiesPage")
+);
+
+////////////////////
+///// REVIEWS /////
+//////////////////
+
 export const ReviewsPage = lazy(() => import("./ReviewsPage/ReviewsPage"));
 
+/////////////////////
+///// MESSAGES /////
+///////////////////
+
 export const MessagesPage = lazy(() => import("./MessagesPage/MessagesPage"));
+
+/////////////////////////
+///// USER PROFILE /////
+///////////////////////
 
 export const UserProfilePage = lazy(
   () => import("./UserProfilePage/UserProfilePage")
 );
 
 export const IProfilePage = lazy(() => import("./UserProfilePage/IProfile"));
+
+export const UserPropertiesPage = lazy(
+  () => import("./UserProfilePage/UserPropertiesPage")
+);
+
+export const IUserPropertiesPage = lazy(
+  () => import("./UserProfilePage/IUserPropertiesPage")
+);

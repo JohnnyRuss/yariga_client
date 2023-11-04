@@ -1,11 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useUserPath } from "hooks/utils";
 
-export default function useGoToUser(candidateUserId: string) {
-  const navigate = useNavigate();
-  const { userPath } = useUserPath(candidateUserId);
+interface UseGoToUserReturnT {
+  onGoToUser: (e: React.MouseEvent<Element, MouseEvent>) => void;
+}
 
-  const onGoToUser = (e: React.MouseEvent) => {
+export default function useGoToUser(
+  candidateUserId: string,
+  isAgent = false
+): UseGoToUserReturnT {
+  const navigate = useNavigate();
+  const { userPath } = useUserPath(candidateUserId, isAgent);
+
+  const onGoToUser = (e: React.MouseEvent<Element, MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
 

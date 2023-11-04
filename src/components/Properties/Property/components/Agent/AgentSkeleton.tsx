@@ -17,13 +17,18 @@ const AgentSkeleton: React.FC = () => {
         <Skeleton variant="circular" width={90} height={90} />
 
         <Stack alignItems="center" width="100%">
-          <Skeleton variant="text" width="200px" sx={{ fontSize: 18 }} />
+          <Skeleton variant="text" width="150px" sx={{ fontSize: 18 }} />
 
-          <Skeleton variant="text" width="150px" sx={{ fontSize: 14 }} />
+          <Skeleton variant="text" width="180px" sx={{ fontSize: 14 }} />
 
-          <Skeleton variant="text" width="170px" sx={{ fontSize: 14 }} />
+          <Skeleton
+            variant="text"
+            width="80px"
+            height="45px"
+            sx={{ fontSize: 14 }}
+          />
 
-          <Skeleton variant="text" width="120px" sx={{ fontSize: 16 }} />
+          <Skeleton variant="text" width="135px" sx={{ fontSize: 16 }} />
 
           <Stack direction="row" width="100%" gap="20px" mt="10px">
             <Skeleton

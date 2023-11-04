@@ -37,7 +37,7 @@ const UserProfilePage: React.FC = () => {
   useEffect(() => {
     return () => {
       dispatch(userActions.cleanUpGuest());
-      dispatch(propertiesActions.cleanUpAllProperties());
+      dispatch(propertiesActions.cleanUpUserProperties());
     };
   }, []);
 

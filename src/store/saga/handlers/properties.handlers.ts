@@ -5,52 +5,13 @@ import { propertiesActions } from "store/reducers/properties.reducer";
 
 import {
   PropertyT,
-  RoomTypeT,
   PropertyShortInfoT,
-  PropertySuggestionsT,
-  PropertyFilterResponseT,
-  CreatePropertyArgsT,
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
 } from "interface/db/properties.types";
 import { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
-
-export function* getPropertyFormSuggestions() {
-  try {
-    const { data }: AxiosResponse<PropertySuggestionsT> = yield call(
-      propertiesAPI.getPropertyFormSuggestionsQuery
-    );
-
-    yield put(propertiesActions.setPropertyFormSuggestions(data));
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function* createProperty({
-  payload,
-}: PayloadAction<CreatePropertyArgsT>) {
-  try {
-    yield call(propertiesAPI.createPropertyQuery, payload);
-    yield put(propertiesActions.setCreateProperty());
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function* getPropertyFilter() {
-  try {
-    const { data }: AxiosResponse<PropertyFilterResponseT> = yield call(
-      propertiesAPI.getPropertyFilterQuery
-    );
-
-    yield put(propertiesActions.setPropertyFilter(data));
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 export function* getAllProperties({ payload }: PayloadAction<{}>) {
   try {
@@ -59,18 +20,6 @@ export function* getAllProperties({ payload }: PayloadAction<{}>) {
     );
 
     yield put(propertiesActions.setAllProperties(data));
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function* getAllRoomTypes() {
-  try {
-    const { data }: AxiosResponse<Array<RoomTypeT>> = yield call(
-      propertiesAPI.getAllRoomTypesQuery
-    );
-
-    yield put(propertiesActions.setAllRoomTypes(data));
   } catch (error) {
     console.log(error);
   }
@@ -98,7 +47,7 @@ export function* getUserProperties({
       payload
     );
 
-    yield put(propertiesActions.setAllProperties(data));
+    yield put(propertiesActions.setUserProperties(data));
   } catch (error) {
     console.log(error);
   }
@@ -113,7 +62,7 @@ export function* getAgentProperties({
     }: AxiosResponse<{ _id: string; listing: Array<PropertyShortInfoT> }> =
       yield call(propertiesAPI.getAgentPropertiesQuery, payload);
 
-    yield put(propertiesActions.setAllProperties(data.listing));
+    yield put(propertiesActions.setAgentProperties(data.listing));
   } catch (error) {
     console.log(error);
   }
