@@ -26,13 +26,13 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
   return loading ? (
     <FilterSkeleton />
   ) : (
-    <Stack direction="row" flexWrap="wrap" gap={3}>
+    <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" gap={3}>
       <TextField
         name="search"
         value={searchParams.search}
         onChange={onChangeSearchParams}
         placeholder="Enter an address, city or title"
-        sx={{ flex: 1, flexBasis: "140px" }}
+        sx={{ flex: 1, flexBasis: ["auto", "140px"] }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

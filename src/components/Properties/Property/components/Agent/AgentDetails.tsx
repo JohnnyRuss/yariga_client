@@ -40,7 +40,12 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ owner, isAgent }) => {
         <Typography
           color="app_text.main"
           fontSize={14}
-          sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            flexDirection: ["column", "row"],
+          }}
         >
           <LocationOn sx={{ fontSize: "18px" }} />
           {owner.location?.displayName}

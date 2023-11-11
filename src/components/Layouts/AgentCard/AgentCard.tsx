@@ -25,8 +25,8 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
         sx={{
           width: "100%",
           display: "flex",
-          flexDirection: "row",
-          maxHeight: "230px",
+          flexDirection: ["column", "row"],
+          maxHeight: ["auto", "230px"],
           boxShadow: "none",
           position: "relative",
         }}

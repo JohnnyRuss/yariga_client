@@ -4,15 +4,24 @@ import { Stack, Skeleton } from "@mui/material";
 
 const ViewSkeleton: React.FC = () => {
   return (
-    <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
+    <Stack
+      mt="10px"
+      direction={{ xs: "column", md: "row" }}
+      gap="20px"
+      height={{ xs: "35vh", md: "28.5vw" }}
+    >
       <Skeleton
         variant="rectangular"
-        width="70%"
         height="100%"
-        sx={{ borderRadius: "10px" }}
+        sx={{ borderRadius: "10px", width: ["100%", "70%"] }}
       />
 
-      <Stack width="30%" gap="22px">
+      <Stack
+        width={{ xs: "100%", md: "30%" }}
+        height={{ xs: "15vh", md: "auto" }}
+        flexDirection={{ xs: "row", md: "column" }}
+        gap="22px"
+      >
         <Skeleton
           variant="rectangular"
           width="100%"

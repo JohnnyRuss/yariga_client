@@ -20,7 +20,7 @@ const Gallery: React.FC<GalleryT> = ({ images, onActivateSlider }) => {
       }}
       className="custom_scrollbar"
     >
-      <Masonry columns={4} spacing={1}>
+      <Masonry columns={{ xs: 2, md: 4 }} spacing={1}>
         {images.map((item, index) => (
           <div key={nanoid()}>
             <img

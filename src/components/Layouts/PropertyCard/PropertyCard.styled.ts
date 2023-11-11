@@ -18,7 +18,7 @@ export const CardVertical = styled(MuiCard)(() => ({
   },
 }));
 
-export const CardHorizontal = styled(MuiCard)(() => ({
+export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
   display: "flex",
   alignItems: "stretch",
   gap: "8px",
@@ -30,9 +30,19 @@ export const CardHorizontal = styled(MuiCard)(() => ({
     borderRadius: "10px",
     objectFit: "cover",
   },
+
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+
+    img: {
+      maxWidth: "100%",
+      maxHeight: "40%",
+      minHeight: "unset",
+    },
+  },
 }));
 
-export const CardContent = styled(MuiCardContent)(() => ({
+export const CardContent = styled(MuiCardContent)(({ theme }) => ({
   marginTop: "8px",
   display: "flex",
   flexDirection: "column",
@@ -41,4 +51,8 @@ export const CardContent = styled(MuiCardContent)(() => ({
   padding: "0 !important",
   paddingBottom: "8px !important",
   width: "60%",
+
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+  },
 }));

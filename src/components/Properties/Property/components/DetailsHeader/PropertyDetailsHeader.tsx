@@ -17,9 +17,17 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
   return loading ? (
     <HeaderSkeleton />
   ) : (
-    <Stack direction="row" justifyContent="space-between">
-      <Stack gap="9px">
-        <Stack direction="row" alignItems="center" gap="15px">
+    <Stack
+      direction={{ xs: "column", md: "row" }}
+      justifyContent="space-between"
+    >
+      <Stack gap="9px" flexWrap="wrap">
+        <Stack
+          direction="row"
+          alignItems="center"
+          gap="15px"
+          justifyContent={{ xs: "space-between", md: "flex-start" }}
+        >
           <Typography textTransform="capitalize" fontSize={18} fontWeight={500}>
             {propertyType.label}
           </Typography>
@@ -34,7 +42,7 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
         <Location />
       </Stack>
 
-      <Box>
+      <Box sx={{ mt: ["12px", "0px"] }}>
         <Stack gap="9px">
           <Rating />
 

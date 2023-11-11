@@ -32,13 +32,7 @@ const HireByAgent: React.FC<HireByAgentT> = ({ searchStr, onHire }) => {
   }, []);
 
   return (
-    <Stack
-      gap={3}
-      p="0 15px 10px 5px"
-      width="70vh"
-      height="70vh"
-      className="custom_scrollbar"
-    >
+    <Stack gap={3} p="0 15px 10px 5px" className="custom_scrollbar">
       {status.loading &&
         Array.from(new Array(4)).map(() => (
           <AgentCardSkeleton key={nanoid()} />
@@ -60,6 +54,7 @@ const HireByAgent: React.FC<HireByAgentT> = ({ searchStr, onHire }) => {
               onClick={() => onHire({ agentId: agent._id })}
             >
               <AgentCard agent={agent} />
+
               <Box
                 position="absolute"
                 sx={{ inset: 0, borderRadius: "10px", cursor: "pointer" }}

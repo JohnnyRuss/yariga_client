@@ -18,7 +18,8 @@ function* setError({
   try {
     let message: string = "";
 
-    if (error instanceof AxiosError) message = error.response?.data || "";
+    if (error instanceof AxiosError)
+      message = error.response?.data.message || "";
     else if (error instanceof Error) message = error.message;
 
     yield put(errorSetter({ ...errorSetterArgs, message }));

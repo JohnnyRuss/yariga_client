@@ -12,7 +12,7 @@ const FacilityItem: React.FC<FacilityItemT> = ({ icon, label }) => {
   return (
     <Typography
       component="li"
-      flexBasis="160px"
+      flexBasis={{ xs: "fit-content", md: "160px" }}
       textTransform="capitalize"
       fontWeight={500}
       color="app_text.main"

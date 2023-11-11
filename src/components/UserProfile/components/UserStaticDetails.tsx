@@ -39,7 +39,9 @@ const UserStaticDetails: React.FC<UserStaticDetailsT> = ({
           <LocationOn sx={{ fontSize: 20 }} />
 
           {location && (
-            <Typography component="span">{location.displayName}</Typography>
+            <Typography component="span">
+              {location?.displayName || ""}
+            </Typography>
           )}
 
           {!location && (
@@ -50,7 +52,7 @@ const UserStaticDetails: React.FC<UserStaticDetailsT> = ({
         </Typography>
       </Stack>
 
-      <Stack direction="row" gap={3} mt="20px">
+      <Stack direction={{ xs: "column", md: "row" }} gap={3} mt="20px">
         <Stack flex={1} gap="6px">
           <Typography color="app_text.main" lineHeight="22px" fontSize={14}>
             Phone Number

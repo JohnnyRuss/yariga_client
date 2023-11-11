@@ -46,7 +46,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
 
       <Stack
         className="content__box"
-        direction="row"
+        direction={{ xs: "column", md: "row" }}
         gap="60px"
         width="100%"
         boxShadow={3}
@@ -58,7 +58,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
           isAuthenticatedUser={isAuthenticatedUser}
         />
 
-        <Box py="35px" width="100%">
+        <Box py={{ xs: "15px", md: "35px" }} width="100%">
           <UserDetailsHeader
             loading={loading}
             username={user.username}

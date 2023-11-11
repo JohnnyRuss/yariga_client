@@ -12,9 +12,13 @@ const FacilitiesSkeleton: React.FC = () => {
         sx={{ fontSize: 18, marginBottom: "25px" }}
       />
 
-      <Stack direction="row" flexWrap="wrap" gap="20px 50px">
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        gap={{ xs: "10px 20px", md: "20px 50px" }}
+      >
         {Array.from(new Array(12)).map(() => (
-          <Skeleton key={nanoid()} sx={{ flexBasis: "180px" }} />
+          <Skeleton key={nanoid()} sx={{ flexBasis: ["120px", "180px"] }} />
         ))}
       </Stack>
     </Box>

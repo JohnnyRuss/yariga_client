@@ -31,8 +31,18 @@ const SliderThumbnails: React.FC<SliderThumbnailsT> = ({
     <Stack direction="row" className="app-swiper__thumbnails-container">
       <Swiper
         onSwiper={setThumbsSwiper}
-        slidesPerView={7}
         spaceBetween={30}
+        breakpoints={{
+          280: {
+            slidesPerView: 3,
+          },
+          600: {
+            slidesPerView: 5,
+          },
+          900: {
+            slidesPerView: 7,
+          },
+        }}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[Thumbs, Navigation, FreeMode]}

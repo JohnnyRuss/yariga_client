@@ -29,7 +29,12 @@ const UserProperties: React.FC<UserPropertiesT> = ({
       </GoBackButton>
 
       <Box className="content__box" height="92%">
-        <PropertiesList list={properties} status={status} skeletonCount={12} />
+        <PropertiesList
+          list={properties}
+          status={status}
+          skeletonCount={12}
+          containerSx={{ marginTop: ["-15px", "20px"] }}
+        />
       </Box>
     </ContentBox>
   );

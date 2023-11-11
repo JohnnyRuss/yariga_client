@@ -36,14 +36,19 @@ const AgentCardContent: React.FC<AgentCardContentT> = ({
           <CommonTypography label="Agent" />
         </Box>
 
-        <Stack direction="row" justifyContent="space-between">
+        <Stack
+          gap={1}
+          mt={{ xs: "10px", md: "0px" }}
+          direction={{ xs: "column", md: "row" }}
+          justifyContent={{ xs: "flex-start", md: "space-between" }}
+        >
           <Stack gap={1}>
             <CommonTypography label={email} Icon={Email} />
 
             <CommonTypography label={phone} Icon={Phone} />
           </Stack>
 
-          <Stack alignItems="flex-end" gap={1}>
+          <Stack alignItems={{ xs: "flex-start", md: "flex-end" }} gap={1}>
             <CommonTypography label={city} Icon={LocationOn} />
 
             <CommonTypography

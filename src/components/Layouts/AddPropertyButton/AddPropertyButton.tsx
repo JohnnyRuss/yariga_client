@@ -20,6 +20,9 @@ const AddPropertyButton: React.FC<AddPropertyButtonT> = () => {
       bgColor="app_blue.light"
       color="app_text.light"
       icon={<Add />}
+      attributes={{
+        sx: { width: ["100%", "fit-content"] },
+      }}
     />
   );
 };

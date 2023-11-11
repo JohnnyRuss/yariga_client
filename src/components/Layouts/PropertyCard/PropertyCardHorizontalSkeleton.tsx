@@ -17,8 +17,9 @@ const PropertyCardHorizontalSkeleton: React.FC = () => {
       sx={{
         flex: 1,
         flexBasis: "400px",
-        maxWidth: "520px",
         display: "flex",
+        flexDirection: ["column", "row"],
+        maxWidth: "520px",
         alignItems: "stretch",
         gap: "8px",
         padding: "8px",
@@ -26,18 +27,20 @@ const PropertyCardHorizontalSkeleton: React.FC = () => {
         borderRadius: "10px",
       }}
     >
-      <CardMedia sx={{ width: "40%" }}>
+      <CardMedia sx={{ width: ["100%", "40%"] }}>
         <Skeleton
           variant="rectangular"
           width="100%"
-          height="100%"
-          sx={{ borderRadius: "10px" }}
+          sx={{
+            borderRadius: "10px",
+            height: ["200px", "100%"],
+          }}
         />
       </CardMedia>
 
       <CardContent
         sx={{
-          width: "60%",
+          width: ["100%", "60%"],
           marginTop: "8px",
           display: "flex",
           flexDirection: "column",
@@ -49,17 +52,17 @@ const PropertyCardHorizontalSkeleton: React.FC = () => {
       >
         <Skeleton variant="text" width="80%" />
 
-        <Stack direction="row" justifyContent="space-between">
+        <Stack direction="row" justifyContent="space-between" gap={1}>
           <Skeleton
             variant="rectangular"
-            width="100px"
+            width="60%"
             height="20px"
             sx={{ borderRadius: "5px" }}
           />
 
           <Skeleton
             variant="rectangular"
-            width="100px"
+            width="60%"
             height="20px"
             sx={{ borderRadius: "5px" }}
           />

@@ -5,13 +5,19 @@ import { Stack, Skeleton } from "@mui/material";
 
 const FilterSkeleton: React.FC = () => {
   return (
-    <Stack direction="row" flexWrap="wrap" gap={3}>
+    <Stack
+      gap={3}
+      width="100%"
+      flexWrap="wrap"
+      direction={{ xs: "column", md: "row" }}
+    >
       {Array.from(new Array(5)).map(() => (
         <Skeleton
           key={nanoid()}
-          variant="rectangular"
           height="60px"
-          sx={{ flex: 1, borderRadius: "5px" }}
+          width="100%"
+          variant="rectangular"
+          sx={{ flex: ["auto", 1], borderRadius: "5px" }}
         />
       ))}
 

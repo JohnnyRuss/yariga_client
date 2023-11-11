@@ -11,7 +11,7 @@ const AgentCardMedia: React.FC<AgentCardMediaT> = ({ src }) => {
     <CardMedia
       component="figure"
       sx={{
-        width: "35%",
+        width: ["100%", "35%"],
         height: "200px",
         borderRadius: "10px",
         overflow: "hidden",

@@ -17,7 +17,13 @@ const ExtraDetails: React.FC<ExtraDetailsT> = ({
   bathroomsAmount,
 }) => {
   return (
-    <Stack direction="row" justifyContent="flex-start" gap={3} fontSize={14}>
+    <Stack
+      direction="row"
+      flexWrap="wrap"
+      justifyContent="flex-start"
+      gap={{ xs: 1, md: 3 }}
+      fontSize={14}
+    >
       <Box display="flex" alignItems="flex-end" gap={1}>
         <ExtraDetailIcon src={BedIcon.toString()} />
 

@@ -10,8 +10,10 @@ const ChangeImageButton: React.FC<ChangeImageButtonT> = () => {
     <Button
       variant="contained"
       sx={{
-        left: "20px",
-        bottom: "10px",
+        left: ["auto", "20px"],
+        right: ["20px", "auto"],
+        bottom: ["auto", "10px"],
+        top: ["10px", "auto"],
         position: "absolute",
         color: "app_text.main",
         backgroundColor: "app_bg.main",

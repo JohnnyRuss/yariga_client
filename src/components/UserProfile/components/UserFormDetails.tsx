@@ -64,7 +64,7 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
           )}
         />
 
-        <Stack direction="row" gap={3} mt="20px">
+        <Stack direction={{ xs: "column", md: "row" }} gap={3} mt="20px">
           <Controller
             name="phone"
             control={form.control}
@@ -93,7 +93,7 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
         </Stack>
 
         <Stack
-          direction="row"
+          direction={{ xs: "column", md: "row" }}
           gap={2}
           width="100%"
           justifyContent="flex-end"
@@ -106,9 +106,19 @@ const UserFormDetails: React.FC<UserFormDetailsT> = ({
             color="app_text.main"
             bgColor="app_bg.contrastText"
             disabled={status.loading}
+            attributes={{
+              sx: { width: ["100%", "auto"] },
+            }}
           />
 
-          <Button title="Save" type="submit" disabled={status.loading} />
+          <Button
+            title="Save"
+            type="submit"
+            disabled={status.loading}
+            attributes={{
+              sx: { width: ["100%", "auto"] },
+            }}
+          />
         </Stack>
       </form>
     </Stack>

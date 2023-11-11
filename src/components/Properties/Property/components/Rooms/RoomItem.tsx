@@ -14,7 +14,7 @@ const RoomItem: React.FC<RoomItemT> = ({ room, isAvailable }) => {
   return (
     <Typography
       component="li"
-      flexBasis="180px"
+      flexBasis={{ xs: "fit-content", md: "180px" }}
       textTransform="capitalize"
       fontWeight={500}
       color="app_text.main"

@@ -16,7 +16,7 @@ const Agent: React.FC = () => {
     <ContentBox>
       <GoBackButton>Agent Details</GoBackButton>
 
-      <Box p="20px">
+      <Box p={{ xs: "15px 0px", md: "20px" }}>
         <Grid
           container
           spacing="25px"
@@ -24,15 +24,15 @@ const Agent: React.FC = () => {
           alignContent="start"
           justifyContent="space-between"
         >
-          <Grid item xs={3}>
+          <Grid item xs={12} md={3}>
             <AgentCredentials loading={status.loading} />
           </Grid>
 
-          <Grid item xs={9}>
+          <Grid item xs={12} md={9}>
             <AgentDetails loading={status.loading} />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} md={12}>
             <AgentActiveListing />
           </Grid>
         </Grid>

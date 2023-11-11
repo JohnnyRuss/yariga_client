@@ -1,3 +1,6 @@
+import { HTMLAttributes } from "react";
+import { SxProps } from "@mui/material";
+
 export interface CustomButtonPropsT {
   type?: "button" | "submit";
   title: string;
@@ -8,6 +11,7 @@ export interface CustomButtonPropsT {
   icon?: ReactNode;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent) => void;
+  attributes?: HTMLAttributes | SxProps;
 }
 
 export interface SnackbarT {

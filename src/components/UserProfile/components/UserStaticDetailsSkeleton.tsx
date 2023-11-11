@@ -16,7 +16,7 @@ const UserStaticDetailsSkeleton: React.FC = () => {
         />
       </Stack>
 
-      <Stack direction="row" gap={3} mt="20px">
+      <Stack direction={{ xs: "column", md: "row" }} gap={3} mt="20px">
         <Stack flex={1} gap="6px">
           <Skeleton variant="text" width="150px" sx={{ fontSize: 14 }} />
 

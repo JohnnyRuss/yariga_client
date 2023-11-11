@@ -31,7 +31,7 @@ const PropertyRooms: React.FC<{ loading: boolean }> = ({ loading }) => {
         component="ul"
         direction="row"
         flexWrap="wrap"
-        gap="20px 50px"
+        gap={{ xs: "10px 20px", md: "20px 50px" }}
         sx={{ listStyle: "none" }}
       >
         {allRoomTypes.map((type) => (

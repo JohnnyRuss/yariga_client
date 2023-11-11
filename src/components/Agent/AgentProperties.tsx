@@ -23,7 +23,12 @@ const AgentProperties: React.FC = () => {
       <GoBackButton>{`${agentFirstName}'s Properties`}</GoBackButton>
 
       <Box className="content__box" height="92%">
-        <PropertiesList list={properties} status={status} skeletonCount={12} />
+        <PropertiesList
+          list={properties}
+          status={status}
+          skeletonCount={12}
+          containerSx={{ marginTop: ["-10px", "20px"] }}
+        />
       </Box>
     </ContentBox>
   );

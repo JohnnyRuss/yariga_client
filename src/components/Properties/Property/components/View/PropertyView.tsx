@@ -29,12 +29,21 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
   return loading ? (
     <ViewSkeleton />
   ) : (
-    <Stack mt="10px" direction="row" gap="20px" height="28.5vw">
+    <Stack
+      mt="10px"
+      direction={{ xs: "column", md: "row" }}
+      gap="20px"
+      height={{ xs: "35vh", md: "28.5vw" }}
+    >
       {isActiveModal && <SliderModal images={images} />}
 
       <PropertyViewMain src={images?.[0]} onClick={onGoToGallery} />
 
-      <Stack width="30%" gap="22px">
+      <Stack
+        width={{ xs: "100%", md: "30%" }}
+        flexDirection={{ xs: "row", md: "column" }}
+        gap="22px"
+      >
         <PropertyViewThumb src={images?.[1]} onClick={onGoToGallery} />
 
         <PropertyViewThumb src={images?.[2]} onClick={onGoToGallery}>

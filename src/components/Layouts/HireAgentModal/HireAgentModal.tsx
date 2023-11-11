@@ -68,7 +68,12 @@ const HireAgentModal: React.FC<HireAgentModalT> = ({
         borderRadius="10px"
         bgcolor="app_bg.main"
       >
-        <Stack gap={2} position="relative">
+        <Stack
+          gap={2}
+          position="relative"
+          width={{ xs: "95vw", md: "70vh" }}
+          height={{ xs: "90vh", md: "70vh" }}
+        >
           <SearchBar
             hiredBy={hiredBy}
             searchAgent={searchAgent}

@@ -14,9 +14,13 @@ const Location: React.FC = () => {
       fontSize={14}
       textTransform="capitalize"
       color="app_text.main"
-      sx={{ display: "flex", alignItems: "center", gap: "2px" }}
+      sx={{
+        display: "flex",
+        alignItems: ["flex-start", "center"],
+        gap: "2px",
+      }}
     >
-      <LocationOn sx={{ fontSize: "15px" }} />
+      <LocationOn sx={{ fontSize: ["20px", "15px"] }} />
 
       {location.displayName}
     </Typography>

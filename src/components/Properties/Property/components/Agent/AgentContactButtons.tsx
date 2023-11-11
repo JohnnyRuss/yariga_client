@@ -16,7 +16,12 @@ const AgentContactButtons: React.FC<AgentContactButtonsT> = ({
   phone,
 }) => {
   return (
-    <Stack direction="row" width="100%" gap="20px" mt="10px">
+    <Stack
+      direction={{ xs: "column", xl: "row" }}
+      width="100%"
+      gap="20px"
+      mt="10px"
+    >
       <ContactButton
         label="Message"
         address={`mailto:${email}?&Agent=Yariga&subject=Yariga:%20${title}`}

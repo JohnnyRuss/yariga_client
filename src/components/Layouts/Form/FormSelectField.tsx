@@ -48,7 +48,7 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
   }
 
   return (
-    <FormControl sx={{ flex: 1, flexBasis: "140px" }}>
+    <FormControl sx={{ flex: 1, flexBasis: ["none", "none", "140px"] }}>
       <InputLabel>{label}</InputLabel>
 
       <Select

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Box } from "@mui/material";
+
 interface PropertyViewMainT {
   src: string;
   onClick: () => void;
@@ -7,10 +9,11 @@ interface PropertyViewMainT {
 
 const PropertyViewMain: React.FC<PropertyViewMainT> = ({ onClick, src }) => {
   return (
-    <figure
+    <Box
+      component="figure"
       onClick={onClick}
-      style={{
-        width: "70%",
+      sx={{
+        width: ["100%", "70%"],
         height: "100%",
         borderRadius: "10px",
         overflow: "hidden",
@@ -27,7 +30,7 @@ const PropertyViewMain: React.FC<PropertyViewMainT> = ({ onClick, src }) => {
           objectFit: "cover",
         }}
       />
-    </figure>
+    </Box>
   );
 };
 

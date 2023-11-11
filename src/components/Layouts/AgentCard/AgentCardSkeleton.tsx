@@ -16,9 +16,9 @@ const AgentCardSkeleton: React.FC = () => {
       sx={{
         width: "100%",
         display: "flex",
-        flexDirection: "row",
         minHeight: "220px",
-        maxHeight: "220px",
+        flexDirection: ["column", "row"],
+        maxHeight: ["auto", "230px"],
         position: "relative",
         padding: "8px",
         borderRadius: "10px",
@@ -39,7 +39,7 @@ const AgentCardSkeleton: React.FC = () => {
       <CardMedia
         component="figure"
         sx={{
-          width: "35%",
+          width: ["100%", "35%"],
           height: "200px",
           borderRadius: "10px",
           overflow: "hidden",
@@ -60,14 +60,23 @@ const AgentCardSkeleton: React.FC = () => {
             <Skeleton variant="text" width="100px" sx={{ fontSize: 14 }} />
           </Box>
 
-          <Stack direction="row" justifyContent="space-between" width="100%">
+          <Stack
+            width="100%"
+            mt={{ xs: "10px", md: "0px" }}
+            direction={{ xs: "column", md: "row" }}
+            justifyContent={{ xs: "flex-start", md: "space-between" }}
+          >
             <Stack gap={1} width="100%">
               <Skeleton variant="text" width="60%" sx={{ fontSize: 14 }} />
 
               <Skeleton variant="text" width="70%" sx={{ fontSize: 14 }} />
             </Stack>
 
-            <Stack alignItems="flex-end" gap={1} width="100%">
+            <Stack
+              gap={1}
+              width="100%"
+              alignItems={{ xs: "flex-start", md: "flex-end" }}
+            >
               <Skeleton variant="text" width="50%" sx={{ fontSize: 14 }} />
 
               <Skeleton variant="text" width="30%" sx={{ fontSize: 14 }} />

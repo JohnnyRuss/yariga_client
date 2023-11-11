@@ -27,7 +27,12 @@ const AgentActiveListing: React.FC<AgentActiveListingT> = () => {
     >
       <ActiveListingHeader />
 
-      <PropertiesList status={status} list={propertiesList} skeletonCount={3} />
+      <PropertiesList
+        status={status}
+        list={propertiesList}
+        skeletonCount={3}
+        containerSx={{ marginTop: ["-10px", "20px"] }}
+      />
     </Box>
   );
 };

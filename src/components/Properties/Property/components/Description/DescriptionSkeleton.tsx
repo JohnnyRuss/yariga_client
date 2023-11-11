@@ -12,7 +12,7 @@ const DescriptionSkeleton: React.FC = () => {
         sx={{ fontSize: 18, marginBottom: "25px" }}
       />
 
-      <Stack flexWrap="wrap" gap="20px 50px">
+      <Stack flexWrap="wrap" gap={{ xs: "10px 20px", md: "20px 50px" }}>
         {Array.from(new Array(3)).map(() => {
           return Array.from(new Array(4)).map((_, index, arr) => (
             <Skeleton

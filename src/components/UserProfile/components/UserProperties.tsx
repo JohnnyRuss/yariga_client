@@ -23,7 +23,12 @@ const UserProperties: React.FC<UserPropertiesT> = ({ userId, username }) => {
     <Stack className="content__box" boxShadow={3} gap={2}>
       <UserPropertiesHeader userId={userId} username={username} />
 
-      <PropertiesList skeletonCount={3} status={status} list={propertiesList} />
+      <PropertiesList
+        skeletonCount={3}
+        status={status}
+        list={propertiesList}
+        containerSx={{ marginTop: ["-10px", "20px"] }}
+      />
     </Stack>
   );
 };

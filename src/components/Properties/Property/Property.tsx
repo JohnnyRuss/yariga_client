@@ -14,7 +14,11 @@ const Property: React.FC = () => {
     <ContentBox>
       <GoBackButton>Property Details</GoBackButton>
 
-      <Stack direction="row" gap={4} className="content__box">
+      <Stack
+        gap={4}
+        className="content__box"
+        direction={{ xs: "column", md: "row" }}
+      >
         <UI.PropertyMain>
           <UI.PropertyView loading={status.loading} />
 

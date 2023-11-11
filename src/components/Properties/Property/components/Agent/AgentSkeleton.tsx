@@ -30,17 +30,22 @@ const AgentSkeleton: React.FC = () => {
 
           <Skeleton variant="text" width="135px" sx={{ fontSize: 16 }} />
 
-          <Stack direction="row" width="100%" gap="20px" mt="10px">
+          <Stack
+            mt="10px"
+            gap="20px"
+            width="100%"
+            direction={{ xs: "column", xl: "row" }}
+          >
             <Skeleton
-              variant="rectangular"
               height="40px"
-              sx={{ flex: 1, borderRadius: "5px" }}
+              variant="rectangular"
+              sx={{ flex: ["auto", 1], borderRadius: "5px" }}
             />
 
             <Skeleton
-              variant="rectangular"
               height="40px"
-              sx={{ flex: 1, borderRadius: "5px" }}
+              variant="rectangular"
+              sx={{ flex: ["auto", 1], borderRadius: "5px" }}
             />
           </Stack>
         </Stack>

@@ -16,6 +16,7 @@ const Button: React.FC<CustomButtonPropsT> = ({
   onClick = () => {},
   type = "button",
   variant = "contained",
+  attributes,
 }) => {
   const { palette } = useTheme();
 
@@ -34,6 +35,7 @@ const Button: React.FC<CustomButtonPropsT> = ({
         color ? generatePaletteColor(color, palette) : "app_text.light"
       }
       startIcon={icon}
+      {...attributes}
     >
       {title}
     </MuiStyled.Button>

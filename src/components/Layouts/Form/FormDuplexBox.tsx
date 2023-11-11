@@ -10,7 +10,7 @@ const FormDuplexBox: React.FC<FormDuplexBoxT> = ({ children }) => {
     <Stack
       direction={{ xs: "column", md: "row" }}
       alignItems={{ md: "flex-start" }}
-      gap={4}
+      gap={{ xs: 2, md: 4 }}
     >
       {children}
     </Stack>

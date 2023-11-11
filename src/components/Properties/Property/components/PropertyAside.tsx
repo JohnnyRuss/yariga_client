@@ -9,7 +9,7 @@ interface PropertyAsideT {
 const PropertyAside: React.FC<PropertyAsideT> = ({ children }) => {
   return (
     <Stack
-      width="25%"
+      width={{ xs: "100%", md: "25%" }}
       gap={3}
       justifyContent="flex-start"
       position="sticky"
@@ -17,7 +17,7 @@ const PropertyAside: React.FC<PropertyAsideT> = ({ children }) => {
       height="90vh"
       p="4px"
       sx={{
-        overflowY: "auto",
+        overflowY: ["visible", "auto"],
         "&::-webkit-scrollbar": {
           display: "none",
         },

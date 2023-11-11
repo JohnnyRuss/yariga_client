@@ -5,8 +5,14 @@ import { SectionTitle, AddPropertyButton } from "components/Layouts";
 
 const AllPropertiesHeader: React.FC = () => {
   return (
-    <Stack direction="row" justifyContent="space-between" alignItems="center">
+    <Stack
+      gap="15px"
+      direction={{ sx: "column", md: "row" }}
+      justifyContent={{ sx: "flex-start", md: "space-between" }}
+      alignItems={{ sx: "flex-start", md: "space-between" }}
+    >
       <SectionTitle title="All Properties" />
+
       <AddPropertyButton />
     </Stack>
   );

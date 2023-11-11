@@ -21,13 +21,15 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
     <ProfileImagesSkeleton />
   ) : (
     <Box
-      width="100%"
+      width="min(440px,100%)"
       maxWidth="440px"
-      maxHeight="330px"
+      height={{ xs: "300px", md: "350px" }}
       position="relative"
       sx={{
         borderTopLeftRadius: "10px",
         borderBottomLeftRadius: "10px",
+        borderTopRightRadius: ["10px", "0px"],
+        borderBottomRightRadius: ["10px", "0px"],
       }}
     >
       <Box
@@ -52,12 +54,14 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
         src={avatar}
         alt={username}
         sx={{
-          top: "35px",
-          right: "0px",
+          top: ["auto", "35px"],
+          bottom: ["0px", "auto"],
+          right: ["auto", "0px"],
+          left: ["0px", "auto"],
           width: "78px",
           height: "78px",
           position: "absolute",
-          transform: "translateX(50%)",
+          transform: ["translate(50%,50%)", "translateX(50%)"],
         }}
       />
 

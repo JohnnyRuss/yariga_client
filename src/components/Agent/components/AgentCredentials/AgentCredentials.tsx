@@ -69,7 +69,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
               {agent.location.state && (
                 <AgentCredentialsItem
                   label="State"
-                  value={agent.location.state}
+                  value={agent.location.state || ""}
                 />
               )}
 
