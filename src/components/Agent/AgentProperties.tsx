@@ -27,7 +27,7 @@ const AgentProperties: React.FC = () => {
           list={properties}
           status={status}
           skeletonCount={12}
-          containerSx={{ marginTop: ["-10px", "20px"] }}
+          containerSx={{ marginTop: ["-10px", "0px"] }}
         />
       </Box>
     </ContentBox>

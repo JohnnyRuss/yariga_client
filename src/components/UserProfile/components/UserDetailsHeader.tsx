@@ -22,6 +22,8 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
   const { pathname } = useLocation();
 
   const searchParams = new URLSearchParams(window.location.search);
+  const isEditRoute =
+    searchParams.get("active-tab") === "profile-edit" ? true : false;
 
   const onEdit = (onClose: () => void) => {
     onClose();
@@ -38,7 +40,7 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
           {username}
         </Typography>
 
-        {isAuthenticatedUser && (
+        {isAuthenticatedUser && !isEditRoute && (
           <DropdownMenu
             render={({ onClose }) => [
               <MenuItem onClick={() => onEdit(onClose)} key={nanoid()}>

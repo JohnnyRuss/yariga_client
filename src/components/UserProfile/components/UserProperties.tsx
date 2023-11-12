@@ -27,7 +27,7 @@ const UserProperties: React.FC<UserPropertiesT> = ({ userId, username }) => {
         skeletonCount={3}
         status={status}
         list={propertiesList}
-        containerSx={{ marginTop: ["-10px", "20px"] }}
+        containerSx={{ marginTop: ["-10px", "0px"] }}
       />
     </Stack>
   );

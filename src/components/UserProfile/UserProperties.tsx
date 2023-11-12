@@ -33,7 +33,7 @@ const UserProperties: React.FC<UserPropertiesT> = ({
           list={properties}
           status={status}
           skeletonCount={12}
-          containerSx={{ marginTop: ["-15px", "20px"] }}
+          containerSx={{ marginTop: ["-15px", "0px"] }}
         />
       </Box>
     </ContentBox>

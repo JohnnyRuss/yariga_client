@@ -101,6 +101,23 @@ export const routes: RouteT[] = [
     name: "reviews-page",
     path: paths.reviews_page,
     element: <Pages.ReviewsPage />,
+    children: [
+      {
+        name: "all-reviews-page",
+        path: paths.all_reviews_page,
+        element: <Pages.AllReviewsPage />,
+      },
+      {
+        name: "published-reviews-page",
+        path: paths.published_reviews_page,
+        element: <Pages.PublishedReviewsPage />,
+      },
+      {
+        name: "deleted-reviews-page",
+        path: paths.deleted_reviews_page,
+        element: <Pages.DeletedReviewsPage />,
+      },
+    ],
   },
 
   // MESSAGES

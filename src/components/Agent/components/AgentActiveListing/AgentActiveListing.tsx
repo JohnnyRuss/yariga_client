@@ -31,7 +31,7 @@ const AgentActiveListing: React.FC<AgentActiveListingT> = () => {
         status={status}
         list={propertiesList}
         skeletonCount={3}
-        containerSx={{ marginTop: ["-10px", "20px"] }}
+        containerSx={{ marginTop: ["-10px", "0px"] }}
       />
     </Box>
   );

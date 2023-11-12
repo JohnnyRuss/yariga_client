@@ -19,6 +19,9 @@ const paths = {
   agent_properties_page: "/agents/:agentId/properties",
   // REVIEWS
   reviews_page: "/reviews",
+  all_reviews_page: "/reviews/all",
+  published_reviews_page: "/reviews/published",
+  deleted_reviews_page: "/reviews/deleted",
   // MESSAGES
   messages_page: "/messages",
   // USER PROFILE

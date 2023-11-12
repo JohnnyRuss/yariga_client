@@ -16,6 +16,8 @@ export { default as NoContentMessage } from "./NoContentMessage/NoContentMessage
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as PieChart } from "./PieChart/PieChart";
 export { default as PropertyStatus } from "./PropertyStatus/PropertyStatus";
+export { default as ReviewCard } from "./ReviewCard/ReviewCard";
+export { default as ReviewCardSkeleton } from "./ReviewCard/ReviewCardSkeleton";
 export { default as PropertiesList } from "./PropertiesList/PropertiesList";
 export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as SliderModal } from "./SliderModal/SliderModal";

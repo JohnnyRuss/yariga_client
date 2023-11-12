@@ -56,6 +56,18 @@ export const AgentPropertiesPage = lazy(
 
 export const ReviewsPage = lazy(() => import("./ReviewsPage/ReviewsPage"));
 
+export const AllReviewsPage = lazy(
+  () => import("./ReviewsPage/AllReviewsPage")
+);
+
+export const PublishedReviewsPage = lazy(
+  () => import("./ReviewsPage/PublishedReviewsPage")
+);
+
+export const DeletedReviewsPage = lazy(
+  () => import("./ReviewsPage/DeletedReviewsPage")
+);
+
 /////////////////////
 ///// MESSAGES /////
 ///////////////////
