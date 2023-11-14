@@ -48,6 +48,7 @@ const selectedProperty = ({ properties }: RootStateT) => ({
   price: properties.property.price,
   location: properties.property.location,
   images: properties.property.images,
+  avgRating: properties.property.avgRating,
 });
 
 // SELECTORS

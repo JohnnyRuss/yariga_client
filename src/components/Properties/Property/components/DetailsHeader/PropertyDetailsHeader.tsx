@@ -11,8 +11,13 @@ import { PropertyStatus } from "components/Layouts";
 import { Stack, Box, Typography } from "@mui/material";
 
 const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
-  const { title, propertyType, propertyStatus } =
-    useAppSelector(selectProperty);
+  const {
+    title,
+    propertyType,
+    propertyStatus,
+    avgRating,
+    _id: propertyId,
+  } = useAppSelector(selectProperty);
 
   return loading ? (
     <HeaderSkeleton />
@@ -44,7 +49,7 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
 
       <Box sx={{ mt: ["12px", "0px"] }}>
         <Stack gap="9px">
-          <Rating />
+          <Rating rating={avgRating} propertyId={propertyId} />
 
           <PriceBox />
         </Stack>

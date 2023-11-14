@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { usePropertyRatingQuery } from "hooks/api/properties";
+
 import {
   Box,
   Stack,
@@ -10,9 +12,14 @@ import {
 import { Star } from "@mui/icons-material";
 import { Modal, Button } from "components/Layouts";
 
-interface RatingT {}
+interface RatingT {
+  rating: number;
+  propertyId: string;
+}
 
-const Rating: React.FC<RatingT> = () => {
+const Rating: React.FC<RatingT> = ({ rating, propertyId }) => {
+  const { rateProperty } = usePropertyRatingQuery();
+
   const [openFeedbackModal, setOpenFeedbackModal] = useState(false);
 
   const onRatingChange = (
@@ -21,12 +28,14 @@ const Rating: React.FC<RatingT> = () => {
   ) => {
     // 1. send rate request
     // 2. open modal to give user chance to leave feedback
-    setOpenFeedbackModal(true);
+    // setOpenFeedbackModal(true);
+    if (!value || !propertyId) return;
+
+    rateProperty({ propertyId, score: value });
   };
 
-  const onSendFeedBack = (event: React.MouseEvent) => {
+  const onSendFeedBack = (event: React.MouseEvent) =>
     setOpenFeedbackModal(false);
-  };
 
   return (
     <>
@@ -39,13 +48,13 @@ const Rating: React.FC<RatingT> = () => {
       >
         <MuiRating
           name="text-feedback"
-          value={4.5}
+          value={rating}
           onChange={onRatingChange}
           precision={0.5}
           emptyIcon={<Star style={{ opacity: 0.55 }} fontSize="inherit" />}
         />
 
-        <Box sx={{ ml: 2 }}>{4.8}</Box>
+        <Box sx={{ ml: 2 }}>{rating.toFixed(1)}</Box>
       </Box>
 
       <Modal

@@ -8,6 +8,8 @@ import {
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
+  RatePropertyArgsT,
+  RatePropertyResponseT,
 } from "interface/db/properties.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
 
@@ -74,6 +76,7 @@ const initialState: PropertiesStateT = {
       lon: "",
     },
     images: [],
+    avgRating: 0,
   },
 };
 
@@ -187,6 +190,18 @@ const propertiesSlice = createSlice({
 
     setFiredAgent(state) {
       state.property.agent = null;
+    },
+
+    rateProperty: {
+      prepare: (payload: RatePropertyArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {},
+    },
+
+    setPropertyRate(state, { payload }: PayloadAction<RatePropertyResponseT>) {
+      state.property.avgRating = payload.avgRating;
     },
   },
 });

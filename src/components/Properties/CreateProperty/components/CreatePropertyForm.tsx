@@ -7,7 +7,7 @@ import {
 } from "store/selectors/createPropertyForm.selectors";
 
 import { Controller } from "react-hook-form";
-import { useCreatePropertyQuery } from "hooks/api";
+import { useCreatePropertyQuery } from "hooks/api/properties";
 
 import { Box } from "@mui/material";
 import * as Form from "components/Layouts/Form";

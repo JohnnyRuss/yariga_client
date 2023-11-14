@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { useAppDispatch } from "store/hooks";
 
 import { RouterHistory } from "config/config";
-import { createPropertyFormActions } from "store/reducers/createPropertyForm.reducer";
+import { usePropertyFormSuggestionsQuery } from "hooks/api/properties";
 
 import { CreateProperty } from "components/Properties";
 
 RouterHistory.redirectUnAuthorized();
 
 const CreatePropertyPage: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { cleanUpSuggestions, getSuggestions } =
+    usePropertyFormSuggestionsQuery();
 
   useEffect(() => {
-    dispatch(createPropertyFormActions.getPropertyFormSuggestions());
-
+    getSuggestions();
     return () => {
-      dispatch(createPropertyFormActions.cleanUpPropertySuggestions());
+      cleanUpSuggestions();
     };
   }, []);
 

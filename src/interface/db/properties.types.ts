@@ -16,6 +16,7 @@ export interface PropertyT {
   location: PropertyLocationT;
   description: string;
   images: Array<string>;
+  avgRating: number;
 }
 
 export interface PropertyShortInfoT {
@@ -108,3 +109,12 @@ export interface GetAgentPropertiesArgsT {
   agentId: string;
   limit?: number;
 }
+
+export type RatePropertyArgsT = {
+  propertyId: string;
+  score: number;
+};
+
+export type RatePropertyResponseT = {
+  avgRating: number;
+};
