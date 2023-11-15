@@ -194,7 +194,16 @@ const propertiesSlice = createSlice({
 
     rateProperty: {
       prepare: (payload: RatePropertyArgsT) => {
-        return { payload };
+        const credentials: RatePropertyArgsT = {
+          propertyId: payload.propertyId,
+          data: {
+            score: payload.data.score,
+          },
+        };
+
+        if (payload.data.review) credentials.data.review = payload.data.review;
+
+        return { payload: credentials };
       },
 
       reducer: (state) => {},

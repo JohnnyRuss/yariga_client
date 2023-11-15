@@ -112,7 +112,7 @@ export interface GetAgentPropertiesArgsT {
 
 export type RatePropertyArgsT = {
   propertyId: string;
-  score: number;
+  data: { score: number; review?: string };
 };
 
 export type RatePropertyResponseT = {

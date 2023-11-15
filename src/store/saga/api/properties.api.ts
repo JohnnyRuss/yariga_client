@@ -26,8 +26,9 @@ export async function getAgentPropertiesQuery(data: GetAgentPropertiesArgsT) {
   );
 }
 
-export async function ratePropertyQuery(data: RatePropertyArgsT) {
-  return axiosPrivateQuery.post(`/properties/${data.propertyId}/rate`, {
-    score: data.score,
-  });
+export async function ratePropertyQuery({
+  data,
+  propertyId,
+}: RatePropertyArgsT) {
+  return axiosPrivateQuery.post(`/properties/${propertyId}/rate`, data);
 }
