@@ -24,16 +24,16 @@ export interface PropertyFilterT {
 
 export interface ActivePropertyFilterT {
   search: string;
-  "minPrice[gte]": string;
-  "maxPrice[lte]": string;
+  "price[gte]": string;
+  "price[lte]": string;
   sort: CommonFilterT;
-  statuses: PropertyStatusT;
-  propertyTypes: PropertyTypeT;
-  countries: CommonFilterT;
-  cities: CommonFilterT;
-  states: CommonFilterT;
-  roomTypes: Array<RoomTypeT>;
-  propertyFeatures: Array<PropertyFeatureSuggestionT>;
+  propertyStatus: PropertyStatusT;
+  propertyType: PropertyTypeT;
+  country: CommonFilterT;
+  city: CommonFilterT;
+  state: CommonFilterT;
+  rooms: Array<RoomTypeT>;
+  features: Array<PropertyFeatureSuggestionT>;
 }
 
 // PARTIALS

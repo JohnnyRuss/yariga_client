@@ -24,7 +24,7 @@ const HireByAgent: React.FC<HireByAgentT> = ({ searchStr, onHire }) => {
   const allAgents = useAppSelector(selectAllAgents);
 
   useEffect(() => {
-    dispatch(agentActions.getAllAgents());
+    dispatch(agentActions.getAllAgents({}));
 
     return () => {
       dispatch(agentActions.cleanUpAgents());

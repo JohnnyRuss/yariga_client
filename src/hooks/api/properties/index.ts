@@ -3,4 +3,3 @@ export { default as usePropertyFormSuggestionsQuery } from "./usePropertyFormSug
 export { default as usePropertiesQuery } from "./usePropertiesQuery";
 export { default as usePropertiesFilterQuery } from "./usePropertiesFilterQuery";
 export { default as useRoomTypesQuery } from "./useRoomTypesQuery";
-export { default as usePropertyRatingQuery } from "./usePropertyRatingQuery";

@@ -25,36 +25,46 @@ import {
 
 const searchParamsDefaults = {
   search: "",
-  "minPrice[gte]": "",
-  "maxPrice[lte]": "",
-  cities: {
+
+  "price[gte]": "",
+
+  "price[lte]": "",
+
+  city: {
     _id: "",
     label: "",
     value: "",
   },
-  countries: {
+
+  country: {
     _id: "",
     label: "",
     value: "",
   },
-  propertyFeatures: [],
-  propertyTypes: {
+
+  features: [],
+
+  propertyType: {
     _id: "",
     label: "",
     value: "",
   },
-  roomTypes: [],
+
+  rooms: [],
+
   sort: {
     _id: "",
     label: "",
     value: "",
   },
-  states: {
+
+  state: {
     _id: "",
     label: "",
     value: "",
   },
-  statuses: {
+
+  propertyStatus: {
     _id: "",
     label: "",
     value: "",

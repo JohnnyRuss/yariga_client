@@ -32,6 +32,7 @@ export interface PropertyShortInfoT {
   area: number;
   bedroomsAmount: number;
   bathroomsAmount?: number;
+  avgRating: number;
 }
 
 // PARTIALS
@@ -110,11 +111,12 @@ export interface GetAgentPropertiesArgsT {
   limit?: number;
 }
 
-export type RatePropertyArgsT = {
-  propertyId: string;
-  data: { score: number; review?: string };
+export type GetAllPropertiesArgsT = {
+  query: string;
 };
 
-export type RatePropertyResponseT = {
-  avgRating: number;
+export type GetAllPropertiesResponseT = {
+  properties: Array<PropertyShortInfoT>;
+  currentPage: number;
+  pagesCount: number;
 };

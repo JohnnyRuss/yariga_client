@@ -43,6 +43,11 @@ const selectedAgentDetails = ({ agent }: RootStateT) => ({
   sold: agent.agent.sold,
 });
 
+const selectedAgentsPagination = ({ agent }: RootStateT) => ({
+  currentPage: agent.currentPage,
+  pagesCount: agent.pagesCount,
+});
+
 // Selectors
 
 const selectAllAgents = ({ agent }: RootStateT) => agent.agents;
@@ -72,6 +77,11 @@ const selectAgentDetails = createSelector(
   (details) => details
 );
 
+const selectAgentsPagination = createSelector(
+  selectedAgentsPagination,
+  (pagination) => pagination
+);
+
 export {
   selectAgentStatus,
   selectAgentsStatus,
@@ -79,4 +89,5 @@ export {
   selectAllAgents,
   selectAgentCredentials,
   selectAgentDetails,
+  selectAgentsPagination,
 };

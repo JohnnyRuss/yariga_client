@@ -4,10 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Pagination as MuiPagination } from "@mui/material";
 
 interface PaginationT {
-  page: number;
+  currentPage: number;
+  pagesCount: number;
 }
 
-const Pagination: React.FC<PaginationT> = ({ page }) => {
+const Pagination: React.FC<PaginationT> = ({ currentPage, pagesCount }) => {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
 
@@ -20,14 +21,18 @@ const Pagination: React.FC<PaginationT> = ({ page }) => {
 
   return (
     <MuiPagination
-      count={5}
-      page={page}
+      count={pagesCount}
+      page={currentPage}
       siblingCount={1}
       onChange={onPageChange}
       shape="rounded"
       sx={{
-        ".Mui-selected": {
+        "li:has(.Mui-selected)": {
           backgroundColor: "app_blue.light",
+          borderRadius: "4px",
+        },
+
+        "li .Mui-selected": {
           color: "app_text.light",
         },
       }}

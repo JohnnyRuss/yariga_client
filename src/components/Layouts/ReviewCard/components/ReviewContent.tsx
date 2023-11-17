@@ -1,26 +1,33 @@
 import React from "react";
 
 import { Stack } from "@mui/material";
+import { Text } from "components/Layouts";
 import ReviewContentChip from "./ReviewContentChip";
-import ReviewContentDescription from "./ReviewContentDescription";
 
-interface ReviewContentT {}
+interface ReviewContentT {
+  description: string;
+  score: number;
+}
 
-const ReviewContent: React.FC<ReviewContentT> = (props) => {
+const ReviewContent: React.FC<ReviewContentT> = ({ description, score }) => {
+  const chipType = score <= 3 ? "danger" : "normal";
+  const caption =
+    score >= 4.5
+      ? "EXCELLENT"
+      : score >= 4
+      ? "BEST SERVICE"
+      : score >= 3.5
+      ? "GREAT"
+      : score >= 3
+      ? "BAD SERVICE"
+      : "UNEXPECTED";
+
   return (
     <Stack maxWidth="570px" gap="15px">
-      <ReviewContentDescription />
+      <Text text={description} />
 
       <Stack direction="row" gap="10px" flexWrap="wrap">
-        <ReviewContentChip caption="EXCELLENT" type="normal" />
-
-        <ReviewContentChip caption="GREAT" type="normal" />
-
-        <ReviewContentChip caption="BEST SERVICE" type="normal" />
-
-        <ReviewContentChip caption="BAD SERVICE" type="danger" />
-
-        <ReviewContentChip caption="UNEXPECTED" type="danger" />
+        <ReviewContentChip caption={caption} type={chipType} />
       </Stack>
     </Stack>
   );

@@ -8,9 +8,10 @@ import {
   GetPropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
-  RatePropertyArgsT,
-  RatePropertyResponseT,
+  GetAllPropertiesArgsT,
+  GetAllPropertiesResponseT,
 } from "interface/db/properties.types";
+import { AddReviewResponseT } from "interface/db/reviews.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
 
 import { controlStatus as status } from "./helpers";
@@ -25,6 +26,10 @@ const initialState: PropertiesStateT = {
   agentPropertiesStatus: status.default(),
 
   properties: [],
+
+  currentPage: 1,
+
+  pagesCount: 1,
 
   agentProperties: [],
 
@@ -85,8 +90,8 @@ const propertiesSlice = createSlice({
   initialState,
   reducers: {
     getAllProperties: {
-      prepare: (payload) => {
-        return { payload: {} };
+      prepare: (payload: GetAllPropertiesArgsT) => {
+        return { payload };
       },
 
       reducer: (state) => {
@@ -96,14 +101,18 @@ const propertiesSlice = createSlice({
 
     setAllProperties(
       state,
-      { payload }: PayloadAction<Array<PropertyShortInfoT>>
+      { payload }: PayloadAction<GetAllPropertiesResponseT>
     ) {
-      state.properties = payload;
+      state.properties = payload.properties;
+      state.currentPage = payload.currentPage;
+      state.pagesCount = payload.pagesCount;
       state.allPropertiesStatus = status.default();
     },
 
     cleanUpAllProperties(state) {
       state.properties = initialState.properties;
+      state.pagesCount = initialState.pagesCount;
+      state.currentPage = initialState.currentPage;
     },
 
     getUserProperties: {
@@ -192,24 +201,7 @@ const propertiesSlice = createSlice({
       state.property.agent = null;
     },
 
-    rateProperty: {
-      prepare: (payload: RatePropertyArgsT) => {
-        const credentials: RatePropertyArgsT = {
-          propertyId: payload.propertyId,
-          data: {
-            score: payload.data.score,
-          },
-        };
-
-        if (payload.data.review) credentials.data.review = payload.data.review;
-
-        return { payload: credentials };
-      },
-
-      reducer: (state) => {},
-    },
-
-    setPropertyRate(state, { payload }: PayloadAction<RatePropertyResponseT>) {
+    setPropertyRate(state, { payload }: PayloadAction<AddReviewResponseT>) {
       state.property.avgRating = payload.avgRating;
     },
   },

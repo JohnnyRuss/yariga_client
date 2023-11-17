@@ -2,9 +2,13 @@ import React from "react";
 
 import { Stack, Avatar, Typography } from "@mui/material";
 
-interface ReviewAuthorT {}
+import { ReviewAuthorT } from "interface/db/reviews.types";
 
-const ReviewAuthor: React.FC<ReviewAuthorT> = (props) => {
+interface ReviewAuthorElT {
+  author: ReviewAuthorT;
+}
+
+const ReviewAuthor: React.FC<ReviewAuthorElT> = ({ author }) => {
   return (
     <Stack direction="row" gap="15px">
       <Avatar
@@ -14,14 +18,18 @@ const ReviewAuthor: React.FC<ReviewAuthorT> = (props) => {
           height: "70px",
           borderRadius: "10px",
         }}
-        src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=1309"
+        src={author.avatar}
       />
 
       <Stack>
-        <Typography fontWeight={600}>James Sullivan</Typography>
-        <Typography fontSize={14} color="app_text.main">
-          Join On 25-04-2022
-        </Typography>
+        <Typography fontWeight={600}>{author.username}</Typography>
+
+        {author.createdAt && (
+          <Typography fontSize={14} color="app_text.main">
+            Join On 25-04-2022
+          </Typography>
+        )}
+
         <Typography fontSize={14} color="app_text.main">
           12:42 PM
         </Typography>

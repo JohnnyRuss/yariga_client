@@ -9,17 +9,19 @@ import { getAgentProperties } from "./properties.handlers";
 
 import {
   AgentT,
-  AgentShortInfoT,
   HireAgentArgsT,
   HireAgentResponseT,
+  GetAgentsArgsT,
+  GetAgentsResponseT,
 } from "interface/db/agent.types";
 import { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-export function* getAllAgents() {
+export function* getAllAgents({ payload }: PayloadAction<GetAgentsArgsT>) {
   try {
-    const { data }: AxiosResponse<Array<AgentShortInfoT>> = yield call(
-      agentAPI.getAllAgentsQuery
+    const { data }: AxiosResponse<GetAgentsResponseT> = yield call(
+      agentAPI.getAllAgentsQuery,
+      payload
     );
 
     yield put(agentActions.setAllAgents(data));

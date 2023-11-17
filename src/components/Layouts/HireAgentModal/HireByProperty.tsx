@@ -72,7 +72,7 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
               sx={{ height: "fit-content" }}
               onClick={() => onHire({ propertyId: property._id })}
             >
-              <PropertyCardHorizontal property={property} fullWidth={true} />
+              <PropertyCardHorizontal property={property} />
               <Box
                 position="absolute"
                 sx={{ inset: 0, borderRadius: "10px", cursor: "pointer" }}

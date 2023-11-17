@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import {
   usePropertiesQuery,
@@ -13,18 +14,26 @@ import { RouterHistory } from "config/config";
 RouterHistory.redirectUnAuthorized();
 
 const PropertiesPage: React.FC = () => {
+  const { search } = useLocation();
+
   const { getAllProperties, cleanUpProperties } = usePropertiesQuery();
   const { cleanUpFilter, getPropertiesFilter } = usePropertiesFilterQuery();
 
   useEffect(() => {
-    getAllProperties();
     getPropertiesFilter();
 
     return () => {
-      cleanUpProperties();
       cleanUpFilter();
     };
   }, []);
+
+  useEffect(() => {
+    getAllProperties({ query: search });
+
+    return () => {
+      cleanUpProperties();
+    };
+  }, [search]);
 
   return (
     <PropertyFilterProvider>

@@ -2,13 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { controlStatus as status } from "./helpers";
 import { StatusT } from "interface/store/common.types";
 
-import { AgentStateT } from "interface/store/agent.types";
 import {
   AgentT,
   HireAgentArgsT,
   HireAgentResponseT,
-  AgentShortInfoT,
+  GetAgentsResponseT,
+  GetAgentsArgsT,
 } from "interface/db/agent.types";
+import { AgentStateT } from "interface/store/agent.types";
 
 const initialState: AgentStateT = {
   agentStatus: status.default(),
@@ -18,6 +19,10 @@ const initialState: AgentStateT = {
   hireAgentsStatus: status.default(),
 
   agents: [],
+
+  currentPage: 1,
+
+  pagesCount: 1,
 
   agent: {
     _id: "",
@@ -65,17 +70,28 @@ const agentSlice = createSlice({
   name: "yariga-agents",
   initialState,
   reducers: {
-    getAllAgents(state) {
-      state.agentsStatus = status.loading();
+    getAllAgents: {
+      prepare: (payload: GetAgentsArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.agentsStatus = status.loading();
+      },
     },
 
-    setAllAgents(state, { payload }: PayloadAction<Array<AgentShortInfoT>>) {
-      state.agents = payload;
+    setAllAgents(state, { payload }: PayloadAction<GetAgentsResponseT>) {
+      state.agents = payload.agents;
+      state.currentPage = payload.currentPage;
+      state.pagesCount = payload.pagesCount;
+
       state.agentsStatus = status.default();
     },
 
     cleanUpAgents(state) {
       state.agents = initialState.agents;
+      state.currentPage = initialState.currentPage;
+      state.pagesCount = initialState.pagesCount;
     },
 
     getAgent: {

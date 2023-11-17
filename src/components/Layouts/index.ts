@@ -25,6 +25,7 @@ export { default as Snackbar } from "./Snackbar/Snackbar";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as SVG } from "./SVG/SVG";
 export { default as SwiperSlider } from "./SwiperSlider/Slider";
+export { default as Text } from "./Text/Text";
 
 // CARDS
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";

@@ -51,6 +51,12 @@ const selectedProperty = ({ properties }: RootStateT) => ({
   avgRating: properties.property.avgRating,
 });
 
+const selectedAlProperties = ({ properties }: RootStateT) => ({
+  properties: properties.properties,
+  currentPage: properties.currentPage,
+  pagesCount: properties.pagesCount,
+});
+
 // SELECTORS
 
 const selectAllPropertiesStatus = createSelector(
@@ -75,8 +81,10 @@ const selectAgentPropertiesStatus = createSelector(
 
 const selectProperty = createSelector(selectedProperty, (property) => property);
 
-const selectAllProperties = ({ properties }: RootStateT) =>
-  properties.properties;
+const selectAllProperties = createSelector(
+  selectedAlProperties,
+  (properties) => properties
+);
 
 const selectAgentProperties = ({ properties }: RootStateT) =>
   properties.agentProperties;

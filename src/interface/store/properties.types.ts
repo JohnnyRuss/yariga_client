@@ -10,6 +10,8 @@ export interface PropertiesStateT {
   // CONTENT DATA
   property: PropertyT;
   properties: Array<PropertyShortInfoT>;
+  currentPage: number;
+  pagesCount: number;
   agentProperties: Array<PropertyShortInfoT>;
   userProperties: Array<PropertyShortInfoT>;
 }

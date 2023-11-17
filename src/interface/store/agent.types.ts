@@ -6,5 +6,7 @@ export interface AgentStateT {
   agentsStatus: LoadingStatusT;
   hireAgentsStatus: LoadingStatusT;
   agents: Array<AgentShortInfoT>;
+  currentPage: number;
+  pagesCount: number;
   agent: AgentT;
 }

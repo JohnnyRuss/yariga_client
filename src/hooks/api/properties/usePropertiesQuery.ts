@@ -1,11 +1,13 @@
 import { useAppDispatch } from "store/hooks";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
+import { GetAllPropertiesArgsT } from "interface/db/properties.types";
+
 export default function useAllPropertiesQuery() {
   const dispatch = useAppDispatch();
 
-  const getAllProperties = () =>
-    dispatch(propertiesActions.getAllProperties({}));
+  const getAllProperties = (args: GetAllPropertiesArgsT) =>
+    dispatch(propertiesActions.getAllProperties(args));
 
   const cleanUpProperties = () =>
     dispatch(propertiesActions.cleanUpAllProperties());

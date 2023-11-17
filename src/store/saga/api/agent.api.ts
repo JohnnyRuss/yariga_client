@@ -1,9 +1,9 @@
 import { axiosPrivateQuery } from "services/axios";
 
-import { HireAgentArgsT } from "interface/db/agent.types";
+import { HireAgentArgsT, GetAgentsArgsT } from "interface/db/agent.types";
 
-export async function getAllAgentsQuery() {
-  return axiosPrivateQuery.get("/agents");
+export async function getAllAgentsQuery(args: GetAgentsArgsT) {
+  return axiosPrivateQuery.get(`/agents${args.query}`);
 }
 
 export async function getAgentQuery(data: { agentId: string }) {

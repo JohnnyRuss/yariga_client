@@ -1,11 +1,11 @@
 import React from "react";
-import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
 import DescriptionSkeleton from "./DescriptionSkeleton";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { Text } from "components/Layouts";
 
 const PropertyDescription: React.FC<{ loading: boolean }> = ({ loading }) => {
   const { description } = useAppSelector(selectProperty);
@@ -18,11 +18,7 @@ const PropertyDescription: React.FC<{ loading: boolean }> = ({ loading }) => {
         Description
       </Typography>
 
-      <Stack gap={1}>
-        {description.split("\n").map((fragment) => (
-          <Typography key={nanoid()}>{fragment}</Typography>
-        ))}
-      </Stack>
+      <Text text={description} />
     </Box>
   );
 };

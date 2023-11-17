@@ -58,9 +58,9 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
         passEvent={true}
         list={filter.statuses}
         fieldProps={{
-          name: "statuses",
+          name: "propertyStatus",
           onChange: onSelectSearchParams,
-          value: searchParams.statuses,
+          value: searchParams.propertyStatus,
         }}
       />
 
@@ -69,9 +69,9 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
         passEvent={true}
         list={filter.propertyTypes}
         fieldProps={{
-          name: "propertyTypes",
+          name: "propertyType",
           onChange: onSelectSearchParams,
-          value: searchParams.propertyTypes,
+          value: searchParams.propertyType,
         }}
       />
 
@@ -80,9 +80,9 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
         passEvent={true}
         list={filter.countries}
         fieldProps={{
-          name: "countries",
+          name: "country",
           onChange: onSelectSearchParams,
-          value: searchParams.countries,
+          value: searchParams.country,
         }}
       />
 
@@ -96,9 +96,9 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
               passEvent={true}
               list={filter.states}
               fieldProps={{
-                name: "states",
+                name: "state",
                 onChange: onSelectSearchParams,
-                value: searchParams.states,
+                value: searchParams.state,
               }}
             />
           </MenuItem>
@@ -109,9 +109,9 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
               passEvent={true}
               list={filter.roomTypes}
               fieldProps={{
-                name: "roomTypes",
+                name: "rooms",
                 onChange: onMultipleSelectSearchParams,
-                value: searchParams.roomTypes,
+                value: searchParams.rooms,
               }}
             />
           </MenuItem>
@@ -122,17 +122,17 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
               passEvent={true}
               list={filter.propertyFeatures}
               fieldProps={{
-                name: "propertyFeatures",
+                name: "features",
                 onChange: onMultipleSelectSearchParams,
-                value: searchParams.propertyFeatures,
+                value: searchParams.features,
               }}
             />
           </MenuItem>
 
           <MenuItem sx={menuItemStyles}>
             <TextField
-              name="minPrice[gte]"
-              value={searchParams["minPrice[gte]"]}
+              name="price[gte]"
+              value={searchParams["price[gte]"]}
               onChange={onChangeSearchParams}
               placeholder="Min Price"
               fullWidth
@@ -141,8 +141,8 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
 
           <MenuItem sx={menuItemStyles}>
             <TextField
-              name="maxPrice[lte]"
-              value={searchParams["maxPrice[lte]"]}
+              name="price[lte]"
+              value={searchParams["price[lte]"]}
               onChange={onChangeSearchParams}
               placeholder="Max Price"
               fullWidth

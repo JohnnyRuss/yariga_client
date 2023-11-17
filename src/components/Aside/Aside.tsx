@@ -15,11 +15,7 @@ const Aside: React.FC = () => {
               : styles.aside_link
           }
           key={route.id}
-          to={
-            route.path.match(/:userId/)
-              ? route.path.replace(/:userId/g, "123")
-              : route.path
-          }
+          to={route.path}
         >
           {route.icon}
           <span>{route.label}</span>

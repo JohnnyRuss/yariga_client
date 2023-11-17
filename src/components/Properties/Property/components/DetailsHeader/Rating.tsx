@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { usePropertyRatingQuery } from "hooks/api/properties";
+import useReviewsQuery from "hooks/api/reviews/useReviewsQuery";
 
 import { Star } from "@mui/icons-material";
 import { Box, Rating as MuiRating } from "@mui/material";
@@ -13,7 +13,7 @@ interface RatingT {
 }
 
 const Rating: React.FC<RatingT> = ({ rating, propertyId }) => {
-  const { rateProperty } = usePropertyRatingQuery();
+  const { addReview } = useReviewsQuery();
 
   const [openFeedbackModal, setOpenFeedbackModal] = useState(false);
   const [ratingScore, setRatingScore] = useState<number>(NaN);
@@ -39,7 +39,7 @@ const Rating: React.FC<RatingT> = ({ rating, propertyId }) => {
   };
 
   const onCloseFeedBack = () => {
-    rateProperty({
+    addReview({
       propertyId,
       data: { score: ratingScore, review: feedback },
     });
@@ -48,7 +48,7 @@ const Rating: React.FC<RatingT> = ({ rating, propertyId }) => {
   };
 
   const onSendFeedBack = () => {
-    rateProperty({
+    addReview({
       propertyId,
       data: { score: ratingScore, review: feedback },
     });

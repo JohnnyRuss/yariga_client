@@ -5,3 +5,4 @@ export { default as propertiesSaga } from "./properties.saga";
 export { default as propertiesFilterSaga } from "./propertiesFilter.saga";
 export { default as createPropertySaga } from "./createProperty.saga";
 export { default as roomTypesSaga } from "./roomTypes.saga";
+export { default as reviewSaga } from "./reviews..saga";

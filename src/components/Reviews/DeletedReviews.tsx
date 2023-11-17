@@ -1,23 +1,17 @@
-import React from "react";
-
-import { Stack, Box } from "@mui/material";
-import { Pagination } from "components/Layouts";
+import { Stack } from "@mui/material";
 import ReviewsList from "./components/ReviewsList";
+import ReviewsPagination from "./components/ReviewsPagination";
 
-interface DeletedReviewsT {}
-
-const DeletedReviews: React.FC<DeletedReviewsT> = (props) => {
+const DeletedReviews: React.FC = () => {
   return (
     <Stack
       minHeight="35vw"
       className="content__box"
       sx={{ backgroundColor: "unset", padding: 0 }}
     >
-      <ReviewsList loading={false} />
+      <ReviewsList />
 
-      <Box mt="auto" ml="auto">
-        <Pagination page={1} />
-      </Box>
+      <ReviewsPagination />
     </Stack>
   );
 };

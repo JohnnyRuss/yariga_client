@@ -17,7 +17,8 @@ const AllProperties: React.FC = () => {
   const filterStatus = useAppSelector(selectPropertyFilterStatus);
 
   const status = useAppSelector(selectAllPropertiesStatus);
-  const propertiesList = useAppSelector(selectAllProperties);
+  const { currentPage, pagesCount, properties } =
+    useAppSelector(selectAllProperties);
 
   return (
     <ContentBox flex={true}>
@@ -33,10 +34,10 @@ const AllProperties: React.FC = () => {
         >
           <Filter loading={filterStatus.loading} />
 
-          <PropertiesList status={status} list={propertiesList} />
+          <PropertiesList status={status} list={properties} />
 
           <Box mt="auto" ml="auto">
-            <Pagination page={1} />
+            <Pagination currentPage={currentPage} pagesCount={pagesCount} />
           </Box>
         </Box>
       </MuiStyled.AllPropertiesContainer>

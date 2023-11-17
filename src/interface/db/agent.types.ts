@@ -80,3 +80,13 @@ export interface AgentListingShortT {
 export interface HireAgentResponseT extends Omit<AgentShortInfoT, "listing"> {
   listing: Array<AgentListingShortT>;
 }
+
+export type GetAgentsArgsT = {
+  query?: string;
+};
+
+export type GetAgentsResponseT = {
+  agents: Array<AgentShortInfoT>;
+  currentPage: number;
+  pagesCount: number;
+};

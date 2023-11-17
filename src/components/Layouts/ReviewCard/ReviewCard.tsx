@@ -1,14 +1,16 @@
-import React from "react";
-
 import { Stack } from "@mui/material";
 import ReviewAuthor from "./components/ReviewAuthor";
 import ReviewContent from "./components/ReviewContent";
 import ReviewRating from "./components/ReviewRating";
 import ReviewActions from "./components/ReviewActions";
 
-interface ReviewCardT {}
+import { ReviewShortInfoT } from "interface/db/reviews.types";
 
-const ReviewCard: React.FC<ReviewCardT> = () => {
+interface ReviewCardT {
+  review: ReviewShortInfoT;
+}
+
+const ReviewCard: React.FC<ReviewCardT> = ({ review }) => {
   return (
     <Stack
       p="25px"
@@ -18,14 +20,14 @@ const ReviewCard: React.FC<ReviewCardT> = () => {
       bgcolor="app_bg.main"
       direction={{ xs: "column", md: "row" }}
     >
-      <ReviewAuthor />
+      <ReviewAuthor author={review.user} />
 
-      <ReviewContent />
+      <ReviewContent description={review.review} score={review.score} />
 
       <Stack ml={{ md: "auto" }} gap="15px">
-        <ReviewRating />
+        <ReviewRating score={review.score} />
 
-        <ReviewActions />
+        <ReviewActions approved={review.approved} reviewId={review._id} />
       </Stack>
     </Stack>
   );
