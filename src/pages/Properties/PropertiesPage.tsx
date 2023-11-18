@@ -8,7 +8,7 @@ import {
 } from "hooks/api/properties";
 
 import { AllProperties } from "components/Properties";
-import PropertyFilterProvider from "providers/PropertyFilterProvider";
+import PropertyFilterProvider from "providers/FilterProvider/PropertyFilterProvider";
 
 import { RouterHistory } from "config/config";
 RouterHistory.redirectUnAuthorized();

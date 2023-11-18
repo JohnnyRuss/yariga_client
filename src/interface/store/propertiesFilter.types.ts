@@ -13,13 +13,13 @@ export interface PropertiesFilterStateT {
 
 export interface PropertyFilterT {
   sort: Array<CommonFilterT>;
-  statuses: Array<PropertyStatusT>;
-  propertyTypes: Array<PropertyTypeT>;
-  countries: Array<CommonFilterT>;
-  cities: Array<CommonFilterT>;
-  states: Array<CommonFilterT>;
-  roomTypes: Array<RoomTypeT>;
-  propertyFeatures: Array<PropertyFeatureSuggestionT>;
+  propertyStatus: Array<PropertyStatusT>;
+  propertyType: Array<PropertyTypeT>;
+  country: Array<CommonFilterT>;
+  state: Array<CommonFilterT>;
+  rooms: Array<RoomTypeT>;
+  features: Array<PropertyFeatureSuggestionT>;
+  city: Array<CommonFilterT>;
 }
 
 export interface ActivePropertyFilterT {

@@ -10,13 +10,13 @@ const selectedPropertyFilterStatus = ({ propertiesFilter }: RootStateT) => ({
 
 const selectedPropertyFilter = ({ propertiesFilter }: RootStateT) => ({
   sort: propertiesFilter.filter.sort,
-  statuses: propertiesFilter.filter.statuses,
-  cities: propertiesFilter.filter.cities,
-  countries: propertiesFilter.filter.countries,
-  propertyFeatures: propertiesFilter.filter.propertyFeatures,
-  propertyTypes: propertiesFilter.filter.propertyTypes,
-  roomTypes: propertiesFilter.filter.roomTypes,
-  states: propertiesFilter.filter.states,
+  propertyStatus: propertiesFilter.filter.propertyStatus,
+  city: propertiesFilter.filter.city,
+  country: propertiesFilter.filter.country,
+  features: propertiesFilter.filter.features,
+  propertyType: propertiesFilter.filter.propertyType,
+  rooms: propertiesFilter.filter.rooms,
+  state: propertiesFilter.filter.state,
 });
 
 const selectPropertyFilterStatus = createSelector(

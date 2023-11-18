@@ -1,6 +1,6 @@
 import React from "react";
 
-import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
+import { usePropertyFilterContext } from "providers/FilterProvider/PropertyFilterProvider";
 
 import { ParametersIcon } from "assets/icons";
 import * as MuiStyled from "./styles/Filter.styled";

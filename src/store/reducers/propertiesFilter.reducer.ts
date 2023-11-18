@@ -10,13 +10,13 @@ const initialState: PropertiesFilterStateT = {
 
   filter: {
     sort: [],
-    statuses: [],
-    cities: [],
-    countries: [],
-    propertyFeatures: [],
-    propertyTypes: [],
-    roomTypes: [],
-    states: [],
+    propertyStatus: [],
+    city: [],
+    country: [],
+    features: [],
+    propertyType: [],
+    rooms: [],
+    state: [],
   },
 };
 
@@ -41,13 +41,13 @@ const propertiesFilterSlice = createSlice({
 
       state.filter = {
         sort: payload.sort.map((value) => ({ _id: nanoid(), ...value })),
-        cities: moderator(payload.cities),
-        countries: moderator(payload.countries),
-        states: moderator(payload.states),
-        propertyFeatures: payload.propertyFeatures,
-        propertyTypes: payload.propertyTypes,
-        roomTypes: payload.roomTypes,
-        statuses: payload.statuses,
+        city: moderator(payload.cities),
+        country: moderator(payload.countries),
+        state: moderator(payload.states),
+        features: payload.propertyFeatures,
+        propertyType: payload.propertyTypes,
+        rooms: payload.roomTypes,
+        propertyStatus: payload.statuses,
       };
 
       state.status = status.success("SUCCESS");

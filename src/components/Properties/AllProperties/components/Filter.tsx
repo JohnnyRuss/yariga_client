@@ -2,7 +2,7 @@ import React from "react";
 
 import { useAppSelector } from "store/hooks";
 import { selectPropertyFilter } from "store/selectors/propertiesFilter.selectors";
-import { usePropertyFilterContext } from "providers/PropertyFilterProvider";
+import { usePropertyFilterContext } from "providers/FilterProvider/PropertyFilterProvider";
 
 import FilterSkeleton from "./FilterSkeleton";
 import MoreFilterBody from "./MoreFilterBody";
@@ -56,7 +56,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
       <Form.FormSelectField
         label="Status"
         passEvent={true}
-        list={filter.statuses}
+        list={filter.propertyStatus}
         fieldProps={{
           name: "propertyStatus",
           onChange: onSelectSearchParams,
@@ -67,7 +67,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
       <Form.FormSelectField
         label="Type"
         passEvent={true}
-        list={filter.propertyTypes}
+        list={filter.propertyType}
         fieldProps={{
           name: "propertyType",
           onChange: onSelectSearchParams,
@@ -78,7 +78,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
       <Form.FormSelectField
         label="Country"
         passEvent={true}
-        list={filter.countries}
+        list={filter.country}
         fieldProps={{
           name: "country",
           onChange: onSelectSearchParams,
@@ -94,7 +94,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
             <Form.FormSelectField
               label="State"
               passEvent={true}
-              list={filter.states}
+              list={filter.state}
               fieldProps={{
                 name: "state",
                 onChange: onSelectSearchParams,
@@ -107,7 +107,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
             <Form.FormMultipleSelectField
               label="Room Types"
               passEvent={true}
-              list={filter.roomTypes}
+              list={filter.rooms}
               fieldProps={{
                 name: "rooms",
                 onChange: onMultipleSelectSearchParams,
@@ -120,7 +120,7 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
             <Form.FormMultipleSelectField
               label="Features"
               passEvent={true}
-              list={filter.propertyFeatures}
+              list={filter.features}
               fieldProps={{
                 name: "features",
                 onChange: onMultipleSelectSearchParams,

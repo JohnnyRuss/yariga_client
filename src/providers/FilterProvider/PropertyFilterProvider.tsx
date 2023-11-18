@@ -6,89 +6,28 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { useAppSelector } from "store/hooks";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import {
   selectPropertyFilter,
   selectPropertyFilterStatus,
 } from "store/selectors/propertiesFilter.selectors";
-import { useAppSelector } from "store/hooks";
 
-import {
-  CommonFilterT,
-  ActivePropertyFilterT,
-} from "interface/store/propertiesFilter.types";
+import { ActivePropertyFilterT } from "interface/store/propertiesFilter.types";
+
 import {
   ReactHookFormSelectFieldPropsT,
   ReactHookFormMultipleSelectFieldPropsT,
 } from "interface/components/form";
 
-const searchParamsDefaults = {
-  search: "",
+import {
+  PropertyFilterProviderT,
+  PropertyFilterContextT,
+  SearchParamsKeyT,
+} from "./types";
 
-  "price[gte]": "",
-
-  "price[lte]": "",
-
-  city: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-
-  country: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-
-  features: [],
-
-  propertyType: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-
-  rooms: [],
-
-  sort: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-
-  state: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-
-  propertyStatus: {
-    _id: "",
-    label: "",
-    value: "",
-  },
-};
-
-interface PropertyFilterProviderT {
-  children: React.ReactNode;
-}
-
-interface PropertyFilterContextT {
-  moreFilterAnchorEl: null | HTMLElement;
-  setMoreFilterAnchorEl: React.Dispatch<
-    React.SetStateAction<null | HTMLElement>
-  >;
-  moreFilterIsOpen: boolean;
-  onOpenMoreFilter: (event: React.MouseEvent<HTMLElement>) => void;
-  onCloseMoreFilter: () => void;
-  //////////////////////////////////////////////////////////////////
-  searchParams: ActivePropertyFilterT;
-  onSelectSearchParams: ReactHookFormSelectFieldPropsT["onChange"];
-  onMultipleSelectSearchParams: ReactHookFormMultipleSelectFieldPropsT["onChange"];
-  onChangeSearchParams: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { getSearchParamDefaultFields, searchParamsDefaults } from "./utils";
 
 const PropertyFilterContext = createContext<PropertyFilterContextT>({
   moreFilterAnchorEl: null,
@@ -106,6 +45,7 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
   children,
 }) => {
   const navigate = useNavigate();
+
   const { pathname, search } = useLocation();
 
   ///////////////////////////////
@@ -128,8 +68,6 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
 
   const [searchParams, setSearchParams] =
     useState<ActivePropertyFilterT>(searchParamsDefaults);
-
-  type SearchParamsKeyT = keyof typeof searchParams;
 
   const urlSearchParams = new URLSearchParams(search);
 
@@ -192,8 +130,8 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
       navigate(`${pathname}?${urlSearchParams.toString()}`);
     }, []);
 
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
   const DEBOUNCE_DELAY = 2000;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
   const onChangeSearchParams = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -224,37 +162,6 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
   const propertyFilters = useAppSelector(selectPropertyFilter);
   const filterStatus = useAppSelector(selectPropertyFilterStatus);
 
-  const getSearchParamDefaultFields = (
-    key: SearchParamsKeyT,
-    urlValue: string
-  ): CommonFilterT | CommonFilterT[] | string => {
-    function isPropertyFilterKey<T extends Object>(
-      key: PropertyKey,
-      block: T
-    ): key is keyof T {
-      return key in block;
-    }
-
-    const getArrayField = (data: CommonFilterT[]): CommonFilterT[] => {
-      const selectedValues = urlValue.split(",");
-      return data.filter((field) => selectedValues.includes(field.value));
-    };
-
-    const getSingleField = (data: CommonFilterT[]): CommonFilterT =>
-      data.find((field) => field.value === urlValue) ||
-      (searchParamsDefaults[key] as CommonFilterT);
-
-    if (typeof searchParamsDefaults[key] === "string") return urlValue;
-    else if (
-      Array.isArray(searchParamsDefaults[key]) &&
-      isPropertyFilterKey(key, propertyFilters)
-    )
-      return getArrayField(propertyFilters[key]);
-    else if (isPropertyFilterKey(key, propertyFilters))
-      return getSingleField(propertyFilters[key]);
-    else return "";
-  };
-
   useEffect(() => {
     if (filterStatus.status !== "SUCCESS") return;
 
@@ -263,13 +170,14 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
     urlSearchParams.forEach((value, key) => {
       mountedDefaults[key as SearchParamsKeyT] = getSearchParamDefaultFields(
         key as SearchParamsKeyT,
-        value
+        value,
+        propertyFilters
       );
     });
 
     setSearchParams((prev) => ({
       ...prev,
-      ...mountedDefaults,
+      ...searchParamsDefaults,
     }));
   }, [filterStatus.status]);
 
