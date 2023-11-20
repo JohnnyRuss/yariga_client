@@ -86,7 +86,11 @@ const PropertyFilterProvider: React.FC<PropertyFilterProviderT> = ({
 
         setSearchParams((prev) => ({
           ...prev,
-          [targetName]: searchParamsDefaults[targetName],
+          [targetName]: {
+            _id: "",
+            label: "",
+            value: "",
+          },
         }));
       } else {
         urlSearchParams.set(targetName, value.value);

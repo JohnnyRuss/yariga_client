@@ -1,9 +1,12 @@
 import { useAppDispatch } from "store/hooks";
 import { propertiesActions } from "store/reducers/properties.reducer";
 
-import { GetAllPropertiesArgsT } from "interface/db/properties.types";
+import {
+  GetAllPropertiesArgsT,
+  GetRelatedPropertiesArgsT,
+} from "interface/db/properties.types";
 
-export default function useAllPropertiesQuery() {
+export default function usePropertiesQuery() {
   const dispatch = useAppDispatch();
 
   const getAllProperties = (args: GetAllPropertiesArgsT) =>
@@ -17,10 +20,18 @@ export default function useAllPropertiesQuery() {
 
   const cleanUpProperty = () => dispatch(propertiesActions.cleanUpProperty());
 
+  const getRelatedProperties = (args: GetRelatedPropertiesArgsT) =>
+    dispatch(propertiesActions.getRelatedProperties(args));
+
+  const cleanUpRelatedProperties = () =>
+    dispatch(propertiesActions.cleanUpRelatedProperties());
+
   return {
     getAllProperties,
     cleanUpProperties,
     getProperty,
     cleanUpProperty,
+    getRelatedProperties,
+    cleanUpRelatedProperties,
   };
 }

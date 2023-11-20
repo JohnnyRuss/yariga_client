@@ -33,8 +33,6 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
     navigate(`?${searchParams.toString()}`);
   };
 
-  console.log({ activeSlideIndex });
-
   return (
     <Modal open={isActiveTab} onClose={onClose}>
       <Box

@@ -19,6 +19,7 @@ export interface OpenStreetMapLocationResponseT {
     city: string;
     country: string;
     state: string | undefined;
+    town?: string;
   };
   name: string;
   display_name: string;

@@ -16,6 +16,7 @@ const ReviewRating: React.FC<ReviewRatingT> = ({ score }) => {
       <Rating
         value={score}
         precision={0.1}
+        readOnly
         sx={{ marginTop: "-2px", pointerEvents: "none" }}
       />
     </Stack>

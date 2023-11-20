@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import {
@@ -19,19 +19,29 @@ const PropertiesPage: React.FC = () => {
   const { getAllProperties, cleanUpProperties } = usePropertiesQuery();
   const { cleanUpFilter, getPropertiesFilter } = usePropertiesFilterQuery();
 
+  const [isMounting, setIsMounting] = useState(true);
+
   useEffect(() => {
     getPropertiesFilter();
+    getAllProperties({ query: search });
+
+    setIsMounting(false);
 
     return () => {
       cleanUpFilter();
+      cleanUpProperties();
     };
   }, []);
 
   useEffect(() => {
-    getAllProperties({ query: search });
+    if (isMounting) return;
+
+    const timeoutId = setTimeout(() => {
+      getAllProperties({ query: search });
+    }, 1500);
 
     return () => {
-      cleanUpProperties();
+      clearTimeout(timeoutId);
     };
   }, [search]);
 

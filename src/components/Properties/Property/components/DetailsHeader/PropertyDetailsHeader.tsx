@@ -7,6 +7,7 @@ import Rating from "./Rating";
 import PriceBox from "./PriceBox";
 import Location from "./Location";
 import HeaderSkeleton from "./HeaderSkeleton";
+import PropertyDetailsHeaderActions from "./PropertyDetailsHeaderActions";
 import { PropertyStatus } from "components/Layouts";
 import { Stack, Box, Typography } from "@mui/material";
 
@@ -51,7 +52,11 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
         <Stack gap="9px">
           <Rating rating={avgRating} propertyId={propertyId} />
 
-          <PriceBox />
+          <Stack direction="row" gap="8px" alignItems="flex-end">
+            <PriceBox />
+
+            <PropertyDetailsHeaderActions />
+          </Stack>
         </Stack>
       </Box>
     </Stack>

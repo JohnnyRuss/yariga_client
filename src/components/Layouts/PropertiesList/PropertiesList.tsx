@@ -13,15 +13,17 @@ import { PropertyShortInfoT } from "interface/db/properties.types";
 
 interface PropertiesListT {
   skeletonCount?: number;
+  containerSx?: SxProps;
+  emptyMessage?: string;
   status: LoadingStatusT;
   list: Array<PropertyShortInfoT>;
-  containerSx?: SxProps;
 }
 
 const PropertiesList: React.FC<PropertiesListT> = ({
   list,
   status,
   containerSx,
+  emptyMessage,
   skeletonCount = 9,
 }) => {
   return status.loading ? (
@@ -42,7 +44,9 @@ const PropertiesList: React.FC<PropertiesListT> = ({
         ))
       ) : (
         <Grid item xs={12}>
-          <NoContentMessage message="There are no properties yet." />
+          <NoContentMessage
+            message={emptyMessage || "There are no properties yet"}
+          />
         </Grid>
       )}
     </PropertiesListContainer>

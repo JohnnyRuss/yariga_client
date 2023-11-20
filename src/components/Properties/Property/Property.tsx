@@ -4,7 +4,7 @@ import { useAppSelector } from "store/hooks";
 import { selectSinglePropertyStatus } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";
-import { Stack } from "@mui/material";
+import { Stack, Divider } from "@mui/material";
 import { ContentBox, GoBackButton } from "components/Layouts";
 
 const Property: React.FC = () => {
@@ -29,6 +29,14 @@ const Property: React.FC = () => {
           <UI.PropertyFacilities loading={status.loading} />
 
           <UI.PropertyDescription loading={status.loading} />
+
+          <Divider />
+
+          <UI.Reviews loading={status.loading} />
+
+          <Divider />
+
+          {!status.loading && <UI.RelatedProperties />}
         </UI.PropertyMain>
 
         <UI.PropertyAside>

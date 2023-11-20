@@ -3,6 +3,7 @@ import {
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
   GetAllPropertiesArgsT,
+  GetRelatedPropertiesArgsT,
 } from "interface/db/properties.types";
 import { axiosPrivateQuery } from "services/axios";
 
@@ -24,4 +25,10 @@ export async function getAgentPropertiesQuery(data: GetAgentPropertiesArgsT) {
   return axiosPrivateQuery.get(
     `/agents/${data.agentId}/properties?limit=${data.limit}`
   );
+}
+
+export async function getRelatedPropertiesQuery(
+  data: GetRelatedPropertiesArgsT
+) {
+  return axiosPrivateQuery.post("/properties/related", data);
 }

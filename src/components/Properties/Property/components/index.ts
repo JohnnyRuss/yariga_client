@@ -8,3 +8,5 @@ export { default as Map } from "./Map/Map";
 export { default as BookButton } from "./BookButton";
 export { default as PropertyAside } from "./PropertyAside";
 export { default as PropertyMain } from "./PropertyMain";
+export { default as Reviews } from "./Reviews/Reviews";
+export { default as RelatedProperties } from "./RelatedProperties/RelatedProperties";

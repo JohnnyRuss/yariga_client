@@ -81,7 +81,18 @@ const FormSelectField: React.FC<FormSelectFieldT> = ({
             }}
             key={type._id}
             value={type._id ?? ""}
-            sx={{ textTransform: "capitalize" }}
+            sx={{
+              textTransform: "capitalize",
+              "&.Mui-selected": {
+                backgroundColor: "app_blue.light",
+                color: "app_text.light",
+
+                "&:hover": {
+                  backgroundColor: "app_blue.light",
+                  color: "app_text.light",
+                },
+              },
+            }}
           >
             {type.label}
           </MenuItem>

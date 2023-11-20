@@ -13,8 +13,10 @@ interface PropertyCardVerticalT {
 const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
   property,
 }) => {
+  const ownerData = property.agent ? property.agent : property.owner;
+
   return (
-    <Link to={`/properties/${property._id}`}>
+    <Link to={`/properties/${property._id}`} className="app__card">
       <MuiStyled.CardVertical elevation={2}>
         <CardMedia
           component="img"
@@ -25,7 +27,7 @@ const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
           sx={{ borderRadius: "10px" }}
         />
 
-        <MuiStyled.CardContent>
+        <MuiStyled.CardContent sx={{ width: "100%" }}>
           <UI.Title title={property.title} />
 
           <UI.StatusAndPrice
@@ -42,7 +44,7 @@ const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
 
           <Divider />
 
-          <UI.User owner={property.owner} isAgent={true} />
+          <UI.User owner={ownerData} isAgent={property.agent ? true : false} />
 
           <Divider />
 

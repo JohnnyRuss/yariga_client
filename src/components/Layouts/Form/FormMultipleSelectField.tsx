@@ -72,28 +72,55 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
         renderValue={(selected) => selected.map((v) => v.label).join(", ")}
         MenuProps={{
           PaperProps: {
-            style: {
+            sx: {
               maxHeight: "350px",
               marginTop: "10px",
+
+              ul: {
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              },
             },
             className: "custom_scrollbar",
           },
         }}
         sx={{ background: "#fff" }}
       >
-        {list.map((item) => (
-          <MenuItem key={item._id} value={item._id}>
-            <Checkbox
-              checked={(fieldProps.value ?? []).some(
-                (v) => v.value === item.value
-              )}
-            />
-            <ListItemText
-              primary={item.label}
-              sx={{ textTransform: "capitalize" }}
-            />
-          </MenuItem>
-        ))}
+        {list.map((item) => {
+          const checked = (fieldProps.value ?? []).some(
+            (v) => v.value === item.value
+          );
+
+          return (
+            <MenuItem
+              key={item._id}
+              value={item._id}
+              sx={{
+                backgroundColor: checked ? "app_blue.light" : "initial",
+                color: checked ? "app_text.light" : "initial",
+
+                "&:hover": {
+                  backgroundColor: checked ? "app_blue.light" : "initial",
+                  color: checked ? "app_text.light" : "initial",
+                },
+              }}
+            >
+              <Checkbox
+                checked={checked}
+                sx={{
+                  "& .MuiSvgIcon-root": {
+                    color: "app_text.light",
+                  },
+                }}
+              />
+              <ListItemText
+                primary={item.label}
+                sx={{ textTransform: "capitalize" }}
+              />
+            </MenuItem>
+          );
+        })}
       </Select>
 
       {fieldStateProps?.error && (

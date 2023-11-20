@@ -6,15 +6,15 @@ import {
 
 export const CardVertical = styled(MuiCard)(() => ({
   width: "350px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  boxShadow: "none",
 
   img: {
-    height: "201px",
-    width: "100%",
-    borderRadius: "10px",
-  },
-
-  "&:hover": {
-    boxShadow: "0 22px 45px 2px rgba(176,176,176,0.1)",
+    maxWidth: "100%",
+    maxHeight: "40%",
+    minHeight: "unset",
   },
 }));
 

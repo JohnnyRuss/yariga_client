@@ -1,4 +1,5 @@
 import { AgentShortInfoT } from "./agent.types";
+import { ReviewShortInfoT } from "./reviews.types";
 
 export interface PropertyT {
   _id: string;
@@ -17,6 +18,7 @@ export interface PropertyT {
   description: string;
   images: Array<string>;
   avgRating: number;
+  reviews: Array<ReviewShortInfoT>;
 }
 
 export interface PropertyShortInfoT {
@@ -119,4 +121,10 @@ export type GetAllPropertiesResponseT = {
   properties: Array<PropertyShortInfoT>;
   currentPage: number;
   pagesCount: number;
+};
+
+export type GetRelatedPropertiesArgsT = {
+  featureIds: Array<string>;
+  roomIds: Array<string>;
+  activePropertyId: string;
 };

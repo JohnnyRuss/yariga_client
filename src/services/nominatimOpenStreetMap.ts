@@ -14,7 +14,7 @@ export default async function getOpenStreetMapLocation(
   return data.map((item) => ({
     name: item.name || "",
     displayName: item.display_name || "",
-    city: item.address.city || "",
+    city: item.address.city || item.address.town || "",
     country: item.address.country,
     state: item.address.state || "",
     addressType: item.addresstype || "",

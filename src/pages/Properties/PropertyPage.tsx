@@ -17,6 +17,9 @@ const PropertyPage: React.FC = () => {
 
   useEffect(() => {
     if (!propertyId) return;
+
+    window.scrollTo({ behavior: "auto", left: 0, top: 0 });
+
     getRoomTypes();
     getProperty(propertyId);
 

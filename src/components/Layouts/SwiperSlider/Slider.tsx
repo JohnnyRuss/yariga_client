@@ -4,11 +4,12 @@ import { Stack } from "@mui/material";
 import { SwiperClass } from "swiper/react";
 import { Thumbs, Navigation, FreeMode } from "swiper/modules";
 
+import "./appSwiper.css";
 import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import "./appSwiper.css";
+import "swiper/css/pagination";
 
 import SliderThumbnails from "./SliderThumbnails";
 import SliderMainView from "./SliderMainView";

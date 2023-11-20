@@ -34,7 +34,11 @@ const AllProperties: React.FC = () => {
         >
           <Filter loading={filterStatus.loading} />
 
-          <PropertiesList status={status} list={properties} />
+          <PropertiesList
+            status={status}
+            list={properties}
+            containerSx={{ marginTop: 0 }}
+          />
 
           <Box mt="auto" ml="auto">
             <Pagination currentPage={currentPage} pagesCount={pagesCount} />

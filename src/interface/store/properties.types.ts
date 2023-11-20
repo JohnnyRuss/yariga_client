@@ -7,6 +7,7 @@ export interface PropertiesStateT {
   allPropertiesStatus: LoadingStatusT;
   userPropertiesStatus: LoadingStatusT;
   agentPropertiesStatus: LoadingStatusT;
+  relatedPropertiesStatus: LoadingStatusT;
   // CONTENT DATA
   property: PropertyT;
   properties: Array<PropertyShortInfoT>;
@@ -14,4 +15,5 @@ export interface PropertiesStateT {
   pagesCount: number;
   agentProperties: Array<PropertyShortInfoT>;
   userProperties: Array<PropertyShortInfoT>;
+  relatedProperties: Array<PropertyShortInfoT>;
 }

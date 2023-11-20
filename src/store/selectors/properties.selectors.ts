@@ -32,6 +32,13 @@ const selectedAgentPropertiesStatus = ({ properties }: RootStateT) => ({
   status: properties.agentPropertiesStatus.status,
 });
 
+const selectedRelatedPropertiesStatus = ({ properties }: RootStateT) => ({
+  error: properties.relatedPropertiesStatus.error,
+  loading: properties.relatedPropertiesStatus.loading,
+  message: properties.relatedPropertiesStatus.message,
+  status: properties.relatedPropertiesStatus.status,
+});
+
 const selectedProperty = ({ properties }: RootStateT) => ({
   _id: properties.property._id,
   owner: properties.property.owner,
@@ -49,6 +56,7 @@ const selectedProperty = ({ properties }: RootStateT) => ({
   location: properties.property.location,
   images: properties.property.images,
   avgRating: properties.property.avgRating,
+  reviews: properties.property.reviews,
 });
 
 const selectedAlProperties = ({ properties }: RootStateT) => ({
@@ -79,6 +87,11 @@ const selectAgentPropertiesStatus = createSelector(
   (status) => status
 );
 
+const selectRelatedPropertiesStatus = createSelector(
+  selectedRelatedPropertiesStatus,
+  (status) => status
+);
+
 const selectProperty = createSelector(selectedProperty, (property) => property);
 
 const selectAllProperties = createSelector(
@@ -89,6 +102,9 @@ const selectAllProperties = createSelector(
 const selectAgentProperties = ({ properties }: RootStateT) =>
   properties.agentProperties;
 
+const selectRelatedProperties = ({ properties }: RootStateT) =>
+  properties.relatedProperties;
+
 const selectUserProperties = ({ properties }: RootStateT) =>
   properties.userProperties;
 
@@ -97,8 +113,10 @@ export {
   selectSinglePropertyStatus,
   selectUserPropertiesStatus,
   selectAgentPropertiesStatus,
+  selectRelatedPropertiesStatus,
   selectAllProperties,
   selectAgentProperties,
   selectUserProperties,
+  selectRelatedProperties,
   selectProperty,
 };

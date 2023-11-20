@@ -10,6 +10,7 @@ import {
   GetAgentPropertiesArgsT,
   GetAllPropertiesArgsT,
   GetAllPropertiesResponseT,
+  GetRelatedPropertiesArgsT,
 } from "interface/db/properties.types";
 import { AddReviewResponseT } from "interface/db/reviews.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
@@ -25,6 +26,8 @@ const initialState: PropertiesStateT = {
 
   agentPropertiesStatus: status.default(),
 
+  relatedPropertiesStatus: status.default(),
+
   properties: [],
 
   currentPage: 1,
@@ -34,6 +37,8 @@ const initialState: PropertiesStateT = {
   agentProperties: [],
 
   userProperties: [],
+
+  relatedProperties: [],
 
   property: {
     _id: "",
@@ -82,6 +87,7 @@ const initialState: PropertiesStateT = {
     },
     images: [],
     avgRating: 0,
+    reviews: [],
   },
 };
 
@@ -89,6 +95,7 @@ const propertiesSlice = createSlice({
   name: "yariga_properties",
   initialState,
   reducers: {
+    // ALL PROPERTIES
     getAllProperties: {
       prepare: (payload: GetAllPropertiesArgsT) => {
         return { payload };
@@ -115,6 +122,7 @@ const propertiesSlice = createSlice({
       state.currentPage = initialState.currentPage;
     },
 
+    // USER PROPERTIES
     getUserProperties: {
       prepare: (payload: GetUserPropertiesArgsT) => {
         return {
@@ -142,6 +150,7 @@ const propertiesSlice = createSlice({
       state.userProperties = initialState.userProperties;
     },
 
+    // AGENT PROPERTIES
     getAgentProperties: {
       prepare: (payload: GetAgentPropertiesArgsT) => {
         return {
@@ -169,6 +178,7 @@ const propertiesSlice = createSlice({
       state.agentProperties = initialState.agentProperties;
     },
 
+    // PROPERTY DETAILS
     getProperty: {
       prepare: (payload: GetPropertyArgsT) => {
         return {
@@ -188,6 +198,29 @@ const propertiesSlice = createSlice({
 
     cleanUpProperty(state) {
       state.property = initialState.property;
+    },
+
+    // RELATED PROPERTIES
+    getRelatedProperties: {
+      prepare: (payload: GetRelatedPropertiesArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.relatedPropertiesStatus = status.loading();
+      },
+    },
+
+    setRelatedProperties(
+      state,
+      { payload }: PayloadAction<Array<PropertyShortInfoT>>
+    ) {
+      state.relatedProperties = payload;
+      state.relatedPropertiesStatus = status.default();
+    },
+
+    cleanUpRelatedProperties(state) {
+      state.agentProperties = initialState.agentProperties;
     },
 
     setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {

@@ -8,9 +8,10 @@ import { ReviewShortInfoT } from "interface/db/reviews.types";
 
 interface ReviewCardT {
   review: ReviewShortInfoT;
+  showActions?: boolean;
 }
 
-const ReviewCard: React.FC<ReviewCardT> = ({ review }) => {
+const ReviewCard: React.FC<ReviewCardT> = ({ review, showActions = true }) => {
   return (
     <Stack
       p="25px"
@@ -27,7 +28,9 @@ const ReviewCard: React.FC<ReviewCardT> = ({ review }) => {
       <Stack ml={{ md: "auto" }} gap="15px">
         <ReviewRating score={review.score} />
 
-        <ReviewActions approved={review.approved} reviewId={review._id} />
+        {showActions && (
+          <ReviewActions approved={review.approved} reviewId={review._id} />
+        )}
       </Stack>
     </Stack>
   );
