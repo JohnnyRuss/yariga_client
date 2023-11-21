@@ -30,7 +30,7 @@ const UserPropertiesPage: React.FC = () => {
   useEffect(() => {
     if (!userId) return;
 
-    dispatch(userActions.getUser({ userId }));
+    dispatch(userActions.getGuest({ userId }));
     dispatch(propertiesActions.getUserProperties({ userId, limit: 15 }));
 
     return () => {

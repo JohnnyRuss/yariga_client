@@ -5,7 +5,7 @@ import useAuth from "hooks/auth/useAuth";
 import { RouterHistory } from "config/config";
 
 import { Snackbar, Dialog } from "components/Layouts";
-import { SnackbarT, DialogT } from "interface/components/common";
+import { SnackbarT, DialogT } from "interface/components/common.types";
 
 interface AppContextT {
   setSnackbar: React.Dispatch<

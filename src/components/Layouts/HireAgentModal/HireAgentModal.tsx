@@ -12,14 +12,14 @@ import SearchBar from "./SearchBar";
 import { Stack, Box } from "@mui/material";
 import { Modal, Spinner } from "components/Layouts";
 
-import { HireByT } from "interface/db/agent.types";
+import { HIRED_BY } from "interface/db/agent.types";
 
 interface HireAgentModalT {
   open: boolean;
   onClose: () => void;
   propertyId?: string;
   agentId?: string;
-  hiredBy: keyof typeof HireByT;
+  hiredBy: keyof typeof HIRED_BY;
 }
 
 const HireAgentModal: React.FC<HireAgentModalT> = ({

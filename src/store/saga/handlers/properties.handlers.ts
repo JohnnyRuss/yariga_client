@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import * as propertiesAPI from "store/saga/api/properties.api";
 import { propertiesActions } from "store/reducers/properties.reducer";
@@ -26,8 +27,12 @@ export function* getAllProperties({
     );
 
     yield put(propertiesActions.setAllProperties(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getAllProperties",
+      errorSetter: propertiesActions.setAllPropertiesStatus,
+    });
   }
 }
 
@@ -39,8 +44,12 @@ export function* getProperty({ payload }: PayloadAction<GetPropertyArgsT>) {
     );
 
     yield put(propertiesActions.setProperty(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getProperty",
+      errorSetter: propertiesActions.setPropertyStatus,
+    });
   }
 }
 
@@ -54,8 +63,12 @@ export function* getUserProperties({
     );
 
     yield put(propertiesActions.setUserProperties(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getUserProperties",
+      errorSetter: propertiesActions.setUserPropertiesStatus,
+    });
   }
 }
 
@@ -69,8 +82,12 @@ export function* getAgentProperties({
       yield call(propertiesAPI.getAgentPropertiesQuery, payload);
 
     yield put(propertiesActions.setAgentProperties(data.listing));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getAgentProperties",
+      errorSetter: propertiesActions.setAgentPropertiesStatus,
+    });
   }
 }
 
@@ -84,7 +101,11 @@ export function* getRelatedProperties({
     );
 
     yield put(propertiesActions.setRelatedProperties(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getRelatedProperties",
+      errorSetter: propertiesActions.setRelatedPropertiesStatus,
+    });
   }
 }

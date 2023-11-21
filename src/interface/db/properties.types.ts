@@ -1,12 +1,12 @@
 import { AgentShortInfoT } from "./agent.types";
 import { ReviewShortInfoT } from "./reviews.types";
 
-export interface PropertyT {
+type PropertyT = {
   _id: string;
   owner: PropertyOwnerT;
   agent?: AgentShortInfoT | null;
   title: string;
-  propertyStatus: keyof typeof PropertyStatus;
+  propertyStatus: keyof typeof PROPERTY_STATUS;
   price: number;
   propertyType: PropertyTypeT;
   area: number;
@@ -19,14 +19,14 @@ export interface PropertyT {
   images: Array<string>;
   avgRating: number;
   reviews: Array<ReviewShortInfoT>;
-}
+};
 
-export interface PropertyShortInfoT {
+type PropertyShortInfoT = {
   _id: string;
   images: Array<string>;
   title: string;
   price: number;
-  propertyStatus: keyof typeof PropertyStatus;
+  propertyStatus: keyof typeof PROPERTY_STATUS;
   propertyType: PropertyTypeT;
   location: PropertyLocationT;
   owner: PropertyOwnerShortT;
@@ -35,10 +35,10 @@ export interface PropertyShortInfoT {
   bedroomsAmount: number;
   bathroomsAmount?: number;
   avgRating: number;
-}
+};
 
 // PARTIALS
-export interface PropertyLocationT {
+type PropertyLocationT = {
   name: string;
   displayName: string;
   city: string;
@@ -47,21 +47,21 @@ export interface PropertyLocationT {
   addressType: string;
   lat: string;
   lon: string;
-}
+};
 
-export enum PropertyStatus {
+enum PROPERTY_STATUS {
   SALE = "SALE",
   RENT = "RENT",
 }
 
-export interface PropertyOwnerShortT {
+type PropertyOwnerShortT = {
   _id: string;
   email: string;
   username: string;
   avatar: string;
-}
+};
 
-export interface PropertyOwnerT {
+type PropertyOwnerT = {
   _id: string;
   email: string;
   username: string;
@@ -69,62 +69,84 @@ export interface PropertyOwnerT {
   phone: string;
   properties: Array<string>;
   location: PropertyLocationT;
-}
+};
 
-export interface PropertyTypeT {
+type PropertyTypeT = {
   _id: string;
   label: string;
   value: string;
-}
+};
 
-export interface PropertyFeatureT {
+type PropertyFeatureT = {
   _id: string;
   label: string;
   value: string;
   icon: string;
-}
+};
 
-export type PropertyFeatureSuggestionT = Omit<PropertyFeatureT, "icon">;
+type PropertyFeatureSuggestionT = Omit<PropertyFeatureT, "icon">;
 
-export interface RoomTypeT {
+type RoomTypeT = {
   _id: string;
   label: string;
   value: string;
-}
+};
 
-export interface PropertyStatusT {
+type PropertyStatusT = {
   _id: string;
   label: string;
   value: string;
-}
+};
 
 // API
-export interface GetPropertyArgsT {
+type GetPropertyArgsT = {
   propertyId: string;
-}
+};
 
-export interface GetUserPropertiesArgsT {
+type GetUserPropertiesArgsT = {
   userId: string;
   limit?: number;
-}
+};
 
-export interface GetAgentPropertiesArgsT {
+type GetAgentPropertiesArgsT = {
   agentId: string;
   limit?: number;
-}
+};
 
-export type GetAllPropertiesArgsT = {
+type GetAllPropertiesArgsT = {
   query: string;
 };
 
-export type GetAllPropertiesResponseT = {
+type GetAllPropertiesResponseT = {
   properties: Array<PropertyShortInfoT>;
   currentPage: number;
   pagesCount: number;
 };
 
-export type GetRelatedPropertiesArgsT = {
+type GetRelatedPropertiesArgsT = {
   featureIds: Array<string>;
   roomIds: Array<string>;
   activePropertyId: string;
 };
+
+export type {
+  PropertyT,
+  PropertyShortInfoT,
+  // PARTIALS
+  PropertyOwnerShortT,
+  PropertyOwnerT,
+  PropertyTypeT,
+  RoomTypeT,
+  PropertyFeatureT,
+  PropertyLocationT,
+  PropertyFeatureSuggestionT,
+  PropertyStatusT,
+  // API
+  GetPropertyArgsT,
+  GetUserPropertiesArgsT,
+  GetAllPropertiesArgsT,
+  GetAllPropertiesResponseT,
+  GetAgentPropertiesArgsT,
+  GetRelatedPropertiesArgsT,
+};
+export { PROPERTY_STATUS };

@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import * as reviewsAPI from "store/saga/api/reviews.api";
 import { propertiesActions } from "store/reducers/properties.reducer";
@@ -23,8 +24,11 @@ export function* addReview({ payload }: PayloadAction<AddReviewArgsT>) {
     );
 
     yield put(propertiesActions.setPropertyRate(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "addReview",
+    });
   }
 }
 
@@ -36,8 +40,12 @@ export function* getReviews({ payload }: PayloadAction<GetReviewsArgsT>) {
     );
 
     yield put(reviewsActions.setReviews(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getReviews",
+      errorSetter: reviewsActions.setReviewsStatus,
+    });
   }
 }
 
@@ -53,7 +61,10 @@ export function* approveReview({
     yield call(reviewsAPI.approveReviewQuery, queryParams);
 
     yield put(reviewsActions.setApprovedReview(payload));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "approveReview",
+    });
   }
 }

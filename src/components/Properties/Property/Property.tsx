@@ -18,6 +18,7 @@ const Property: React.FC = () => {
         gap={4}
         className="content__box"
         direction={{ xs: "column", md: "row" }}
+        boxSizing="border-box"
       >
         <UI.PropertyMain>
           <UI.PropertyView loading={status.loading} />

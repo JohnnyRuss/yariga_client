@@ -1,9 +1,8 @@
 import { FieldError } from "react-hook-form";
-import { OpenStreetMapLocationT } from "interface/config/config.types";
-import { ChangeEvent } from "react";
 import { SelectChangeEvent } from "@mui/material";
+import { OpenStreetMapLocationT } from "interface/config/config.types";
 
-interface CommonT {
+type FormCommonT = {
   name: string;
   disabled?: boolean | undefined;
   ref?:
@@ -12,54 +11,64 @@ interface CommonT {
     | null
     | undefined;
   onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-}
+};
 
-interface CommonValueT {
+type CommonValueT = {
   label: string;
   value: string;
   _id: string;
-}
+};
 
-export interface ReactHookFormTextFieldPropsT extends CommonT {
+type ReactHookFormTextFieldPropsT = FormCommonT & {
   value: string;
   onChange: (value: string) => void;
-}
+};
 
-export interface ReactHookFormSelectFieldPropsT extends CommonT {
+type ReactHookFormSelectFieldPropsT = FormCommonT & {
   value: CommonValueT;
   onChange: (
     value: CommonValueT,
     e?: SelectChangeEvent | null,
     targetName?: string
   ) => void;
-}
+};
 
-export interface ReactHookFormMultipleSelectFieldPropsT extends CommonT {
+type ReactHookFormMultipleSelectFieldPropsT = FormCommonT & {
   value: CommonValueT[];
   onChange: (
     value: Array<CommonValueT>,
     e?: SelectChangeEvent<CommonValueT[]> | null
   ) => void;
-}
+};
 
-export interface ReactHookFormFileFieldPropsT extends CommonT {
+type ReactHookFormFileFieldPropsT = FormCommonT & {
   value: string[];
   onChange: (value: string[]) => void;
-}
+};
 
-export interface ReactHookFormLocationFieldPropsT extends CommonT {
+type ReactHookFormLocationFieldPropsT = FormCommonT & {
   value: OpenStreetMapLocationT;
   onChange: (args: OpenStreetMapLocationT) => void;
-}
+};
 
-export interface ReactHookFormFieldStatePropsT {
+type ReactHookFormFieldStatePropsT = {
   invalid: boolean;
   isDirty: boolean;
   isTouched: boolean;
   error?: FieldError | undefined;
-}
+};
 
-export type FileChangeEventT = (
+type FileChangeEventT = (
   event: React.ChangeEvent<HTMLInputElement>,
   fieldChangeEvent: (value: string[]) => void
 ) => void;
+
+export type {
+  ReactHookFormSelectFieldPropsT,
+  ReactHookFormMultipleSelectFieldPropsT,
+  ReactHookFormFileFieldPropsT,
+  ReactHookFormLocationFieldPropsT,
+  ReactHookFormFieldStatePropsT,
+  FileChangeEventT,
+  ReactHookFormTextFieldPropsT,
+};

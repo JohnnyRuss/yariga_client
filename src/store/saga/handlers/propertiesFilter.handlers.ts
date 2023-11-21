@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import * as propertiesFilterAPI from "store/saga/api/propertiesFilter.api";
 import { propertiesFilterActions } from "store/reducers/propertiesFilter.reducer";
@@ -13,7 +14,11 @@ export function* getPropertyFilter() {
     );
 
     yield put(propertiesFilterActions.setPropertyFilter(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getPropertyFilter",
+      errorSetter: propertiesFilterActions.setPropertiesFilterStatus,
+    });
   }
 }

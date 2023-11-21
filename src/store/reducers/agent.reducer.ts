@@ -1,6 +1,9 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { controlStatus as status } from "./helpers";
-import { StatusT } from "interface/store/common.types";
 
 import {
   AgentT,
@@ -70,6 +73,7 @@ const agentSlice = createSlice({
   name: "yariga-agents",
   initialState,
   reducers: {
+    // ALL AGENTS
     getAllAgents: {
       prepare: (payload: GetAgentsArgsT) => {
         return { payload };
@@ -88,12 +92,23 @@ const agentSlice = createSlice({
       state.agentsStatus = status.default();
     },
 
+    setAllAgentsStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.agentsStatus = setStatus({
+        stage,
+        message: message || "Failed to read Agents",
+      });
+    },
+
     cleanUpAgents(state) {
       state.agents = initialState.agents;
       state.currentPage = initialState.currentPage;
       state.pagesCount = initialState.pagesCount;
     },
 
+    // AGENT DETAILS
     getAgent: {
       prepare: (payload: { agentId: string }) => {
         return {
@@ -111,10 +126,21 @@ const agentSlice = createSlice({
       state.agentStatus = status.default();
     },
 
+    setAgentStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.agentStatus = setStatus({
+        stage,
+        message: message || "Failed to read Agent details",
+      });
+    },
+
     cleanUpAgent(state) {
       state.agent = initialState.agent;
     },
 
+    // HIRE AGENT
     hireAgent: {
       prepare: (payload: HireAgentArgsT) => {
         return { payload };
@@ -129,6 +155,7 @@ const agentSlice = createSlice({
       state.agent.listing = payload.listing;
     },
 
+    // FIRE AGENT
     fireAgent: {
       prepare: (payload: HireAgentArgsT) => {
         return { payload };
@@ -145,15 +172,12 @@ const agentSlice = createSlice({
 
     setHireAgentStatus(
       state,
-      {
-        payload: { message, status: reqStatus },
-      }: PayloadAction<{ message?: string; status: StatusT }>
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
     ) {
-      if (reqStatus === "FAIL")
-        state.hireAgentsStatus = status.error(
-          message || "Fail to Hire The Agent"
-        );
-      else state.hireAgentsStatus = status.success(reqStatus);
+      state.hireAgentsStatus = setStatus({
+        stage,
+        message: message || "Operation is failed",
+      });
     },
   },
 });

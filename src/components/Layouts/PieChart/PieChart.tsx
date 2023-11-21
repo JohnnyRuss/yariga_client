@@ -3,7 +3,15 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { Box, Typography, Stack } from "@mui/material";
 
-import { PieChartPropsT } from "interface/components/dashboard";
+type PieChartPropsT = {
+  title: string;
+  value: number;
+  series: Array<number>;
+  labels?: Array<string>;
+  colors: Array<string>;
+  mainBoxProps?: { [key: string]: string | number | object };
+  labelBoxProps?: { [key: string]: string | number | object };
+};
 
 const PieChart: React.FC<PieChartPropsT> = ({
   colors,

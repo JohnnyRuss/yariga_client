@@ -7,7 +7,7 @@ import FormHelperText from "./FormHelperText";
 import {
   ReactHookFormTextFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface FormOTPFieldT {
   fieldProps: ReactHookFormTextFieldPropsT;

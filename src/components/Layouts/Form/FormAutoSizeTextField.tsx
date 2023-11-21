@@ -6,7 +6,7 @@ import { FormControl, TextField } from "@mui/material";
 import {
   ReactHookFormTextFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface FormAutoSizeTextFieldT {
   fieldProps: ReactHookFormTextFieldPropsT;

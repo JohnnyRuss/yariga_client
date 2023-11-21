@@ -2,7 +2,7 @@ import React from "react";
 
 import { DialogContent, DialogContentText, Typography } from "@mui/material";
 
-import { DialogT } from "interface/components/common";
+import { DialogT } from "interface/components/common.types";
 interface DialogBoxContentT {
   message: string;
   keyWord: string;

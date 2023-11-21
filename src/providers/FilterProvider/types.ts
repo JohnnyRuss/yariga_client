@@ -1,7 +1,7 @@
 import {
   ReactHookFormSelectFieldPropsT,
   ReactHookFormMultipleSelectFieldPropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 import { ActivePropertyFilterT } from "interface/store/propertiesFilter.types";
 import { searchParamsDefaults } from "./utils";
 

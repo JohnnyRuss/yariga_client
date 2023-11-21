@@ -11,7 +11,7 @@ import FormHelperText from "./FormHelperText";
 import {
   ReactHookFormTextFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface FormTextFieldT {
   fieldProps: ReactHookFormTextFieldPropsT;

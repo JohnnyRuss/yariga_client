@@ -1,6 +1,7 @@
-import { createSelector } from "@reduxjs/toolkit";
 import { RootStateT } from "store/store";
+import { createSelector } from "@reduxjs/toolkit";
 
+// MEMORISED SELECTORS
 const selectedPropertyFilterStatus = ({ propertiesFilter }: RootStateT) => ({
   error: propertiesFilter.status.error,
   loading: propertiesFilter.status.loading,
@@ -19,6 +20,7 @@ const selectedPropertyFilter = ({ propertiesFilter }: RootStateT) => ({
   state: propertiesFilter.filter.state,
 });
 
+// SELECTORS
 const selectPropertyFilterStatus = createSelector(
   selectedPropertyFilterStatus,
   (status) => status

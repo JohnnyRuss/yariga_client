@@ -20,6 +20,7 @@ const ContentBox: React.FC<ContentBoxT> = ({
       width="100%"
       boxSizing="border-box"
       className={contentReady ? "content__box" : ""}
+      sx={{ boxSizing: "border-box" }}
     >
       {children}
     </Box>

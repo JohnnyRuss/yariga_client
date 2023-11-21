@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootStateT } from "store/store";
 
+// MEMORISED SELECTORS
 const selectedAgentStatus = ({ agent }: RootStateT) => ({
   error: agent.agentStatus.error,
   loading: agent.agentStatus.loading,
@@ -48,7 +49,7 @@ const selectedAgentsPagination = ({ agent }: RootStateT) => ({
   pagesCount: agent.pagesCount,
 });
 
-// Selectors
+// SELECTORS
 
 const selectAllAgents = ({ agent }: RootStateT) => agent.agents;
 

@@ -30,7 +30,7 @@ const UserProfilePage: React.FC = () => {
   useEffect(() => {
     if (!userId || authenticatedUser._id === userId) return navigate(-1);
 
-    dispatch(userActions.getUser({ userId }));
+    dispatch(userActions.getGuest({ userId }));
     dispatch(propertiesActions.getUserProperties({ userId, limit: 3 }));
   }, [userId]);
 

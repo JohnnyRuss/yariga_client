@@ -1,6 +1,6 @@
-import { PropertyStatus } from "./properties.types";
+import { PROPERTY_STATUS } from "./properties.types";
 
-export interface AgentShortInfoT {
+type AgentShortInfoT = {
   _id: string;
   username: string;
   email: string;
@@ -18,9 +18,9 @@ export interface AgentShortInfoT {
     lat: string;
     lon: string;
   };
-}
+};
 
-export interface AgentT {
+type AgentT = {
   _id: string;
   username: string;
   email: string;
@@ -59,34 +59,45 @@ export interface AgentT {
   };
   rent: number;
   sold: number;
-}
+};
 
-export enum HireByT {
+enum HIRED_BY {
   AGENT = "AGENT",
   PROPERTY = "PROPERTY",
 }
 
-export interface HireAgentArgsT {
+type HireAgentArgsT = {
   agentId: string;
   propertyId: string;
-  hiredBy: keyof typeof HireByT;
-}
+  hiredBy: keyof typeof HIRED_BY;
+};
 
-export interface AgentListingShortT {
+type AgentListingShortT = {
   _id: string;
-  propertyStatus: keyof typeof PropertyStatus;
-}
+  propertyStatus: keyof typeof PROPERTY_STATUS;
+};
 
-export interface HireAgentResponseT extends Omit<AgentShortInfoT, "listing"> {
+type HireAgentResponseT = Omit<AgentShortInfoT, "listing"> & {
   listing: Array<AgentListingShortT>;
-}
+};
 
-export type GetAgentsArgsT = {
+type GetAgentsArgsT = {
   query?: string;
 };
 
-export type GetAgentsResponseT = {
+type GetAgentsResponseT = {
   agents: Array<AgentShortInfoT>;
   currentPage: number;
   pagesCount: number;
 };
+
+export type {
+  AgentShortInfoT,
+  AgentT,
+  HireAgentArgsT,
+  AgentListingShortT,
+  HireAgentResponseT,
+  GetAgentsArgsT,
+  GetAgentsResponseT,
+};
+export { HIRED_BY };

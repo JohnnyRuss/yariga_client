@@ -1,5 +1,9 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { controlStatus as status } from "./helpers";
 
 import { paths } from "config/paths";
 import { RouterHistory } from "config/config";
@@ -56,6 +60,16 @@ const createPropertyFormSlice = createSlice({
     setCreateProperty(state) {
       RouterHistory.navigate(paths.properties_page);
       state.status = status.default();
+    },
+
+    setCreatePropertyStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.status = setStatus({
+        stage,
+        message: message || "Failed to create property",
+      });
     },
   },
 });

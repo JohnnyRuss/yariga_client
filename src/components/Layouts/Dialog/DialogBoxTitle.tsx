@@ -2,7 +2,7 @@ import React from "react";
 
 import { DialogTitle, Typography } from "@mui/material";
 
-import { DialogT } from "interface/components/common";
+import { DialogT } from "interface/components/common.types";
 
 interface DialogBoxTitleT {
   title: string;

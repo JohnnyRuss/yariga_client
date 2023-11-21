@@ -33,7 +33,7 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
       mt="10px"
       direction={{ xs: "column", md: "row" }}
       gap="20px"
-      height={{ xs: "35vh", md: "28.5vw" }}
+      height={{ xs: "40vh", sm: "70vh", md: "28.5vw" }}
     >
       {isActiveModal && <SliderModal images={images} />}
 

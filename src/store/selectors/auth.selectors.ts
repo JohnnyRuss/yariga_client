@@ -1,7 +1,7 @@
+import { RootStateT } from "store/store";
 import { createSelector } from "@reduxjs/toolkit";
 
-import { RootStateT } from "store/store";
-
+// MEMORISED SELECTORS
 const selectedAuthStatus = ({ auth }: RootStateT) => ({
   error: auth.status.error,
   loading: auth.status.loading,
@@ -9,6 +9,7 @@ const selectedAuthStatus = ({ auth }: RootStateT) => ({
   status: auth.status.status,
 });
 
+// SELECTORS
 const selectAuthStatus = createSelector(selectedAuthStatus, (status) => status);
 
 export { selectAuthStatus };

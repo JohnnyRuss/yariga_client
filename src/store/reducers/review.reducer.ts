@@ -1,5 +1,9 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { controlStatus as status } from "./helpers";
 
 import {
   ReviewsStateT,
@@ -58,6 +62,16 @@ const reviewsSlice = createSlice({
       state.pagesCount = payload.pagesCount;
 
       state.status = status.default();
+    },
+
+    setReviewsStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.status = setStatus({
+        stage,
+        message: message || "Failed to read reviews",
+      });
     },
 
     cleanUpReviews(state) {

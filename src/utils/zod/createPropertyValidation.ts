@@ -1,7 +1,7 @@
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PropertyStatus } from "interface/db/properties.types";
+import { PROPERTY_STATUS } from "interface/db/properties.types";
 
 import { greaterThanZero, isNumeric } from "utils/zod/helpers/customValidators";
 
@@ -89,7 +89,7 @@ const useCreatePropertyForm = () =>
   useForm<CreatePropertyFormT>({
     defaultValues: {
       title: "",
-      propertyStatus: { label: "", value: PropertyStatus.SALE, _id: "" },
+      propertyStatus: { label: "", value: PROPERTY_STATUS.SALE, _id: "" },
       price: "",
       propertyType: { label: "", value: "", _id: "" },
       area: "",

@@ -5,7 +5,8 @@ import {
 } from "@mui/material";
 
 export const CardVertical = styled(MuiCard)(() => ({
-  width: "350px",
+  // width: "350px",
+  width: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "8px",
@@ -14,7 +15,6 @@ export const CardVertical = styled(MuiCard)(() => ({
   img: {
     maxWidth: "100%",
     maxHeight: "40%",
-    minHeight: "unset",
   },
 }));
 
@@ -23,10 +23,12 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
   alignItems: "stretch",
   gap: "8px",
   boxShadow: "none",
+  height: "250px",
 
   img: {
     maxWidth: "40%",
-    minHeight: "100%",
+    height: "100%",
+    maxHeight: "100%",
     borderRadius: "10px",
     objectFit: "cover",
   },
@@ -37,7 +39,6 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
     img: {
       maxWidth: "100%",
       maxHeight: "40%",
-      minHeight: "unset",
     },
   },
 }));

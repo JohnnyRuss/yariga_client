@@ -1,6 +1,6 @@
 import { useAppDispatch } from "store/hooks";
 import { useCreatePropertyForm } from "utils/zod";
-import { FileChangeEventT } from "interface/components/form";
+import { FileChangeEventT } from "interface/components/form.types";
 
 import FileControl from "utils/FileControl";
 import { createPropertyFormActions } from "store/reducers/createPropertyForm.reducer";

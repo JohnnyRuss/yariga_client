@@ -25,8 +25,12 @@ export function* getAllAgents({ payload }: PayloadAction<GetAgentsArgsT>) {
     );
 
     yield put(agentActions.setAllAgents(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getAllAgents",
+      errorSetter: agentActions.setAllAgentsStatus,
+    });
   }
 }
 
@@ -38,8 +42,12 @@ export function* getAgent({ payload }: PayloadAction<{ agentId: string }>) {
     );
 
     yield put(agentActions.setAgent(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getAgent",
+      errorSetter: agentActions.setHireAgentStatus,
+    });
   }
 }
 
@@ -60,13 +68,12 @@ export function* hireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
       yield put(propertiesActions.setHiredAgent(data));
     }
 
-    yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));
+    yield put(agentActions.setHireAgentStatus({ stage: "success" }));
   } catch (error: any) {
     yield setError({
+      error,
       location: "hireAgent",
       errorSetter: agentActions.setHireAgentStatus,
-      errorSetterArgs: { status: "FAIL" },
-      error,
     });
   }
 }
@@ -78,13 +85,12 @@ export function* fireAgent({ payload }: PayloadAction<HireAgentArgsT>) {
     if (payload.hiredBy === "PROPERTY")
       yield put(propertiesActions.setFiredAgent());
 
-    yield put(agentActions.setHireAgentStatus({ status: "SUCCESS" }));
+    yield put(agentActions.setHireAgentStatus({ stage: "success" }));
   } catch (error: any) {
     yield setError({
-      location: "hireAgent",
-      errorSetter: agentActions.setHireAgentStatus,
-      errorSetterArgs: { status: "FAIL" },
       error,
+      location: "fireAgent",
+      errorSetter: agentActions.setHireAgentStatus,
     });
   }
 }

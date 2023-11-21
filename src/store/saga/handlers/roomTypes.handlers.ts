@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import { roomTypesActions } from "store/reducers/roomTypes.reducer";
 import * as roomTypesAPI from "store/saga/api/roomTypes.api";
@@ -13,7 +14,11 @@ export function* getAllRoomTypes() {
     );
 
     yield put(roomTypesActions.setAllRoomTypes(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getAllRoomTypes",
+      errorSetter: roomTypesActions.setRoomTypesStatus,
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootStateT } from "store/store";
 
+// MEMORISED SELECTORS
 const selectedUserStatus = ({ user }: RootStateT) => ({
   error: user.status.error,
   loading: user.status.loading,
@@ -33,6 +34,7 @@ const selectedGuest = ({ user }: RootStateT) => ({
   location: user.guest?.location,
 });
 
+// SELECTORS
 const selectGuest = createSelector(selectedGuest, (user) => user);
 
 const selectAuthenticatedUser = createSelector(

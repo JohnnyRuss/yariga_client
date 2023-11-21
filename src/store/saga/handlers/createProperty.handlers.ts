@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import * as createPropertyAPI from "store/saga/api/createProperty.api";
 import { createPropertyFormActions } from "store/reducers/createPropertyForm.reducer";
@@ -17,8 +18,11 @@ export function* getPropertyFormSuggestions() {
     );
 
     yield put(createPropertyFormActions.setPropertyFormSuggestions(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getPropertyFormSuggestions",
+    });
   }
 }
 
@@ -28,7 +32,11 @@ export function* createProperty({
   try {
     yield call(createPropertyAPI.createPropertyQuery, payload);
     yield put(createPropertyFormActions.setCreateProperty());
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "createProperty",
+      errorSetter: createPropertyFormActions.setCreatePropertyStatus,
+    });
   }
 }

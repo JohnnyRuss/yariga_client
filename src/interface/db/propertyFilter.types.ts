@@ -5,7 +5,7 @@ import {
   PropertyFeatureT,
 } from "./properties.types";
 
-export interface PropertyFilterResponseT {
+type PropertyFilterResponseT = {
   sort: Array<{ label: string; value: string }>;
   statuses: Array<PropertyStatusT>;
   propertyTypes: Array<PropertyTypeT>;
@@ -14,4 +14,6 @@ export interface PropertyFilterResponseT {
   countries: Array<string>;
   cities: Array<string>;
   states: Array<string>;
-}
+};
+
+export type { PropertyFilterResponseT };

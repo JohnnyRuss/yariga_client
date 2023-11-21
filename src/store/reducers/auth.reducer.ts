@@ -1,3 +1,8 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
@@ -11,12 +16,11 @@ import {
 } from "interface/store/auth.types";
 
 import { paths } from "config/paths";
-import { controlStatus } from "./helpers";
 import { setJWT, removeJWT } from "utils/jwt";
 import { RouterHistory } from "config/config";
 
 const initialState: AuthStateT = {
-  status: controlStatus.default(),
+  status: status.default(),
 };
 
 const authSlice = createSlice({
@@ -28,7 +32,7 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
@@ -37,7 +41,7 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
@@ -46,7 +50,7 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
@@ -56,7 +60,7 @@ const authSlice = createSlice({
     ) {
       setJWT(payload.accessToken);
       RouterHistory.navigate(paths.root_page);
-      state.status = controlStatus.default();
+      state.status = status.default();
     },
 
     logout() {},
@@ -71,13 +75,13 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
     setForgotPassword(state) {
       RouterHistory.navigate(paths.auth_page_confirm_email);
-      state.status = controlStatus.default();
+      state.status = status.default();
     },
 
     confirmEmail: {
@@ -85,13 +89,13 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
     setConfirmEmail(state) {
       RouterHistory.navigate(paths.auth_page_update_password);
-      state.status = controlStatus.default();
+      state.status = status.default();
     },
 
     updatePassword: {
@@ -99,13 +103,23 @@ const authSlice = createSlice({
         return { payload };
       },
       reducer: (state) => {
-        state.status = controlStatus.loading();
+        state.status = status.loading();
       },
     },
 
     setUpdatePassword(state) {
       RouterHistory.navigate(paths.auth_page_signin);
-      state.status = controlStatus.default();
+      state.status = status.default();
+    },
+
+    setAuthStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.status = setStatus({
+        stage,
+        message: message || "Operation Failed",
+      });
     },
   },
 });

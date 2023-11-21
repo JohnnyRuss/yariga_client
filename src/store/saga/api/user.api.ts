@@ -1,7 +1,7 @@
 import { axiosPrivateQuery } from "services/axios";
-import { GetUserArgsT, UpdateUserArgsT } from "interface/db/user.types";
+import { GetGuestArgsT, UpdateUserArgsT } from "interface/db/user.types";
 
-export function getUserQuery(data: GetUserArgsT) {
+export function getUserQuery(data: GetGuestArgsT) {
   return axiosPrivateQuery.get(`/users/${data.userId}`);
 }
 

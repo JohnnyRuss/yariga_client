@@ -8,7 +8,7 @@ interface PropertyMainT {
 
 const PropertyMain: React.FC<PropertyMainT> = ({ children }) => {
   return (
-    <Stack width={{ xs: "100%", md: "75%" }} gap={2}>
+    <Stack width={{ xs: "100%", md: "75%" }} gap={2} boxSizing="border-box">
       {children}
     </Stack>
   );

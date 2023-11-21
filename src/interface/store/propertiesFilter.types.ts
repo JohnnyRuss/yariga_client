@@ -6,12 +6,12 @@ import {
 } from "interface/db/properties.types";
 import { LoadingStatusT } from "./common.types";
 
-export interface PropertiesFilterStateT {
+type PropertiesFilterStateT = {
   status: LoadingStatusT;
   filter: PropertyFilterT;
-}
+};
 
-export interface PropertyFilterT {
+type PropertyFilterT = {
   sort: Array<CommonFilterT>;
   propertyStatus: Array<PropertyStatusT>;
   propertyType: Array<PropertyTypeT>;
@@ -20,9 +20,9 @@ export interface PropertyFilterT {
   rooms: Array<RoomTypeT>;
   features: Array<PropertyFeatureSuggestionT>;
   city: Array<CommonFilterT>;
-}
+};
 
-export interface ActivePropertyFilterT {
+type ActivePropertyFilterT = {
   search: string;
   "price[gte]": string;
   "price[lte]": string;
@@ -34,11 +34,18 @@ export interface ActivePropertyFilterT {
   state: CommonFilterT;
   rooms: Array<RoomTypeT>;
   features: Array<PropertyFeatureSuggestionT>;
-}
+};
 
 // PARTIALS
-export interface CommonFilterT {
+type CommonFilterT = {
   _id: string;
   label: string;
   value: string;
-}
+};
+
+export type {
+  PropertiesFilterStateT,
+  PropertyFilterT,
+  ActivePropertyFilterT,
+  CommonFilterT,
+};

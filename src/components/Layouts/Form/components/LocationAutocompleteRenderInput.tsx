@@ -8,7 +8,7 @@ import { AutocompleteRenderInputParams } from "@mui/material";
 import {
   ReactHookFormLocationFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface LocationAutocompleteRenderInputT {
   showIcon?: boolean;

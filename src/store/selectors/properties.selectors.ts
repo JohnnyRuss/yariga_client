@@ -3,7 +3,6 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootStateT } from "store/store";
 
 // MEMORISED SELECTORS
-
 const selectedAllPropertiesStatus = ({ properties }: RootStateT) => ({
   error: properties.allPropertiesStatus.error,
   loading: properties.allPropertiesStatus.loading,
@@ -66,7 +65,6 @@ const selectedAlProperties = ({ properties }: RootStateT) => ({
 });
 
 // SELECTORS
-
 const selectAllPropertiesStatus = createSelector(
   selectedAllPropertiesStatus,
   (status) => status

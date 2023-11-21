@@ -12,8 +12,11 @@ const PropertyViewMain: React.FC<PropertyViewMainT> = ({ onClick, src }) => {
     <Box
       component="figure"
       onClick={onClick}
+      width={{
+        xs: "100%",
+        md: "70%",
+      }}
       sx={{
-        width: ["100%", "70%"],
         height: "100%",
         borderRadius: "10px",
         overflow: "hidden",

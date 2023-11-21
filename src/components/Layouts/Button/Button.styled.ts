@@ -1,10 +1,10 @@
 import { styled, Button as MuiButton } from "@mui/material";
 
-interface ButtonProps {
-  fullWidth?: boolean | null;
+type ButtonProps = {
+  fullWidth: boolean | null;
   background_color: string;
-  text_color?: string;
-}
+  text_color: string;
+};
 
 export const Button = styled(MuiButton)<ButtonProps>(
   ({ background_color, text_color, fullWidth }) => ({

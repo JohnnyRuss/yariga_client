@@ -1,4 +1,5 @@
 import { call, put } from "redux-saga/effects";
+import { setError } from "./helpers/AppError";
 
 import * as userAPI from "store/saga/api/user.api";
 import { userActions } from "store/reducers/user.reducer";
@@ -6,9 +7,9 @@ import { userActions } from "store/reducers/user.reducer";
 import { AxiosResponse } from "axios";
 import { UserT } from "interface/db/user.types";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { GetUserArgsT, UpdateUserArgsT } from "interface/db/user.types";
+import { GetGuestArgsT, UpdateUserArgsT } from "interface/db/user.types";
 
-export function* getUser({ payload }: PayloadAction<GetUserArgsT>) {
+export function* getGuest({ payload }: PayloadAction<GetGuestArgsT>) {
   try {
     const { data }: AxiosResponse<UserT> = yield call(
       userAPI.getUserQuery,
@@ -16,8 +17,12 @@ export function* getUser({ payload }: PayloadAction<GetUserArgsT>) {
     );
 
     yield put(userActions.setGuest(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getGuest",
+      errorSetter: userActions.setGuestStatus,
+    });
   }
 }
 
@@ -29,7 +34,11 @@ export function* updateUser({ payload }: PayloadAction<UpdateUserArgsT>) {
     );
 
     yield put(userActions.setUpdatedUser(data));
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "updateUser",
+      errorSetter: userActions.setEditProfileStatus,
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { LoadingStatusT } from "./common.types";
 import { AgentShortInfoT, AgentT } from "interface/db/agent.types";
 
-export interface AgentStateT {
+type AgentStateT = {
   agentStatus: LoadingStatusT;
   agentsStatus: LoadingStatusT;
   hireAgentsStatus: LoadingStatusT;
@@ -9,4 +9,6 @@ export interface AgentStateT {
   currentPage: number;
   pagesCount: number;
   agent: AgentT;
-}
+};
+
+export type { AgentStateT };

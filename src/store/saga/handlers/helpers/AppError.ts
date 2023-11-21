@@ -1,12 +1,15 @@
+import { AxiosError } from "axios";
 import { put } from "redux-saga/effects";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
+import { SetStatusArgsT } from "store/reducers/helpers/controlStatus";
+
+type ErrorSetterT = SetStatusArgsT & Object;
 
 interface SetErrorArgsT {
   location: string;
   error: AxiosError | Error;
-  errorSetter: ActionCreatorWithPayload<any>;
-  errorSetterArgs?: { [key: string]: string };
+  errorSetterArgs?: ErrorSetterT;
+  errorSetter?: ActionCreatorWithPayload<ErrorSetterT>;
 }
 
 function* setError({
@@ -22,11 +25,12 @@ function* setError({
       message = error.response?.data.message || "";
     else if (error instanceof Error) message = error.message;
 
-    yield put(errorSetter({ ...errorSetterArgs, message }));
+    if (errorSetter && errorSetterArgs)
+      yield put(errorSetter({ ...errorSetterArgs, message, stage: "error" }));
 
     // if (process.env.REACT_APP_ENV_MODE !== "DEV") return;
 
-    console.log({
+    console.error({
       hasError: true,
       message,
       error,

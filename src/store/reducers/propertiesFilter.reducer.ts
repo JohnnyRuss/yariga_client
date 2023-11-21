@@ -1,6 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { nanoid } from "@reduxjs/toolkit";
-import { controlStatus as status } from "./helpers";
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
+import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 
 import { PropertiesFilterStateT } from "interface/store/propertiesFilter.types";
 import { PropertyFilterResponseT } from "interface/db/propertyFilter.types";
@@ -51,6 +54,16 @@ const propertiesFilterSlice = createSlice({
       };
 
       state.status = status.success("SUCCESS");
+    },
+
+    setPropertiesFilterStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.status = setStatus({
+        stage,
+        message: message || "Failed to read properties filter",
+      });
     },
 
     cleanUpFilter(state) {

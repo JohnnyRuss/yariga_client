@@ -2,10 +2,10 @@ import React from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import { PropertyStatus as PropertyStatusKeyT } from "interface/db/properties.types";
+import { PROPERTY_STATUS } from "interface/db/properties.types";
 
 interface PropertyStatusT {
-  status: keyof typeof PropertyStatusKeyT;
+  status: keyof typeof PROPERTY_STATUS;
 }
 
 const PropertyStatus: React.FC<PropertyStatusT> = ({ status }) => {

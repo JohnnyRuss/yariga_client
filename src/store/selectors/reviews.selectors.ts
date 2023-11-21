@@ -15,7 +15,6 @@ const selectedReviewsPagination = ({ reviews }: RootStateT) => ({
 });
 
 // SELECTORS
-
 const selectReviewsStatus = createSelector(selectedStatus, (status) => status);
 
 const selectReviews = ({ reviews }: RootStateT) => reviews.reviews;

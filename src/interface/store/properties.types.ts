@@ -1,7 +1,7 @@
 import { LoadingStatusT } from "./common.types";
 import { PropertyT, PropertyShortInfoT } from "interface/db/properties.types";
 
-export interface PropertiesStateT {
+type PropertiesStateT = {
   // STATUS
   singlePropertyStatus: LoadingStatusT;
   allPropertiesStatus: LoadingStatusT;
@@ -16,4 +16,6 @@ export interface PropertiesStateT {
   agentProperties: Array<PropertyShortInfoT>;
   userProperties: Array<PropertyShortInfoT>;
   relatedProperties: Array<PropertyShortInfoT>;
-}
+};
+
+export type { PropertiesStateT };

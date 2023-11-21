@@ -1,6 +1,7 @@
 import { RootStateT } from "store/store";
 import { createSelector } from "@reduxjs/toolkit";
 
+// MEMORISED SELECTORS
 const selectedCreatePropertyStatus = ({ createPropertyForm }: RootStateT) => ({
   error: createPropertyForm.status.error,
   loading: createPropertyForm.status.loading,
@@ -11,6 +12,7 @@ const selectedCreatePropertyStatus = ({ createPropertyForm }: RootStateT) => ({
 const selectedPropertySuggestions = ({ createPropertyForm }: RootStateT) =>
   createPropertyForm.suggestions;
 
+// SELECTORS
 const selectCreatePropertyStatus = createSelector(
   selectedCreatePropertyStatus,
   (status) => status

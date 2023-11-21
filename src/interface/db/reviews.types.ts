@@ -1,4 +1,4 @@
-import { PropertyStatus } from "./properties.types";
+import { PROPERTY_STATUS } from "./properties.types";
 
 type ReviewShortInfoT = {
   _id: string;
@@ -13,7 +13,7 @@ type ReviewShortInfoT = {
 type ReviewPropertyT = {
   _id: string;
   title: string;
-  propertyStatus: keyof typeof PropertyStatus;
+  propertyStatus: keyof typeof PROPERTY_STATUS;
   price: number;
 };
 

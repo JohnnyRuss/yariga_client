@@ -1,6 +1,6 @@
 import { EditProfileFormT } from "utils/zod/editProfileValidation";
 
-export interface UserT {
+type UserT = {
   _id: string;
   email: string;
   username: string;
@@ -16,18 +16,20 @@ export interface UserT {
     lat: string;
     lon: string;
   } | null;
-}
+};
 
-export interface LoginResponseT {
+type LoginResponseT = {
   user: UserT;
   accessToken: string;
-}
+};
 
-export interface GetUserArgsT {
+type GetGuestArgsT = {
   userId: string;
-}
+};
 
-export interface UpdateUserArgsT {
+type UpdateUserArgsT = {
   userId: string;
   data: EditProfileFormT;
-}
+};
+
+export type { UserT, LoginResponseT, GetGuestArgsT, UpdateUserArgsT };

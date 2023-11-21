@@ -13,7 +13,7 @@ import LocationAutocompleteRenderInput from "./components/LocationAutocompleteRe
 import {
   ReactHookFormLocationFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 import { AutocompleteRenderInputParams } from "@mui/material";
 import { OpenStreetMapLocationT } from "interface/config/config.types";
 

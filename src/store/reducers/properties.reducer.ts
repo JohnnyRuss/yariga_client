@@ -1,3 +1,8 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { PropertiesStateT } from "interface/store/properties.types";
@@ -14,8 +19,6 @@ import {
 } from "interface/db/properties.types";
 import { AddReviewResponseT } from "interface/db/reviews.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
-
-import { controlStatus as status } from "./helpers";
 
 const initialState: PropertiesStateT = {
   singlePropertyStatus: status.default(),
@@ -116,6 +119,16 @@ const propertiesSlice = createSlice({
       state.allPropertiesStatus = status.default();
     },
 
+    setAllPropertiesStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.allPropertiesStatus = setStatus({
+        stage,
+        message: message || "Failed to read properties",
+      });
+    },
+
     cleanUpAllProperties(state) {
       state.properties = initialState.properties;
       state.pagesCount = initialState.pagesCount;
@@ -146,6 +159,16 @@ const propertiesSlice = createSlice({
       state.userPropertiesStatus = status.default();
     },
 
+    setUserPropertiesStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.userPropertiesStatus = setStatus({
+        stage,
+        message: message || "Failed to read user properties",
+      });
+    },
+
     cleanUpUserProperties(state) {
       state.userProperties = initialState.userProperties;
     },
@@ -174,6 +197,16 @@ const propertiesSlice = createSlice({
       state.agentPropertiesStatus = status.default();
     },
 
+    setAgentPropertiesStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.agentPropertiesStatus = setStatus({
+        stage,
+        message: message || "Failed to read agent properties",
+      });
+    },
+
     cleanUpAgentProperties(state) {
       state.agentProperties = initialState.agentProperties;
     },
@@ -194,6 +227,16 @@ const propertiesSlice = createSlice({
     setProperty(state, { payload }: PayloadAction<PropertyT>) {
       state.property = payload;
       state.singlePropertyStatus = status.default();
+    },
+
+    setPropertyStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.singlePropertyStatus = setStatus({
+        stage,
+        message: message || "Failed to read property details",
+      });
     },
 
     cleanUpProperty(state) {
@@ -217,6 +260,16 @@ const propertiesSlice = createSlice({
     ) {
       state.relatedProperties = payload;
       state.relatedPropertiesStatus = status.default();
+    },
+
+    setRelatedPropertiesStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.relatedPropertiesStatus = setStatus({
+        stage,
+        message: message || "Failed to read related properties",
+      });
     },
 
     cleanUpRelatedProperties(state) {

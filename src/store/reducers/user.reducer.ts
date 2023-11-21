@@ -1,10 +1,14 @@
+import {
+  controlStatus as status,
+  setStatus,
+  SetStatusArgsT,
+} from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { paths } from "config/paths";
 import { RouterHistory } from "config/config";
-import { controlStatus as status } from "./helpers";
 import { UsersStateT } from "interface/store/user.types";
-import { GetUserArgsT, UserT, UpdateUserArgsT } from "interface/db/user.types";
+import { GetGuestArgsT, UserT, UpdateUserArgsT } from "interface/db/user.types";
 
 const userDefault = {
   _id: "",
@@ -46,8 +50,9 @@ const userSlice = createSlice({
       state.user = initialState.user;
     },
 
-    getUser: {
-      prepare: (payload: GetUserArgsT) => {
+    // GUEST
+    getGuest: {
+      prepare: (payload: GetGuestArgsT) => {
         return { payload };
       },
 
@@ -61,10 +66,21 @@ const userSlice = createSlice({
       state.status = status.default();
     },
 
+    setGuestStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.status = setStatus({
+        stage,
+        message: message || "Failed to read user details",
+      });
+    },
+
     cleanUpGuest(state) {
       state.guest = initialState.guest;
     },
 
+    // USER UPDATE
     updateUser: {
       prepare(payload: UpdateUserArgsT) {
         return {
@@ -82,6 +98,16 @@ const userSlice = createSlice({
       state.editProfileStatus = status.default();
 
       RouterHistory.navigate(paths.user_iprofile_page);
+    },
+
+    setEditProfileStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.editProfileStatus = setStatus({
+        stage,
+        message: message || "Failed to update user profile",
+      });
     },
   },
 });

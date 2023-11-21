@@ -9,7 +9,7 @@ import {
   FileChangeEventT,
   ReactHookFormFileFieldPropsT,
   ReactHookFormFieldStatePropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface FormFileFieldT {
   fieldProps: ReactHookFormFileFieldPropsT;

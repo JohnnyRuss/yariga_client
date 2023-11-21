@@ -5,7 +5,7 @@ import DialogBoxContent from "./DialogBoxContent";
 import DialogBoxTitle from "./DialogBoxTitle";
 import DialogBoxActions from "./DialogBoxActions";
 
-import { DialogT as DialogCommonT } from "interface/components/common";
+import { DialogT as DialogCommonT } from "interface/components/common.types";
 
 interface DialogT {
   dialog: DialogCommonT;

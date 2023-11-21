@@ -15,7 +15,7 @@ import FormHelperText from "./FormHelperText";
 import {
   ReactHookFormFieldStatePropsT,
   ReactHookFormMultipleSelectFieldPropsT,
-} from "interface/components/form";
+} from "interface/components/form.types";
 
 interface FormMultipleSelectFieldT {
   fieldProps: ReactHookFormMultipleSelectFieldPropsT;

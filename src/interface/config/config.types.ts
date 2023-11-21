@@ -1,20 +1,20 @@
 import { NavigateFunction, Location } from "react-router-dom";
 
-export interface RouterHistoryT {
+type RouterHistoryT = {
   navigate: NavigateFunction | ((path: string) => void);
   location: Location;
   redirectUnAuthorized: () => void;
   redirectAuthorized: () => void;
-}
+};
 
-export interface DecodedUserT {
+type DecodedUserT = {
   _id: string;
   email: string;
   exp: number;
   iat: number;
-}
+};
 
-export interface OpenStreetMapLocationResponseT {
+type OpenStreetMapLocationResponseT = {
   address: {
     city: string;
     country: string;
@@ -26,9 +26,9 @@ export interface OpenStreetMapLocationResponseT {
   addresstype: string;
   lat: string;
   lon: string;
-}
+};
 
-export interface OpenStreetMapLocationT {
+type OpenStreetMapLocationT = {
   name: string;
   displayName: string;
   city: string;
@@ -37,4 +37,11 @@ export interface OpenStreetMapLocationT {
   addressType: string;
   lat: string;
   lon: string;
-}
+};
+
+export type {
+  RouterHistoryT,
+  DecodedUserT,
+  OpenStreetMapLocationResponseT,
+  OpenStreetMapLocationT,
+};

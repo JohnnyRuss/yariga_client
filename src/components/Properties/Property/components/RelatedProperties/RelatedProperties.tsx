@@ -4,17 +4,16 @@ import { useAppSelector } from "store/hooks";
 
 import {
   selectProperty,
-  selectRelatedProperties,
-  // selectRelatedPropertiesStatus,
+  selectRelatedPropertiesStatus,
 } from "store/selectors/properties.selectors";
 import { usePropertiesQuery } from "hooks/api/properties";
 
+import Slider from "./Slider";
 import { Box, Typography } from "@mui/material";
-import { MultiSlider, PropertyCardVertical } from "components/Layouts";
 
 const RelatedProperties: React.FC = () => {
-  // const status = useAppSelector(selectRelatedPropertiesStatus);
-  const properties = useAppSelector(selectRelatedProperties);
+  const status = useAppSelector(selectRelatedPropertiesStatus);
+
   const { rooms, features, _id } = useAppSelector(selectProperty);
 
   const { getRelatedProperties, cleanUpRelatedProperties } =
@@ -34,7 +33,7 @@ const RelatedProperties: React.FC = () => {
   }, []);
 
   return (
-    <Box flex={1}>
+    <Box>
       <Typography
         mb="25px"
         fontSize={18}
@@ -44,15 +43,7 @@ const RelatedProperties: React.FC = () => {
         Related Properties
       </Typography>
 
-      <MultiSlider
-      // render={(Slide) =>
-      //   properties.map((property) => (
-      //     <Slide key={property._id}>
-      //       <PropertyCardVertical property={property} />
-      //     </Slide>
-      //   ))
-      // }
-      />
+      {!status.loading && <Slider />}
     </Box>
   );
 };

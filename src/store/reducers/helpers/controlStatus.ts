@@ -1,33 +1,49 @@
-import { Status, StatusT, LoadingStatusT } from "interface/store/common.types";
+import {
+  STATUS_STAGE,
+  StatusT,
+  LoadingStatusT,
+} from "interface/store/common.types";
 
 const controlStatus = {
   loading: (): LoadingStatusT => ({
-    status: Status.PENDING,
+    status: STATUS_STAGE.PENDING,
     loading: true,
     error: false,
     message: "",
   }),
 
   success: (stage: StatusT): LoadingStatusT => ({
-    status: stage || Status.IDLE,
+    status: stage || STATUS_STAGE.IDLE,
     loading: false,
     error: false,
     message: "",
   }),
 
   error: (message: string): LoadingStatusT => ({
-    status: Status.FAIL,
+    status: STATUS_STAGE.FAIL,
     loading: false,
     error: true,
     message,
   }),
 
   default: (): LoadingStatusT => ({
-    status: Status.IDLE,
+    status: STATUS_STAGE.IDLE,
     loading: false,
     error: false,
     message: "",
   }),
 };
 
-export default controlStatus;
+type SetStatusArgsT = {
+  stage: keyof typeof controlStatus;
+  message?: string;
+};
+
+const setStatus = ({ stage, message }: SetStatusArgsT) => {
+  if (stage === "error") return controlStatus.error(message || "");
+  else if (stage === "success") return controlStatus.success("SUCCESS");
+  else return controlStatus[stage]();
+};
+
+export { controlStatus, setStatus };
+export type { SetStatusArgsT };

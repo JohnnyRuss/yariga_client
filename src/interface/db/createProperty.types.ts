@@ -1,23 +1,23 @@
 import {
   RoomTypeT,
   PropertyTypeT,
-  PropertyStatus,
+  PROPERTY_STATUS,
   PropertyStatusT,
   PropertyLocationT,
   PropertyFeatureSuggestionT,
 } from "./properties.types";
 
-export interface PropertySuggestionsT {
+type PropertySuggestionsT = {
   roomTypes: RoomTypeT[];
   propertyTypes: PropertyTypeT[];
   propertyStatuses: PropertyStatusT[];
   propertyFeatures: PropertyFeatureSuggestionT[];
-}
+};
 
 // API
-export interface CreatePropertyArgsT {
+type CreatePropertyArgsT = {
   title: string;
-  propertyStatus: keyof typeof PropertyStatus;
+  propertyStatus: keyof typeof PROPERTY_STATUS;
   price: number;
   propertyType: string;
   area: number;
@@ -30,4 +30,6 @@ export interface CreatePropertyArgsT {
   images?: Array<string>;
   new_images?: Array<File>;
   images_to_delete: Array<string>;
-}
+};
+
+export type { PropertySuggestionsT, CreatePropertyArgsT };

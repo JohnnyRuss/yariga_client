@@ -3,11 +3,11 @@ import React from "react";
 import { Search } from "@mui/icons-material";
 import { TextField, InputAdornment } from "@mui/material";
 
-import { HireByT } from "interface/db/agent.types";
+import { HIRED_BY } from "interface/db/agent.types";
 
 interface SearchBarT {
   setSearchAgent: React.Dispatch<React.SetStateAction<string>>;
-  hiredBy: keyof typeof HireByT;
+  hiredBy: keyof typeof HIRED_BY;
   searchAgent: string;
 }
 
