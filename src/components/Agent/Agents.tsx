@@ -1,8 +1,5 @@
-import React from "react";
-
+import * as UI from "./components";
 import { Stack } from "@mui/material";
-import AgentsList from "./components/AgentsList";
-import AgentsPagination from "./components/AgentsPagination";
 import { ContentBox, SectionTitle } from "components/Layouts";
 
 const Agents: React.FC = () => {
@@ -11,9 +8,9 @@ const Agents: React.FC = () => {
       <SectionTitle title="Agents" />
 
       <Stack className="content__box">
-        <AgentsList />
+        <UI.AgentsList />
 
-        <AgentsPagination />
+        <UI.AgentsPagination />
       </Stack>
     </ContentBox>
   );

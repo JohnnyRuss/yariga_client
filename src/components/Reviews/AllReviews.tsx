@@ -1,19 +1,12 @@
-import { Stack } from "@mui/material";
-import ReviewsList from "./components/ReviewsList";
-import ReviewsPagination from "./components/ReviewsPagination";
+import * as UI from "./components";
 
 const AllReviews: React.FC = () => {
   return (
-    <Stack
-      minHeight="35vw"
-      gap={3}
-      className="content__box"
-      sx={{ backgroundColor: "unset", padding: 0 }}
-    >
-      <ReviewsList />
+    <UI.ReviewsContentBox>
+      <UI.ReviewsList />
 
-      <ReviewsPagination />
-    </Stack>
+      <UI.ReviewsPagination />
+    </UI.ReviewsContentBox>
   );
 };
 

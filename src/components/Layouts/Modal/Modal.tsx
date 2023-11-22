@@ -1,7 +1,5 @@
-import React from "react";
-
-import { Modal as MuiModal, Box, Button } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { Modal as MuiModal, Box, Button } from "@mui/material";
 
 interface ModalT {
   open: boolean;

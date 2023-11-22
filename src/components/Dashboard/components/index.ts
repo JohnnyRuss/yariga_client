@@ -1,4 +1,3 @@
-export { default as PieChart } from "../../Layouts/PieChart/PieChart";
 export { default as PieCharts } from "./PieCharts";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as PropertyReferrals } from "./PropertyReferrals";

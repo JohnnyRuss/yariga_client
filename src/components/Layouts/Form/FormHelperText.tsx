@@ -1,4 +1,3 @@
-import React from "react";
 import { FormHelperText as MuiHelperText } from "@mui/material";
 
 interface FormHelperTextT {

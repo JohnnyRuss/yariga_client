@@ -1,5 +1,3 @@
-import React from "react";
-
 import ConfirmEmail from "components/Auth/ConfirmEmail";
 import { RouterHistory } from "config/config";
 

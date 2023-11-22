@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box } from "@mui/material";
 import ReviewsNav from "./ReviewsNav";
 import { SectionTitle } from "components/Layouts";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   TextField,
   FormControl,
@@ -14,12 +12,12 @@ import {
 } from "interface/components/form.types";
 
 interface FormTextFieldT {
+  label: string;
+  type?: string;
+  required?: boolean;
+  icon?: React.ReactNode | null;
   fieldProps: ReactHookFormTextFieldPropsT;
   fieldStateProps?: ReactHookFormFieldStatePropsT;
-  label: string;
-  required?: boolean;
-  type?: string;
-  icon?: React.ReactNode | null;
   autoCompleteParams?: AutocompleteRenderInputParams;
 }
 

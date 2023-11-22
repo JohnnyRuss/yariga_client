@@ -1,7 +1,5 @@
-import React from "react";
-
 import { useTheme } from "@mui/material";
-import generatePaletteColor from "./functions/generatePaleteColor";
+import generatePaletteColor from "./functions/generatePaletteColor";
 
 import * as MuiStyled from "./Button.styled";
 import { SxProps } from "@mui/material";

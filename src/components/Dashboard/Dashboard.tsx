@@ -1,11 +1,5 @@
-import React from "react";
-
-import {
-  TotalRevenue,
-  PropertyReferrals,
-} from "components/Dashboard/components";
+import * as UI from "./components";
 import { Stack } from "@mui/material";
-import PieCharts from "./components/PieCharts";
 import { ContentBox, SectionTitle } from "components/Layouts";
 
 const Dashboard: React.FC = () => {
@@ -13,7 +7,7 @@ const Dashboard: React.FC = () => {
     <ContentBox>
       <SectionTitle title="Dashboard" />
 
-      <PieCharts />
+      <UI.PieCharts />
 
       <Stack
         mt="25px"
@@ -21,9 +15,9 @@ const Dashboard: React.FC = () => {
         direction={{ xs: "column", lg: "row" }}
         gap={4}
       >
-        <TotalRevenue />
+        <UI.TotalRevenue />
 
-        <PropertyReferrals />
+        <UI.PropertyReferrals />
       </Stack>
     </ContentBox>
   );

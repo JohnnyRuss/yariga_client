@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   FormControl,
   InputLabel,
@@ -18,15 +16,15 @@ import {
 } from "interface/components/form.types";
 
 interface FormMultipleSelectFieldT {
-  fieldProps: ReactHookFormMultipleSelectFieldPropsT;
-  fieldStateProps?: ReactHookFormFieldStatePropsT;
-  passEvent?: boolean;
-  label: string;
   list: Array<{
     _id: string;
     label: string;
     value: string;
   }>;
+  label: string;
+  passEvent?: boolean;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
+  fieldProps: ReactHookFormMultipleSelectFieldPropsT;
 }
 
 const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({

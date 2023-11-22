@@ -1,5 +1,3 @@
-import React from "react";
-
 import useGoToUser from "hooks/utils/useGoToUser";
 
 import { Stack, Avatar, Typography } from "@mui/material";

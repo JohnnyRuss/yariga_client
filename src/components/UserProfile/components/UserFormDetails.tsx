@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
 import { Controller } from "react-hook-form";
-import { useEditProfileQuery } from "hooks/api";
+import { useEditProfileQuery } from "hooks/api/user";
 import { selectEditProfileStatus } from "store/selectors/user.selectors";
 
 import { Stack } from "@mui/material";
-import { Phone, Email } from "@mui/icons-material";
 import * as Form from "components/Layouts/Form";
+import { Phone, Email } from "@mui/icons-material";
 import { Button, Spinner } from "components/Layouts";
 
 import { UserT } from "interface/db/user.types";

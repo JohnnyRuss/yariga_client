@@ -1,29 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch } from "store/hooks";
 
 import {
   usePropertiesQuery,
   usePropertiesFilterQuery,
 } from "hooks/api/properties";
-import { propertiesActions } from "store/reducers/properties.reducer";
 
+import { RouterHistory } from "config/config";
 import { AllProperties } from "components/Properties";
 import PropertyFilterProvider from "providers/FilterProvider/PropertyFilterProvider";
 
-import { RouterHistory } from "config/config";
 RouterHistory.redirectUnAuthorized();
 
 const PropertiesPage: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { search } = useLocation();
 
-  const { getAllProperties, cleanUpProperties } = usePropertiesQuery();
+  const { getAllProperties, cleanUpProperties, setAllPropertiesStatus } =
+    usePropertiesQuery();
   const { cleanUpFilter, getPropertiesFilter } = usePropertiesFilterQuery();
 
   useEffect(() => {
-    dispatch(propertiesActions.setAllPropertiesStatus({ stage: "loading" }));
+    setAllPropertiesStatus({ stage: "loading" });
     getPropertiesFilter();
 
     return () => {

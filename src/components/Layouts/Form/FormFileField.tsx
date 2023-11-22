@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 import FormHelperText from "./FormHelperText";
@@ -12,10 +12,10 @@ import {
 } from "interface/components/form.types";
 
 interface FormFileFieldT {
+  label: string;
+  onFileChange: FileChangeEventT;
   fieldProps: ReactHookFormFileFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
-  onFileChange: FileChangeEventT;
-  label: string;
 }
 
 const FormFileField: React.FC<FormFileFieldT> = ({

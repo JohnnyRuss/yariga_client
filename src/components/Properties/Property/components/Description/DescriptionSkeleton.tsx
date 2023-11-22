@@ -1,4 +1,3 @@
-import React from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 import { Box, Skeleton, Stack } from "@mui/material";

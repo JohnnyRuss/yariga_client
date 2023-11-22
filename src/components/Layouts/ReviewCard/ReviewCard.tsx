@@ -1,8 +1,5 @@
+import * as UI from "./components";
 import { Stack } from "@mui/material";
-import ReviewAuthor from "./components/ReviewAuthor";
-import ReviewContent from "./components/ReviewContent";
-import ReviewRating from "./components/ReviewRating";
-import ReviewActions from "./components/ReviewActions";
 
 import { ReviewShortInfoT } from "interface/db/reviews.types";
 
@@ -21,15 +18,15 @@ const ReviewCard: React.FC<ReviewCardT> = ({ review, showActions = true }) => {
       bgcolor="app_bg.main"
       direction={{ xs: "column", md: "row" }}
     >
-      <ReviewAuthor author={review.user} />
+      <UI.ReviewAuthor author={review.user} />
 
-      <ReviewContent description={review.review} score={review.score} />
+      <UI.ReviewContent description={review.review} score={review.score} />
 
       <Stack ml={{ md: "auto" }} gap="15px">
-        <ReviewRating score={review.score} />
+        <UI.ReviewRating score={review.score} />
 
         {showActions && (
-          <ReviewActions approved={review.approved} reviewId={review._id} />
+          <UI.ReviewActions approved={review.approved} reviewId={review._id} />
         )}
       </Stack>
     </Stack>

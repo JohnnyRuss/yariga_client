@@ -1,5 +1,3 @@
-import React from "react";
-
 import FormHelperText from "./FormHelperText";
 import { FormControl, TextField } from "@mui/material";
 
@@ -9,12 +7,12 @@ import {
 } from "interface/components/form.types";
 
 interface FormAutoSizeTextFieldT {
-  fieldProps: ReactHookFormTextFieldPropsT;
-  fieldStateProps: ReactHookFormFieldStatePropsT;
   label: string;
   required?: boolean;
   minRows?: number;
   maxRows?: number;
+  fieldProps: ReactHookFormTextFieldPropsT;
+  fieldStateProps: ReactHookFormFieldStatePropsT;
 }
 
 const FormAutoSizeTextField: React.FC<FormAutoSizeTextFieldT> = ({

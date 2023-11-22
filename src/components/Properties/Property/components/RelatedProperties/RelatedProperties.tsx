@@ -8,7 +8,7 @@ import {
 } from "store/selectors/properties.selectors";
 import { usePropertiesQuery } from "hooks/api/properties";
 
-import Slider from "./Slider";
+import { Slider } from "./components";
 import { Box, Typography } from "@mui/material";
 
 const RelatedProperties: React.FC = () => {

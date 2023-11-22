@@ -1,5 +1,3 @@
-import React from "react";
-
 import { PROPERTY_REFERRALS_INFO } from "config/constants";
 
 import ProgressBar from "./ProgressBar";

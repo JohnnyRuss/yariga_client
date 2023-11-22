@@ -1,13 +1,8 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import Rating from "./Rating";
-import PriceBox from "./PriceBox";
-import Location from "./Location";
-import HeaderSkeleton from "./HeaderSkeleton";
-import PropertyDetailsHeaderActions from "./PropertyDetailsHeaderActions";
+import * as UI from "./components";
 import { PropertyStatus } from "components/Layouts";
 import { Stack, Box, Typography } from "@mui/material";
 
@@ -21,7 +16,7 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
   } = useAppSelector(selectProperty);
 
   return loading ? (
-    <HeaderSkeleton />
+    <UI.HeaderSkeleton />
   ) : (
     <Stack
       direction={{ xs: "column", md: "row" }}
@@ -45,17 +40,17 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
           {title}
         </Typography>
 
-        <Location />
+        <UI.Location />
       </Stack>
 
       <Box sx={{ mt: ["12px", "0px"] }}>
         <Stack gap="9px">
-          <Rating rating={avgRating} propertyId={propertyId} />
+          <UI.Rating rating={avgRating} propertyId={propertyId} />
 
           <Stack direction="row" gap="8px" alignItems="flex-end">
-            <PriceBox />
+            <UI.PriceBox />
 
-            <PropertyDetailsHeaderActions />
+            <UI.PropertyDetailsHeaderActions />
           </Stack>
         </Stack>
       </Box>

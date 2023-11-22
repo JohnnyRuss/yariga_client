@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { RouterHistory } from "config/config";
+import { useScrollTo } from "hooks/utils";
 import { usePropertiesQuery, useRoomTypesQuery } from "hooks/api/properties";
 
 import { Property } from "components/Properties";
@@ -12,13 +13,15 @@ RouterHistory.redirectUnAuthorized();
 const PropertyPage: React.FC = () => {
   const { propertyId } = useParams();
 
+  const { windowScrollToTop } = useScrollTo();
+
   const { getProperty, cleanUpProperty } = usePropertiesQuery();
   const { getRoomTypes, cleanUpRoomTypes } = useRoomTypesQuery();
 
   useEffect(() => {
     if (!propertyId) return;
 
-    window.scrollTo({ behavior: "auto", left: 0, top: 0 });
+    windowScrollToTop();
 
     getRoomTypes();
     getProperty(propertyId);

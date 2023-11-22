@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import {
@@ -7,9 +6,7 @@ import {
 } from "store/selectors/roomTypes.selectors";
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import RoomsSkeleton from "./RoomsSkeleton";
-
-import RoomItem from "./RoomItem";
+import * as UI from "./components";
 import { Box, Stack, Typography } from "@mui/material";
 
 const PropertyRooms: React.FC<{ loading: boolean }> = ({ loading }) => {
@@ -20,7 +17,7 @@ const PropertyRooms: React.FC<{ loading: boolean }> = ({ loading }) => {
   const rooms = useAppSelector(selectProperty).rooms.map((room) => room._id);
 
   return loading || status.loading ? (
-    <RoomsSkeleton />
+    <UI.RoomsSkeleton />
   ) : (
     <Box mt="10px">
       <Typography mb="25px" fontSize={18} fontWeight={600}>
@@ -35,7 +32,7 @@ const PropertyRooms: React.FC<{ loading: boolean }> = ({ loading }) => {
         sx={{ listStyle: "none" }}
       >
         {allRoomTypes.map((type) => (
-          <RoomItem
+          <UI.RoomItem
             room={type}
             key={type._id}
             isAvailable={rooms.includes(type._id)}

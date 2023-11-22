@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CardMedia } from "@mui/material";
 
 interface AgentCardMediaT {

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useGoogleLoginQuery } from "hooks/api/auth";
 
 import { Button } from "@mui/material";

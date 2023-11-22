@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import * as UI from "./components";
@@ -6,6 +5,7 @@ import * as MuiStyled from "./PropertyCard.styled";
 import { CardMedia, Divider } from "@mui/material";
 
 import { PropertyShortInfoT } from "interface/db/properties.types";
+
 interface PropertyCardVerticalT {
   property: PropertyShortInfoT;
 }

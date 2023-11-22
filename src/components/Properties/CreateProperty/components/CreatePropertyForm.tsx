@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import {
@@ -10,9 +9,9 @@ import { Controller } from "react-hook-form";
 import { useCreatePropertyQuery } from "hooks/api/properties";
 
 import { Box } from "@mui/material";
+import styles from "./form.module.css";
 import * as Form from "components/Layouts/Form";
 import { Button, Spinner } from "components/Layouts";
-import styles from "./form.module.css";
 
 interface CreatePropertyFormT {}
 

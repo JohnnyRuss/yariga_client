@@ -1,12 +1,9 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import { selectAgentDetails } from "store/selectors/agent.selectors";
 
+import * as UI from "./components";
 import { Box, Typography, Divider, Stack } from "@mui/material";
-import AgentDetailsListedItem from "./AgentDetailsListedItem";
-import AgentDetailsSkeleton from "./AgentDetailsSkeleton";
-import AgentDetailsPieCharts from "./AgentDetailsPieCharts";
 
 interface AgentDetailsT {
   loading: boolean;
@@ -16,7 +13,7 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
   const details = useAppSelector(selectAgentDetails);
 
   return loading ? (
-    <AgentDetailsSkeleton />
+    <UI.AgentDetailsSkeleton />
   ) : (
     <Box
       boxShadow={3}
@@ -38,16 +35,22 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
       </Typography>
 
       <Stack gap="10px" mt="30px" pb="25px">
-        <AgentDetailsListedItem label="Agency" value={details.agency.title} />
+        <UI.AgentDetailsListedItem
+          label="Agency"
+          value={details.agency.title}
+        />
 
-        <AgentDetailsListedItem
+        <UI.AgentDetailsListedItem
           label="Agent License"
           value={details.agency.agencyLicense}
         />
 
-        <AgentDetailsListedItem label="Tax Number" value={details.taxNumber} />
+        <UI.AgentDetailsListedItem
+          label="Tax Number"
+          value={details.taxNumber}
+        />
 
-        <AgentDetailsListedItem
+        <UI.AgentDetailsListedItem
           label="Service Area"
           value={details.serviceArea}
         />
@@ -59,7 +62,7 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
         Agent Status
       </Typography>
 
-      <AgentDetailsPieCharts />
+      <UI.AgentDetailsPieCharts />
     </Box>
   );
 };

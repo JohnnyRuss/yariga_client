@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Stack } from "@mui/material";
 import { SwiperClass } from "swiper/react";
@@ -11,8 +11,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import SliderThumbnails from "./SliderThumbnails";
-import SliderMainView from "./SliderMainView";
+import * as UI from "./components";
 
 interface SliderT {
   images: string[];
@@ -29,7 +28,7 @@ const Slider: React.FC<SliderT> = ({
 
   return (
     <Stack sx={{ height: "100%", width: "100%" }}>
-      <SliderMainView
+      <UI.SliderMainView
         images={images}
         Thumbs={Thumbs}
         FreeMode={FreeMode}
@@ -39,7 +38,7 @@ const Slider: React.FC<SliderT> = ({
         onSlideChange={onSlideChange}
       />
 
-      <SliderThumbnails
+      <UI.SliderThumbnails
         images={images}
         Thumbs={Thumbs}
         FreeMode={FreeMode}

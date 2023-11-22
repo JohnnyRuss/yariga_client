@@ -1,9 +1,5 @@
-import React from "react";
-
+import * as UI from "./components";
 import { Dialog as MuiDialog } from "@mui/material";
-import DialogBoxContent from "./DialogBoxContent";
-import DialogBoxTitle from "./DialogBoxTitle";
-import DialogBoxActions from "./DialogBoxActions";
 
 import { DialogT as DialogCommonT } from "interface/components/common.types";
 
@@ -24,21 +20,21 @@ const Dialog: React.FC<DialogT> = ({ dialog, onClose }) => {
       PaperProps={{ sx: { minWidth: "350px" } }}
     >
       {dialog.title && (
-        <DialogBoxTitle
+        <UI.DialogBoxTitle
           title={dialog.title}
           isDanger={isDangerType}
           titleAlignment={dialog.titleAlignment}
         />
       )}
 
-      <DialogBoxContent
+      <UI.DialogBoxContent
         message={dialog.message}
         isDanger={isDangerType}
         keyWord={dialog.keyWord || ""}
         messageAlignment={dialog.messageAlignment}
       />
 
-      <DialogBoxActions
+      <UI.DialogBoxActions
         isDanger={isDangerType}
         handleClose={handleClose}
         onConfirm={dialog.onConfirm}

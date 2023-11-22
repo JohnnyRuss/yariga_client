@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Rating, Typography, Stack } from "@mui/material";
 
 interface ReviewRatingT {

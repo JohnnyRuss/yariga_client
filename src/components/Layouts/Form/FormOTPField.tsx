@@ -1,4 +1,3 @@
-import React from "react";
 import OtpInput from "react-otp-input";
 
 import styles from "./form.module.css";
@@ -10,15 +9,15 @@ import {
 } from "interface/components/form.types";
 
 interface FormOTPFieldT {
+  label: string;
   fieldProps: ReactHookFormTextFieldPropsT;
   fieldStateProps?: ReactHookFormFieldStatePropsT;
-  label: string;
 }
 
 const FormOTPField: React.FC<FormOTPFieldT> = ({
+  label,
   fieldProps,
   fieldStateProps,
-  label,
 }) => {
   return (
     <div className={styles.otpFieldContainer}>

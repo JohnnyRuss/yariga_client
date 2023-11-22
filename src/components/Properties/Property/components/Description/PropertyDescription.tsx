@@ -1,11 +1,10 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import DescriptionSkeleton from "./DescriptionSkeleton";
-import { Box, Typography } from "@mui/material";
 import { Text } from "components/Layouts";
+import { Box, Typography } from "@mui/material";
+import DescriptionSkeleton from "./DescriptionSkeleton";
 
 const PropertyDescription: React.FC<{ loading: boolean }> = ({ loading }) => {
   const { description } = useAppSelector(selectProperty);

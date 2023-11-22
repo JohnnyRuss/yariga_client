@@ -4,10 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { selectProperty } from "store/selectors/properties.selectors";
 
-import ViewSkeleton from "./ViewSkeleton";
+import * as UI from "./components";
 import { SliderModal } from "components/Layouts";
-import PropertyViewMain from "./PropertyViewMain";
-import PropertyViewThumb from "./PropertyViewThumb";
 import { Box, Stack, Typography } from "@mui/material";
 
 const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
@@ -27,7 +25,7 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
   };
 
   return loading ? (
-    <ViewSkeleton />
+    <UI.ViewSkeleton />
   ) : (
     <Stack
       mt="10px"
@@ -37,16 +35,16 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
     >
       {isActiveModal && <SliderModal images={images} />}
 
-      <PropertyViewMain src={images?.[0]} onClick={onGoToGallery} />
+      <UI.PropertyViewMain src={images?.[0]} onClick={onGoToGallery} />
 
       <Stack
         width={{ xs: "100%", md: "30%" }}
         flexDirection={{ xs: "row", md: "column" }}
         gap="22px"
       >
-        <PropertyViewThumb src={images?.[1]} onClick={onGoToGallery} />
+        <UI.PropertyViewThumb src={images?.[1]} onClick={onGoToGallery} />
 
-        <PropertyViewThumb src={images?.[2]} onClick={onGoToGallery}>
+        <UI.PropertyViewThumb src={images?.[2]} onClick={onGoToGallery}>
           <Box
             position="absolute"
             display="flex"
@@ -58,7 +56,7 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
               +{images.length - 3}
             </Typography>
           </Box>
-        </PropertyViewThumb>
+        </UI.PropertyViewThumb>
       </Stack>
     </Stack>
   );

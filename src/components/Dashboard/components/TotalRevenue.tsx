@@ -1,5 +1,3 @@
-import React from "react";
-
 import { TOTAL_REVENUE_SERIES, TOTAL_REVENUE_OPTIONS } from "config/constants";
 
 import ReactApexChart from "react-apexcharts";

@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import { selectSinglePropertyStatus } from "store/selectors/properties.selectors";

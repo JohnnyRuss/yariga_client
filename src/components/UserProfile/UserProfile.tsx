@@ -1,15 +1,10 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 
+import * as UI from "./components";
 import { Stack, Box } from "@mui/material";
 import { ContentBox, SectionTitle } from "components/Layouts";
-import ProfileImages from "./components/ProfileImages";
-import UserProperties from "./components/UserProperties";
-import UserFormDetails from "./components/UserFormDetails";
-import UserDetailsHeader from "./components/UserDetailsHeader";
-import UserStaticDetails from "./components/UserStaticDetails";
 
 import { UserT } from "interface/db/user.types";
 
@@ -51,7 +46,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         width="100%"
         boxShadow={3}
       >
-        <ProfileImages
+        <UI.ProfileImages
           loading={loading}
           avatar={user.avatar}
           username={user.username}
@@ -59,21 +54,21 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         />
 
         <Box py={{ xs: "15px", md: "35px" }} width="100%">
-          <UserDetailsHeader
+          <UI.UserDetailsHeader
             loading={loading}
             username={user.username}
             isAuthenticatedUser={isAuthenticatedUser}
           />
 
           {isEditProfileTab ? (
-            <UserFormDetails
+            <UI.UserFormDetails
               email={user.email}
               phone={user.phone}
               location={user.location}
               onCancelEdit={onCancelEdit}
             />
           ) : (
-            <UserStaticDetails
+            <UI.UserStaticDetails
               loading={loading}
               email={user.email}
               phone={user.phone}
@@ -83,7 +78,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         </Box>
       </Stack>
 
-      <UserProperties
+      <UI.UserProperties
         userId={user._id}
         username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
       />

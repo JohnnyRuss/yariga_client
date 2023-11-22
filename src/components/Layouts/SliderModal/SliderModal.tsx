@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import Gallery from "./Gallery";
-import SliderView from "./SliderView";
+import * as UI from "./components";
 import { Modal } from "components/Layouts";
 import { ArrowBackIos } from "@mui/icons-material";
 import { Typography, Box, Stack, Button } from "@mui/material";
@@ -55,11 +54,11 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
         </Stack>
 
         {isNaN(activeSlideIndex) && (
-          <Gallery images={images} onActivateSlider={onActivateSlider} />
+          <UI.Gallery images={images} onActivateSlider={onActivateSlider} />
         )}
 
         {!isNaN(activeSlideIndex) && (
-          <SliderView images={images} initialSlide={activeSlideIndex} />
+          <UI.SliderView images={images} initialSlide={activeSlideIndex} />
         )}
       </Box>
     </Modal>

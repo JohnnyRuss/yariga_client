@@ -1,9 +1,7 @@
-import React from "react";
-
 import { Stack, Box } from "@mui/material";
+import styles from "./propertyCard.module.css";
 import ExtraDetailIcon from "./ExtraDetailIcon";
 import { BedIcon, ShowerIcon, AreaIcon } from "assets/icons";
-import styles from "./propertyCard.module.css";
 
 interface ExtraDetailsT {
   area: number;

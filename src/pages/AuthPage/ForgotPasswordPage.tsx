@@ -1,5 +1,3 @@
-import React from "react";
-
 import ForgotPassword from "components/Auth/ForgotPassword";
 import { RouterHistory } from "config/config";
 

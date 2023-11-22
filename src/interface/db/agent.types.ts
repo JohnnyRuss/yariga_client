@@ -66,6 +66,7 @@ enum HIRED_BY {
   PROPERTY = "PROPERTY",
 }
 
+// API
 type HireAgentArgsT = {
   agentId: string;
   propertyId: string;
@@ -79,6 +80,10 @@ type AgentListingShortT = {
 
 type HireAgentResponseT = Omit<AgentShortInfoT, "listing"> & {
   listing: Array<AgentListingShortT>;
+};
+
+type GetAgentArgsT = {
+  agentId: string;
 };
 
 type GetAgentsArgsT = {
@@ -97,6 +102,7 @@ export type {
   HireAgentArgsT,
   AgentListingShortT,
   HireAgentResponseT,
+  GetAgentArgsT,
   GetAgentsArgsT,
   GetAgentsResponseT,
 };

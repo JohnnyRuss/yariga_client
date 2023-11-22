@@ -2,13 +2,11 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
-import { useHireAgentQuery } from "hooks/api";
+import { useHireAgentQuery } from "hooks/api/agents";
 import { useAppContext } from "providers/AppProvider";
 import { selectHireAgentStatus } from "store/selectors/agent.selectors";
 
-import HireByAgent from "./HireByAgent";
-import HireByProperty from "./HireByProperty";
-import SearchBar from "./SearchBar";
+import * as UI from "./components";
 import { Stack, Box } from "@mui/material";
 import { Modal, Spinner } from "components/Layouts";
 
@@ -74,14 +72,14 @@ const HireAgentModal: React.FC<HireAgentModalT> = ({
           width={{ xs: "95vw", md: "70vh" }}
           height={{ xs: "90vh", md: "70vh" }}
         >
-          <SearchBar
+          <UI.SearchBar
             hiredBy={hiredBy}
             searchAgent={searchAgent}
             setSearchAgent={setSearchAgent}
           />
 
           {hiredBy === "AGENT" && (
-            <HireByAgent
+            <UI.HireByAgent
               searchStr={searchAgent}
               onHire={({ agentId }) =>
                 hireAgentQuery({
@@ -94,7 +92,7 @@ const HireAgentModal: React.FC<HireAgentModalT> = ({
           )}
 
           {hiredBy === "PROPERTY" && (
-            <HireByProperty
+            <UI.HireByProperty
               searchStr={searchAgent}
               onHire={({ propertyId }) =>
                 hireAgentQuery({ propertyId, agentId: agentId || "", hiredBy })

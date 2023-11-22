@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   FormControl,
   Select,
@@ -16,23 +14,23 @@ import {
 } from "interface/components/form.types";
 
 interface FormSelectFieldT {
-  fieldProps: ReactHookFormSelectFieldPropsT;
-  fieldStateProps?: ReactHookFormFieldStatePropsT;
-  label: string;
-  required?: boolean;
-  passEvent?: boolean;
   list: Array<{
     _id: string;
     label: string;
     value: string;
   }>;
+  label: string;
+  required?: boolean;
+  passEvent?: boolean;
+  fieldProps: ReactHookFormSelectFieldPropsT;
+  fieldStateProps?: ReactHookFormFieldStatePropsT;
 }
 
 const FormSelectField: React.FC<FormSelectFieldT> = ({
+  list,
+  label,
   fieldProps,
   fieldStateProps,
-  label,
-  list,
   passEvent = false,
   required = true,
 }) => {

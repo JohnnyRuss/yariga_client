@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { RouterHistory } from "config/config";
 import { usePropertyFormSuggestionsQuery } from "hooks/api/properties";
@@ -14,6 +14,7 @@ const CreatePropertyPage: React.FC = () => {
 
   useEffect(() => {
     getSuggestions();
+
     return () => {
       cleanUpSuggestions();
     };

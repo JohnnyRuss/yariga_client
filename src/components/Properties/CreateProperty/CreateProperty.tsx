@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ContentBox, SectionTitle } from "components/Layouts";
 import CreatePropertyForm from "./components/CreatePropertyForm";
 

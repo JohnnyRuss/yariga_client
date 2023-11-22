@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Stack, Avatar, Typography } from "@mui/material";
 
 import { ReviewAuthorT } from "interface/db/reviews.types";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { AppLogo } from "assets";
 import { AuthImg } from "assets/images";
 import { SVG } from "components/Layouts";

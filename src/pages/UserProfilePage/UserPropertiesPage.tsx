@@ -1,41 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "store/hooks";
+import { useAppSelector } from "store/hooks";
 
 import {
   selectUserProperties,
   selectUserPropertiesStatus,
 } from "store/selectors/properties.selectors";
-import { selectGuest } from "store/selectors/user.selectors";
-import { userActions } from "store/reducers/user.reducer";
-import { propertiesActions } from "store/reducers/properties.reducer";
-
 import { RouterHistory } from "config/config";
+import { selectGuest } from "store/selectors/user.selectors";
+import { useUserQuery } from "hooks/api/user";
+import { usePropertiesQuery } from "hooks/api/properties";
 
 import UserProperties from "components/UserProfile/UserProperties";
 
 RouterHistory.redirectUnAuthorized();
 
 const UserPropertiesPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-
   const { userId } = useParams();
 
   const user = useAppSelector(selectGuest);
 
-  const propertiesStatus = useAppSelector(selectUserPropertiesStatus);
   const properties = useAppSelector(selectUserProperties);
+  const propertiesStatus = useAppSelector(selectUserPropertiesStatus);
+
+  const { getGuest, cleanUpGuest } = useUserQuery();
+  const { getUserProperties, cleanUpUserProperties } = usePropertiesQuery();
 
   useEffect(() => {
     if (!userId) return;
 
-    dispatch(userActions.getGuest({ userId }));
-    dispatch(propertiesActions.getUserProperties({ userId, limit: 15 }));
+    getGuest({ userId: userId });
+    getUserProperties({ userId: user._id });
 
     return () => {
-      dispatch(userActions.cleanUpGuest());
-      dispatch(propertiesActions.cleanUpUserProperties());
+      cleanUpGuest();
+      cleanUpUserProperties();
     };
   }, [userId]);
 

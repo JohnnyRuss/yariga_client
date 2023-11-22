@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Stack, Box, Skeleton } from "@mui/material";
 
 const ReviewCardSkeleton: React.FC = () => {

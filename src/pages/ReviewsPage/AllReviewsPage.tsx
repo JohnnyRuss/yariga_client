@@ -8,11 +8,11 @@ import AllReviews from "components/Reviews/AllReviews";
 
 const AllReviewsPage: React.FC = () => {
   const navigate = useNavigate();
+
   const { search, pathname } = useLocation();
+  const urlSearchParams = new URLSearchParams(search);
 
   const { getReviews, cleanUpReviews } = useReviewsQuery();
-
-  const urlSearchParams = new URLSearchParams(search);
 
   useEffect(() => {
     const existingPage = urlSearchParams.get("page");

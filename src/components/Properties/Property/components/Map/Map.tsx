@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useAppSelector } from "store/hooks";
 
 import L from "leaflet";
@@ -8,9 +8,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { selectProperty } from "store/selectors/properties.selectors";
 import { MAP_TILE_ATTRIBUTION, MAP_TILE_RAPID_API_URL } from "config/config";
 
-import MapBox from "./MapBox";
-import GPSButton from "./GPSButton";
-import MapSkeleton from "./MapSkeleton";
+import * as UI from "./components";
 import { LocationIcon } from "assets/icons";
 
 const Map: React.FC<{ loading: boolean }> = ({ loading }) => {
@@ -25,9 +23,9 @@ const Map: React.FC<{ loading: boolean }> = ({ loading }) => {
   };
 
   return loading ? (
-    <MapSkeleton />
+    <UI.MapSkeleton />
   ) : (
-    <MapBox>
+    <UI.MapBox>
       {location.lat && location.lon && (
         <MapContainer
           ref={mapRef}
@@ -55,8 +53,8 @@ const Map: React.FC<{ loading: boolean }> = ({ loading }) => {
         </MapContainer>
       )}
 
-      <GPSButton onBackToPin={onBackToPin} />
-    </MapBox>
+      <UI.GPSButton onBackToPin={onBackToPin} />
+    </UI.MapBox>
   );
 };
 

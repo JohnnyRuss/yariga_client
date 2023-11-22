@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "store/hooks";
 
 import { selectAgentCredentials } from "store/selectors/agent.selectors";
 
-import AgentCoverImage from "./AgentCoverImage";
-import AgentCredentialsItem from "./AgentCredentialsItem";
-import AgentCredentialsSkeleton from "./AgentCredentialsSkeleton";
-import AgentAvatarAndUsername from "./AgentAvatarAndUsername";
-import { Button, HireAgentModal } from "components/Layouts";
-
+import * as UI from "./components";
 import { Box, Stack } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
+import { Button, HireAgentModal } from "components/Layouts";
 
 interface AgentCredentialsT {
   loading: boolean;
@@ -36,7 +32,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
   return (
     <>
       {loading ? (
-        <AgentCredentialsSkeleton />
+        <UI.AgentCredentialsSkeleton />
       ) : (
         <Box
           boxShadow={3}
@@ -46,7 +42,7 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
             backgroundColor: "app_bg.main",
           }}
         >
-          <AgentCoverImage />
+          <UI.AgentCoverImage />
 
           <Stack
             gap="30px"
@@ -56,38 +52,41 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
               transform: "translateY(-40px)",
             }}
           >
-            <AgentAvatarAndUsername
+            <UI.AgentAvatarAndUsername
               avatar={agent.avatar}
               username={agent.username}
             />
 
             <Stack width="100%" gap="15px">
-              <AgentCredentialsItem label="Age" value={age.toString()} />
+              <UI.AgentCredentialsItem label="Age" value={age.toString()} />
 
-              <AgentCredentialsItem label="City" value={agent.location.city} />
+              <UI.AgentCredentialsItem
+                label="City"
+                value={agent.location.city}
+              />
 
               {agent.location.state && (
-                <AgentCredentialsItem
+                <UI.AgentCredentialsItem
                   label="State"
                   value={agent.location.state || ""}
                 />
               )}
 
-              <AgentCredentialsItem
+              <UI.AgentCredentialsItem
                 label="Country"
                 value={agent.location.country}
               />
 
-              <AgentCredentialsItem
+              <UI.AgentCredentialsItem
                 label="Post Code"
                 value={agent.location.postcode}
               />
 
-              <AgentCredentialsItem label="AgentID" value={agent.agentId} />
+              <UI.AgentCredentialsItem label="AgentID" value={agent.agentId} />
 
-              <AgentCredentialsItem label="Phone" value={agent.phone} />
+              <UI.AgentCredentialsItem label="Phone" value={agent.phone} />
 
-              <AgentCredentialsItem label="Email" value={agent.email} />
+              <UI.AgentCredentialsItem label="Email" value={agent.email} />
             </Stack>
 
             <Button

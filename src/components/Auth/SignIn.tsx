@@ -1,12 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
+import { Controller } from "react-hook-form";
 import { paths } from "config/paths";
 import { useSignInQuery } from "hooks/api/auth";
 import { selectAuthStatus } from "store/selectors/auth.selectors";
-
-import { Controller } from "react-hook-form";
 
 import * as UI from "./components";
 import * as Form from "components/Layouts/Form";

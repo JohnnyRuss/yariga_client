@@ -8,11 +8,11 @@ import DeletedReviews from "components/Reviews/DeletedReviews";
 
 const DeletedReviewsPage: React.FC = () => {
   const navigate = useNavigate();
+
   const { search, pathname } = useLocation();
+  const urlSearchParams = new URLSearchParams(search);
 
   const { getReviews, cleanUpReviews } = useReviewsQuery();
-
-  const urlSearchParams = new URLSearchParams(search);
 
   useEffect(() => {
     const existingPage = urlSearchParams.get("page");

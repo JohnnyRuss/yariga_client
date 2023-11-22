@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "store/hooks";
 
-import { useHireAgentQuery } from "hooks/api";
 import { useIsCurrentUser } from "hooks/utils";
+import { useHireAgentQuery } from "hooks/api/agents";
 import { useAppContext } from "providers/AppProvider";
 import { selectProperty } from "store/selectors/properties.selectors";
 import { selectHireAgentStatus } from "store/selectors/agent.selectors";
 
-import AgentDetails from "./AgentDetails";
-import AgentSkeleton from "./AgentSkeleton";
-import HireAgentButtons from "./HireAgentButtons";
-import AgentContactButtons from "./AgentContactButtons";
+import * as UI from "./components";
 import { HireAgentModal, Spinner } from "components/Layouts";
 import { Paper, Stack, Avatar } from "@mui/material";
 
@@ -52,7 +49,7 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
   return (
     <>
       {loading ? (
-        <AgentSkeleton />
+        <UI.AgentSkeleton />
       ) : (
         <Paper
           elevation={2}
@@ -80,10 +77,10 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
               {ownerData.username[0]?.toUpperCase()}
             </Avatar>
 
-            <AgentDetails owner={ownerData} isAgent={agent ? true : false} />
+            <UI.AgentDetails owner={ownerData} isAgent={agent ? true : false} />
 
             {(!isAuthenticatedUser || agent) && (
-              <AgentContactButtons
+              <UI.AgentContactButtons
                 title={title}
                 email={ownerData.email}
                 phone={ownerData.phone}
@@ -91,7 +88,7 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
             )}
 
             {isAuthenticatedUser && (
-              <HireAgentButtons
+              <UI.HireAgentButtons
                 hasAgent={agent ? true : false}
                 onFireAgent={onFireAgent}
                 onOpenHireAgent={onOpenHireAgent}

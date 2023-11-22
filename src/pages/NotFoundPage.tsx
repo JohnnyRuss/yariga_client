@@ -1,8 +1,4 @@
-import React from "react";
-
-interface NotFoundPageT {}
-
-const NotFoundPage: React.FC<NotFoundPageT> = (props) => {
+const NotFoundPage: React.FC = () => {
   return <div>NotFoundPage</div>;
 };
 

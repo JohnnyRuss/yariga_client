@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box } from "@mui/material";
 import { ContentBox, GoBackButton, PropertiesList } from "components/Layouts";
 

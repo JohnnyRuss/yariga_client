@@ -1,5 +1,3 @@
-import React from "react";
-
 import Messages from "components/Messages/Messages";
 
 import { RouterHistory } from "config/config";

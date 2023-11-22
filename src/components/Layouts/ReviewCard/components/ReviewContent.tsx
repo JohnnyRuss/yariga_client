@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Stack } from "@mui/material";
 import { Text } from "components/Layouts";
 import ReviewContentChip from "./ReviewContentChip";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Stack, Chip, Typography } from "@mui/material";
 import styles from "../form.module.css";
 

@@ -1,10 +1,8 @@
-import React from "react";
-
 import { CircularProgress, Box } from "@mui/material";
 
 interface SpinnerT {}
 
-const Spinner: React.FC<SpinnerT> = (props) => {
+const Spinner: React.FC<SpinnerT> = () => {
   return (
     <Box
       position="absolute"

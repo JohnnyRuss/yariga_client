@@ -1,7 +1,5 @@
-import React from "react";
-
-import { Stack, Typography } from "@mui/material";
 import { Place } from "@mui/icons-material";
+import { Stack, Typography } from "@mui/material";
 
 interface LocationT {
   location: string;

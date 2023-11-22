@@ -1,6 +1,5 @@
-import React from "react";
-
 import { DASHBOARD_PIE_CHARTS } from "config/constants";
+
 import { Box } from "@mui/material";
 import { PieChart } from "components/Layouts";
 

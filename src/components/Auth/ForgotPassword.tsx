@@ -1,10 +1,8 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
+import { Controller } from "react-hook-form";
 import { useForgotPasswordQuery } from "hooks/api/auth";
 import { selectAuthStatus } from "store/selectors/auth.selectors";
-
-import { Controller } from "react-hook-form";
 
 import * as UI from "./components";
 import * as Form from "components/Layouts/Form";

@@ -11,6 +11,7 @@ import {
   HireAgentResponseT,
   GetAgentsResponseT,
   GetAgentsArgsT,
+  GetAgentArgsT,
 } from "interface/db/agent.types";
 import { AgentStateT } from "interface/store/agent.types";
 
@@ -75,8 +76,8 @@ const agentSlice = createSlice({
   reducers: {
     // ALL AGENTS
     getAllAgents: {
-      prepare: (payload: GetAgentsArgsT) => {
-        return { payload };
+      prepare: (payload?: GetAgentsArgsT) => {
+        return { payload: payload || {} };
       },
 
       reducer: (state) => {
@@ -110,7 +111,7 @@ const agentSlice = createSlice({
 
     // AGENT DETAILS
     getAgent: {
-      prepare: (payload: { agentId: string }) => {
+      prepare: (payload: GetAgentArgsT) => {
         return {
           payload,
         };

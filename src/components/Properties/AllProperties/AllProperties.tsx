@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
 
 import {
@@ -7,11 +6,10 @@ import {
 } from "store/selectors/properties.selectors";
 import { selectPropertyFilterStatus } from "store/selectors/propertiesFilter.selectors";
 
+import * as UI from "./components";
 import { Box } from "@mui/material";
-import Filter from "./components/Filter";
-import AllPropertiesHeader from "./components/AllPropertiesHeader";
 import { ContentBox, Pagination, PropertiesList } from "components/Layouts";
-import * as MuiStyled from "./components/styles/AllProperties.styled";
+import * as MuiStyled from "./components/AllProperties/AllProperties.styled";
 
 const AllProperties: React.FC = () => {
   const filterStatus = useAppSelector(selectPropertyFilterStatus);
@@ -23,7 +21,7 @@ const AllProperties: React.FC = () => {
   return (
     <ContentBox flex={true}>
       <MuiStyled.AllPropertiesContainer>
-        <AllPropertiesHeader />
+        <UI.AllPropertiesHeader />
 
         <Box
           height="100%"
@@ -32,7 +30,7 @@ const AllProperties: React.FC = () => {
           gap={1}
           className="content__box"
         >
-          <Filter loading={filterStatus.loading} />
+          <UI.Filter loading={filterStatus.loading} />
 
           <PropertiesList
             status={status}

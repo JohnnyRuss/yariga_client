@@ -1,13 +1,12 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 
+import * as UI from "./components";
 import { ContentBox } from "components/Layouts";
-import ReviewsHeader from "./components/ReviewsHeader";
 
 const ReviewsBox: React.FC = () => {
   return (
     <ContentBox>
-      <ReviewsHeader />
+      <UI.ReviewsHeader />
 
       <Outlet />
     </ContentBox>

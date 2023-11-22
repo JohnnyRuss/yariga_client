@@ -1,12 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 import { dynamic_paths } from "config/paths";
 
 import { Card } from "@mui/material";
-import AgentCardMedia from "./components/AgentCardMedia";
-// import AgentMoreButton from "./components/AgentMoreButton";
-import AgentCardContent from "./components/AgentCardContent";
+import * as UI from "./components";
 
 import { AgentShortInfoT } from "interface/db/agent.types";
 
@@ -31,11 +28,11 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
           position: "relative",
         }}
       >
-        {/* <AgentMoreButton /> */}
+        {/* <UI.AgentMoreButton /> */}
 
-        <AgentCardMedia src={agent.avatar} />
+        <UI.AgentCardMedia src={agent.avatar} />
 
-        <AgentCardContent
+        <UI.AgentCardContent
           email={agent.email}
           phone={agent.phone}
           username={agent.username}

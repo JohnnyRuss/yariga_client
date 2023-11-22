@@ -1,5 +1,3 @@
-import React from "react";
-
 import SignIn from "components/Auth/SignIn";
 import { RouterHistory } from "config/config";
 

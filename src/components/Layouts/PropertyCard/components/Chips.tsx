@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Stack, Chip } from "@mui/material";
 
 interface ChipsT {
