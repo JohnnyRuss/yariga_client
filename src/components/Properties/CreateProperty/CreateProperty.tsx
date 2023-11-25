@@ -2,9 +2,14 @@ import { ContentBox, SectionTitle } from "components/Layouts";
 import CreatePropertyForm from "./components/CreatePropertyForm";
 
 const CreateProperty: React.FC = () => {
+  const isUpdateProcess =
+    new URLSearchParams(window.location.search).get("process") === "update";
+
   return (
     <ContentBox>
-      <SectionTitle title="Create Property" />
+      <SectionTitle
+        title={isUpdateProcess ? "Update Property" : "Create Property"}
+      />
 
       <CreatePropertyForm />
     </ContentBox>

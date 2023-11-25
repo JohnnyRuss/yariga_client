@@ -1,9 +1,8 @@
 import { useRef } from "react";
-import { nanoid } from "@reduxjs/toolkit";
 
 import FormHelperText from "./FormHelperText";
 import { Stack, Typography } from "@mui/material";
-import styles from "./form.module.css";
+import FormFileFieldSelectedList from "./components/FormFileFieldSelectedList";
 
 import {
   FileChangeEventT,
@@ -16,13 +15,15 @@ interface FormFileFieldT {
   onFileChange: FileChangeEventT;
   fieldProps: ReactHookFormFileFieldPropsT;
   fieldStateProps: ReactHookFormFieldStatePropsT;
+  onRemoveFile: (fileURL: string) => void;
 }
 
 const FormFileField: React.FC<FormFileFieldT> = ({
-  fieldProps,
-  fieldStateProps,
   label,
+  fieldProps,
   onFileChange,
+  onRemoveFile,
+  fieldStateProps,
 }) => {
   const fileRef = useRef<HTMLInputElement | null>(null);
 
@@ -61,19 +62,10 @@ const FormFileField: React.FC<FormFileFieldT> = ({
         onChange={(e) => onFileChange(e, fieldProps.onChange)}
       />
 
-      <div className={styles.chosenMediaContainer}>
-        {fieldProps.value[0] &&
-          fieldProps.value.slice(0, 6).map((base64, index) => (
-            <figure key={nanoid()} className={styles.chosenMediaFig}>
-              <img src={base64} alt="property" />
-              {fieldProps.value.length > 6 && index === 5 && (
-                <span className={styles.extraAssetsLayout}>
-                  +{fieldProps.value.length - 6}
-                </span>
-              )}
-            </figure>
-          ))}
-      </div>
+      <FormFileFieldSelectedList
+        value={fieldProps.value}
+        onRemoveFile={onRemoveFile}
+      />
 
       {fieldStateProps.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />

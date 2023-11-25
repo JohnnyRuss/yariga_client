@@ -3,7 +3,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PROPERTY_STATUS } from "interface/db/properties.types";
 
-import { greaterThanZero, isNumeric } from "utils/zod/helpers/customValidators";
+import {
+  greaterThanZero,
+  isNumeric,
+  isBase64Str,
+} from "utils/zod/helpers/customValidators";
+import { CLOUDINARY_ROOT_URL } from "config/config";
 
 const CreatePropertyValidationSchema = z
   .object({
@@ -67,13 +72,19 @@ const CreatePropertyValidationSchema = z
     }),
     description: z.string().trim().min(10),
     images: z.array(z.string().url()),
-    new_images: z.array(z.string()),
-    images_to_delete: z.array(z.string().url()),
+    images_to_delete: z.array(z.string().url()).optional(),
   })
   .refine(
     (data) => {
-      const existingImages = Array.isArray(data.images) && data.images[0];
-      const hasNewImages = Array.isArray(data.new_images) && data.new_images[0];
+      const allImages = data.images;
+
+      if (!Array.isArray(allImages)) return false;
+
+      const existingImages = allImages.filter((img) =>
+        img.startsWith(CLOUDINARY_ROOT_URL)
+      );
+
+      const hasNewImages = allImages.filter((img) => isBase64Str(img));
 
       if (!existingImages && !hasNewImages) return false;
       else return true;
@@ -109,7 +120,6 @@ const useCreatePropertyForm = () =>
       },
       description: "",
       images: [],
-      new_images: [],
       images_to_delete: [],
     },
     resolver: zodResolver(CreatePropertyValidationSchema),

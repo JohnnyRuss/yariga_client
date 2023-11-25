@@ -7,6 +7,7 @@ import {
   GetRelatedPropertiesArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
+  DeletePropertyArgsT,
 } from "interface/db/properties.types";
 
 export default function usePropertiesQuery() {
@@ -49,11 +50,21 @@ export default function usePropertiesQuery() {
   const cleanUpAgentProperties = () =>
     dispatch(propertiesActions.cleanUpAgentProperties());
 
+  // DELETE PROPERTY
+
+  const deleteProperty = (args: DeletePropertyArgsT) =>
+    dispatch(propertiesActions.deleteProperty(args));
+
+  const setDeletePropertyStatus = (args: SetStatusArgsT) =>
+    dispatch(propertiesActions.setDeletePropertyStatus(args));
+
   return {
     setAllPropertiesStatus,
     getAllProperties,
     cleanUpProperties,
     getProperty,
+    deleteProperty,
+    setDeletePropertyStatus,
     cleanUpProperty,
     getRelatedProperties,
     cleanUpRelatedProperties,

@@ -32,4 +32,9 @@ type CreatePropertyArgsT = {
   images_to_delete: Array<string>;
 };
 
-export type { PropertySuggestionsT, CreatePropertyArgsT };
+type UpdatePropertyArgsT = {
+  data: CreatePropertyArgsT;
+  propertyId: string;
+};
+
+export type { PropertySuggestionsT, CreatePropertyArgsT, UpdatePropertyArgsT };

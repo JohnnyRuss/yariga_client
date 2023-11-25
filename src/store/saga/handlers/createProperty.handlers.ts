@@ -5,6 +5,7 @@ import * as createPropertyAPI from "store/saga/api/createProperty.api";
 import { createPropertyFormActions } from "store/reducers/createPropertyForm.reducer";
 
 import {
+  UpdatePropertyArgsT,
   CreatePropertyArgsT,
   PropertySuggestionsT,
 } from "interface/db/createProperty.types";
@@ -36,6 +37,21 @@ export function* createProperty({
     yield setError({
       error,
       location: "createProperty",
+      errorSetter: createPropertyFormActions.setCreatePropertyStatus,
+    });
+  }
+}
+
+export function* updateProperty({
+  payload,
+}: PayloadAction<UpdatePropertyArgsT>) {
+  try {
+    yield call(createPropertyAPI.updatePropertyQuery, payload);
+    yield put(createPropertyFormActions.setCreateProperty());
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "updateProperty",
       errorSetter: createPropertyFormActions.setCreatePropertyStatus,
     });
   }

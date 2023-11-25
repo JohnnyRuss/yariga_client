@@ -1,4 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useAppSelector } from "store/hooks";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import {
   selectPropertySuggestions,
@@ -13,14 +16,46 @@ import styles from "./form.module.css";
 import * as Form from "components/Layouts/Form";
 import { Button, Spinner } from "components/Layouts";
 
-interface CreatePropertyFormT {}
+import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 
-const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
-  const { form, onSubmit, onFileChange } = useCreatePropertyQuery();
+const CreatePropertyForm: React.FC = () => {
+  const navigate = useNavigate();
+
+  const { state, search } = useLocation();
+
+  const isUpdating: boolean = state?.isUpdating || false;
+  const propertyDefaults: CreatePropertyFormT | undefined = state?.property;
+
+  const { form, onSubmit, onFileChange, onRemoveFile } =
+    useCreatePropertyQuery(isUpdating);
 
   const status = useAppSelector(selectCreatePropertyStatus);
-
   const suggestions = useAppSelector(selectPropertySuggestions);
+
+  const searchParams = new URLSearchParams(search);
+
+  useEffect(() => {
+    if (
+      !isUpdating &&
+      (searchParams.get("process") || searchParams.get("property"))
+    )
+      return navigate(-1);
+
+    if (!isUpdating || !propertyDefaults || status.loading) return;
+
+    form.reset({
+      ...propertyDefaults,
+      propertyStatus: {
+        ...propertyDefaults.propertyStatus,
+        _id:
+          propertyDefaults.propertyStatus._id ||
+          suggestions.propertyStatuses.find(
+            (status) => status.value === propertyDefaults.propertyStatus.value
+          )?._id ||
+          "",
+      },
+    });
+  }, [state, status.loading]);
 
   return (
     <Box
@@ -190,12 +225,13 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
         />
 
         <Controller
-          name="new_images"
+          name="images"
           control={form.control}
           render={({ field, fieldState }) => (
             <Form.FormFileField
               label="Select Property Picture"
               fieldProps={field}
+              onRemoveFile={onRemoveFile}
               fieldStateProps={fieldState}
               onFileChange={onFileChange}
             />
@@ -204,7 +240,13 @@ const CreatePropertyForm: React.FC<CreatePropertyFormT> = () => {
 
         <Button
           type="submit"
-          title={false ? "Submitting..." : "Submit"}
+          title={
+            status.loading
+              ? "IsProcessing..."
+              : isUpdating
+              ? "Update"
+              : "Submit"
+          }
           bgColor="app_blue.light"
           color="app_text.light"
           fullWidth={true}

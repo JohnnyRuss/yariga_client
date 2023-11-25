@@ -32,6 +32,7 @@ const Modal: React.FC<ModalT> = ({ open, onClose, children }) => {
             position: "absolute",
             top: "10px",
             right: "10px",
+            zIndex: 99,
           }}
         >
           <Close

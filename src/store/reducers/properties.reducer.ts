@@ -5,12 +5,11 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { PropertiesStateT } from "interface/store/properties.types";
-
 import {
   PropertyT,
   PropertyShortInfoT,
   GetPropertyArgsT,
+  DeletePropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
   GetAllPropertiesArgsT,
@@ -19,6 +18,7 @@ import {
 } from "interface/db/properties.types";
 import { AddReviewResponseT } from "interface/db/reviews.types";
 import { HireAgentResponseT } from "interface/db/agent.types";
+import { PropertiesStateT } from "interface/store/properties.types";
 
 const initialState: PropertiesStateT = {
   singlePropertyStatus: status.default(),
@@ -30,6 +30,8 @@ const initialState: PropertiesStateT = {
   agentPropertiesStatus: status.default(),
 
   relatedPropertiesStatus: status.default(),
+
+  deletePropertiesStatus: status.default(),
 
   properties: [],
 
@@ -276,6 +278,32 @@ const propertiesSlice = createSlice({
       state.agentProperties = initialState.agentProperties;
     },
 
+    // DELETE PROPERTY
+    deleteProperty: {
+      prepare: (payload: DeletePropertyArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.deletePropertiesStatus = status.loading();
+      },
+    },
+
+    setDeletedProperty(state) {
+      state.deletePropertiesStatus = status.success("SUCCESS");
+    },
+
+    setDeletePropertyStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.deletePropertiesStatus = setStatus({
+        stage,
+        message: message || "Failed to read related properties",
+      });
+    },
+
+    // HIRE/FIRE AGENT
     setHiredAgent(state, { payload }: PayloadAction<HireAgentResponseT>) {
       state.property.agent = {
         ...payload,

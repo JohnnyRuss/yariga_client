@@ -8,6 +8,13 @@ export function isLatinLetters(value: string): boolean {
   return reg.test(value);
 }
 
+export const isBase64Str = (value: string) => {
+  const reg =
+    /^(data:image\/[a-zA-Z+]+;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/;
+
+  return reg.test(value);
+};
+
 export const isNumeric = {
   validator: (data: string): boolean => /^[0-9]*$/.test(data),
   message: "please enter the number",

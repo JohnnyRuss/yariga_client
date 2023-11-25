@@ -8,6 +8,7 @@ import {
   PropertyT,
   PropertyShortInfoT,
   GetPropertyArgsT,
+  DeletePropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
   GetAllPropertiesArgsT,
@@ -49,6 +50,22 @@ export function* getProperty({ payload }: PayloadAction<GetPropertyArgsT>) {
       error,
       location: "getProperty",
       errorSetter: propertiesActions.setPropertyStatus,
+    });
+  }
+}
+
+export function* deleteProperty({
+  payload,
+}: PayloadAction<DeletePropertyArgsT>) {
+  try {
+    yield call(propertiesAPI.deletePropertyQuery, payload);
+
+    yield put(propertiesActions.setDeletedProperty());
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "deleteProperty",
+      errorSetter: propertiesActions.setDeletePropertyStatus,
     });
   }
 }

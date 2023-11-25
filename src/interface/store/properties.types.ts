@@ -8,6 +8,7 @@ type PropertiesStateT = {
   userPropertiesStatus: LoadingStatusT;
   agentPropertiesStatus: LoadingStatusT;
   relatedPropertiesStatus: LoadingStatusT;
+  deletePropertiesStatus: LoadingStatusT;
   // CONTENT DATA
   property: PropertyT;
   properties: Array<PropertyShortInfoT>;

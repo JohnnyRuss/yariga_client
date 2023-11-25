@@ -16,6 +16,8 @@ import {
 import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 import { CreatePropertyFormStateT } from "interface/store/createPropertyForm.types";
 
+import { isBase64Str } from "utils/zod/helpers/customValidators";
+
 const initialState: CreatePropertyFormStateT = {
   status: status.default(),
 
@@ -31,6 +33,7 @@ const createPropertyFormSlice = createSlice({
   name: "yariga-create-property-form",
   initialState,
   reducers: {
+    // SUGGESTIONS
     getPropertyFormSuggestions(state) {
       state.status = status.loading();
     },
@@ -47,9 +50,25 @@ const createPropertyFormSlice = createSlice({
       state.suggestions = initialState.suggestions;
     },
 
+    // CREATE
     createProperty: {
       prepare: (payload: CreatePropertyFormT) => {
         return { payload: prepareDataForDB(payload) };
+      },
+
+      reducer: (state) => {
+        state.status = status.loading();
+      },
+    },
+
+    updateProperty: {
+      prepare: (payload: { data: CreatePropertyFormT; propertyId: string }) => {
+        return {
+          payload: {
+            data: prepareDataForDB(payload.data),
+            propertyId: payload.propertyId,
+          },
+        };
       },
 
       reducer: (state) => {
@@ -89,14 +108,18 @@ function prepareDataForDB(data: CreatePropertyFormT): CreatePropertyArgsT {
     bedroomsAmount: +data.bedroomsAmount,
     location: data.location,
     description: data.description,
-    images: data.images || [],
     images_to_delete: data.images_to_delete || [],
   };
 
-  if (Array.isArray(data.new_images) && data.new_images[0])
-    credentials.new_images = FileControl.convertMultipleBase64StrToFile(
-      data.new_images
-    );
+  credentials.images = data.images.filter((img) => !isBase64Str(img)) || [];
+
+  const new_images: Array<string> = data.images.filter((img) =>
+    isBase64Str(img)
+  );
+
+  if (new_images[0])
+    credentials.new_images =
+      FileControl.convertMultipleBase64StrToFile(new_images);
 
   if (data.bathroomsAmount) credentials.bathroomsAmount = +data.bathroomsAmount;
 

@@ -103,6 +103,10 @@ type GetPropertyArgsT = {
   propertyId: string;
 };
 
+type DeletePropertyArgsT = {
+  propertyId: string;
+};
+
 type GetUserPropertiesArgsT = {
   userId: string;
   limit?: number;
@@ -143,6 +147,7 @@ export type {
   PropertyStatusT,
   // API
   GetPropertyArgsT,
+  DeletePropertyArgsT,
   GetUserPropertiesArgsT,
   GetAllPropertiesArgsT,
   GetAllPropertiesResponseT,

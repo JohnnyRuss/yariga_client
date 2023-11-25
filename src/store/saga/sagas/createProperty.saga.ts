@@ -13,4 +13,9 @@ export default function* createPropertySaga() {
     createPropertyFormActions.createProperty,
     createPropertyHandlers.createProperty
   );
+
+  yield takeLatest(
+    createPropertyFormActions.updateProperty,
+    createPropertyHandlers.updateProperty
+  );
 }

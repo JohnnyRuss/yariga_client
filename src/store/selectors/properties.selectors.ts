@@ -38,6 +38,13 @@ const selectedRelatedPropertiesStatus = ({ properties }: RootStateT) => ({
   status: properties.relatedPropertiesStatus.status,
 });
 
+const selectedDeletePropertyStatus = ({ properties }: RootStateT) => ({
+  error: properties.deletePropertiesStatus.error,
+  loading: properties.deletePropertiesStatus.loading,
+  message: properties.deletePropertiesStatus.message,
+  status: properties.deletePropertiesStatus.status,
+});
+
 const selectedProperty = ({ properties }: RootStateT) => ({
   _id: properties.property._id,
   owner: properties.property.owner,
@@ -90,6 +97,11 @@ const selectRelatedPropertiesStatus = createSelector(
   (status) => status
 );
 
+const selectDeletePropertyStatus = createSelector(
+  selectedDeletePropertyStatus,
+  (status) => status
+);
+
 const selectProperty = createSelector(selectedProperty, (property) => property);
 
 const selectAllProperties = createSelector(
@@ -112,6 +124,7 @@ export {
   selectUserPropertiesStatus,
   selectAgentPropertiesStatus,
   selectRelatedPropertiesStatus,
+  selectDeletePropertyStatus,
   selectAllProperties,
   selectAgentProperties,
   selectUserProperties,

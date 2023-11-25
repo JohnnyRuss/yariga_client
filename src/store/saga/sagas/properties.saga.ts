@@ -15,6 +15,11 @@ export default function* propertiesSaga() {
   );
 
   yield takeLatest(
+    propertiesActions.deleteProperty,
+    propertiesHandlers.deleteProperty
+  );
+
+  yield takeLatest(
     propertiesActions.getUserProperties,
     propertiesHandlers.getUserProperties
   );

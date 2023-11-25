@@ -94,9 +94,12 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
             <MenuItem
               key={item._id}
               value={item._id}
+              className={checked ? "active" : ""}
               sx={{
-                backgroundColor: checked ? "app_blue.light" : "initial",
-                color: checked ? "app_text.light" : "initial",
+                "&.active": {
+                  backgroundColor: checked ? "app_blue.light" : "initial",
+                  color: checked ? "app_text.light" : "initial",
+                },
 
                 "&:hover": {
                   backgroundColor: checked ? "app_blue.light" : "initial",
@@ -106,8 +109,9 @@ const FormMultipleSelectField: React.FC<FormMultipleSelectFieldT> = ({
             >
               <Checkbox
                 checked={checked}
+                className={checked ? "active" : ""}
                 sx={{
-                  "& .MuiSvgIcon-root": {
+                  "&.active": {
                     color: "app_text.light",
                   },
                 }}

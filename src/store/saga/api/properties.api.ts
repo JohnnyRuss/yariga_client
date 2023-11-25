@@ -1,5 +1,6 @@
 import {
   GetPropertyArgsT,
+  DeletePropertyArgsT,
   GetUserPropertiesArgsT,
   GetAgentPropertiesArgsT,
   GetAllPropertiesArgsT,
@@ -8,11 +9,15 @@ import {
 import { axiosPrivateQuery } from "services/axios";
 
 export async function getAllPropertiesQuery(data: GetAllPropertiesArgsT) {
-  return axiosPrivateQuery.get(`/properties${data.query}`);
+  return axiosPrivateQuery.get(`/properties${data.query}&limit=12`);
 }
 
 export async function getPropertyQuery(data: GetPropertyArgsT) {
   return axiosPrivateQuery.get(`/properties/${data.propertyId}`);
+}
+
+export async function deletePropertyQuery(data: DeletePropertyArgsT) {
+  return axiosPrivateQuery.delete(`/properties/${data.propertyId}`);
 }
 
 export async function getUserPropertiesQuery(data: GetUserPropertiesArgsT) {

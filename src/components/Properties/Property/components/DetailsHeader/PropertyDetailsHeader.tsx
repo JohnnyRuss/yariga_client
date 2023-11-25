@@ -1,5 +1,6 @@
 import { useAppSelector } from "store/hooks";
 
+import { useIsCurrentUser } from "hooks/utils";
 import { selectProperty } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";
@@ -13,7 +14,12 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
     propertyStatus,
     avgRating,
     _id: propertyId,
+    owner,
   } = useAppSelector(selectProperty);
+
+  const { isAuthenticatedUser: belongsToCurrentUser } = useIsCurrentUser(
+    owner._id
+  );
 
   return loading ? (
     <UI.HeaderSkeleton />
@@ -50,7 +56,7 @@ const PropertyDetailsHeader: React.FC<{ loading: boolean }> = ({ loading }) => {
           <Stack direction="row" gap="8px" alignItems="flex-end">
             <UI.PriceBox />
 
-            <UI.PropertyDetailsHeaderActions />
+            {belongsToCurrentUser && <UI.PropertyDetailsHeaderActions />}
           </Stack>
         </Stack>
       </Box>
