@@ -8,7 +8,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { paths } from "config/paths";
 import { RouterHistory } from "config/config";
 import { UsersStateT } from "interface/store/user.types";
-import { GetGuestArgsT, UserT, UpdateUserArgsT } from "interface/db/user.types";
+import {
+  UserT,
+  GetGuestArgsT,
+  UpdateUserArgsT,
+  UpdateProfileImageArgsT,
+  UpdateProfileImageResponseT,
+} from "interface/db/user.types";
 
 const userDefault = {
   _id: "",
@@ -98,6 +104,24 @@ const userSlice = createSlice({
       state.editProfileStatus = status.default();
 
       RouterHistory.navigate(paths.user_iprofile_page);
+    },
+
+    updateProfileImage: {
+      prepare: (payload: UpdateProfileImageArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.editProfileStatus = status.loading();
+      },
+    },
+
+    setUpdatedProfileImage(
+      state,
+      { payload }: PayloadAction<UpdateProfileImageResponseT>
+    ) {
+      state.user.avatar = payload.url;
+      state.editProfileStatus = status.success("SUCCESS");
     },
 
     setEditProfileStatus(

@@ -4,5 +4,11 @@ import * as userHandlers from "store/saga/handlers/user.handlers";
 
 export default function* userSaga() {
   yield takeLatest(userActions.getGuest, userHandlers.getGuest);
+
   yield takeLatest(userActions.updateUser, userHandlers.updateUser);
+
+  yield takeLatest(
+    userActions.updateProfileImage,
+    userHandlers.updateProfileImage
+  );
 }

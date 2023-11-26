@@ -4,6 +4,7 @@ import { useAppSelector } from "store/hooks";
 
 import { RouterHistory } from "config/config";
 import { usePropertiesQuery } from "hooks/api/properties";
+import ImageCropProvider from "providers/ImageCropProvide";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import UserProfile from "components/UserProfile/UserProfile";
@@ -23,7 +24,11 @@ const IProfile: React.FC = () => {
     };
   }, []);
 
-  return <UserProfile user={user} />;
+  return (
+    <ImageCropProvider>
+      <UserProfile user={user} />;
+    </ImageCropProvider>
+  );
 };
 
 export default IProfile;

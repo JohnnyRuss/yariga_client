@@ -32,4 +32,20 @@ type UpdateUserArgsT = {
   data: EditProfileFormT;
 };
 
-export type { UserT, LoginResponseT, GetGuestArgsT, UpdateUserArgsT };
+type UpdateProfileImageArgsT = {
+  file: File;
+  userId: string;
+};
+
+type UpdateProfileImageResponseT = {
+  url: string;
+};
+
+export type {
+  UserT,
+  LoginResponseT,
+  GetGuestArgsT,
+  UpdateUserArgsT,
+  UpdateProfileImageArgsT,
+  UpdateProfileImageResponseT,
+};

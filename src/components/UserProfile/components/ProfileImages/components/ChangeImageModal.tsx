@@ -1,87 +1,60 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import { useAppSelector } from "store/hooks";
+import { useImageCropContext } from "providers/ImageCropProvide";
+
+import {
+  selectEditProfileStatus,
+  selectAuthenticatedUser,
+} from "store/selectors/user.selectors";
+import { useUserQuery } from "hooks/api/user";
+import { useAppContext } from "providers/AppProvider";
 
 import "react-image-crop/dist/ReactCrop.css";
-import { type Crop } from "react-image-crop";
 
-import { Modal, Button } from "components/Layouts";
 import { Box, Typography, Stack } from "@mui/material";
+import { Modal, Button, Spinner } from "components/Layouts";
+
 import ImageCrop from "./ImageCrop";
 import ImageCropPlaceholder from "./ImageCropPlaceholder";
 import ChangeImageRoundedButton from "./ChangeImageRoundedButton";
 
-type ChangeImageModalT = {};
+const ChangeImageModal: React.FC = () => {
+  const status = useAppSelector(selectEditProfileStatus);
+  const authenticatedUser = useAppSelector(selectAuthenticatedUser);
 
-const ChangeImageModal: React.FC<ChangeImageModalT> = () => {
-  const [file, setFile] = useState<string>("");
+  const { setSnackbar } = useAppContext();
+  const { updateProfileImage, setEditProfileStatus } = useUserQuery();
 
-  const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(
-    null
-  );
-
-  const [crop, setCrop] = useState<Crop>({
-    height: 260,
-    width: 260,
-    unit: "px",
-    x: 50,
-    y: 0,
-  });
-
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target.files?.[0];
-    if (!target) return;
-
-    const imgURL = URL.createObjectURL(target);
-
-    const imgEl = new Image();
-    imgEl.src = imgURL;
-
-    imgEl.onload = () => {
-      setFile(imgURL);
-      setOriginalImage(imgEl);
-    };
-  };
-
-  const getCroppedImg = () => {
-    const renderedImage = document.querySelector(".image-crop__img");
-
-    if (!renderedImage || !originalImage) return;
-
-    const { width: renderedX, height: renderedY } =
-      renderedImage.getBoundingClientRect();
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-
-    const scaleX = originalImage.naturalWidth / renderedX;
-    const scaleY = originalImage.naturalHeight / renderedY;
-
-    if (ctx) {
-      ctx.drawImage(
-        originalImage,
-        crop.x * scaleX,
-        crop.y * scaleY,
-        crop.width * scaleX,
-        crop.height * scaleY,
-        0,
-        0,
-        crop.width,
-        crop.height
-      );
-    }
-
-    return canvas.toDataURL("image/png");
-  };
+  const { file, getCroppedImg, openChangeProfileModal, onCloseModal } =
+    useImageCropContext();
 
   const onSetProfilePicture = () => {
-    const dataURL = getCroppedImg();
-    console.log(dataURL);
+    const file = getCroppedImg(
+      document.querySelector(".image-crop__img") as HTMLImageElement
+    );
+
+    if (!file) return;
+
+    updateProfileImage({ file, userId: authenticatedUser._id });
   };
 
+  useEffect(() => {
+    if (status.status !== "SUCCESS") return;
+
+    onCloseModal();
+    setEditProfileStatus({ stage: "default" });
+
+    setSnackbar((prev) => ({
+      ...prev,
+      open: true,
+      severity: "success",
+      message: "Profile image updated successfully",
+    }));
+  }, [status]);
+
   return (
-    <Modal open={true} onClose={() => {}}>
+    <Modal open={openChangeProfileModal} onClose={onCloseModal}>
       <Stack
         sx={{
           padding: 2,
@@ -93,7 +66,9 @@ const ChangeImageModal: React.FC<ChangeImageModalT> = () => {
           position: "relative",
         }}
       >
-        {file && <ChangeImageRoundedButton onFileChange={onFileChange} />}
+        {status.loading && <Spinner />}
+
+        {file && <ChangeImageRoundedButton />}
 
         <Box sx={{ justifySelf: "flex-start", mb: "auto" }}>
           <Typography fontSize={22} fontWeight={600}>
@@ -101,15 +76,16 @@ const ChangeImageModal: React.FC<ChangeImageModalT> = () => {
           </Typography>
         </Box>
 
-        {file && <ImageCrop file={file} crop={crop} setCrop={setCrop} />}
+        {file && <ImageCrop disabled={status.loading} />}
 
-        {!file && <ImageCropPlaceholder onFileChange={onFileChange} />}
+        {!file && <ImageCropPlaceholder />}
 
         <Box>
           <Button
             title="Apply"
             fullWidth={true}
             onClick={onSetProfilePicture}
+            disabled={!file || status.loading}
           />
         </Box>
       </Stack>

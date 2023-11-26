@@ -1,12 +1,10 @@
+import { useImageCropContext } from "providers/ImageCropProvide";
+
 import { Box } from "@mui/material";
 
-type ImageCropPlaceholderT = {
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+const ImageCropPlaceholder: React.FC = () => {
+  const { onFileChange } = useImageCropContext();
 
-const ImageCropPlaceholder: React.FC<ImageCropPlaceholderT> = ({
-  onFileChange,
-}) => {
   return (
     <Box
       component="label"
@@ -14,14 +12,15 @@ const ImageCropPlaceholder: React.FC<ImageCropPlaceholderT> = ({
       sx={{
         width: "100%",
         height: "50vh",
-        border: "1px dashed #333",
+        border: "1px dashed",
+        borderColor: "app_text.main",
         borderRadius: "15px",
         textDecoration: "underline",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         fontWeight: 600,
-        fontSize: 26,
+        fontSize: 18,
         letterSpacing: 1,
         color: "app_text.main",
         cursor: "pointer",

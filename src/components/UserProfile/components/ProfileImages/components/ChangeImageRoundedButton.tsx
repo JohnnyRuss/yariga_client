@@ -1,13 +1,11 @@
+import { useImageCropContext } from "providers/ImageCropProvide";
+
 import { Box } from "@mui/material";
 import { Image } from "@mui/icons-material";
 
-type ChangeImageRoundedButtonT = {
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+const ChangeImageRoundedButton: React.FC = () => {
+  const { onFileChange } = useImageCropContext();
 
-const ChangeImageRoundedButton: React.FC<ChangeImageRoundedButtonT> = ({
-  onFileChange,
-}) => {
   return (
     <Box
       component="label"

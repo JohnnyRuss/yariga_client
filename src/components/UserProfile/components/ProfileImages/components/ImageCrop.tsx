@@ -1,38 +1,52 @@
-import ReactCrop, { type Crop } from "react-image-crop";
+import ReactCrop from "react-image-crop";
+import { useImageCropContext } from "providers/ImageCropProvide";
 
-import { Stack } from "@mui/material";
-import CropSelection from "./CropSelection";
 import "./imageCrop.css";
+import { Stack, Box } from "@mui/material";
+import CropSelection from "./CropSelection";
 
 type ImageCropT = {
-  file: string;
-  crop: Crop;
-  setCrop: React.Dispatch<React.SetStateAction<Crop>>;
+  disabled: boolean;
 };
 
-const ImageCrop: React.FC<ImageCropT> = ({ file, crop, setCrop }) => {
+const ImageCrop: React.FC<ImageCropT> = ({ disabled }) => {
+  const { crop, setCrop, file } = useImageCropContext();
+
   return (
-    <ReactCrop
-      crop={crop}
-      onChange={(c) => setCrop(c)}
-      ruleOfThirds={true}
-      aspect={1 / 1}
-      minWidth={260}
-      minHeight={260}
-      renderSelectionAddon={() => (
-        <CropSelection width={crop.width} height={crop.height} />
-      )}
+    <Box
+      sx={{
+        maxHeight: "50vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <Stack
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-        height="100%"
-        bgcolor="green"
+      <ReactCrop
+        crop={crop}
+        onChange={(c) => setCrop(c)}
+        ruleOfThirds={true}
+        aspect={1 / 1}
+        minWidth={260}
+        minHeight={260}
+        maxWidth={480}
+        maxHeight={480}
+        disabled={disabled}
+        renderSelectionAddon={() => (
+          <CropSelection width={crop.width} height={crop.height} />
+        )}
       >
-        <img alt="crop" className="image-crop__img" src={file} />
-      </Stack>
-    </ReactCrop>
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          maxWidth="100%"
+          height="100%"
+          maxHeight="50vh"
+          bgcolor="green"
+        >
+          <img alt="crop" className="image-crop__img" src={file} />
+        </Stack>
+      </ReactCrop>
+    </Box>
   );
 };
 
