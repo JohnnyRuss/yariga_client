@@ -28,7 +28,7 @@ function* setError({
     if (errorSetter && errorSetterArgs)
       yield put(errorSetter({ ...errorSetterArgs, message, stage: "error" }));
 
-    // if (process.env.REACT_APP_ENV_MODE !== "DEV") return;
+    if (process.env.REACT_APP_ENV_MODE !== "DEV") return;
 
     console.error({
       hasError: true,

@@ -126,6 +126,13 @@ export const routes: RouteT[] = [
     name: "messages-page",
     path: paths.messages_page,
     element: <Pages.MessagesPage />,
+    children: [
+      {
+        name: "messages-conversation-page",
+        path: paths.messages_conversation_page,
+        element: <Pages.MessagesConversationPage />,
+      },
+    ],
   },
 
   // USER PROFILE

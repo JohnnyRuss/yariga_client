@@ -24,6 +24,7 @@ const paths = {
   deleted_reviews_page: "/reviews/deleted",
   // MESSAGES
   messages_page: "/messages",
+  messages_conversation_page: "/messages/:conversationId",
   // USER PROFILE
   user_iprofile_page: "/iuser",
   iuser_properties_page: "/iuser/properties",
@@ -45,6 +46,9 @@ const dynamic_paths = {
     paths.user_profile_page.replace(":userId", userId),
   user_properties_page: (userId: string) =>
     paths.user_properties_page.replace(":userId", userId),
+  // MESSAGES
+  messages_conversation__page: (conversationId: string) =>
+    paths.messages_conversation_page.replace(":conversationId", conversationId),
 };
 
 export { paths, dynamic_paths };
