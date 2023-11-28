@@ -3,11 +3,12 @@ import { Avatar as MuiAvatar, Badge, Box } from "@mui/material";
 type AvatarT = {
   src: string;
   alt: string;
+  width?: string;
 };
 
-const Avatar: React.FC<AvatarT> = ({ src, alt }) => {
+const Avatar: React.FC<AvatarT> = ({ src, alt, width = "50px" }) => {
   return (
-    <Box position="relative" width="50px" minWidth="50px" height="50px">
+    <Box position="relative" width={width} minWidth={width} height={width}>
       <MuiAvatar src={src} sx={{ width: "100%", height: "100%" }} alt={alt} />
       <Badge
         invisible={true}

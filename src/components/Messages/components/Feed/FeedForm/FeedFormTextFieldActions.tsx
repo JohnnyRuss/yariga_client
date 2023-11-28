@@ -2,12 +2,18 @@ import { Stack, Box } from "@mui/material";
 import { Image } from "@mui/icons-material";
 import EmojiPicker from "./EmojiPicker";
 
-type FeedFormTextFieldActionsT = {};
+import { EmojiT } from "interface/components/common.types";
 
-const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = () => {
+type FeedFormTextFieldActionsT = {
+  onEmojiSelection: (value: EmojiT) => void;
+};
+
+const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
+  onEmojiSelection,
+}) => {
   return (
     <Stack direction="row" gap={0.5} alignItems="center">
-      <EmojiPicker />
+      <EmojiPicker onEmojiSelection={onEmojiSelection} />
 
       <Box
         component="label"

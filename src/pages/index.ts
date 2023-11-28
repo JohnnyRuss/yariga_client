@@ -72,10 +72,8 @@ export const DeletedReviewsPage = lazy(
 ///// MESSAGES /////
 ///////////////////
 
-export const MessagesPage = lazy(() => import("./MessagesPage/MessagesPage"));
-export const MessagesConversationPage = lazy(
-  () => import("./MessagesPage/ConversationFeed")
-);
+export const ChatPage = lazy(() => import("./ChatPage/ChatPage"));
+export const ChatFeed = lazy(() => import("./ChatPage/ChatFeed"));
 
 /////////////////////////
 ///// USER PROFILE /////

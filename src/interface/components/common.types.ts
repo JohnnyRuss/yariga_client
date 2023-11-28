@@ -15,4 +15,14 @@ type DialogT = {
   variant?: "success" | "danger";
 };
 
-export type { SnackbarT, DialogT };
+type EmojiT = {
+  emoticons: Array<string>;
+  id: string;
+  keywords: Array<string>;
+  name: string;
+  native: string;
+  shortcodes: string;
+  unified: string;
+};
+
+export type { SnackbarT, DialogT, EmojiT };

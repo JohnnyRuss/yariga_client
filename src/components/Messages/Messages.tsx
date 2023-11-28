@@ -19,12 +19,9 @@ const Messages: React.FC = () => {
         className="content__box"
         direction="row"
         height="82vh"
-        // overflow="hidden"
         padding={0}
         position="relative"
       >
-        {/* <UI.ShowControlButton /> */}
-
         <UI.ActiveConversations />
 
         <Outlet />

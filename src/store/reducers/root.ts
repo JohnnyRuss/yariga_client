@@ -10,6 +10,7 @@ import propertiesFilterReducer from "./propertiesFilter.reducer";
 import createPropertyFormReducer from "./createPropertyForm.reducer";
 import roomTypesReducer from "./roomTypes.reducer";
 import reviewReducer from "./review.reducer";
+import chatReducer from "./chat.reducer";
 
 const persistedUserReducer = persistReducer(
   {
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   createPropertyForm: createPropertyFormReducer,
   roomTypes: roomTypesReducer,
   reviews: reviewReducer,
+  chat: chatReducer,
 });
 
 export default rootReducer;

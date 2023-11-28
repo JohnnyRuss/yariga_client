@@ -1,24 +1,26 @@
 import { NavLink } from "react-router-dom";
-import { dynamic_paths } from "config/paths";
 
-import { Stack, Typography, Box } from "@mui/material";
+import { dynamic_paths } from "config/paths";
+import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
+
 import Avatar from "../../common/Avatar";
+import { Stack, Typography, Box } from "@mui/material";
+
+import { ConversationShortInfoT } from "interface/store/chat.types";
 
 type ConversationCardT = {
-  card: {
-    _id: number;
-    adressat: string;
-    createdAt: Date;
-    lastMessage: string;
-    avatar: string;
-  };
+  conversation: ConversationShortInfoT;
 };
 
-const ConversationCard: React.FC<ConversationCardT> = ({ card }) => {
+const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
+  const { isAuthenticatedUser } = useIsAuthenticatedUser(
+    conversation.lastMessage.sender._id
+  );
+
   return (
     <Box
       component={NavLink}
-      to={dynamic_paths.messages_conversation__page(card._id.toString())}
+      to={dynamic_paths.messages_conversation__page(conversation._id)}
       sx={{
         padding: "8px 7px",
         borderRadius: "10px",
@@ -39,10 +41,15 @@ const ConversationCard: React.FC<ConversationCardT> = ({ card }) => {
       className={({ isActive }) => (isActive ? "active-conversation" : "")}
     >
       <Stack direction="row" gap={1}>
-        <Avatar src={card.avatar} alt={card.adressat} />
+        <Avatar
+          src={conversation.adressat?.avatar || ""}
+          alt={conversation.adressat?.username || ""}
+        />
 
         <Stack mt="4px">
-          <Typography fontWeight={600}>{card.adressat}</Typography>
+          <Typography fontWeight={600} textTransform="capitalize">
+            {conversation.adressat?.username}
+          </Typography>
 
           <Typography
             fontSize={14}
@@ -55,7 +62,10 @@ const ConversationCard: React.FC<ConversationCardT> = ({ card }) => {
               overflow: "hidden",
             }}
           >
-            {card.lastMessage}
+            {isAuthenticatedUser
+              ? "You: "
+              : `${conversation.lastMessage.sender.username}: `}
+            {conversation.lastMessage.text}
           </Typography>
         </Stack>
 
@@ -64,7 +74,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ card }) => {
             {new Intl.DateTimeFormat("en-us", {
               hour: "2-digit",
               minute: "2-digit",
-            }).format(card.createdAt)}
+            }).format(new Date(conversation.createdAt))}
           </Typography>
         </Box>
       </Stack>

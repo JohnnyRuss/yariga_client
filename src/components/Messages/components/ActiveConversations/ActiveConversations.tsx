@@ -1,4 +1,6 @@
-import { useMessengerContext } from "providers/MessengerProvider";
+import { useAppSelector } from "store/hooks";
+
+import { selectConversations } from "store/selectors/chat.selectors";
 
 import Search from "./components/Search";
 import { Stack, Box } from "@mui/material";
@@ -7,7 +9,7 @@ import ConversationCard from "./components/ConversationCard";
 type ActiveConversationsT = {};
 
 const ActiveConversations: React.FC<ActiveConversationsT> = () => {
-  const { conversations } = useMessengerContext();
+  const conversations = useAppSelector(selectConversations);
 
   return (
     <Stack
@@ -25,7 +27,7 @@ const ActiveConversations: React.FC<ActiveConversationsT> = () => {
           {conversations.map((conversation) => (
             <ConversationCard
               key={`conversation-card__${conversation._id}`}
-              card={conversation}
+              conversation={conversation}
             />
           ))}
         </Stack>

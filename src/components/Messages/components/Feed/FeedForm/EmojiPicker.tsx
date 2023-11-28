@@ -6,25 +6,26 @@ import Picker from "@emoji-mart/react";
 import { IconButton, Popover } from "@mui/material";
 import { TagFaces } from "@mui/icons-material";
 
-type EmojiPickerT = {};
+import { EmojiT } from "interface/components/common.types";
 
-const EmojiPicker: React.FC<EmojiPickerT> = () => {
+type EmojiPickerT = {
+  onEmojiSelection: (value: EmojiT) => void;
+};
+
+const EmojiPicker: React.FC<EmojiPickerT> = ({ onEmojiSelection }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onOpenPicker = (event: React.MouseEvent<HTMLButtonElement>) =>
     setAnchorEl(event.currentTarget);
-  };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const onClosePicker = () => setAnchorEl(null);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={onOpenPicker}>
         <TagFaces />
       </IconButton>
 
@@ -32,7 +33,7 @@ const EmojiPicker: React.FC<EmojiPickerT> = () => {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
+        onClose={onClosePicker}
         anchorOrigin={{
           vertical: "top",
           horizontal: "left",
@@ -42,7 +43,12 @@ const EmojiPicker: React.FC<EmojiPickerT> = () => {
           horizontal: 260,
         }}
       >
-        <Picker data={data} onEmojiSelect={() => {}} theme="light" />
+        <Picker
+          data={data}
+          onEmojiSelect={onEmojiSelection}
+          theme="light"
+          previewPosition="none"
+        />
       </Popover>
     </>
   );
