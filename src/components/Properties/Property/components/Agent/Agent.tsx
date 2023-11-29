@@ -64,6 +64,7 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
           {status.loading && <Spinner />}
 
           <Stack
+            width="100%"
             mt="10px"
             gap="15px"
             alignItems="center"
@@ -80,11 +81,7 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
             <UI.AgentDetails owner={ownerData} isAgent={agent ? true : false} />
 
             {(!isAuthenticatedUser || agent) && (
-              <UI.AgentContactButtons
-                title={title}
-                email={ownerData.email}
-                phone={ownerData.phone}
-              />
+              <UI.AgentContactButtons title={title} owner={ownerData} />
             )}
 
             {isAuthenticatedUser && (

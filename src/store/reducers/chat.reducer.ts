@@ -5,10 +5,15 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { paths } from "config/paths";
+import { RouterHistory } from "config/config";
+
 import {
-  ConversationShortT,
   ConversationT,
+  ConversationShortT,
   GetConversationArgsT,
+  DeleteConversationArgsT,
+  CreateConversationArgsT,
 } from "interface/db/chat.types";
 import { ChatStateT, ConversationShortInfoT } from "interface/store/chat.types";
 
@@ -16,6 +21,8 @@ const initialState: ChatStateT = {
   conversationsStatus: status.default(),
 
   activeConversationStatus: status.default(),
+
+  deleteConversationStatus: { ...status.default(), conversationId: "" },
 
   conversations: [],
 
@@ -32,6 +39,7 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    // ALL CONVERSATIONS
     getConversations(state) {
       state.conversationsStatus = status.loading();
     },
@@ -73,6 +81,7 @@ const chatSlice = createSlice({
       });
     },
 
+    // CONVERSATION
     getConversation: {
       prepare: (payload: GetConversationArgsT) => {
         return { payload };
@@ -97,6 +106,46 @@ const chatSlice = createSlice({
       { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
     ) {
       state.activeConversationStatus = setStatus({ stage, message });
+    },
+
+    // DELETE CONVERSATION
+    deleteConversation(
+      state,
+      { payload: { conversationId } }: PayloadAction<DeleteConversationArgsT>
+    ) {
+      state.deleteConversationStatus = { ...status.loading(), conversationId };
+    },
+
+    setDeletedConversation(
+      state,
+      { payload: { conversationId } }: PayloadAction<DeleteConversationArgsT>
+    ) {
+      if (
+        state.activeConversation &&
+        state.activeConversation._id === conversationId
+      )
+        state.activeConversation = initialState.activeConversation;
+
+      state.conversations = state.conversations.filter(
+        (conversation) => conversation._id !== conversationId
+      );
+
+      RouterHistory.navigate(paths.messages_page);
+
+      state.deleteConversationStatus = {
+        ...status.default(),
+        conversationId: "",
+      };
+    },
+
+    setDeleteConversationStatus(state, { payload }: PayloadAction<any>) {},
+
+    // CREATE CONVERSATION AND GET ALL
+    createConversationAndGetAll(
+      state,
+      { payload }: PayloadAction<CreateConversationArgsT>
+    ) {
+      state.conversationsStatus = status.loading();
     },
   },
 });

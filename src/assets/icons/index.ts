@@ -4,3 +4,6 @@ export { default as ShowerIcon } from "./shower.svg";
 export { default as ParametersIcon } from "./parameters.svg";
 export { default as GoogleIcon } from "./google.svg";
 export { default as LocationIcon } from "./location.svg";
+export { default as RealTimeCollaboration } from "./real-time-collaboration.svg";
+export { default as ProfilePicMale } from "./profile-pic-male.svg";
+export { default as ProfilePicFemale } from "./profile-pic-female.svg";

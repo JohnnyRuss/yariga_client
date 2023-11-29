@@ -1,7 +1,11 @@
 import { useAppDispatch } from "store/hooks";
 
+import {
+  GetConversationArgsT,
+  DeleteConversationArgsT,
+  CreateConversationArgsT,
+} from "interface/db/chat.types";
 import { chatActions } from "store/reducers/chat.reducer";
-import { GetConversationArgsT } from "interface/db/chat.types";
 
 export default function useChatQuery() {
   const dispatch = useAppDispatch();
@@ -16,10 +20,18 @@ export default function useChatQuery() {
 
   const cleanUpConversation = () => dispatch(chatActions.cleanUpConversation());
 
+  const deleteConversation = (args: DeleteConversationArgsT) =>
+    dispatch(chatActions.deleteConversation(args));
+
+  const createConversationAndGetAll = (args: CreateConversationArgsT) =>
+    dispatch(chatActions.createConversationAndGetAll(args));
+
   return {
     getConversations,
     cleanUpConversations,
     getConversation,
     cleanUpConversation,
+    deleteConversation,
+    createConversationAndGetAll,
   };
 }

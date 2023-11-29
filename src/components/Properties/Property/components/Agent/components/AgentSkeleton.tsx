@@ -1,4 +1,4 @@
-import { Paper, Stack, Skeleton } from "@mui/material";
+import { Paper, Stack, Skeleton, Grid } from "@mui/material";
 
 const AgentSkeleton: React.FC = () => {
   return (
@@ -28,7 +28,33 @@ const AgentSkeleton: React.FC = () => {
 
           <Skeleton variant="text" width="135px" sx={{ fontSize: 16 }} />
 
-          <Stack
+          <Grid container mt="10px" maxWidth="100%">
+            <Grid xs={12} xl={6} p={1}>
+              <Skeleton
+                height="40px"
+                variant="rectangular"
+                sx={{ flex: ["auto", 1], borderRadius: "5px" }}
+              />
+            </Grid>
+
+            <Grid xs={12} xl={6} p={1}>
+              <Skeleton
+                height="40px"
+                variant="rectangular"
+                sx={{ flex: ["auto", 1], borderRadius: "5px" }}
+              />
+            </Grid>
+
+            <Grid xs={12} p={1}>
+              <Skeleton
+                height="40px"
+                variant="rectangular"
+                sx={{ flex: ["auto", 1], borderRadius: "5px" }}
+              />
+            </Grid>
+          </Grid>
+
+          {/* <Stack
             mt="10px"
             gap="20px"
             width="100%"
@@ -45,7 +71,7 @@ const AgentSkeleton: React.FC = () => {
               variant="rectangular"
               sx={{ flex: ["auto", 1], borderRadius: "5px" }}
             />
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
     </Paper>

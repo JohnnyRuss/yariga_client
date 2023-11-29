@@ -1,11 +1,16 @@
 import { Box, Stack } from "@mui/material";
+import FeedHeaderSkeleton from "./FeedHeaderSkeleton";
 import FeedHeaderUser from "./FeedHeaderUser";
 import FeedHeaderActions from "./FeedHeaderActions";
 
-type FeedHeaderT = {};
+type FeedHeaderT = {
+  loading: boolean;
+};
 
-const FeedHeader: React.FC<FeedHeaderT> = () => {
-  return (
+const FeedHeader: React.FC<FeedHeaderT> = ({ loading }) => {
+  return loading ? (
+    <FeedHeaderSkeleton />
+  ) : (
     <Box p={1} borderBottom="1px solid" borderColor="app_text.contrastText">
       <Stack
         direction="row"

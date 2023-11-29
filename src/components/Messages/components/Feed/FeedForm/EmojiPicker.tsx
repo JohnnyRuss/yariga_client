@@ -9,10 +9,14 @@ import { TagFaces } from "@mui/icons-material";
 import { EmojiT } from "interface/components/common.types";
 
 type EmojiPickerT = {
+  disabled: boolean;
   onEmojiSelection: (value: EmojiT) => void;
 };
 
-const EmojiPicker: React.FC<EmojiPickerT> = ({ onEmojiSelection }) => {
+const EmojiPicker: React.FC<EmojiPickerT> = ({
+  disabled,
+  onEmojiSelection,
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const onOpenPicker = (event: React.MouseEvent<HTMLButtonElement>) =>
@@ -25,7 +29,7 @@ const EmojiPicker: React.FC<EmojiPickerT> = ({ onEmojiSelection }) => {
 
   return (
     <>
-      <IconButton onClick={onOpenPicker}>
+      <IconButton onClick={onOpenPicker} disabled={disabled}>
         <TagFaces />
       </IconButton>
 

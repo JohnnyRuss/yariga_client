@@ -13,9 +13,11 @@ import FeedFormTextFieldActions from "./FeedFormTextFieldActions";
 
 import { EmojiT } from "interface/components/common.types";
 
-type FeedFormT = {};
+type FeedFormT = {
+  disabled: boolean;
+};
 
-const FeedForm: React.FC<FeedFormT> = () => {
+const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
   const [text, setText] = useState("");
 
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -42,6 +44,7 @@ const FeedForm: React.FC<FeedFormT> = () => {
           maxRows={4}
           fullWidth
           value={text}
+          disabled={disabled}
           onChange={(e) => setText(e.target.value)}
           onBlur={handleBlur}
           inputProps={{
@@ -50,13 +53,19 @@ const FeedForm: React.FC<FeedFormT> = () => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <FeedFormTextFieldActions onEmojiSelection={onEmojiSelection} />
+                <FeedFormTextFieldActions
+                  disabled={disabled}
+                  onEmojiSelection={onEmojiSelection}
+                />
               </InputAdornment>
             ),
           }}
         />
 
-        <IconButton sx={{ color: "app_blue.light", marginTop: "auto" }}>
+        <IconButton
+          sx={{ color: "app_blue.light", marginTop: "auto" }}
+          disabled={disabled}
+        >
           <Send sx={{ fontSize: 42 }} />
         </IconButton>
       </Stack>

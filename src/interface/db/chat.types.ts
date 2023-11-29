@@ -3,7 +3,7 @@ type ConversationShortT = {
   participants: Array<ConversationParticipantT>;
   isReadBy: Array<string>;
   createdAt: string;
-  lastMessage: MessageT;
+  lastMessage?: MessageT;
 };
 
 type ConversationT = Omit<ConversationShortT, "lastMessage"> & {
@@ -32,6 +32,14 @@ type GetConversationArgsT = {
   conversationId: string;
 };
 
+type DeleteConversationArgsT = {
+  conversationId: string;
+};
+
+type CreateConversationArgsT = {
+  adressat: string;
+};
+
 export type {
   MessageT,
   ConversationT,
@@ -39,4 +47,6 @@ export type {
   ConversationParticipantT,
   // API
   GetConversationArgsT,
+  DeleteConversationArgsT,
+  CreateConversationArgsT,
 };

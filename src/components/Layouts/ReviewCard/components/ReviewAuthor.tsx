@@ -20,7 +20,9 @@ const ReviewAuthor: React.FC<ReviewAuthorElT> = ({ author }) => {
       />
 
       <Stack>
-        <Typography fontWeight={600}>{author.username}</Typography>
+        <Typography fontWeight={600} textTransform="capitalize">
+          {author.username}
+        </Typography>
 
         {author.createdAt && (
           <Typography fontSize={14} color="app_text.main">

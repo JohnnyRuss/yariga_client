@@ -8,6 +8,7 @@ import { LoadingStatusT } from "interface/store/common.types";
 type ChatStateT = {
   conversationsStatus: LoadingStatusT;
   activeConversationStatus: LoadingStatusT;
+  deleteConversationStatus: LoadingStatusT & { conversationId: string };
   conversations: Array<ConversationShortInfoT>;
   activeConversation: ConversationT;
 };

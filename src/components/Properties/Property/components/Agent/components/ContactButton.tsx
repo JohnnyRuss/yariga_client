@@ -21,6 +21,7 @@ const ContactButton: React.FC<ContactButtonT> = ({
       variant="contained"
       sx={{
         padding: 0,
+        maxWidth: "100%",
         color: color,
         backgroundColor: bgColor,
         borderRadius: "5px",

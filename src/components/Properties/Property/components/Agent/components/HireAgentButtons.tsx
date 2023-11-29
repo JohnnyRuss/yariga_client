@@ -14,7 +14,7 @@ const HireAgentButtons: React.FC<HireAgentButtonsT> = ({
   onOpenHireAgent,
 }) => {
   return (
-    <Box mt="10px" width="100%">
+    <Box width="100%" p={1}>
       {hasAgent ? (
         <Button
           fullWidth={true}
@@ -22,6 +22,9 @@ const HireAgentButtons: React.FC<HireAgentButtonsT> = ({
           title="Fire The Agent"
           bgColor="error.main"
           onClick={onFireAgent}
+          attributes={{
+            sx: { padding: "10px 15px" },
+          }}
         />
       ) : (
         <Button
@@ -29,6 +32,9 @@ const HireAgentButtons: React.FC<HireAgentButtonsT> = ({
           icon={<PersonAdd />}
           title="Hire The Agent"
           onClick={onOpenHireAgent}
+          attributes={{
+            sx: { padding: "10px 15px" },
+          }}
         />
       )}
     </Box>

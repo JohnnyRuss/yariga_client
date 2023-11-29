@@ -4,13 +4,16 @@ import { selectConversationAdressat } from "store/selectors/chat.selectors";
 
 import Avatar from "../../common/Avatar";
 import { Stack, Typography } from "@mui/material";
+import FeedWallStarterSkeleton from "./FeedWallStarterSkeleton";
 
-type FeedWallStarterT = {};
+type FeedWallStarterT = { loading: boolean };
 
-const FeedWallStarter: React.FC<FeedWallStarterT> = () => {
+const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
   const adressat = useAppSelector(selectConversationAdressat);
 
-  return (
+  return loading ? (
+    <FeedWallStarterSkeleton />
+  ) : (
     <Stack width="100%" alignItems="center" py={15} gap={1}>
       <Avatar
         src={adressat?.avatar || ""}

@@ -1,5 +1,9 @@
+import {
+  GetConversationArgsT,
+  DeleteConversationArgsT,
+  CreateConversationArgsT,
+} from "interface/db/chat.types";
 import { axiosPrivateQuery } from "services/axios";
-import { GetConversationArgsT } from "interface/db/chat.types";
 
 export async function getConversationsQuery() {
   return axiosPrivateQuery.get("/chat");
@@ -7,4 +11,12 @@ export async function getConversationsQuery() {
 
 export async function getConversationQuery(args: GetConversationArgsT) {
   return axiosPrivateQuery.get(`/chat/${args.conversationId}`);
+}
+
+export async function deleteConversationQuery(args: DeleteConversationArgsT) {
+  return axiosPrivateQuery.delete(`/chat/${args.conversationId}`);
+}
+
+export async function createConversationQuery(data: CreateConversationArgsT) {
+  return axiosPrivateQuery.post(`/chat`, data);
 }

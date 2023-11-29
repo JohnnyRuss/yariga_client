@@ -1,6 +1,7 @@
 import { useImageCropContext } from "providers/ImageCropProvide";
 
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import { ProfilePicMale, ProfilePicFemale } from "assets/icons";
 
 const ImageCropPlaceholder: React.FC = () => {
   const { onFileChange } = useImageCropContext();
@@ -19,6 +20,8 @@ const ImageCropPlaceholder: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
+        gap: "20px",
         fontWeight: 600,
         fontSize: 18,
         letterSpacing: 1,
@@ -26,14 +29,54 @@ const ImageCropPlaceholder: React.FC = () => {
         cursor: "pointer",
       }}
     >
-      Choose File
-      <input
-        type="file"
-        accept="*/image"
-        hidden
-        id="profile-image"
-        onChange={onFileChange}
-      />
+      <Stack direction="row">
+        <Box
+          component="figure"
+          width="120px"
+          sx={{
+            transform: "translateX(20px)",
+            boxShadow: 4,
+            borderRadius: "100%",
+            border: "1px solid #3f3d56",
+          }}
+        >
+          <Box
+            component="img"
+            src={ProfilePicMale}
+            alt="profile pic male"
+            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </Box>
+        <Box
+          component="figure"
+          width="120px"
+          sx={{
+            transform: "translateX(-20px)",
+            backgroundColor: "app_bg.main",
+            borderRadius: "100%",
+            boxShadow: 4,
+            border: "1px solid #3f3d56",
+          }}
+        >
+          <Box
+            component="img"
+            src={ProfilePicFemale}
+            alt="profile pic female"
+            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </Box>
+      </Stack>
+
+      <Box>
+        <Box>Choose File</Box>
+        <input
+          type="file"
+          accept="*/image"
+          hidden
+          id="profile-image"
+          onChange={onFileChange}
+        />
+      </Box>
     </Box>
   );
 };

@@ -2,22 +2,39 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
 import { useMemo, useEffect, useRef } from "react";
 
+import {
+  selectConversationMessages,
+  selectConversationOrigin,
+} from "store/selectors/chat.selectors";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
-import { selectConversationMessages } from "store/selectors/chat.selectors";
 
+import Avatar from "../../common/Avatar";
 import Message from "./Message";
 import FeedWallStarter from "./FeedWallStarter";
+import MessageGroupSkeleton from "./MessageGroupSkeleton";
 import { Stack, Box } from "@mui/material";
 
 import { MessageT } from "interface/db/chat.types";
 
-type FeedWallT = {};
+type FeedWallT = {
+  loading: boolean;
+};
 
-const FeedWall: React.FC<FeedWallT> = () => {
+const FeedWall: React.FC<FeedWallT> = ({ loading }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const messages = useAppSelector(selectConversationMessages);
+  const conversationRoot = useAppSelector(selectConversationOrigin);
   const { _id: authenticatedUserId } = useAppSelector(selectAuthenticatedUser);
+
+  const lastMessageSenderId = messages[messages.length - 1]?.sender._id;
+  const adressat = conversationRoot.participants.find(
+    (user) => user._id !== authenticatedUserId
+  );
+
+  const isRead =
+    lastMessageSenderId === authenticatedUserId &&
+    conversationRoot.isReadBy.includes(adressat?._id || "");
 
   const groupedMessages = useMemo(() => {
     if (!messages[0]) return [];
@@ -32,17 +49,32 @@ const FeedWall: React.FC<FeedWallT> = () => {
 
   return (
     <Box p={1} maxHeight="100%" className="custom_scrollbar">
-      <FeedWallStarter />
+      <FeedWallStarter loading={loading} />
 
-      <Stack width="100%" gap={0.5} ref={containerRef}>
-        {groupedMessages.map((groupe, index) => (
-          <Message
-            key={nanoid()}
-            messageGroup={groupe}
-            authenticatedUserId={authenticatedUserId}
-          />
-        ))}
-      </Stack>
+      {loading ? (
+        <MessageGroupSkeleton />
+      ) : (
+        <Stack width="100%" gap={2} ref={containerRef}>
+          {groupedMessages.map((groupe) => (
+            <Message
+              key={nanoid()}
+              messageGroup={groupe}
+              authenticatedUserId={authenticatedUserId}
+            />
+          ))}
+
+          {isRead && (
+            <Box ml="auto" sx={{ transform: "translate(-5px,-10px)" }}>
+              <Avatar
+                width="16px"
+                showBadge={false}
+                src={adressat?.avatar || ""}
+                alt={adressat?.username || ""}
+              />
+            </Box>
+          )}
+        </Stack>
+      )}
     </Box>
   );
 };

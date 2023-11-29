@@ -1,18 +1,21 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+
+import { useChatQuery } from "hooks/api/messages";
 
 import {
-  Delete,
   List,
+  Delete,
   CloseOutlined,
   MarkAsUnreadOutlined,
 } from "@mui/icons-material";
 import { MenuItem } from "@mui/material";
-
 import { DropdownMenu } from "components/Layouts";
 
 const Options: React.FC = () => {
   const navigate = useNavigate();
+
+  const { conversationId } = useParams();
   const { pathname, search } = useLocation();
 
   const searchParams = new URLSearchParams(search);
@@ -28,11 +31,23 @@ const Options: React.FC = () => {
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
+  const { deleteConversation } = useChatQuery();
+
+  const onDeleteConversation = (onClose: () => void) => {
+    if (!conversationId) return;
+
+    onClose();
+    deleteConversation({ conversationId });
+  };
+
   return (
     <>
       <DropdownMenu
         render={({ onClose }) => [
-          <MenuItem onClick={() => {}} key={nanoid()}>
+          <MenuItem
+            key={nanoid()}
+            onClick={() => onDeleteConversation(onClose)}
+          >
             Delete Conversation
             <Delete />
           </MenuItem>,

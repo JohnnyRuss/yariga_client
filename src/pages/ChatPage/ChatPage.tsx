@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 
-import useChatQuery from "hooks/api/messages/useChatQuery";
 import { RouterHistory } from "config/config";
+import useChatQuery from "hooks/api/messages/useChatQuery";
 import MessengerProvider from "providers/MessengerProvider";
 
 import Messages from "components/Messages/Messages";
