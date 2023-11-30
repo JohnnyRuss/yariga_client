@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 
 import { AppLogo } from "assets";
 import UserToolbar from "./UserToolbar";
@@ -22,7 +22,7 @@ const Navigation: React.FC = () => {
       overflow="hidden"
       boxSizing="border-box"
     >
-      <Box component={Link} to={paths.root_page}>
+      <Box component={Link} to={PATHS.root_page}>
         <figure>
           <img src={AppLogo.toString()} alt="yariga logo" />
         </figure>

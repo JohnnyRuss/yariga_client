@@ -1,4 +1,4 @@
-const paths = {
+const PATHS = {
   root_page: "/",
   // AUTH
   auth_page_root: "/auth",
@@ -23,8 +23,8 @@ const paths = {
   published_reviews_page: "/reviews/published",
   deleted_reviews_page: "/reviews/deleted",
   // MESSAGES
-  messages_page: "/messages",
-  messages_conversation_page: "/messages/:conversationId",
+  chat_page: "/messages",
+  chat_conversation_page: "/messages/:conversationId",
   // USER PROFILE
   user_iprofile_page: "/iuser",
   iuser_properties_page: "/iuser/properties",
@@ -32,23 +32,23 @@ const paths = {
   user_properties_page: "/user/:userId/properties",
 };
 
-const dynamic_paths = {
+const DYNAMIC_PATHS = {
   // PROPERTIES
   property_page: (propertyId: string) =>
-    paths.property_page.replace(":propertyId", propertyId),
+    PATHS.property_page.replace(":propertyId", propertyId),
   // AGENTS
   agent_page: (agentId: string) =>
-    paths.agent_page.replace(":agentId", agentId),
+    PATHS.agent_page.replace(":agentId", agentId),
   agent_properties_page: (agentId: string) =>
-    paths.agent_properties_page.replace(":agentId", agentId),
+    PATHS.agent_properties_page.replace(":agentId", agentId),
   // USER PROFILE
   user_profile_page: (userId: string) =>
-    paths.user_profile_page.replace(":userId", userId),
+    PATHS.user_profile_page.replace(":userId", userId),
   user_properties_page: (userId: string) =>
-    paths.user_properties_page.replace(":userId", userId),
+    PATHS.user_properties_page.replace(":userId", userId),
   // MESSAGES
-  messages_conversation__page: (conversationId: string) =>
-    paths.messages_conversation_page.replace(":conversationId", conversationId),
+  chat_conversation__page: (conversationId: string) =>
+    PATHS.chat_conversation_page.replace(":conversationId", conversationId),
 };
 
-export { paths, dynamic_paths };
+export { PATHS, DYNAMIC_PATHS };

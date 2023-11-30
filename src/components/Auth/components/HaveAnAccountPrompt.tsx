@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 
 import { Typography } from "@mui/material";
 
@@ -20,7 +20,7 @@ const HaveAnAccountPrompt: React.FC<HaveAnAccountPromptT> = ({ on }) => {
       {isSignIn ? " Don't have an account" : "Have an account"} ?&nbsp;
       <Typography
         component={Link}
-        to={isSignIn ? paths.auth_page_signup : paths.auth_page_signin}
+        to={isSignIn ? PATHS.auth_page_signup : PATHS.auth_page_signin}
         fontSize={14}
         color="app_blue.light"
         className="underline"

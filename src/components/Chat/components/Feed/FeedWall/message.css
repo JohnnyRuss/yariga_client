@@ -1,0 +1,40 @@
+.msg-txt {
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: var(--app-text-dark);
+  background-color: var(--app-text-contrastText);
+}
+
+.msg-txt.active-user__msg {
+  color: var(--app-text-light);
+  background-color: var(--app-blue-light);
+}
+
+.group__multi-msg .msg-txt:not(.active-user__msg):first-child {
+  border-bottom-left-radius: 5px;
+}
+
+.group__multi-msg .msg-txt:not(.active-user__msg, :first-child, :last-child) {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.group__multi-msg .msg-txt:not(.active-user__msg):last-child {
+  border-top-left-radius: 5px;
+}
+
+.group__multi-msg .msg-txt.active-user__msg:first-child {
+  border-bottom-right-radius: 5px;
+}
+
+.group__multi-msg .msg-txt.active-user__msg:not(:first-child, :last-child) {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.group__multi-msg .msg-txt.active-user__msg:last-child {
+  border-top-right-radius: 5px;
+}

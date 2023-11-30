@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { dynamic_paths } from "config/paths";
+import { DYNAMIC_PATHS } from "config/paths";
 
 import * as UI from "./components";
 import * as MuiStyled from "./PropertyCard.styled";
@@ -18,7 +18,7 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
   const ownerData = property.agent ? property.agent : property.owner;
 
   return (
-    <Link to={dynamic_paths.property_page(property._id)} className="app__card">
+    <Link to={DYNAMIC_PATHS.property_page(property._id)} className="app__card">
       <MuiStyled.CardHorizontal>
         <CardMedia
           component="img"

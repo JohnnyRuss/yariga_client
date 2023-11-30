@@ -15,7 +15,7 @@ import {
   UpdatePasswordArgsT,
 } from "interface/store/auth.types";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { setJWT, removeJWT } from "utils/jwt";
 import { RouterHistory } from "config/config";
 
@@ -59,7 +59,7 @@ const authSlice = createSlice({
       { payload }: PayloadAction<{ accessToken: string }>
     ) {
       setJWT(payload.accessToken);
-      RouterHistory.navigate(paths.root_page);
+      RouterHistory.navigate(PATHS.root_page);
       state.status = status.default();
     },
 
@@ -67,7 +67,7 @@ const authSlice = createSlice({
 
     cleanUpUser(state) {
       removeJWT();
-      RouterHistory.navigate(paths.auth_page_root);
+      RouterHistory.navigate(PATHS.auth_page_root);
     },
 
     forgotPassword: {
@@ -80,7 +80,7 @@ const authSlice = createSlice({
     },
 
     setForgotPassword(state) {
-      RouterHistory.navigate(paths.auth_page_confirm_email);
+      RouterHistory.navigate(PATHS.auth_page_confirm_email);
       state.status = status.default();
     },
 
@@ -94,7 +94,7 @@ const authSlice = createSlice({
     },
 
     setConfirmEmail(state) {
-      RouterHistory.navigate(paths.auth_page_update_password);
+      RouterHistory.navigate(PATHS.auth_page_update_password);
       state.status = status.default();
     },
 
@@ -108,7 +108,7 @@ const authSlice = createSlice({
     },
 
     setUpdatePassword(state) {
-      RouterHistory.navigate(paths.auth_page_signin);
+      RouterHistory.navigate(PATHS.auth_page_signin);
       state.status = status.default();
     },
 

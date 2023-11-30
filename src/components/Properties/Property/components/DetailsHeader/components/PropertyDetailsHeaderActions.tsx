@@ -8,7 +8,7 @@ import {
   selectDeletePropertyStatus,
   selectProperty,
 } from "store/selectors/properties.selectors";
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { useAppContext } from "providers/AppProvider";
 import { usePropertiesQuery } from "hooks/api/properties";
 
@@ -72,7 +72,7 @@ const PropertyDetailsHeaderActions: React.FC = () => {
     };
 
     navigate(
-      `${paths.create_property_page}?process=update&property=${property._id}`,
+      `${PATHS.create_property_page}?process=update&property=${property._id}`,
       {
         state: stateParams,
       }
@@ -102,7 +102,7 @@ const PropertyDetailsHeaderActions: React.FC = () => {
       message: isSuccessful ? "Property is deleted successfully" : message,
     });
 
-    navigate(paths.properties_page);
+    navigate(PATHS.properties_page);
 
     setDeletePropertyStatus({ stage: "default" });
 

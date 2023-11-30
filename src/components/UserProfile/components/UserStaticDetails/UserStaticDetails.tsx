@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { LocationOn, Phone, Email } from "@mui/icons-material";
 import UserStaticDetailsSkeleton from "./UserStaticDetailsSkeleton";
+import { EmailButton, PhoneButton, ChatWithButton } from "components/Layouts";
 
 import { UserT } from "interface/db/user.types";
 
@@ -8,14 +9,20 @@ interface UserStaticDetailsT {
   email: UserT["email"];
   location?: UserT["location"];
   phone?: UserT["phone"];
+  username: string;
+  userId: string;
+  isAuthenticatedUser: boolean;
   loading: boolean;
 }
 
 const UserStaticDetails: React.FC<UserStaticDetailsT> = ({
   email,
   phone,
+  userId,
+  username,
   location,
   loading,
+  isAuthenticatedUser,
 }) => {
   return loading ? (
     <UserStaticDetailsSkeleton />
@@ -97,6 +104,16 @@ const UserStaticDetails: React.FC<UserStaticDetailsT> = ({
           </Typography>
         </Stack>
       </Stack>
+
+      {!isAuthenticatedUser && (
+        <Stack direction="row" mt="20px" gap={2}>
+          <EmailButton email={email} subject="Yariga" />
+
+          {phone && <PhoneButton phone={phone} />}
+
+          <ChatWithButton adressatId={userId} adressatName={username} />
+        </Stack>
+      )}
     </>
   );
 };

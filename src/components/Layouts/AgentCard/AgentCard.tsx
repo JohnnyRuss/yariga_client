@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { dynamic_paths } from "config/paths";
+import { DYNAMIC_PATHS } from "config/paths";
 
 import { Card } from "@mui/material";
 import * as UI from "./components";
@@ -14,7 +14,7 @@ interface AgentCardT {
 const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
   return (
     <Link
-      to={dynamic_paths.agent_page(agent._id)}
+      to={DYNAMIC_PATHS.agent_page(agent._id)}
       className="app__card"
       style={{ width: "100%" }}
     >

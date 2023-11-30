@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 
 import { RouterHistory } from "config/config";
-import useChatQuery from "hooks/api/messages/useChatQuery";
-import MessengerProvider from "providers/MessengerProvider";
+import useChatQuery from "hooks/api/chat/useChatQuery";
+import ChatProvider from "providers/ChatProvider";
 
-import Messages from "components/Messages/Messages";
+import { Chat } from "components/Chat";
 
 RouterHistory.redirectUnAuthorized();
 
@@ -21,9 +21,9 @@ const ChatPage: React.FC = () => {
   }, []);
 
   return (
-    <MessengerProvider>
-      <Messages />
-    </MessengerProvider>
+    <ChatProvider>
+      <Chat />
+    </ChatProvider>
   );
 };
 

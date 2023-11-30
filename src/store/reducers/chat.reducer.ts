@@ -5,16 +5,10 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 
-import {
-  ConversationT,
-  ConversationShortT,
-  GetConversationArgsT,
-  DeleteConversationArgsT,
-  CreateConversationArgsT,
-} from "interface/db/chat.types";
+import * as ChatApiT from "interface/db/chat.types";
 import { ChatStateT, ConversationShortInfoT } from "interface/store/chat.types";
 
 const initialState: ChatStateT = {
@@ -29,6 +23,7 @@ const initialState: ChatStateT = {
   activeConversation: {
     _id: "",
     createdAt: "",
+    updatedAt: "",
     isReadBy: [],
     messages: [],
     participants: [],
@@ -49,7 +44,7 @@ const chatSlice = createSlice({
       {
         payload,
       }: PayloadAction<{
-        data: Array<ConversationShortT>;
+        data: Array<ChatApiT.ConversationShortT>;
         activeUserId: string;
       }>
     ) {
@@ -83,7 +78,7 @@ const chatSlice = createSlice({
 
     // CONVERSATION
     getConversation: {
-      prepare: (payload: GetConversationArgsT) => {
+      prepare: (payload: ChatApiT.GetConversationArgsT) => {
         return { payload };
       },
 
@@ -92,7 +87,7 @@ const chatSlice = createSlice({
       },
     },
 
-    setConversation(state, { payload }: PayloadAction<ConversationT>) {
+    setConversation(state, { payload }: PayloadAction<ChatApiT.ConversationT>) {
       state.activeConversation = payload;
       state.activeConversationStatus = status.default();
     },
@@ -111,14 +106,18 @@ const chatSlice = createSlice({
     // DELETE CONVERSATION
     deleteConversation(
       state,
-      { payload: { conversationId } }: PayloadAction<DeleteConversationArgsT>
+      {
+        payload: { conversationId },
+      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
     ) {
       state.deleteConversationStatus = { ...status.loading(), conversationId };
     },
 
     setDeletedConversation(
       state,
-      { payload: { conversationId } }: PayloadAction<DeleteConversationArgsT>
+      {
+        payload: { conversationId },
+      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
     ) {
       if (
         state.activeConversation &&
@@ -130,7 +129,7 @@ const chatSlice = createSlice({
         (conversation) => conversation._id !== conversationId
       );
 
-      RouterHistory.navigate(paths.messages_page);
+      RouterHistory.navigate(PATHS.chat_page);
 
       state.deleteConversationStatus = {
         ...status.default(),
@@ -143,9 +142,36 @@ const chatSlice = createSlice({
     // CREATE CONVERSATION AND GET ALL
     createConversationAndGetAll(
       state,
-      { payload }: PayloadAction<CreateConversationArgsT>
+      { payload }: PayloadAction<ChatApiT.CreateConversationArgsT>
     ) {
       state.conversationsStatus = status.loading();
+    },
+
+    sendMessage(_, { payload }: PayloadAction<ChatApiT.SendMessageArgsT>) {},
+
+    sendSentMessage(
+      state,
+      {
+        payload: { conversation, message },
+      }: PayloadAction<ChatApiT.SendMessageResponseT>
+    ) {
+      const conversationIndex = state.conversations.findIndex(
+        (c) => c._id === conversation._id
+      );
+
+      if (conversationIndex >= 0)
+        state.conversations[conversationIndex] = {
+          ...state.conversations[conversationIndex],
+          isReadBy: conversation.isReadBy,
+          lastMessage: conversation.lastMessage,
+        };
+
+      if (state.activeConversation._id === conversation._id)
+        state.activeConversation = {
+          ...state.activeConversation,
+          isReadBy: conversation.isReadBy,
+          messages: [...state.activeConversation.messages, message],
+        };
     },
   },
 });

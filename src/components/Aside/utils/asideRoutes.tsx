@@ -1,4 +1,4 @@
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { nanoid } from "@reduxjs/toolkit";
 
 import {
@@ -21,37 +21,37 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
   {
     label: "dashboard",
     icon: <Dashboard />,
-    path: paths.dashboard_page,
+    path: PATHS.dashboard_page,
     id: nanoid(),
   },
   {
     label: "properties",
     icon: <HomeWork />,
-    path: paths.properties_page,
+    path: PATHS.properties_page,
     id: nanoid(),
   },
   {
     label: "agents",
     icon: <People />,
-    path: paths.agents_page,
+    path: PATHS.agents_page,
     id: nanoid(),
   },
   {
     label: "reviews",
     icon: <StarOutline />,
-    path: paths.reviews_page,
+    path: PATHS.reviews_page,
     id: nanoid(),
   },
   {
     label: "messages",
     icon: <ChatBubbleOutline />,
-    path: paths.messages_page,
+    path: PATHS.chat_page,
     id: nanoid(),
   },
   {
     label: "my profile",
     icon: <AccountCircle />,
-    path: paths.user_iprofile_page,
+    path: PATHS.user_iprofile_page,
     id: nanoid(),
   },
 ];

@@ -5,7 +5,7 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 import FileControl from "utils/FileControl";
 
@@ -77,7 +77,7 @@ const createPropertyFormSlice = createSlice({
     },
 
     setCreateProperty(state) {
-      RouterHistory.navigate(paths.properties_page);
+      RouterHistory.navigate(PATHS.properties_page);
       state.status = status.default();
     },
 

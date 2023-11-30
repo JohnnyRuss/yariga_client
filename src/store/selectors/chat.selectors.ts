@@ -40,7 +40,11 @@ const selectedConversationOrigin = ({ chat }: RootStateT) => ({
   _id: chat.activeConversation._id,
   participants: chat.activeConversation.participants,
   isReadBy: chat.activeConversation.isReadBy,
-  createdAt: chat.activeConversation.createdAt,
+  updatedAt: chat.activeConversation.updatedAt,
+  lastMessage:
+    chat.activeConversation.messages[
+      chat.activeConversation.messages.length - 1
+    ],
 });
 
 // SELECTORS

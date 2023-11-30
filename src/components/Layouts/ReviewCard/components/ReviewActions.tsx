@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import useReviewsQuery from "hooks/api/reviews/useReviewsQuery";
 
 import { Button, Stack } from "@mui/material";
@@ -27,7 +27,7 @@ const ReviewActions: React.FC<ReviewActionsT> = ({ approved, reviewId }) => {
   const onApprove = (query: "1" | "0") => {
     if (!query || !reviewId) return;
 
-    const filterOut = new RegExp(paths.all_reviews_page).test(pathname);
+    const filterOut = new RegExp(PATHS.all_reviews_page).test(pathname);
 
     approveReview({ query, reviewId, filterOut: !filterOut });
   };

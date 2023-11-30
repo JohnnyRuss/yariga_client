@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { DYNAMIC_PATHS } from "config/paths";
+
 import * as UI from "./components";
 import * as MuiStyled from "./PropertyCard.styled";
 import { CardMedia, Divider } from "@mui/material";
@@ -16,7 +18,7 @@ const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
   const ownerData = property.agent ? property.agent : property.owner;
 
   return (
-    <Link to={`/properties/${property._id}`} className="app__card">
+    <Link to={DYNAMIC_PATHS.property_page(property._id)} className="app__card">
       <MuiStyled.CardVertical elevation={2}>
         <CardMedia
           component="img"

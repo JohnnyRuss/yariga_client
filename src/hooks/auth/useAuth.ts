@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
 import { getJWT } from "utils/jwt";
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import { DecodedUserT } from "interface/config/config.types";
@@ -27,12 +27,12 @@ export default function useAuth() {
 
   function redirectUnAuthorized() {
     const isAuthenticatedUser = checkIsAuthenticatedUser();
-    if (!isAuthenticatedUser) navigate(paths.auth_page_signin);
+    if (!isAuthenticatedUser) navigate(PATHS.auth_page_signin);
   }
 
   function redirectAuthorized() {
     const isAuthenticatedUser = checkIsAuthenticatedUser();
-    if (isAuthenticatedUser) navigate(paths.root_page);
+    if (isAuthenticatedUser) navigate(PATHS.root_page);
   }
 
   return { redirectUnAuthorized, redirectAuthorized, checkIsAuthenticatedUser };

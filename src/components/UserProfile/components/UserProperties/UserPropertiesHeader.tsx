@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { dynamic_paths, paths } from "config/paths";
+import { DYNAMIC_PATHS, PATHS } from "config/paths";
 import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 
 import { AddPropertyButton } from "components/Layouts";
@@ -22,8 +22,8 @@ const UserPropertiesHeader: React.FC<UserPropertiesHeaderT> = ({
   const onViewAllProperties = () =>
     navigate(
       isAuthenticatedUser
-        ? paths.iuser_properties_page
-        : dynamic_paths.user_properties_page(userId)
+        ? PATHS.iuser_properties_page
+        : DYNAMIC_PATHS.user_properties_page(userId)
     );
 
   return (

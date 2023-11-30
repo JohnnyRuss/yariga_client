@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
 import { Controller } from "react-hook-form";
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { useSignInQuery } from "hooks/api/auth";
 import { selectAuthStatus } from "store/selectors/auth.selectors";
 
@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
         />
 
         <Link
-          to={paths.auth_page_forgot_password}
+          to={PATHS.auth_page_forgot_password}
           className={styles.forgotPasswordLink}
         >
           Forgot Password ?

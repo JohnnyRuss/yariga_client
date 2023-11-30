@@ -1,4 +1,4 @@
-import { dynamic_paths, paths } from "config/paths";
+import { DYNAMIC_PATHS, PATHS } from "config/paths";
 import useIsAuthenticatedUser from "./useIsAuthenticatedUser";
 
 interface UseUserPathReturnT {
@@ -12,10 +12,10 @@ export default function useUserPath(
   const { isAuthenticatedUser } = useIsAuthenticatedUser(candidateUserId);
 
   const userPath = isAgent
-    ? dynamic_paths.agent_page(candidateUserId)
+    ? DYNAMIC_PATHS.agent_page(candidateUserId)
     : isAuthenticatedUser
-    ? paths.user_iprofile_page
-    : dynamic_paths.user_profile_page(candidateUserId);
+    ? PATHS.user_iprofile_page
+    : DYNAMIC_PATHS.user_profile_page(candidateUserId);
 
   return { userPath };
 }

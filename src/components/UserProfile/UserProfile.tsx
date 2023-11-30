@@ -73,6 +73,9 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
               email={user.email}
               phone={user.phone}
               location={user.location}
+              userId={user._id}
+              username={user.username}
+              isAuthenticatedUser={isAuthenticatedUser}
             />
           )}
         </Box>

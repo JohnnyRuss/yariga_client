@@ -5,7 +5,7 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 import { UsersStateT } from "interface/store/user.types";
 import {
@@ -103,7 +103,7 @@ const userSlice = createSlice({
       state.user = payload;
       state.editProfileStatus = status.default();
 
-      RouterHistory.navigate(paths.user_iprofile_page);
+      RouterHistory.navigate(PATHS.user_iprofile_page);
     },
 
     updateProfileImage: {

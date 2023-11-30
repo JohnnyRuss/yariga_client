@@ -1,16 +1,16 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { NavLink } from "react-router-dom";
 
-import { paths } from "config/paths";
+import { PATHS } from "config/paths";
 
 import { Stack, Box } from "@mui/material";
 
 interface ReviewsNavT {}
 
 const REVIEW_NAV_ROUTES = [
-  { path: paths.all_reviews_page, label: "All Reviews" },
-  { path: paths.published_reviews_page, label: "Published" },
-  { path: paths.deleted_reviews_page, label: "Deleted" },
+  { path: PATHS.all_reviews_page, label: "All Reviews" },
+  { path: PATHS.published_reviews_page, label: "Published" },
+  { path: PATHS.deleted_reviews_page, label: "Deleted" },
 ];
 
 const ReviewsNav: React.FC<ReviewsNavT> = (props) => {

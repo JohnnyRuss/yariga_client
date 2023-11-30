@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-import { paths } from "./paths";
+import { PATHS } from "./paths";
 import * as Pages from "pages/index";
 
 interface RouteT {
@@ -14,40 +14,40 @@ interface RouteT {
 export const routes: RouteT[] = [
   {
     name: "root-page",
-    path: paths.root_page,
-    element: <Navigate to={paths.dashboard_page} />,
+    path: PATHS.root_page,
+    element: <Navigate to={PATHS.dashboard_page} />,
   },
 
   // AUTH
 
   {
     name: "auth-page-root",
-    path: paths.auth_page_root,
-    element: <Navigate to={paths.auth_page_signin} />,
+    path: PATHS.auth_page_root,
+    element: <Navigate to={PATHS.auth_page_signin} />,
   },
   {
     name: "auth-page-signin",
-    path: paths.auth_page_signin,
+    path: PATHS.auth_page_signin,
     element: <Pages.SignInPage />,
   },
   {
     name: "auth-page-signup",
-    path: paths.auth_page_signup,
+    path: PATHS.auth_page_signup,
     element: <Pages.SignUpPage />,
   },
   {
     name: "auth-page-forgot-password",
-    path: paths.auth_page_forgot_password,
+    path: PATHS.auth_page_forgot_password,
     element: <Pages.ForgotPasswordPage />,
   },
   {
     name: "auth-page-confirm-email",
-    path: paths.auth_page_confirm_email,
+    path: PATHS.auth_page_confirm_email,
     element: <Pages.ConfirmEmailPage />,
   },
   {
     name: "auth-page-update-password",
-    path: paths.auth_page_update_password,
+    path: PATHS.auth_page_update_password,
     element: <Pages.UpdatePasswordPage />,
   },
 
@@ -55,7 +55,7 @@ export const routes: RouteT[] = [
 
   {
     name: "dashboard-page",
-    path: paths.dashboard_page,
+    path: PATHS.dashboard_page,
     element: <Pages.DashboardPage />,
   },
 
@@ -63,17 +63,17 @@ export const routes: RouteT[] = [
 
   {
     name: "properties-page",
-    path: paths.properties_page,
+    path: PATHS.properties_page,
     element: <Pages.PropertiesPage />,
   },
   {
     name: "property-page",
-    path: paths.property_page,
+    path: PATHS.property_page,
     element: <Pages.PropertyPage />,
   },
   {
     name: "create-property-page",
-    path: paths.create_property_page,
+    path: PATHS.create_property_page,
     element: <Pages.CreatePropertyPage />,
   },
 
@@ -81,17 +81,17 @@ export const routes: RouteT[] = [
 
   {
     name: "agents-page",
-    path: paths.agents_page,
+    path: PATHS.agents_page,
     element: <Pages.AgentsPage />,
   },
   {
     name: "agent-page",
-    path: paths.agent_page,
+    path: PATHS.agent_page,
     element: <Pages.AgentPage />,
   },
   {
     name: "agent-properties-page",
-    path: paths.agent_properties_page,
+    path: PATHS.agent_properties_page,
     element: <Pages.AgentPropertiesPage />,
   },
 
@@ -99,22 +99,22 @@ export const routes: RouteT[] = [
 
   {
     name: "reviews-page",
-    path: paths.reviews_page,
+    path: PATHS.reviews_page,
     element: <Pages.ReviewsPage />,
     children: [
       {
         name: "all-reviews-page",
-        path: paths.all_reviews_page,
+        path: PATHS.all_reviews_page,
         element: <Pages.AllReviewsPage />,
       },
       {
         name: "published-reviews-page",
-        path: paths.published_reviews_page,
+        path: PATHS.published_reviews_page,
         element: <Pages.PublishedReviewsPage />,
       },
       {
         name: "deleted-reviews-page",
-        path: paths.deleted_reviews_page,
+        path: PATHS.deleted_reviews_page,
         element: <Pages.DeletedReviewsPage />,
       },
     ],
@@ -124,12 +124,12 @@ export const routes: RouteT[] = [
 
   {
     name: "messages-page",
-    path: paths.messages_page,
+    path: PATHS.chat_page,
     element: <Pages.ChatPage />,
     children: [
       {
         name: "messages-conversation-page",
-        path: paths.messages_conversation_page,
+        path: PATHS.chat_conversation_page,
         element: <Pages.ChatFeed />,
       },
     ],
@@ -139,22 +139,22 @@ export const routes: RouteT[] = [
 
   {
     name: "iuser-profile-page",
-    path: paths.user_iprofile_page,
+    path: PATHS.user_iprofile_page,
     element: <Pages.IProfilePage />,
   },
   {
     name: "iuser-properties-page",
-    path: paths.iuser_properties_page,
+    path: PATHS.iuser_properties_page,
     element: <Pages.IUserPropertiesPage />,
   },
   {
     name: "user-profile-page",
-    path: paths.user_profile_page,
+    path: PATHS.user_profile_page,
     element: <Pages.UserProfilePage />,
   },
   {
     name: "user-properties-page",
-    path: paths.user_properties_page,
+    path: PATHS.user_properties_page,
     element: <Pages.UserPropertiesPage />,
   },
 
