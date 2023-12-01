@@ -20,20 +20,23 @@ const Feed: React.FC = () => {
 
   const conversationRoot = useAppSelector(selectConversationOrigin);
 
-  const { getAdressat, checkConversationIsRead } = useChatContext();
+  const { getLastMessageAdressat, checkConversationIsRead } = useChatContext();
+  const adressat = getLastMessageAdressat(
+    conversationRoot.participants,
+    conversationRoot.lastMessage?.sender._id || ""
+  );
 
   const [conversationIsRead, setConversationIsRead] = useState(false);
 
-  // const { isRead } = checkConversationIsRead(conversationRoot);
-  const adressat = getAdressat(conversationRoot.participants);
-
   useEffect(() => {
     if (conversationStatus.loading || !conversationRoot._id) return;
-
     const { isRead } = checkConversationIsRead(conversationRoot);
-    console.log({ isRead });
-    // setConversationIsRead(isRead);
-  }, [conversationRoot, conversationStatus.loading]);
+    setConversationIsRead(isRead);
+  }, [
+    conversationRoot._id,
+    conversationRoot.isReadBy,
+    conversationStatus.loading,
+  ]);
 
   return (
     <Stack flex={5} component="aside" position="relative">
@@ -45,8 +48,8 @@ const Feed: React.FC = () => {
       />
 
       <UI.FeedWall
-        isRead={conversationIsRead}
         adressat={adressat}
+        isRead={conversationIsRead}
         loading={conversationStatus.loading}
       />
 

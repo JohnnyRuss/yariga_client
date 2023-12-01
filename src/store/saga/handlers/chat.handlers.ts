@@ -108,22 +108,10 @@ export function* markConversationAsRead({
   payload,
 }: PayloadAction<ChatApiT.MarkConversationAsReadArgsT>) {
   try {
-    // const { data }: AxiosResponse<ChatApiT.SendMessageResponseT> = yield call(
-    //   chatAPI.sendMessageQuery,
-    //   payload
-    // );
+    const { data }: AxiosResponse<ChatApiT.MarkConversationAsReadResponseT> =
+      yield call(chatAPI.markConversationAsReadQuery, payload);
 
-    const authenticatedUserId: string = yield select(
-      ({ user }: RootStateT) => user.user._id
-    );
-
-    yield put(
-      chatActions.setMarkConversationAsRead({
-        authenticatedUserId,
-        read: payload.read,
-        conversationId: payload.conversationId,
-      })
-    );
+    yield put(chatActions.setMarkConversationAsRead(data));
   } catch (error: any) {
     yield setError({
       error,

@@ -1,4 +1,4 @@
-import { takeLatest } from "redux-saga/effects";
+import { takeLatest, takeEvery } from "redux-saga/effects";
 
 import { chatActions } from "store/reducers/chat.reducer";
 import * as chatHandlers from "store/saga/handlers/chat.handlers";
@@ -18,7 +18,7 @@ export default function* chatSaga() {
     chatHandlers.createConversationAndGetAll
   );
 
-  yield takeLatest(chatActions.sendMessage, chatHandlers.sendMessage);
+  yield takeEvery(chatActions.sendMessage, chatHandlers.sendMessage);
 
   yield takeLatest(
     chatActions.markConversationAsRead,

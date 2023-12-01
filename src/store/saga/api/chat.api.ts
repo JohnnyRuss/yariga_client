@@ -1,8 +1,9 @@
 import {
+  SendMessageArgsT,
   GetConversationArgsT,
   DeleteConversationArgsT,
   CreateConversationArgsT,
-  SendMessageArgsT,
+  MarkConversationAsReadArgsT,
 } from "interface/db/chat.types";
 import { axiosPrivateQuery } from "services/axios";
 
@@ -26,5 +27,13 @@ export async function sendMessageQuery(data: SendMessageArgsT) {
   return axiosPrivateQuery.post(
     `/chat/${data.params.conversationId}/message`,
     data.data
+  );
+}
+
+export async function markConversationAsReadQuery(
+  args: MarkConversationAsReadArgsT
+) {
+  return axiosPrivateQuery.patch(
+    `/chat/${args.conversationId}/read?read=${args.read}`
   );
 }

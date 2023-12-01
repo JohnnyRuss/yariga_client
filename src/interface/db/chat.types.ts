@@ -42,6 +42,11 @@ type MarkConversationAsReadArgsT = {
   read: "1" | "0";
 };
 
+type MarkConversationAsReadResponseT = {
+  conversationId: string;
+  isReadBy: Array<string>;
+};
+
 type CreateConversationArgsT = {
   adressat: string;
 };
@@ -75,4 +80,5 @@ export type {
   SendMessageArgsT,
   SendMessageResponseT,
   MarkConversationAsReadArgsT,
+  MarkConversationAsReadResponseT,
 };

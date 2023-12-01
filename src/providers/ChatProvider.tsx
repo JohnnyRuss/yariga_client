@@ -25,8 +25,9 @@ type ChatContextT = {
     isRead: boolean;
     belongsToActiveUser: boolean;
   };
-  getAdressat: (
-    participants: Array<ConversationParticipantT>
+  getLastMessageAdressat: (
+    participants: Array<ConversationParticipantT>,
+    lastMessageSenderId: string
   ) => ConversationParticipantT;
   groupMessages: (data: Array<MessageT>) => Array<Array<MessageT>>;
   text: string;
@@ -47,7 +48,7 @@ const ChatContext = createContext<ChatContextT>({
     isRead: false,
     belongsToActiveUser: false,
   }),
-  getAdressat: () => PARTICIPANT_DEFAULT,
+  getLastMessageAdressat: () => PARTICIPANT_DEFAULT,
   groupMessages: () => [],
   text: "",
   onSendMessage: () => {},
@@ -66,23 +67,22 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
 
   const { _id: authenticatedUserId } = useAppSelector(selectAuthenticatedUser);
 
-  const getAdressat = (participants: Array<ConversationParticipantT>) =>
-    participants.find((user) => user._id !== authenticatedUserId) ||
+  const getLastMessageAdressat = (
+    participants: Array<ConversationParticipantT>,
+    lastMessageSenderId: string
+  ) =>
+    participants.find((user) => user._id !== lastMessageSenderId) ||
     PARTICIPANT_DEFAULT;
 
   const checkConversationIsRead = (conversation: ConversationShortT) => {
     const lastMessageSenderId = conversation.lastMessage?.sender._id || "";
 
-    const adressat =
-      conversation.participants.find(
-        (user) => user._id !== lastMessageSenderId
-      ) || PARTICIPANT_DEFAULT;
+    const adressat = getLastMessageAdressat(
+      conversation.participants,
+      lastMessageSenderId
+    );
 
-    console.log({ conversation, adressat });
-
-    const isRead =
-      lastMessageSenderId !== authenticatedUserId &&
-      conversation.isReadBy.includes(adressat._id);
+    const isRead = conversation.isReadBy.includes(adressat._id);
 
     const belongsToActiveUser = lastMessageSenderId === authenticatedUserId;
 
@@ -189,7 +189,7 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
         onEnter,
         onSendMessage,
         showControl,
-        getAdressat,
+        getLastMessageAdressat,
         groupMessages,
         authenticatedUserId,
         checkConversationIsRead,

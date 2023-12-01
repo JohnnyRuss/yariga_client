@@ -25,14 +25,16 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
   const { checkConversationIsRead } = useChatContext();
 
   useEffect(() => {
-    // const { belongsToActiveUser, isRead } =
-    //   checkConversationIsRead(conversation);
-    // const conversationIsRead = belongsToActiveUser || isRead;
-    // setConversationStatus((prev) => ({
-    //   ...prev,
-    //   isRead: conversationIsRead,
-    //   belongsToActiveUser: belongsToActiveUser,
-    // }));
+    const { belongsToActiveUser, isRead } =
+      checkConversationIsRead(conversation);
+
+    const conversationIsRead = belongsToActiveUser || isRead;
+
+    setConversationStatus((prev) => ({
+      ...prev,
+      isRead: conversationIsRead,
+      belongsToActiveUser: belongsToActiveUser,
+    }));
   }, [conversation]);
 
   return (
