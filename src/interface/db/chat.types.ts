@@ -37,6 +37,11 @@ type DeleteConversationArgsT = {
   conversationId: string;
 };
 
+type MarkConversationAsReadArgsT = {
+  conversationId: string;
+  read: "1" | "0";
+};
+
 type CreateConversationArgsT = {
   adressat: string;
 };
@@ -69,4 +74,5 @@ export type {
   CreateConversationArgsT,
   SendMessageArgsT,
   SendMessageResponseT,
+  MarkConversationAsReadArgsT,
 };

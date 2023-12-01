@@ -3,9 +3,10 @@ import { Box, Stack } from "@mui/material";
 
 type FeedHeaderT = {
   loading: boolean;
+  isRead: boolean;
 };
 
-const FeedHeader: React.FC<FeedHeaderT> = ({ loading }) => {
+const FeedHeader: React.FC<FeedHeaderT> = ({ loading, isRead }) => {
   return loading ? (
     <UI.FeedHeaderSkeleton />
   ) : (
@@ -18,7 +19,7 @@ const FeedHeader: React.FC<FeedHeaderT> = ({ loading }) => {
       >
         <UI.FeedHeaderUser />
 
-        <UI.FeedHeaderActions />
+        <UI.FeedHeaderActions isRead={isRead} />
       </Stack>
     </Box>
   );

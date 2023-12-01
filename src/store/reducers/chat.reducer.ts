@@ -147,6 +147,7 @@ const chatSlice = createSlice({
       state.conversationsStatus = status.loading();
     },
 
+    // SEND MESSAGE
     sendMessage(_, { payload }: PayloadAction<ChatApiT.SendMessageArgsT>) {},
 
     sendSentMessage(
@@ -172,6 +173,42 @@ const chatSlice = createSlice({
           isReadBy: conversation.isReadBy,
           messages: [...state.activeConversation.messages, message],
         };
+    },
+
+    // MARK CONVERSATION AS READ
+    markConversationAsRead(
+      state,
+      { payload }: PayloadAction<ChatApiT.MarkConversationAsReadArgsT>
+    ) {},
+
+    setMarkConversationAsRead(
+      state,
+      {
+        payload: { conversationId, authenticatedUserId, read },
+      }: PayloadAction<
+        ChatApiT.MarkConversationAsReadArgsT & { authenticatedUserId: string }
+      >
+    ) {
+      if (state.activeConversation._id === conversationId)
+        state.activeConversation.isReadBy =
+          read === "0"
+            ? state.activeConversation.isReadBy.filter(
+                (user) => user !== authenticatedUserId
+              )
+            : [...state.activeConversation.isReadBy, authenticatedUserId];
+
+      const index = state.conversations.findIndex(
+        (conversation) => conversation._id === conversationId
+      );
+
+      if (index < 0) return;
+
+      state.conversations[index].isReadBy =
+        read === "0"
+          ? state.conversations[index].isReadBy.filter(
+              (user) => user !== authenticatedUserId
+            )
+          : [...state.conversations[index].isReadBy, authenticatedUserId];
     },
   },
 });

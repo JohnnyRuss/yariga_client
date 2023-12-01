@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
-export const ConversationCard = styled(NavLink)(() => ({
+export const ConversationCard = styled(NavLink)(({ theme }) => ({
   padding: "8px 7px",
   borderRadius: "10px",
 
@@ -10,16 +10,16 @@ export const ConversationCard = styled(NavLink)(() => ({
   },
 
   "&.active": {
-    backgroundColor: "app_blue.light",
-    color: "app_text.light",
+    backgroundColor: theme.palette.app_blue?.light,
+    color: theme.palette.app_text?.light,
   },
 
   "&.active .MuiBox-root.conversation-date p": {
-    color: "app_text.light",
+    color: theme.palette.app_text?.light,
   },
 
   "&.active .MuiTypography-root.conversation-text": {
-    color: "app_text.light",
+    color: theme.palette.app_text?.light,
   },
 
   ".last-message": {
@@ -36,7 +36,7 @@ export const ConversationCard = styled(NavLink)(() => ({
     height: "12px",
     marginLeft: "auto",
     borderRadius: "100%",
-    backgroundColor: "app_blue.light",
+    backgroundColor: theme.palette.app_blue?.light,
   },
 
   ".conversation-options__box": {

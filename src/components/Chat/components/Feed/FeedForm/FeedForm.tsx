@@ -27,6 +27,7 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
           minRows={1}
           maxRows={4}
           fullWidth
+          autoFocus={true}
           value={text}
           disabled={disabled}
           onChange={onTextChange}

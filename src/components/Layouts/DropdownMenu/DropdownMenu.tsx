@@ -4,10 +4,11 @@ import { MoreHoriz } from "@mui/icons-material";
 import { Box, Button, Menu } from "@mui/material";
 
 interface DropdownMenuT {
+  triggerColor?: string;
   render: ({ onClose }: { onClose: () => void }) => Array<React.ReactNode>;
 }
 
-const DropdownMenu: React.FC<DropdownMenuT> = ({ render }) => {
+const DropdownMenu: React.FC<DropdownMenuT> = ({ render, triggerColor }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -22,7 +23,7 @@ const DropdownMenu: React.FC<DropdownMenuT> = ({ render }) => {
       <Button
         variant="text"
         onClick={handleClick}
-        sx={{ color: "app_text.dark", padding: 0 }}
+        sx={{ color: triggerColor || "app_text.dark", padding: 0 }}
       >
         <MoreHoriz sx={{ fontSize: "35px" }} />
       </Button>

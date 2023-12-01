@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
+
 import { getTimeString } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
 import { useChatContext } from "providers/ChatProvider";
@@ -5,6 +8,7 @@ import { useChatContext } from "providers/ChatProvider";
 import * as MuiStyled from "./styles/ConversationCard.styled";
 import { Stack, Typography, Box, Badge } from "@mui/material";
 import { Avatar, ConversationOptions } from "components/Chat/components/common";
+import ConversationCardLastMessage from "./ConversationCardLastMessage";
 
 import { ConversationShortInfoT } from "interface/store/chat.types";
 
@@ -13,16 +17,23 @@ type ConversationCardT = {
 };
 
 const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
+  const [conversationStatus, setConversationStatus] = useState({
+    isRead: false,
+    belongsToActiveUser: false,
+  });
+
   const { checkConversationIsRead } = useChatContext();
-  const { belongsToActiveUser, isRead } = checkConversationIsRead(conversation);
 
-  const conversationIsRead = belongsToActiveUser || isRead;
-
-  const lastMessageText = `${
-    belongsToActiveUser
-      ? "You: "
-      : `${conversation.lastMessage?.sender.username}: `
-  }`.concat(conversation.lastMessage?.text || "");
+  useEffect(() => {
+    // const { belongsToActiveUser, isRead } =
+    //   checkConversationIsRead(conversation);
+    // const conversationIsRead = belongsToActiveUser || isRead;
+    // setConversationStatus((prev) => ({
+    //   ...prev,
+    //   isRead: conversationIsRead,
+    //   belongsToActiveUser: belongsToActiveUser,
+    // }));
+  }, [conversation]);
 
   return (
     <MuiStyled.ConversationCard
@@ -42,17 +53,18 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
 
           <Stack direction="row" alignItems="center" width="100%">
             {conversation.lastMessage && (
-              <Typography
-                fontSize={14}
-                fontWeight={conversationIsRead ? 400 : 600}
-                className="conversation-text last-message"
-                color={conversationIsRead ? "app_text.main" : "app_text.dark"}
-              >
-                {lastMessageText}
-              </Typography>
+              <ConversationCardLastMessage
+                message={conversation.lastMessage}
+                conversationIsRead={conversationStatus.isRead}
+                belongsToActiveUser={conversationStatus.belongsToActiveUser}
+              />
             )}
 
-            <Badge variant="dot" sx={{ opacity: conversationIsRead ? 0 : 1 }} />
+            <Badge
+              variant="dot"
+              className="badge"
+              sx={{ opacity: conversationStatus.isRead ? 0 : 1 }}
+            />
 
             <Box
               className="conversation-options__box"
@@ -61,7 +73,11 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
                 e.preventDefault();
               }}
             >
-              <ConversationOptions showPanelBtn={false} />
+              <ConversationOptions
+                showPanelBtn={false}
+                conversationId={conversation._id}
+                isRead={conversationStatus.isRead}
+              />
             </Box>
           </Stack>
         </Stack>

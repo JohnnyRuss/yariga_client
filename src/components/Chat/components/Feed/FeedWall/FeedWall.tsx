@@ -2,35 +2,26 @@ import { useEffect, useRef } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
 
-import {
-  selectConversationMessages,
-  selectConversationOrigin,
-} from "store/selectors/chat.selectors";
 import { useChatContext } from "providers/ChatProvider";
+import { selectConversationMessages } from "store/selectors/chat.selectors";
 
 import * as UI from "./";
 import { Stack, Box } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
 
+import { ConversationParticipantT } from "interface/db/chat.types";
+
 type FeedWallT = {
+  isRead: boolean;
   loading: boolean;
+  adressat: ConversationParticipantT;
 };
 
-const FeedWall: React.FC<FeedWallT> = ({ loading }) => {
+const FeedWall: React.FC<FeedWallT> = ({ loading, adressat, isRead }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  const { groupMessages, authenticatedUserId } = useChatContext();
   const messages = useAppSelector(selectConversationMessages);
-  const conversationRoot = useAppSelector(selectConversationOrigin);
-
-  const {
-    getAdressat,
-    groupMessages,
-    authenticatedUserId,
-    checkConversationIsRead,
-  } = useChatContext();
-
-  const { isRead } = checkConversationIsRead(conversationRoot);
-  const adressat = getAdressat(conversationRoot.participants);
 
   useEffect(() => {
     if (!containerRef.current) return;

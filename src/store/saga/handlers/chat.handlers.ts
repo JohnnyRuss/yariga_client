@@ -103,3 +103,32 @@ export function* sendMessage({
     });
   }
 }
+
+export function* markConversationAsRead({
+  payload,
+}: PayloadAction<ChatApiT.MarkConversationAsReadArgsT>) {
+  try {
+    // const { data }: AxiosResponse<ChatApiT.SendMessageResponseT> = yield call(
+    //   chatAPI.sendMessageQuery,
+    //   payload
+    // );
+
+    const authenticatedUserId: string = yield select(
+      ({ user }: RootStateT) => user.user._id
+    );
+
+    yield put(
+      chatActions.setMarkConversationAsRead({
+        authenticatedUserId,
+        read: payload.read,
+        conversationId: payload.conversationId,
+      })
+    );
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "markConversationAsRead",
+      // errorSetter: chatActions.setDeleteConversationStatus,
+    });
+  }
+}

@@ -72,7 +72,13 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
 
   const checkConversationIsRead = (conversation: ConversationShortT) => {
     const lastMessageSenderId = conversation.lastMessage?.sender._id || "";
-    const adressat = getAdressat(conversation.participants);
+
+    const adressat =
+      conversation.participants.find(
+        (user) => user._id !== lastMessageSenderId
+      ) || PARTICIPANT_DEFAULT;
+
+    console.log({ conversation, adressat });
 
     const isRead =
       lastMessageSenderId !== authenticatedUserId &&

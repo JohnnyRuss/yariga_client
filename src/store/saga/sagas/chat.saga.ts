@@ -19,4 +19,9 @@ export default function* chatSaga() {
   );
 
   yield takeLatest(chatActions.sendMessage, chatHandlers.sendMessage);
+
+  yield takeLatest(
+    chatActions.markConversationAsRead,
+    chatHandlers.markConversationAsRead
+  );
 }

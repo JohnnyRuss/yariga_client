@@ -16,7 +16,8 @@ const ActiveConversations: React.FC = () => {
     <Stack
       p={1}
       flex={1}
-      flexBasis="200px"
+      flexBasis="300px"
+      maxWidth="350px"
       component="aside"
       borderRight="1px solid"
       borderColor="app_text.contrastText"
