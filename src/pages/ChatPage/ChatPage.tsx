@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { RouterHistory } from "config/config";
 import useChatQuery from "hooks/api/chat/useChatQuery";
-import ChatProvider from "providers/ChatProvider";
+import ChatProvider from "providers/chat/ChatProvider";
 
 import { Chat } from "components/Chat";
 

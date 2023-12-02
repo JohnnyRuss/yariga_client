@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useChatContext } from "providers/ChatProvider";
+import { useChatContext } from "providers/chat/ChatProvider";
 
 import * as UI from "./components";
 import { Stack, Box } from "@mui/material";

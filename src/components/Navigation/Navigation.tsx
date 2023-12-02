@@ -22,10 +22,28 @@ const Navigation: React.FC = () => {
       overflow="hidden"
       boxSizing="border-box"
     >
-      <Box component={Link} to={PATHS.root_page}>
-        <figure>
-          <img src={AppLogo.toString()} alt="yariga logo" />
-        </figure>
+      <Box component={Link} to={PATHS.root_page} position="relative">
+        <h1>
+          <span
+            style={{
+              opacity: 1,
+              position: "absolute",
+              transform: "translateY(-1000px)",
+            }}
+          >
+            Yariga. Website helps people for RENT or SALE properties.
+          </span>
+
+          <figure>
+            <img
+              src={AppLogo.toString()}
+              alt="yariga logo"
+              loading="eager"
+              width="100%"
+              height="100%"
+            />
+          </figure>
+        </h1>
       </Box>
 
       <UserToolbar />

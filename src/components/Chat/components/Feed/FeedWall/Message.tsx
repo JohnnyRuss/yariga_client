@@ -1,5 +1,8 @@
+import { nanoid } from "@reduxjs/toolkit";
+import Linkify from "react-linkify";
 import { Stack, Typography, Box } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
+import LinkPreview from "./LinkPreview";
 
 import "./message.css";
 
@@ -43,12 +46,29 @@ const Message: React.FC<MessageElT> = ({
       >
         {messageGroup.map((message) => (
           <Typography
+            component="div"
+            maxWidth={message.links.length > 0 ? "320px" : "100%"}
             key={message._id}
             className={`msg-txt ${
               belongToActiveUser ? "active-user__msg" : ""
             }`}
           >
-            {message.text}
+            <Linkify
+              componentDecorator={(href, txt) => (
+                <a
+                  href={href}
+                  rel="noreferrer"
+                  className="underline"
+                  key={nanoid()}
+                >
+                  {href}
+                </a>
+              )}
+            >
+              {message.text}
+
+              {message.links[0] && <LinkPreview url={message.links[0]} />}
+            </Linkify>
           </Typography>
         ))}
       </Stack>

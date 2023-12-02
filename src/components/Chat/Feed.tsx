@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
-import { useChatContext } from "providers/ChatProvider";
+import { useChatContext } from "providers/chat/ChatProvider";
 
 import {
   selectConversationStatus,

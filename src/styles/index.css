@@ -105,6 +105,10 @@ a {
   font-weight: 700;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }

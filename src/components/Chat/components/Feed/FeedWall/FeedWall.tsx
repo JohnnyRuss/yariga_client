@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
 
-import { useChatContext } from "providers/ChatProvider";
+import { useChatContext } from "providers/chat/ChatProvider";
 import { selectConversationMessages } from "store/selectors/chat.selectors";
 
 import * as UI from "./";

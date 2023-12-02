@@ -55,6 +55,7 @@ type SendMessageArgsT = {
   params: { conversationId: string };
   data: {
     text: string;
+    links: Array<string>;
   };
 };
 

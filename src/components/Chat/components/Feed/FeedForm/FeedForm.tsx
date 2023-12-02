@@ -1,4 +1,4 @@
-import { useChatContext } from "providers/ChatProvider";
+import { useChatContext } from "providers/chat/ChatProvider";
 
 import * as UI from "./";
 import { Box, Stack, TextField, InputAdornment } from "@mui/material";

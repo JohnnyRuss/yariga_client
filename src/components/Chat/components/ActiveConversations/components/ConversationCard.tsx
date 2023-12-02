@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { getTimeString } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { useChatContext } from "providers/ChatProvider";
+import { useChatContext } from "providers/chat/ChatProvider";
 
 import * as MuiStyled from "./styles/ConversationCard.styled";
 import { Stack, Typography, Box, Badge } from "@mui/material";
