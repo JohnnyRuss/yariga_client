@@ -22,6 +22,10 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
       <MuiStyled.CardHorizontal>
         <CardMedia
           component="img"
+          width="100%"
+          height="100%"
+          loading="lazy"
+          title={property.title + " - image"}
           src={property.images[0]}
           alt={property.images[0]}
         />

@@ -1,4 +1,5 @@
-import { Avatar as MuiAvatar, Badge, Box } from "@mui/material";
+import { Avatar as UserAvatar } from "components/Layouts";
+import { Badge, Box } from "@mui/material";
 
 type AvatarT = {
   src: string;
@@ -15,7 +16,7 @@ const Avatar: React.FC<AvatarT> = ({
 }) => {
   return (
     <Box position="relative" width={width} minWidth={width} height={width}>
-      <MuiAvatar src={src} sx={{ width: "100%", height: "100%" }} alt={alt} />
+      <UserAvatar src={src} width="100%" alt={alt} />
       {showBadge && (
         <Badge
           invisible={true}

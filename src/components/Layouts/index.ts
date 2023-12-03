@@ -29,6 +29,9 @@ export { default as Text } from "./Text/Text";
 export { default as ChatWithButton } from "./ContactButtons/ChatWithButton";
 export { default as EmailButton } from "./ContactButtons/EmailButton";
 export { default as PhoneButton } from "./ContactButtons/PhoneButton";
+export { default as LinkPreview } from "./LinkPreview/LinkPreview";
+export { default as LineClamp } from "./LineClamp/LineClamp";
+export { default as Avatar } from "./Avatar/Avatar";
 
 // CARDS
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";

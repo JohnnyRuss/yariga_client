@@ -41,6 +41,7 @@ const Navigation: React.FC = () => {
               loading="eager"
               width="100%"
               height="100%"
+              title="Yariga"
             />
           </figure>
         </h1>

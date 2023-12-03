@@ -30,7 +30,7 @@ const AgentCard: React.FC<AgentCardT> = ({ agent }) => {
       >
         {/* <UI.AgentMoreButton /> */}
 
-        <UI.AgentCardMedia src={agent.avatar} />
+        <UI.AgentCardMedia src={agent.avatar} username={agent.username} />
 
         <UI.AgentCardContent
           email={agent.email}

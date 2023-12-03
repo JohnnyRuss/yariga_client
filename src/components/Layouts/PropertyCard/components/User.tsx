@@ -1,6 +1,7 @@
 import useGoToUser from "hooks/utils/useGoToUser";
 
-import { Stack, Avatar, Typography } from "@mui/material";
+import { Avatar } from "components/Layouts";
+import { Stack, Typography } from "@mui/material";
 
 import { PropertyOwnerShortT } from "interface/db/properties.types";
 
@@ -20,20 +21,7 @@ const User: React.FC<UserT> = ({ owner, isAgent }) => {
       flexWrap="wrap"
       width="100%"
     >
-      <Avatar
-        src={owner.avatar}
-        alt={owner.username}
-        sizes="30px 30px"
-        imgProps={{
-          style: {
-            minWidth: "100%",
-            minHeight: "100%",
-            objectFit: "cover",
-          },
-        }}
-      >
-        {owner.username[0].toUpperCase()}
-      </Avatar>
+      <Avatar src={owner.avatar} alt={owner.username} width="35px" />
 
       <Stack width="max-content">
         <Typography

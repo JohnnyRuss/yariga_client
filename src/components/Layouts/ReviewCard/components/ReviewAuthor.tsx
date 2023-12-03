@@ -1,4 +1,5 @@
-import { Stack, Avatar, Typography } from "@mui/material";
+import { Avatar } from "components/Layouts";
+import { Stack, Typography } from "@mui/material";
 
 import { ReviewAuthorT } from "interface/db/reviews.types";
 
@@ -10,13 +11,10 @@ const ReviewAuthor: React.FC<ReviewAuthorElT> = ({ author }) => {
   return (
     <Stack direction="row" gap="15px">
       <Avatar
-        variant="square"
-        sx={{
-          width: "70px",
-          height: "70px",
-          borderRadius: "10px",
-        }}
+        width="70px"
+        variant="rounded"
         src={author.avatar}
+        alt={author.username}
       />
 
       <Stack>

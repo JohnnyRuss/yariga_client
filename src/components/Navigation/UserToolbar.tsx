@@ -5,7 +5,8 @@ import { useAppSelector } from "store/hooks";
 import { useLogoutQuery } from "hooks/api/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
-import { Button, Menu, MenuList, MenuItem, Avatar } from "@mui/material";
+import { Avatar } from "components/Layouts";
+import { Button, Menu, MenuList, MenuItem } from "@mui/material";
 
 const UserToolbar: React.FC = () => {
   const user = useAppSelector(selectAuthenticatedUser);
@@ -24,9 +25,11 @@ const UserToolbar: React.FC = () => {
   return (
     <div>
       <Button onClick={handleClick} variant="text">
-        <Avatar src={user?.avatar} alt={user?.username}>
-          {user?.username[0]?.toUpperCase()}
-        </Avatar>
+        <Avatar
+          src={user?.avatar}
+          alt={user?.username || "user"}
+          loading="eager"
+        />
         <span style={{ marginLeft: "8px" }}>{user?.username}</span>
       </Button>
 

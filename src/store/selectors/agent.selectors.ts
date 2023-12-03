@@ -49,6 +49,18 @@ const selectedAgentsPagination = ({ agent }: RootStateT) => ({
   pagesCount: agent.pagesCount,
 });
 
+const selectedAgentHelmet = ({ agent }: RootStateT) => ({
+  bio: agent.agent.bio.slice(0, 170),
+  username: agent.agent.username,
+  image: agent.agent.avatar,
+  status: {
+    error: agent.agentStatus.error,
+    loading: agent.agentStatus.loading,
+    message: agent.agentStatus.message,
+    status: agent.agentStatus.status,
+  },
+});
+
 // SELECTORS
 
 const selectAllAgents = ({ agent }: RootStateT) => agent.agents;
@@ -83,6 +95,11 @@ const selectAgentsPagination = createSelector(
   (pagination) => pagination
 );
 
+const selectAgentHelmet = createSelector(
+  selectedAgentHelmet,
+  (helmet) => helmet
+);
+
 export {
   selectAgentStatus,
   selectAgentsStatus,
@@ -91,4 +108,5 @@ export {
   selectAgentCredentials,
   selectAgentDetails,
   selectAgentsPagination,
+  selectAgentHelmet,
 };

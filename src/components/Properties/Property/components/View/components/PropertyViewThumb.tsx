@@ -24,13 +24,12 @@ const PropertyViewThumb: React.FC<PropertyViewThumbT> = ({
       {children}
       <img
         src={src}
+        title={src}
+        width="100%"
+        height="100%"
+        loading="eager"
         alt="property thumbnail"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
+        style={{ objectFit: "cover", objectPosition: "center" }}
       />
     </figure>
   );

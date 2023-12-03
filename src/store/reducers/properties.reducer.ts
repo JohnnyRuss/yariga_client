@@ -228,7 +228,7 @@ const propertiesSlice = createSlice({
 
     setProperty(state, { payload }: PayloadAction<PropertyT>) {
       state.property = payload;
-      state.singlePropertyStatus = status.default();
+      state.singlePropertyStatus = status.success("SUCCESS");
     },
 
     setPropertyStatus(

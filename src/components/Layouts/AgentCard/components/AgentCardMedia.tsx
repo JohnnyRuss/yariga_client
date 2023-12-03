@@ -2,9 +2,10 @@ import { CardMedia } from "@mui/material";
 
 interface AgentCardMediaT {
   src: string;
+  username: string;
 }
 
-const AgentCardMedia: React.FC<AgentCardMediaT> = ({ src }) => {
+const AgentCardMedia: React.FC<AgentCardMediaT> = ({ src, username }) => {
   return (
     <CardMedia
       component="figure"
@@ -19,9 +20,11 @@ const AgentCardMedia: React.FC<AgentCardMediaT> = ({ src }) => {
       <img
         src={src}
         alt={src}
+        width="100%"
+        height="100%"
+        loading="lazy"
+        title={username}
         style={{
-          width: "100%",
-          height: "100%",
           objectFit: "cover",
           objectPosition: "top",
         }}

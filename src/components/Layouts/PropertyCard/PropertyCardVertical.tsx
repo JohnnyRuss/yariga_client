@@ -21,11 +21,13 @@ const PropertyCardVertical: React.FC<PropertyCardVerticalT> = ({
     <Link to={DYNAMIC_PATHS.property_page(property._id)} className="app__card">
       <MuiStyled.CardVertical elevation={2}>
         <CardMedia
+          width="100%"
+          height={210}
+          loading="eager"
           component="img"
           src={property.images[0]}
           alt={property.images[0]}
-          width="100%"
-          height={210}
+          title={property.images[0]}
           sx={{ borderRadius: "10px" }}
         />
 

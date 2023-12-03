@@ -9,6 +9,7 @@ const Aside: React.FC = () => {
     <MuiStyled.AsideBox component="aside">
       {ASIDE_NAV_ROUTES.map((route) => (
         <NavLink
+          title={route.title}
           className={({ isActive }) =>
             isActive
               ? `${styles.aside_link} ${styles.active}`

@@ -124,7 +124,7 @@ const agentSlice = createSlice({
 
     setAgent(state, { payload }: PayloadAction<AgentT>) {
       state.agent = payload;
-      state.agentStatus = status.default();
+      state.agentStatus = status.success("SUCCESS");
     },
 
     setAgentStatus(

@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import Helmet from "pages/Helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { PATHS } from "config/paths";
 import useReviewsQuery from "hooks/api/reviews/useReviewsQuery";
 
 import AllReviews from "components/Reviews/AllReviews";
@@ -29,7 +31,18 @@ const AllReviewsPage: React.FC = () => {
     };
   }, [search]);
 
-  return <AllReviews />;
+  return (
+    <>
+      <Helmet
+        title="Reviews"
+        disAllowCrawler={true}
+        path={PATHS.reviews_page}
+        description="reviews got user on all of the properties from other users"
+      />
+
+      <AllReviews />
+    </>
+  );
 };
 
 export default AllReviewsPage;

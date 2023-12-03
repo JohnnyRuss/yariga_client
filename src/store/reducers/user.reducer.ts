@@ -69,7 +69,7 @@ const userSlice = createSlice({
 
     setGuest(state, { payload }: PayloadAction<UserT>) {
       state.guest = payload;
-      state.status = status.default();
+      state.status = status.success("SUCCESS");
     },
 
     setGuestStatus(

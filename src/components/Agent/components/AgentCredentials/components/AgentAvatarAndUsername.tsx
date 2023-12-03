@@ -1,4 +1,5 @@
-import { Typography, Stack, Box, Avatar } from "@mui/material";
+import { Avatar } from "components/Layouts";
+import { Typography, Stack, Box } from "@mui/material";
 
 interface AgentAvatarAndUsernameT {
   username: string;
@@ -11,7 +12,7 @@ const AgentAvatarAndUsername: React.FC<AgentAvatarAndUsernameT> = ({
 }) => {
   return (
     <Stack direction="row" gap={2}>
-      <Avatar sx={{ width: "100px", height: "100px" }} src={avatar} />
+      <Avatar width="100px" src={avatar} alt={username} loading="eager" />
 
       <Box mt="50px">
         <Typography fontWeight={600}>{username}</Typography>

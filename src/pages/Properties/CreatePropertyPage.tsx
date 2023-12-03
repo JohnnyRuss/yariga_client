@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import Helmet from "pages/Helmet";
 
+import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 import { usePropertyFormSuggestionsQuery } from "hooks/api/properties";
 
@@ -20,7 +22,18 @@ const CreatePropertyPage: React.FC = () => {
     };
   }, []);
 
-  return <CreateProperty />;
+  return (
+    <>
+      <Helmet
+        title="Add Property"
+        disAllowCrawler={true}
+        path={PATHS.create_property_page}
+        description="Add your properties at Yariga for rent or sale. Hire agents."
+      />
+
+      <CreateProperty />
+    </>
+  );
 };
 
 export default CreatePropertyPage;

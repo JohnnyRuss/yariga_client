@@ -2,8 +2,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import Linkify from "react-linkify";
 import { Stack, Typography, Box } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
-import LinkPreview from "./LinkPreview";
-
+import { LinkPreview } from "components/Layouts";
 import "./message.css";
 
 import { MessageT } from "interface/db/chat.types";

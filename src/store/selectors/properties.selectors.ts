@@ -71,6 +71,19 @@ const selectedAlProperties = ({ properties }: RootStateT) => ({
   pagesCount: properties.pagesCount,
 });
 
+const selectedPropertyHelmet = ({ properties }: RootStateT) => ({
+  title: properties.property.title,
+  author: properties.property.owner.username,
+  description: properties.property.description.slice(0, 170),
+  image: properties.property.images[0],
+  status: {
+    error: properties.singlePropertyStatus.error,
+    loading: properties.singlePropertyStatus.loading,
+    message: properties.singlePropertyStatus.message,
+    status: properties.singlePropertyStatus.status,
+  },
+});
+
 // SELECTORS
 const selectAllPropertiesStatus = createSelector(
   selectedAllPropertiesStatus,
@@ -118,6 +131,11 @@ const selectRelatedProperties = ({ properties }: RootStateT) =>
 const selectUserProperties = ({ properties }: RootStateT) =>
   properties.userProperties;
 
+const selectPropertyHelmet = createSelector(
+  selectedPropertyHelmet,
+  (helmet) => helmet
+);
+
 export {
   selectAllPropertiesStatus,
   selectSinglePropertyStatus,
@@ -130,4 +148,5 @@ export {
   selectUserProperties,
   selectRelatedProperties,
   selectProperty,
+  selectPropertyHelmet,
 };

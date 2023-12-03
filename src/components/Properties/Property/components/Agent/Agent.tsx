@@ -8,8 +8,8 @@ import { selectProperty } from "store/selectors/properties.selectors";
 import { selectHireAgentStatus } from "store/selectors/agent.selectors";
 
 import * as UI from "./components";
-import { HireAgentModal, Spinner } from "components/Layouts";
-import { Paper, Stack, Avatar } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
+import { HireAgentModal, Spinner, Avatar } from "components/Layouts";
 
 const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
   const { owner, agent, title, _id } = useAppSelector(selectProperty);
@@ -71,12 +71,11 @@ const Agent: React.FC<{ loading: boolean }> = ({ loading }) => {
             justifyContent="center"
           >
             <Avatar
+              width="90px"
+              loading="eager"
               src={ownerData.avatar}
               alt={ownerData.username}
-              sx={{ width: "90px", height: "90px" }}
-            >
-              {ownerData.username[0]?.toUpperCase()}
-            </Avatar>
+            />
 
             <UI.AgentDetails owner={ownerData} isAgent={agent ? true : false} />
 

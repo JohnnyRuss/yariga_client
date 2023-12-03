@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import Helmet from "pages/Helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 import { useAgentsQuery } from "hooks/api/agents";
 
@@ -32,7 +34,17 @@ const AgentsPage: React.FC = () => {
     };
   }, [search]);
 
-  return <Agents />;
+  return (
+    <>
+      <Helmet
+        type="website"
+        title="Agents"
+        path={PATHS.agent_page}
+        description="yariga agents listing presentation with agents contact information."
+      />
+      <Agents />;
+    </>
+  );
 };
 
 export default AgentsPage;

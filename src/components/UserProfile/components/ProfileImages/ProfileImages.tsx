@@ -1,5 +1,5 @@
 import * as UI from "./components";
-import { Box, Avatar } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface ProfileImagesT {
   avatar: string;
@@ -37,20 +37,17 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
           sx={{ borderRadius: "inherit" }}
         >
           <img
-            src="https://www.trendycovers.com/covers/abstract_3d_facebook_cover_1370594397.jpg"
             alt="cover"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "inherit",
-            }}
+            title="cover"
+            width="100%"
+            height="100%"
+            loading="eager"
+            style={{ objectFit: "cover", borderRadius: "inherit" }}
+            src="https://www.trendycovers.com/covers/abstract_3d_facebook_cover_1370594397.jpg"
           />
         </Box>
 
-        <Avatar
-          src={avatar}
-          alt={username}
+        <Box
           sx={{
             top: ["auto", "35px"],
             bottom: ["0px", "auto"],
@@ -59,9 +56,20 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
             width: "78px",
             height: "78px",
             position: "absolute",
+            borderRadius: "100%",
+            overflow: "hidden",
             transform: ["translate(50%,50%)", "translateX(50%)"],
           }}
-        />
+        >
+          <img
+            src={avatar}
+            alt={username}
+            loading="eager"
+            width="100%"
+            height="100%"
+            title={username}
+          />
+        </Box>
 
         {isAuthenticatedUser && <UI.ChangeImageButton />}
       </Box>

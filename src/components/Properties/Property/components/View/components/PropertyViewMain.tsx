@@ -23,13 +23,12 @@ const PropertyViewMain: React.FC<PropertyViewMainT> = ({ onClick, src }) => {
     >
       <img
         src={src}
+        title={src}
         alt="property"
-        loading="lazy"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
+        loading="eager"
+        width="100%"
+        height="100%"
+        style={{ objectFit: "cover" }}
       />
     </Box>
   );

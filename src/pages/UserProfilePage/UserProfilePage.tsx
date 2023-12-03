@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import Helmet from "pages/Helmet";
 import { useAppSelector } from "store/hooks";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   selectGuest,
   selectUserStatus,
   selectAuthenticatedUser,
 } from "store/selectors/user.selectors";
+import { textCapitalize } from "utils";
+import { DYNAMIC_PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
-import { usePropertiesQuery } from "hooks/api/properties";
 import { useUserQuery } from "hooks/api/user";
+import { usePropertiesQuery } from "hooks/api/properties";
 
 import UserProfile from "components/UserProfile/UserProfile";
 
@@ -43,7 +46,21 @@ const UserProfilePage: React.FC = () => {
     };
   }, []);
 
-  return <UserProfile user={user} loading={status.loading} />;
+  return (
+    <>
+      {status.status === "SUCCESS" && (
+        <Helmet
+          type="profile"
+          image={user.avatar}
+          description="User profile details"
+          title={textCapitalize(user.username)}
+          path={DYNAMIC_PATHS.user_profile_page(userId!)}
+        />
+      )}
+
+      <UserProfile user={user} loading={status.loading} />
+    </>
+  );
 };
 
 export default UserProfilePage;

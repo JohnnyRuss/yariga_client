@@ -12,11 +12,14 @@ const NoSelectedConversation: React.FC = () => {
       gap={2}
     >
       <Box component="figure" width="300px">
-        <Box
-          sx={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
-          component="img"
+        <img
+          width="100%"
+          height="100%"
+          loading="eager"
+          title="conversations"
           src={RealTimeCollaboration}
           alt="real-time-collaboration"
+          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
         />
       </Box>
 
