@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useCallback } from "react";
 import { useAppSelector } from "store/hooks";
 import { useParams, useLocation } from "react-router-dom";
 
-import { useConversationQuery } from "hooks/api/chat";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import {
@@ -11,7 +10,6 @@ import {
   ConversationShortT,
   ConversationParticipantT,
 } from "interface/db/chat.types";
-import { EmojiT } from "interface/components/common.types";
 import { ChatContextT, ChartProviderT } from "./index.types";
 
 const PARTICIPANT_DEFAULT = { _id: "", avatar: "", email: "", username: "" };
@@ -26,12 +24,6 @@ const ChatContext = createContext<ChatContextT>({
   }),
   getLastMessageAdressat: () => PARTICIPANT_DEFAULT,
   groupMessages: () => [],
-  text: "",
-  onSendMessage: () => {},
-  onEnter: () => {},
-  onTextChange: () => {},
-  handleBlur: () => {},
-  onEmojiSelection: () => {},
 });
 
 const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
@@ -65,7 +57,7 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
     return { isRead, belongsToActiveUser };
   };
 
-  const groupMessages = (data: Array<MessageT>) => {
+  const groupMessages = useCallback((data: Array<MessageT>) => {
     const groups: Array<Array<MessageT>> = [];
 
     let temp: Array<MessageT> = [];
@@ -110,64 +102,15 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
     });
 
     return groups;
-  };
+  }, []);
 
   // WRITE MESSAGE
 
   // 0.0 DECLARE STATES
-  const [text, setText] = useState("");
-  const [cursorPosition, setCursorPosition] = useState(0);
-
-  const { sendMessage } = useConversationQuery();
-
-  // 1.0 Handle Text Change
-  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setText(e.target.value);
-
-  // 1.1 Concat Icons With Text
-  const getCursorPosition = (element: HTMLTextAreaElement): number =>
-    element.selectionStart !== undefined ? element.selectionStart : 0;
-
-  const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) =>
-    setCursorPosition(getCursorPosition(event.target));
-
-  const onEmojiSelection = (value: EmojiT): void => {
-    const reg = new RegExp(`.{${cursorPosition}}`);
-    setText((prev) => prev.replace(reg, (match) => match + value.native));
-    setCursorPosition((prev) => prev + 2);
-  };
-
-  // 2.0 Send Message
-  const onSendMessage = (e?: React.FormEvent) => {
-    e?.preventDefault();
-
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-
-    if (!text || !conversationId) return;
-
-    const links = text.match(urlRegex) || [];
-
-    sendMessage({ params: { conversationId }, data: { text, links } });
-
-    setText("");
-  };
-
-  const onEnter = (e: React.KeyboardEvent) => {
-    if (e.key !== "Enter") return;
-    e.preventDefault();
-
-    onSendMessage();
-  };
 
   return (
     <ChatContext.Provider
       value={{
-        text,
-        onEmojiSelection,
-        handleBlur,
-        onTextChange,
-        onEnter,
-        onSendMessage,
         showControl,
         getLastMessageAdressat,
         groupMessages,

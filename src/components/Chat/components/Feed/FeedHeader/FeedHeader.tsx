@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import * as UI from "./";
 import { Box, Stack } from "@mui/material";
 
@@ -25,4 +27,4 @@ const FeedHeader: React.FC<FeedHeaderT> = ({ loading, isRead }) => {
   );
 };
 
-export default FeedHeader;
+export default memo(FeedHeader);

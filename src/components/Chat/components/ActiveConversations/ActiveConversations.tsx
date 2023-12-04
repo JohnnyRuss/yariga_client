@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useAppSelector } from "store/hooks";
 
 import {
@@ -42,4 +43,4 @@ const ActiveConversations: React.FC = () => {
   );
 };
 
-export default ActiveConversations;
+export default memo(ActiveConversations);

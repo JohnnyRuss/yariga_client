@@ -3,6 +3,8 @@ import { ApexOptions } from "apexcharts";
 
 const YARIGA_JWT_KEY = "YARIGA_PASSPORT";
 
+const MAX_IMAGE_COUNT_PER_SMS = 3;
+
 const PROPERTY_REFERRALS_INFO = [
   {
     title: "Social Media",
@@ -128,4 +130,5 @@ export {
   TOTAL_REVENUE_SERIES,
   TOTAL_REVENUE_OPTIONS,
   PROPERTY_REFERRALS_INFO,
+  MAX_IMAGE_COUNT_PER_SMS,
 };

@@ -1,13 +1,11 @@
-import { useEffect, useRef } from "react";
-import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
+import { useEffect, useRef, memo, useMemo } from "react";
 
 import { useChatContext } from "providers/chat/ChatProvider";
 import { selectConversationMessages } from "store/selectors/chat.selectors";
 
 import * as UI from "./";
 import { Stack, Box } from "@mui/material";
-import { Avatar } from "components/Chat/components/common";
 
 import { ConversationParticipantT } from "interface/db/chat.types";
 
@@ -17,11 +15,15 @@ type FeedWallT = {
   adressat: ConversationParticipantT;
 };
 
-const FeedWall: React.FC<FeedWallT> = ({ loading, adressat, isRead }) => {
+const FeedWall: React.FC<FeedWallT> = ({ isRead, loading, adressat }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const { groupMessages, authenticatedUserId } = useChatContext();
+  const { authenticatedUserId, groupMessages } = useChatContext();
   const messages = useAppSelector(selectConversationMessages);
+
+  const groupedMessages = useMemo(() => {
+    return groupMessages(messages);
+  }, [messages, groupMessages]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -44,23 +46,19 @@ const FeedWall: React.FC<FeedWallT> = ({ loading, adressat, isRead }) => {
           <UI.MessageGroupSkeleton />
         ) : (
           <Stack width="100%" gap={2} ref={containerRef}>
-            {groupMessages(messages).map((groupe) => (
+            {groupedMessages.map((groupe, index) => (
               <UI.Message
-                key={nanoid()}
                 messageGroup={groupe}
+                key={`message-group__${groupe[0]._id}`}
                 authenticatedUserId={authenticatedUserId}
               />
             ))}
 
             {isRead && (
-              <Box ml="auto" sx={{ transform: "translate(-5px,-10px)" }}>
-                <Avatar
-                  width="16px"
-                  showBadge={false}
-                  src={adressat.avatar}
-                  alt={adressat.username}
-                />
-              </Box>
+              <UI.SeenBadge
+                avatar={adressat.avatar}
+                username={adressat.username}
+              />
             )}
           </Stack>
         )}
@@ -69,4 +67,4 @@ const FeedWall: React.FC<FeedWallT> = ({ loading, adressat, isRead }) => {
   );
 };
 
-export default FeedWall;
+export default memo(FeedWall);

@@ -1,8 +1,12 @@
-import { nanoid } from "@reduxjs/toolkit";
+import { memo } from "react";
 import Linkify from "react-linkify";
+import { nanoid } from "@reduxjs/toolkit";
+
+import { matchEmoticons } from "utils";
+
+import { LinkPreview } from "components/Layouts";
 import { Stack, Typography, Box } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
-import { LinkPreview } from "components/Layouts";
 import "./message.css";
 
 import { MessageT } from "interface/db/chat.types";
@@ -46,8 +50,8 @@ const Message: React.FC<MessageElT> = ({
         {messageGroup.map((message) => (
           <Typography
             component="div"
-            maxWidth={message.links.length > 0 ? "320px" : "100%"}
             key={message._id}
+            maxWidth={message.links.length > 0 ? "320px" : "100%"}
             className={`msg-txt ${
               belongToActiveUser ? "active-user__msg" : ""
             }`}
@@ -64,10 +68,9 @@ const Message: React.FC<MessageElT> = ({
                 </a>
               )}
             >
-              {message.text}
-
-              {message.links[0] && <LinkPreview url={message.links[0]} />}
+              {matchEmoticons(message.text)}
             </Linkify>
+            {message.links[0] && <LinkPreview url={message.links[0]} />}
           </Typography>
         ))}
       </Stack>
@@ -75,4 +78,4 @@ const Message: React.FC<MessageElT> = ({
   );
 };
 
-export default Message;
+export default memo(Message);
