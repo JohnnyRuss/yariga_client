@@ -56,6 +56,7 @@ type SendMessageArgsT = {
   data: {
     text: string;
     links: Array<string>;
+    images: Array<string>;
   };
 };
 

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { APP_ORIGIN } from "config/env";
 
 type HelmetElT = {
   title: string;
@@ -42,8 +43,8 @@ const AppHelmet: React.FC<HelmetElT> = ({
       <meta property="og:type" content={type} />
 
       {/* PATH */}
-      <link rel="canonical" href={"http://localhost:3000" + path} />
-      <meta property="og:url" content={"http://localhost:3000" + path} />
+      <link rel="canonical" href={`${APP_ORIGIN}${path}`} />
+      <meta property="og:url" content={`${APP_ORIGIN}${path}`} />
 
       {disAllowCrawler && <meta name="robots" content="noindex" />}
     </Helmet>

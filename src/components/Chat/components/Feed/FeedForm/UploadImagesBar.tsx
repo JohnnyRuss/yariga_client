@@ -2,8 +2,10 @@ import { nanoid } from "@reduxjs/toolkit";
 import { Stack, Box, Button } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
+import { CloudinaryUploadItemT } from "services/cloudinary";
+
 type UploadImagesBarT = {
-  imagesToUpload: Array<string>;
+  imagesToUpload: Array<CloudinaryUploadItemT>;
   onRemoveImage: (src: string) => void;
 };
 
@@ -13,7 +15,7 @@ const UploadImagesBar: React.FC<UploadImagesBarT> = ({
 }) => {
   return (
     <Stack direction="row" gap={1} px={1}>
-      {imagesToUpload.map((image) => (
+      {imagesToUpload.map((item) => (
         <Box
           component="figure"
           width="70px"
@@ -25,7 +27,7 @@ const UploadImagesBar: React.FC<UploadImagesBarT> = ({
         >
           <Box
             component="img"
-            src={image}
+            src={item.base64url}
             alt="test"
             width="100%"
             height="100%"
@@ -35,7 +37,7 @@ const UploadImagesBar: React.FC<UploadImagesBarT> = ({
 
           <Button
             variant="text"
-            onClick={() => onRemoveImage(image)}
+            onClick={() => onRemoveImage(item.base64url)}
             sx={{
               top: "4px",
               right: "4px",
@@ -59,21 +61,23 @@ const UploadImagesBar: React.FC<UploadImagesBarT> = ({
             <Close sx={{ fontSize: "14px" }} />
           </Button>
 
-          <Box
-            left={0}
-            right={0}
-            bottom={0}
-            height="5px"
-            width="100%"
-            position="absolute"
-            bgcolor="app_text.contrastText"
-          >
+          {item.progress < 100 && (
             <Box
-              zIndex={1}
-              bgcolor="app_blue.light"
-              sx={{ height: "100%", width: "70%" }}
-            />
-          </Box>
+              left={0}
+              right={0}
+              bottom={0}
+              height="5px"
+              width="100%"
+              position="absolute"
+              bgcolor="app_text.contrastText"
+            >
+              <Box
+                zIndex={1}
+                bgcolor="app_blue.light"
+                sx={{ height: "100%", width: `${item.progress}%` }}
+              />
+            </Box>
+          )}
         </Box>
       ))}
     </Stack>

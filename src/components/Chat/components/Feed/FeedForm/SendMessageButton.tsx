@@ -8,7 +8,14 @@ const SendMessageButton: React.FC<SendMessageButtonT> = ({ disabled }) => {
     <IconButton
       type="submit"
       disabled={disabled}
-      sx={{ color: "app_blue.light", marginTop: "auto" }}
+      sx={{
+        color: "app_blue.light",
+        marginTop: "auto",
+        "&:disabled": {
+          opacity: 0.5,
+          pointerEvents: "none",
+        },
+      }}
     >
       <Send sx={{ fontSize: 42 }} />
     </IconButton>

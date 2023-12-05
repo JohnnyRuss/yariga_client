@@ -3,7 +3,7 @@ import { ApexOptions } from "apexcharts";
 
 const YARIGA_JWT_KEY = "YARIGA_PASSPORT";
 
-const MAX_IMAGE_COUNT_PER_SMS = 3;
+const MAX_IMAGE_COUNT_PER_SMS = 15;
 
 const PROPERTY_REFERRALS_INFO = [
   {

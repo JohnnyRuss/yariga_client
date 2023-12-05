@@ -50,7 +50,7 @@ class FileController {
     );
   }
 
-  generateRandomFileName(length: number) {
+  generateRandomFileName(length?: number) {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -60,10 +60,12 @@ class FileController {
 
     let result = "";
 
-    for (let i = 0; i < length * 2 + 1; i++) {
+    const randomFileNameLength = length || 32;
+
+    for (let i = 0; i < randomFileNameLength * 2 + 1; i++) {
       const randomIndex = getRandomNumber();
 
-      if (i === Math.floor(length / 2)) result += "_";
+      if (i === Math.floor(randomFileNameLength / 2)) result += "_";
       else result += characters.charAt(randomIndex);
     }
 

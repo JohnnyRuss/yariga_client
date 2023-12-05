@@ -9,6 +9,7 @@ import { EmojiT } from "interface/components/common.types";
 type FeedFormTextFieldActionsT = {
   disabled: boolean;
   imagesCount: number;
+  isUploadingImages: boolean;
   onEmojiSelection: (value: EmojiT) => void;
   onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -18,8 +19,11 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
   imagesCount,
   onImageChange,
   onEmojiSelection,
+  isUploadingImages,
 }) => {
   const overLength = imagesCount >= MAX_IMAGE_COUNT_PER_SMS;
+
+  const disabledSelectImage = disabled || overLength || isUploadingImages;
 
   return (
     <Stack direction="row" gap={0.5} alignItems="center">
@@ -33,7 +37,7 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
         sx={{
           cursor: "pointer",
           display: "inline-flex",
-          opacity: disabled || overLength ? 0.5 : 1,
+          opacity: disabledSelectImage ? 0.5 : 1,
 
           "&:hover": {
             backgroundColor: "rgba(0, 0, 0, 0.04)",
@@ -48,7 +52,7 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
           multiple={true}
           id="send-image"
           onChange={onImageChange}
-          disabled={disabled || overLength}
+          disabled={disabledSelectImage}
         />
       </Box>
     </Stack>
