@@ -1,13 +1,9 @@
 import { memo } from "react";
-import Linkify from "react-linkify";
-import { nanoid } from "@reduxjs/toolkit";
 
-import { matchEmoticons } from "utils";
-
-import { LinkPreview } from "components/Layouts";
-import { Stack, Typography, Box } from "@mui/material";
-import { Avatar } from "components/Chat/components/common";
 import "./message.css";
+import Message from "./Message";
+import { Stack, Box } from "@mui/material";
+import { Avatar } from "components/Chat/components/common";
 
 import { MessageT } from "interface/db/chat.types";
 
@@ -16,7 +12,7 @@ type MessageElT = {
   authenticatedUserId: string;
 };
 
-const Message: React.FC<MessageElT> = ({
+const MessageGroup: React.FC<MessageElT> = ({
   messageGroup,
   authenticatedUserId,
 }) => {
@@ -48,34 +44,15 @@ const Message: React.FC<MessageElT> = ({
         className={isMultiMessageGroup ? "group__multi-msg" : ""}
       >
         {messageGroup.map((message) => (
-          <Typography
-            component="div"
+          <Message
             key={message._id}
-            maxWidth={message.links.length > 0 ? "320px" : "100%"}
-            className={`msg-txt ${
-              belongToActiveUser ? "active-user__msg" : ""
-            }`}
-          >
-            <Linkify
-              componentDecorator={(href, txt) => (
-                <a
-                  href={href}
-                  rel="noreferrer"
-                  className="underline"
-                  key={nanoid()}
-                >
-                  {href}
-                </a>
-              )}
-            >
-              {matchEmoticons(message.text)}
-            </Linkify>
-            {message.links[0] && <LinkPreview url={message.links[0]} />}
-          </Typography>
+            message={message}
+            belongToActiveUser={belongToActiveUser}
+          />
         ))}
       </Stack>
     </Stack>
   );
 };
 
-export default memo(Message);
+export default memo(MessageGroup);

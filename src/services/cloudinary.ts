@@ -6,26 +6,28 @@ import FileControl from "utils/FileControl";
 import axios, { AxiosProgressEvent } from "axios";
 
 type CloudinaryUploadItemT = {
-  base64url: string;
+  file: File;
   progress: number;
   secure_url: string;
+  fileId: string;
 };
 
 type CloudinaryProgressCallbackT = (args: {
-  loaded: number;
   total: number;
-  item: CloudinaryUploadItemT;
+  loaded: number;
+  fileId: string;
 }) => void;
 
 type CloudinaryUploadT = {
-  uploadItem: CloudinaryUploadItemT;
+  file: File;
+  fileId: string;
   progressCallback: CloudinaryProgressCallbackT;
 };
 
 const cloudinaryUpload = async (args: CloudinaryUploadT): Promise<any> => {
   try {
     const formData = new FormData();
-    formData.append("file", args.uploadItem.base64url);
+    formData.append("file", args.file);
     formData.append("upload_preset", CLOUDINARY_API_UPLOAD_PRESET!);
 
     const { data } = await axios.post(
@@ -42,7 +44,7 @@ const cloudinaryUpload = async (args: CloudinaryUploadT): Promise<any> => {
           args.progressCallback({
             loaded: progressEvent.loaded,
             total: progressEvent.total || 0,
-            item: { ...args.uploadItem },
+            fileId: args.fileId,
           });
         },
       }

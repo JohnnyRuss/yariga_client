@@ -48,7 +48,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
           alt={conversation.adressat?.username || ""}
         />
 
-        <Stack mt="4px" width="100%">
+        <Stack mt="4px" flex={1} sx={{ maxWidth: "calc(100% - 65px)" }}>
           <Typography fontWeight={600} textTransform="capitalize">
             {conversation.adressat?.username}
           </Typography>
@@ -84,8 +84,8 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
           </Stack>
         </Stack>
 
-        <Box ml="auto" mt="4px" className="conversation-date" minWidth="64px">
-          <Typography fontSize={14} color="app_text.main" width="100%">
+        <Box className="conversation-date">
+          <Typography fontSize={12} color="app_text.main" width="100%">
             {getTimeString(conversation.updatedAt)}
           </Typography>
         </Box>

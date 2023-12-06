@@ -12,11 +12,8 @@ const LineClamp: React.FC<LineClampT> = ({ children, clamp, title, sx }) => {
     <Typography
       title={title || ""}
       sx={{
-        wordWrap: "break-word",
-        wordBreak: "break-word",
         maxWidth: "100%",
         display: "-webkit-box",
-        textOverflow: "hidden",
         overflow: "hidden",
         WebkitBoxOrient: "vertical",
         WebkitLineClamp: clamp,

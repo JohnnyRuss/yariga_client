@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useConversationQuery } from "hooks/api/chat";
 
 import * as UI from "./";
-import { Box, Stack, TextField, InputAdornment } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 import useFeedFormText from "./hooks/useFeedFormText";
 import useImageUpload from "./hooks/useImageUpload";
@@ -17,38 +16,61 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
   const { conversationId } = useParams();
   const { sendMessage } = useConversationQuery();
 
-  const { isUploadingImages, images, onImagesChange, onRemoveImage } =
-    useImageUpload();
+  const {
+    isUploadingImages,
+    images,
+    onImagesChange,
+    onRemoveImage,
+    cleanUpImages,
+  } = useImageUpload();
 
   const { handleBlur, onEmojiSelection, onTextChange, text, setText } =
     useFeedFormText();
 
-  const onSendMessage = (e?: React.FormEvent) => {
-    e?.preventDefault();
+  const onSendMessage = useCallback(
+    (e?: React.FormEvent) => {
+      e?.preventDefault();
 
-    if (isUploadingImages) return;
+      if (isUploadingImages) return;
 
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
 
-    if (!text || !conversationId) return;
+      if (!conversationId) return;
 
-    const links = text.match(urlRegex) || [];
-    const imageAssets = images.map((image) => image.secure_url);
+      const links = text.match(urlRegex) || [];
+      const imageAssets = images.map((image) => image.secure_url);
 
-    sendMessage({
-      params: { conversationId },
-      data: { text, links, images: imageAssets },
-    });
+      if (!text && !links[0] && !imageAssets[0]) return;
 
-    setText("");
-  };
+      sendMessage({
+        params: { conversationId },
+        data: { text, links, images: imageAssets },
+      });
 
-  const onEnter = useCallback((e: React.KeyboardEvent) => {
-    if (e.key !== "Enter") return;
-    e.preventDefault();
+      cleanUpImages();
 
-    onSendMessage();
-  }, []);
+      setText("");
+    },
+    [
+      text,
+      images,
+      setText,
+      sendMessage,
+      cleanUpImages,
+      conversationId,
+      isUploadingImages,
+    ]
+  );
+
+  const onEnter = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+
+      onSendMessage();
+    },
+    [onSendMessage]
+  );
 
   return (
     <Box

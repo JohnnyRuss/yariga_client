@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 export const ConversationCard = styled(NavLink)(({ theme }) => ({
   padding: "8px 7px",
   borderRadius: "10px",
+  overflow: "hidden",
 
   "&:hover .conversation-options__box": {
     display: "block",
@@ -12,6 +13,13 @@ export const ConversationCard = styled(NavLink)(({ theme }) => ({
   "&.active": {
     backgroundColor: theme.palette.app_blue?.light,
     color: theme.palette.app_text?.light,
+  },
+
+  "& .MuiBox-root.conversation-date": {
+    marginLeft: "auto",
+    marinTop: "4px",
+    width: "max-content",
+    minWidth: "60px",
   },
 
   "&.active .MuiBox-root.conversation-date p": {
@@ -23,10 +31,8 @@ export const ConversationCard = styled(NavLink)(({ theme }) => ({
   },
 
   ".last-message": {
-    display: "-webkit-box",
-    WebkitLineClamp: 1,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
+    display: "flex",
+    width: "100%",
   },
 
   ".badge": {

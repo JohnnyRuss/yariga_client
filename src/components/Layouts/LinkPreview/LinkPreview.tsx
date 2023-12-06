@@ -64,18 +64,19 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
         overflow="hidden"
         mt="5px"
       >
-        <LineClamp
-          clamp={1}
-          title={meta.url || ""}
-          sx={{
-            p: 1,
-            fontSize: 12,
-            color: "app_text.main",
-            textDecoration: "underline",
-          }}
-        >
-          {meta.url}
-        </LineClamp>
+        <Box p={1}>
+          <LineClamp
+            clamp={1}
+            title={meta.url || ""}
+            sx={{
+              fontSize: 12,
+              color: "app_text.main",
+              textDecoration: "underline",
+            }}
+          >
+            {meta.url}
+          </LineClamp>
+        </Box>
 
         <Box component="figure" width="100%" sx={{ aspectRatio: "16/9" }}>
           <img

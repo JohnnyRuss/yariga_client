@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useReducer, useCallback } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 
 import cloudinaryUpload, {
   CloudinaryUploadItemT,
   CloudinaryProgressCallbackT,
 } from "services/cloudinary";
 
-import FileControl from "utils/FileControl";
 import { MAX_IMAGE_COUNT_PER_SMS } from "config/constants";
 
 type ImageUploadStateT = {
@@ -16,16 +16,20 @@ type ImageUploadStateT = {
 type UploadImageActionsT =
   | {
       type: "SET_IMAGES";
-      payload: { base64urls: Array<CloudinaryUploadItemT> };
+      payload: { images: Array<CloudinaryUploadItemT> };
     }
-  | { type: "REMOVE_IMAGE"; payload: { base64url: string } }
+  | { type: "REMOVE_IMAGE"; payload: { fileId: string } }
   | {
       type: "SET_IMAGE_PROGRESS";
-      payload: { loaded: number; total: number; item: CloudinaryUploadItemT };
+      payload: { loaded: number; total: number; fileId: string };
     }
   | {
       type: "SET_IMAGE_URL";
-      payload: { secure_url: string; base64url: string };
+      payload: { secure_url: string; fileId: string };
+    }
+  | {
+      type: "CLEAN_UP_IMAGES";
+      payload?: "";
     };
 
 const imageUploadState: ImageUploadStateT = {
@@ -37,17 +41,19 @@ export default function useImageUpload() {
 
   const [isUploadingImages, setIsUploadingImages] = useState(false);
 
-  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const onProgress = (): CloudinaryProgressCallbackT => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-  const onProgress: CloudinaryProgressCallbackT = ({ loaded, total, item }) => {
-    if (timeoutId && loaded < total) clearTimeout(timeoutId);
+    return ({ loaded, total, fileId }) => {
+      if (timeoutId && loaded < total) clearTimeout(timeoutId);
 
-    timeoutId = setTimeout(() => {
-      dispatch({
-        type: "SET_IMAGE_PROGRESS",
-        payload: { item: { ...item }, loaded, total },
-      });
-    }, 400);
+      timeoutId = setTimeout(() => {
+        dispatch({
+          type: "SET_IMAGE_PROGRESS",
+          payload: { fileId, loaded, total },
+        });
+      }, 1000);
+    };
   };
 
   const onImagesChange = useCallback(
@@ -64,7 +70,7 @@ export default function useImageUpload() {
 
         dispatch({
           type: "SET_IMAGES",
-          payload: { base64urls: uploadList },
+          payload: { images: uploadList },
         });
 
         setIsUploadingImages(true);
@@ -73,13 +79,14 @@ export default function useImageUpload() {
           uploadList.map(async (item, index, arr) => {
             try {
               const secure_url = await cloudinaryUpload({
-                uploadItem: item,
-                progressCallback: onProgress,
+                file: item.file,
+                fileId: item.fileId,
+                progressCallback: onProgress(),
               });
 
               dispatch({
                 type: "SET_IMAGE_URL",
-                payload: { secure_url, base64url: item.base64url },
+                payload: { secure_url, fileId: item.fileId },
               });
 
               if (index === arr.length - 1) setIsUploadingImages(false);
@@ -96,10 +103,17 @@ export default function useImageUpload() {
     []
   );
 
-  const onRemoveImage = (base64url: string) =>
-    dispatch({ type: "REMOVE_IMAGE", payload: { base64url } });
+  const onRemoveImage = useCallback(
+    (fileId: string) => dispatch({ type: "REMOVE_IMAGE", payload: { fileId } }),
+    []
+  );
+
+  const cleanUpImages = useCallback(() => {
+    dispatch({ type: "CLEAN_UP_IMAGES" });
+  }, []);
 
   return {
+    cleanUpImages,
     onRemoveImage,
     onImagesChange,
     isUploadingImages,
@@ -113,30 +127,30 @@ function imageUploadReducer(
 ): ImageUploadStateT {
   switch (type) {
     case "SET_IMAGES": {
-      const { base64urls } = payload;
+      const { images } = payload;
 
-      return { ...state, images: [...state.images, ...base64urls] };
+      return { ...state, images: [...state.images, ...images] };
     }
 
     case "REMOVE_IMAGE": {
-      const { base64url } = payload;
+      const { fileId } = payload;
 
       const updatedImages = state.images.filter(
-        (image) => image.base64url !== base64url
+        (image) => image.fileId !== fileId
       );
 
       return { ...state, images: [...updatedImages] };
     }
 
     case "SET_IMAGE_PROGRESS": {
-      const { item, loaded, total } = payload;
+      const { fileId, loaded, total } = payload;
 
       const progress = Math.round((loaded / total) * 100);
 
       const stateImagesShallow = [...state.images];
 
       const targetIndex = state.images.findIndex(
-        (image) => image.base64url === item.base64url
+        (image) => image.fileId === fileId
       );
 
       stateImagesShallow[targetIndex].progress = progress;
@@ -148,17 +162,21 @@ function imageUploadReducer(
     }
 
     case "SET_IMAGE_URL": {
-      const { secure_url, base64url } = payload;
+      const { secure_url, fileId } = payload;
 
       const stateImagesShallow = [...state.images];
 
       const targetIndex = state.images.findIndex(
-        (image) => image.base64url === base64url
+        (image) => image.fileId === fileId
       );
 
       stateImagesShallow[targetIndex].secure_url = secure_url;
 
       return { ...state, images: [...stateImagesShallow] };
+    }
+
+    case "CLEAN_UP_IMAGES": {
+      return { ...state, images: [] };
     }
 
     default:
@@ -175,14 +193,13 @@ async function getUploadableImages({
 }) {
   const limitLeft = MAX_IMAGE_COUNT_PER_SMS - images.length;
 
-  return (await FileControl.convertMultipleFilesToBase64Str(files))
-    .filter(
-      (base64url) => !images.some((image) => image.base64url === base64url)
-    )
+  return files
+    .filter((file) => !images.some((image) => file.name === image.file.name))
     .slice(0, limitLeft)
-    .map((base64url) => ({
-      base64url,
+    .map((file) => ({
+      file,
       progress: 0,
       secure_url: "",
+      fileId: nanoid(),
     }));
 }

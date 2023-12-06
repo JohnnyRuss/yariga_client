@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+import { LineClamp } from "components/Layouts";
 
 import { MessageT } from "interface/db/chat.types";
 
@@ -31,14 +32,16 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
         {": "}
       </Typography>
 
-      <Typography
-        component="span"
-        fontSize="inherit"
-        fontWeight="inherit"
-        color="inherit"
+      <LineClamp
+        clamp={1}
+        sx={{
+          fontSize: "inherit",
+          fontWeight: "inherit",
+          color: "inherit",
+        }}
       >
         {message.text}
-      </Typography>
+      </LineClamp>
     </Typography>
   );
 };

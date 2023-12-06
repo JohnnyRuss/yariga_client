@@ -47,7 +47,7 @@ const FeedWall: React.FC<FeedWallT> = ({ isRead, loading, adressat }) => {
         ) : (
           <Stack width="100%" gap={2} ref={containerRef}>
             {groupedMessages.map((groupe, index) => (
-              <UI.Message
+              <UI.MessageGroup
                 messageGroup={groupe}
                 key={`message-group__${groupe[0]._id}`}
                 authenticatedUserId={authenticatedUserId}

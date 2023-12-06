@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import * as UI from "./";
-import { Stack, TextField, InputAdornment } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { EmojiT } from "interface/components/common.types";
 
 type FeedFormTextFieldT = {
@@ -27,8 +27,6 @@ const FeedFormTextField: React.FC<FeedFormTextFieldT> = ({
   disabled,
   isUploadingImages,
 }) => {
-  console.log("runs feed form");
-
   return (
     <Stack alignItems="center" width="100%" direction="row" gap={1}>
       <TextField
@@ -46,15 +44,13 @@ const FeedFormTextField: React.FC<FeedFormTextFieldT> = ({
         inputProps={{ className: "custom_scrollbar" }}
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
-              <UI.FeedFormTextFieldActions
-                disabled={disabled}
-                onImageChange={onImagesChange}
-                imagesCount={imagesCount}
-                onEmojiSelection={onEmojiSelection}
-                isUploadingImages={isUploadingImages}
-              />
-            </InputAdornment>
+            <UI.FeedFormTextFieldActions
+              disabled={disabled}
+              onImageChange={onImagesChange}
+              imagesCount={imagesCount}
+              onEmojiSelection={onEmojiSelection}
+              isUploadingImages={isUploadingImages}
+            />
           ),
         }}
       />

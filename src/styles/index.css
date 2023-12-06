@@ -69,10 +69,6 @@ a {
   margin-top: 27px;
 }
 
-.underline {
-  text-decoration: underline !important;
-}
-
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -106,7 +102,7 @@ a {
 }
 
 .underline {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
