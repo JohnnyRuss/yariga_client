@@ -2,8 +2,8 @@ import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_UPLOAD_PRESET,
 } from "config/env";
-import FileControl from "utils/FileControl";
 import axios, { AxiosProgressEvent } from "axios";
+import FileControl from "utils/FileControl";
 
 type CloudinaryUploadItemT = {
   file: File;

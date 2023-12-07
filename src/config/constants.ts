@@ -1,10 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { ApexOptions } from "apexcharts";
 
-const YARIGA_JWT_KEY = "YARIGA_PASSPORT";
-
-const MAX_IMAGE_COUNT_PER_SMS = 15;
-
 const PROPERTY_REFERRALS_INFO = [
   {
     title: "Social Media",
@@ -125,10 +121,8 @@ const TOTAL_REVENUE_OPTIONS: ApexOptions = {
 };
 
 export {
-  YARIGA_JWT_KEY,
   DASHBOARD_PIE_CHARTS,
   TOTAL_REVENUE_SERIES,
   TOTAL_REVENUE_OPTIONS,
   PROPERTY_REFERRALS_INFO,
-  MAX_IMAGE_COUNT_PER_SMS,
 };

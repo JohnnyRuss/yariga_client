@@ -55,7 +55,9 @@ const FeedFormTextField: React.FC<FeedFormTextFieldT> = ({
         }}
       />
 
-      <UI.SendMessageButton disabled={disabled || isUploadingImages} />
+      <UI.ImageUploadTooltip isUploadingImages={isUploadingImages}>
+        <UI.SendMessageButton disabled={disabled || isUploadingImages} />
+      </UI.ImageUploadTooltip>
     </Stack>
   );
 };

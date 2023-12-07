@@ -1,4 +1,4 @@
-import { YARIGA_JWT_KEY } from "config/constants";
+import { YARIGA_JWT_KEY } from "config/config";
 
 const setJWT = (token: string): void =>
   localStorage.setItem(YARIGA_JWT_KEY, token);

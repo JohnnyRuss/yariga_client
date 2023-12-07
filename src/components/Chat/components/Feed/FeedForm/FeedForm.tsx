@@ -22,6 +22,8 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
     onImagesChange,
     onRemoveImage,
     cleanUpImages,
+    imageUploadWarning,
+    onCloseOverlappedImageSizeAlert,
   } = useImageUpload();
 
   const { handleBlur, onEmojiSelection, onTextChange, text, setText } =
@@ -73,33 +75,37 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
   );
 
   return (
-    <Box
-      component="form"
-      p={1}
-      mt="auto"
-      position="sticky"
-      bottom={0}
-      onSubmit={onSendMessage}
-    >
-      <Stack gap={1}>
-        <UI.UploadImagesBar
-          imagesToUpload={images}
-          onRemoveImage={onRemoveImage}
-        />
+    <>
+      <Box
+        component="form"
+        p={1}
+        mt="auto"
+        position="sticky"
+        bottom={0}
+        onSubmit={onSendMessage}
+      >
+        <Stack gap={1}>
+          <UI.UploadImagesBar
+            imagesToUpload={images}
+            onRemoveImage={onRemoveImage}
+            warning={imageUploadWarning}
+            onCloseOverlappedImageSizeAlert={onCloseOverlappedImageSizeAlert}
+          />
 
-        <UI.FeedFormTextField
-          onEnter={onEnter}
-          text={text}
-          onTextChange={onTextChange}
-          handleBlur={handleBlur}
-          onEmojiSelection={onEmojiSelection}
-          onImagesChange={onImagesChange}
-          imagesCount={images.length}
-          disabled={disabled}
-          isUploadingImages={isUploadingImages}
-        />
-      </Stack>
-    </Box>
+          <UI.FeedFormTextField
+            onEnter={onEnter}
+            text={text}
+            onTextChange={onTextChange}
+            handleBlur={handleBlur}
+            onEmojiSelection={onEmojiSelection}
+            onImagesChange={onImagesChange}
+            imagesCount={images.length}
+            disabled={disabled}
+            isUploadingImages={isUploadingImages}
+          />
+        </Stack>
+      </Box>
+    </>
   );
 };
 

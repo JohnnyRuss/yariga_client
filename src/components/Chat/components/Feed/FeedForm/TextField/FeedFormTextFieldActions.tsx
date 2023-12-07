@@ -1,4 +1,4 @@
-import { MAX_IMAGE_COUNT_PER_SMS } from "config/constants";
+import { MAX_IMAGE_COUNT_PER_SMS } from "config/config";
 
 import * as UI from "./";
 import { Image } from "@mui/icons-material";
@@ -33,32 +33,34 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
           onEmojiSelection={onEmojiSelection}
         />
 
-        <Box
-          component="label"
-          htmlFor="send-image"
-          p="8px"
-          borderRadius="100px"
-          sx={{
-            cursor: "pointer",
-            display: "inline-flex",
-            opacity: disabledSelectImage ? 0.5 : 1,
+        <UI.ImageUploadTooltip isUploadingImages={isUploadingImages}>
+          <Box
+            component="label"
+            htmlFor="send-image"
+            p="8px"
+            borderRadius="100px"
+            sx={{
+              cursor: "pointer",
+              display: "inline-flex",
+              opacity: disabledSelectImage ? 0.5 : 1,
 
-            "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
-            },
-          }}
-        >
-          <Image />
-          <input
-            hidden
-            type="file"
-            accept="image/*"
-            multiple={true}
-            id="send-image"
-            onChange={onImageChange}
-            disabled={disabledSelectImage}
-          />
-        </Box>
+              "&:hover": {
+                backgroundColor: "rgba(0, 0, 0, 0.04)",
+              },
+            }}
+          >
+            <Image />
+            <input
+              hidden
+              type="file"
+              accept="image/*"
+              multiple={true}
+              id="send-image"
+              onChange={onImageChange}
+              disabled={disabledSelectImage}
+            />
+          </Box>
+        </UI.ImageUploadTooltip>
       </Stack>
     </InputAdornment>
   );

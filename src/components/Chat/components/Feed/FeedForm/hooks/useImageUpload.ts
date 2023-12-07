@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useReducer, useCallback } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { useState, useReducer, useCallback } from "react";
+
+import { MAX_IMAGE_COUNT_PER_SMS, MAX_IMAGE_SIZE_ON_CHAT } from "config/config";
 
 import cloudinaryUpload, {
   CloudinaryUploadItemT,
   CloudinaryProgressCallbackT,
 } from "services/cloudinary";
-
-import { MAX_IMAGE_COUNT_PER_SMS } from "config/constants";
 
 type ImageUploadStateT = {
   images: Array<CloudinaryUploadItemT>;
@@ -39,7 +39,20 @@ const imageUploadState: ImageUploadStateT = {
 export default function useImageUpload() {
   const [state, dispatch] = useReducer(imageUploadReducer, imageUploadState);
 
+  const [imageUploadWarning, setImageUploadWarning] = useState({
+    hasWarning: false,
+    message: "",
+  });
+
   const [isUploadingImages, setIsUploadingImages] = useState(false);
+
+  const onCloseOverlappedImageSizeAlert = useCallback(() => {
+    setImageUploadWarning((prev) => ({
+      ...prev,
+      message: "",
+      hasWarning: false,
+    }));
+  }, []);
 
   const onProgress = (): CloudinaryProgressCallbackT => {
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -63,19 +76,44 @@ export default function useImageUpload() {
 
         if (!files[0]) return;
 
+        const isOverlapped =
+          state.images.length + files.length > MAX_IMAGE_COUNT_PER_SMS;
+        const containsOverSizeImage = files.some(
+          (file) => file.size > MAX_IMAGE_SIZE_ON_CHAT
+        );
+
+        if (isOverlapped || containsOverSizeImage) {
+          const message =
+            containsOverSizeImage && isOverlapped
+              ? `• Please upload images under 10MB. \n • Max allowed image count per message is — ${MAX_IMAGE_COUNT_PER_SMS}`
+              : isOverlapped
+              ? `Max allowed image count per message is — ${MAX_IMAGE_COUNT_PER_SMS}`
+              : containsOverSizeImage
+              ? "Please upload images under 10MB."
+              : "";
+
+          setImageUploadWarning((prev) => ({
+            ...prev,
+            message,
+            hasWarning: true,
+          }));
+        }
+
+        setIsUploadingImages(true);
+
         const uploadList = await getUploadableImages({
           files,
           images: state.images,
         });
+
+        if (!uploadList[0]) return;
 
         dispatch({
           type: "SET_IMAGES",
           payload: { images: uploadList },
         });
 
-        setIsUploadingImages(true);
-
-        Promise.all(
+        await Promise.all(
           uploadList.map(async (item, index, arr) => {
             try {
               const secure_url = await cloudinaryUpload({
@@ -88,16 +126,15 @@ export default function useImageUpload() {
                 type: "SET_IMAGE_URL",
                 payload: { secure_url, fileId: item.fileId },
               });
-
-              if (index === arr.length - 1) setIsUploadingImages(false);
             } catch (error) {
               console.log(error);
-              // throw error;
             }
           })
         );
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsUploadingImages(false);
       }
     },
     []
@@ -118,6 +155,8 @@ export default function useImageUpload() {
     onImagesChange,
     isUploadingImages,
     images: state.images,
+    imageUploadWarning,
+    onCloseOverlappedImageSizeAlert,
   };
 }
 
@@ -194,6 +233,7 @@ async function getUploadableImages({
   const limitLeft = MAX_IMAGE_COUNT_PER_SMS - images.length;
 
   return files
+    .filter((file) => file.size <= MAX_IMAGE_SIZE_ON_CHAT)
     .filter((file) => !images.some((image) => file.name === image.file.name))
     .slice(0, limitLeft)
     .map((file) => ({

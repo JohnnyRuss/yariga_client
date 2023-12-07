@@ -14,6 +14,14 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
   conversationIsRead,
   belongsToActiveUser,
 }) => {
+  const lastMessageText = message.text
+    ? message.text
+    : message.media[0]
+    ? belongsToActiveUser
+      ? "Send images"
+      : "Send you images"
+    : "";
+
   return (
     <Typography
       fontSize={14}
@@ -40,7 +48,7 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
           color: "inherit",
         }}
       >
-        {message.text}
+        {lastMessageText}
       </LineClamp>
     </Typography>
   );

@@ -28,7 +28,7 @@ const Chat: React.FC = () => {
 
           {!conversationId && <UI.NoSelectedConversation />}
 
-          {showControl && <UI.ConversationControl />}
+          {showControl && <UI.ConversationPanel />}
         </Stack>
       </Box>
     </ContentBox>

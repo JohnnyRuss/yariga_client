@@ -86,7 +86,7 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
             height="100%"
             loading="lazy"
             title={meta.title || "link preview"}
-            style={{ objectFit: "cover", maxWidth: "100%" }}
+            style={{ objectFit: "cover", maxWidth: "100%", maxHeight: "100%" }}
           />
         </Box>
 

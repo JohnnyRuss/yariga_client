@@ -11,6 +11,7 @@ const SendMessageButton: React.FC<SendMessageButtonT> = ({ disabled }) => {
       sx={{
         color: "app_blue.light",
         marginTop: "auto",
+
         "&:disabled": {
           opacity: 0.5,
           pointerEvents: "none",

@@ -10,9 +10,11 @@ type LineClampT = {
 const LineClamp: React.FC<LineClampT> = ({ children, clamp, title, sx }) => {
   return (
     <Typography
+      component="span"
       title={title || ""}
       sx={{
         maxWidth: "100%",
+        wordBreak: "break-word",
         display: "-webkit-box",
         overflow: "hidden",
         WebkitBoxOrient: "vertical",

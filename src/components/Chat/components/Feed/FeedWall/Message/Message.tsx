@@ -25,7 +25,12 @@ const Message: React.FC<MessageElT> = ({ message, belongToActiveUser }) => {
         )}
       </Box>
 
-      {message.media.length > 0 && <Images images={message.media} />}
+      {message.media.length > 0 && (
+        <Images
+          images={message.media}
+          belongToActiveUser={belongToActiveUser}
+        />
+      )}
     </>
   );
 };

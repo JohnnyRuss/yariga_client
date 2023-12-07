@@ -5,9 +5,10 @@ import MultipleImages from "./MultipleImages";
 
 type ImagesT = {
   images: Array<string>;
+  belongToActiveUser: boolean;
 };
 
-const Images: React.FC<ImagesT> = ({ images }) => {
+const Images: React.FC<ImagesT> = ({ images, belongToActiveUser }) => {
   const imagesLength = images.length;
   return (
     <Grid
@@ -15,7 +16,7 @@ const Images: React.FC<ImagesT> = ({ images }) => {
       width="100%"
       maxWidth="460px"
       spacing={1}
-      justifyContent="flex-end"
+      justifyContent={belongToActiveUser ? "flex-end" : "flex-start"}
     >
       {imagesLength === 1 ? (
         <SingleImage image={images[0]} />
