@@ -1,6 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
-
-import { useScrollTo } from "hooks/utils";
+import { useScrollTo, useSearchParams } from "hooks/utils";
 
 import { Pagination as MuiPagination } from "@mui/material";
 
@@ -15,17 +13,12 @@ const Pagination: React.FC<PaginationT> = ({
   pagesCount,
   scrollTopOnChange = true,
 }) => {
-  const navigate = useNavigate();
-  const { pathname, search } = useLocation();
-
   const { windowScrollToTop } = useScrollTo();
 
-  const urlSearchParams = new URLSearchParams(search);
+  const { appendParam } = useSearchParams();
 
   const onPageChange = (e: React.ChangeEvent<unknown>, value: number) => {
-    urlSearchParams.set("page", value.toString());
-    navigate(`${pathname}?${urlSearchParams.toString()}`);
-
+    appendParam("page", value.toString());
     if (scrollTopOnChange) windowScrollToTop();
   };
 

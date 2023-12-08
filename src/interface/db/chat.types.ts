@@ -28,12 +28,21 @@ type MessageT = {
   createdAt: string;
 };
 
+type ConversationAssetsT = {
+  media: Array<string>;
+  links: Array<string>;
+};
+
 // API
 type GetConversationArgsT = {
   conversationId: string;
 };
 
 type DeleteConversationArgsT = {
+  conversationId: string;
+};
+
+type GetConversationAssetsArgsT = {
   conversationId: string;
 };
 
@@ -74,6 +83,7 @@ export type {
   MessageT,
   ConversationT,
   ConversationShortT,
+  ConversationAssetsT,
   ConversationParticipantT,
   // API
   GetConversationArgsT,
@@ -83,4 +93,5 @@ export type {
   SendMessageResponseT,
   MarkConversationAsReadArgsT,
   MarkConversationAsReadResponseT,
+  GetConversationAssetsArgsT,
 };

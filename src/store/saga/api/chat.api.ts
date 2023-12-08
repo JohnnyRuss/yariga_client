@@ -4,6 +4,7 @@ import {
   DeleteConversationArgsT,
   CreateConversationArgsT,
   MarkConversationAsReadArgsT,
+  GetConversationAssetsArgsT,
 } from "interface/db/chat.types";
 import { axiosPrivateQuery } from "services/axios";
 
@@ -36,4 +37,10 @@ export async function markConversationAsReadQuery(
   return axiosPrivateQuery.patch(
     `/chat/${args.conversationId}/read?read=${args.read}`
   );
+}
+
+export async function getConversationAssetsQuery(
+  args: GetConversationAssetsArgsT
+) {
+  return axiosPrivateQuery.get(`/chat/${args.conversationId}/assets`);
 }

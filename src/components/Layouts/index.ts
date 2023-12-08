@@ -21,6 +21,7 @@ export { default as ReviewCardSkeleton } from "./ReviewCard/ReviewCardSkeleton";
 export { default as PropertiesList } from "./PropertiesList/PropertiesList";
 export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as SliderModal } from "./SliderModal/SliderModal";
+export { default as SliderView } from "./SliderModal/components/SliderView";
 export { default as Snackbar } from "./Snackbar/Snackbar";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as SVG } from "./SVG/SVG";

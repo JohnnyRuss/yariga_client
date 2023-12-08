@@ -28,6 +28,11 @@ const initialState: ChatStateT = {
     messages: [],
     participants: [],
   },
+
+  conversationAssets: {
+    links: [],
+    media: [],
+  },
 };
 
 const chatSlice = createSlice({
@@ -101,8 +106,16 @@ const chatSlice = createSlice({
       state.activeConversationStatus = status.default();
     },
 
+    setConversationAssets(
+      state,
+      { payload }: PayloadAction<ChatApiT.ConversationAssetsT>
+    ) {
+      state.conversationAssets = payload;
+    },
+
     cleanUpConversation(state) {
       state.activeConversation = initialState.activeConversation;
+      state.conversationAssets = initialState.conversationAssets;
     },
 
     setConversationStatus(

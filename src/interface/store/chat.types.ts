@@ -1,6 +1,7 @@
 import {
   ConversationT,
   ConversationShortT,
+  ConversationAssetsT,
   ConversationParticipantT,
 } from "interface/db/chat.types";
 import { LoadingStatusT } from "interface/store/common.types";
@@ -11,6 +12,7 @@ type ChatStateT = {
   deleteConversationStatus: LoadingStatusT & { conversationId: string };
   conversations: Array<ConversationShortInfoT>;
   activeConversation: ConversationT;
+  conversationAssets: ConversationAssetsT;
 };
 
 type ConversationShortInfoT = ConversationShortT & {

@@ -39,7 +39,15 @@ export function* getConversation({
       payload
     );
 
+    const {
+      data: conversationAssets,
+    }: AxiosResponse<ChatApiT.ConversationAssetsT> = yield call(
+      chatAPI.getConversationAssetsQuery,
+      payload
+    );
+
     yield put(chatActions.setConversation(data));
+    yield put(chatActions.setConversationAssets(conversationAssets));
   } catch (error: any) {
     yield setError({
       error,

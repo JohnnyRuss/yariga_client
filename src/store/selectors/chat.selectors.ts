@@ -83,6 +83,12 @@ const selectConversationOrigin = createSelector(
   (origin) => origin
 );
 
+const selectConversationMediaAssets = ({ chat }: RootStateT) =>
+  chat.conversationAssets.media;
+
+const selectConversationUrlAssets = ({ chat }: RootStateT) =>
+  chat.conversationAssets.links;
+
 export {
   selectConversationsStatus,
   selectConversationStatus,
@@ -92,4 +98,6 @@ export {
   selectConversationAdressat,
   selectConversationMessages,
   selectConversationOrigin,
+  selectConversationMediaAssets,
+  selectConversationUrlAssets,
 };

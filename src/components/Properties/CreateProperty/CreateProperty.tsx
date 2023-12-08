@@ -1,9 +1,11 @@
+import { useSearchParams } from "hooks/utils";
+
 import { ContentBox, SectionTitle } from "components/Layouts";
 import CreatePropertyForm from "./components/CreatePropertyForm";
 
 const CreateProperty: React.FC = () => {
-  const isUpdateProcess =
-    new URLSearchParams(window.location.search).get("process") === "update";
+  const { getParamValue } = useSearchParams();
+  const isUpdateProcess = getParamValue("process") === "update";
 
   return (
     <ContentBox>

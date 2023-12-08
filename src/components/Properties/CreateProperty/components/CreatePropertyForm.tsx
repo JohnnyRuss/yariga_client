@@ -7,6 +7,7 @@ import {
   selectPropertySuggestions,
   selectCreatePropertyStatus,
 } from "store/selectors/createPropertyForm.selectors";
+import { useSearchParams } from "hooks/utils";
 
 import { Controller } from "react-hook-form";
 import { useCreatePropertyQuery } from "hooks/api/properties";
@@ -21,7 +22,7 @@ import { CreatePropertyFormT } from "utils/zod/createPropertyValidation";
 const CreatePropertyForm: React.FC = () => {
   const navigate = useNavigate();
 
-  const { state, search } = useLocation();
+  const { state } = useLocation();
 
   const isUpdating: boolean = state?.isUpdating || false;
   const propertyDefaults: CreatePropertyFormT | undefined = state?.property;
@@ -32,13 +33,10 @@ const CreatePropertyForm: React.FC = () => {
   const status = useAppSelector(selectCreatePropertyStatus);
   const suggestions = useAppSelector(selectPropertySuggestions);
 
-  const searchParams = new URLSearchParams(search);
+  const { getParamValue } = useSearchParams();
 
   useEffect(() => {
-    if (
-      !isUpdating &&
-      (searchParams.get("process") || searchParams.get("property"))
-    )
+    if (!isUpdating && (getParamValue("process") || getParamValue("property")))
       return navigate(-1);
 
     if (!isUpdating || !propertyDefaults || status.loading) return;

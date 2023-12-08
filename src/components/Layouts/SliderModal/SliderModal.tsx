@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import { useSearchParams } from "hooks/utils";
 
 import * as UI from "./components";
 import { Modal } from "components/Layouts";
@@ -12,24 +13,19 @@ interface SliderModalT {
 }
 
 const SliderModal: React.FC<SliderModalT> = ({ images }) => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(NaN);
 
-  const searchParams = new URLSearchParams(search);
+  const { getParamValue, removeParam } = useSearchParams();
 
-  const activeTabParam = searchParams.get("active-tab");
-  const isActiveTab = activeTabParam === "gallery";
+  const isActiveTab = getParamValue("active-tab") === "gallery";
 
   const onActivateSlider = (index: number) => setActiveSlideIndex(index);
 
   const onBackToGallery = () => setActiveSlideIndex(NaN);
 
   const onClose = () => {
-    searchParams.delete("active-tab");
     setActiveSlideIndex(NaN);
-    navigate(`?${searchParams.toString()}`);
+    removeParam("active-tab");
   };
 
   return (

@@ -1,5 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useSearchParams } from "hooks/utils";
 import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 
 import * as UI from "./components";
@@ -14,21 +13,17 @@ interface UserProfileT {
 }
 
 const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-
   const userFirstName = user.username.split(" ")[0];
 
   const { isAuthenticatedUser } = useIsAuthenticatedUser(user._id);
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const isEditProfileTab = searchParams.get("active-tab") === "profile-edit";
+  const { getParamValue, removeParam } = useSearchParams();
+
+  const isEditProfileTab = getParamValue("active-tab") === "profile-edit";
 
   const onCancelEdit = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    searchParams.delete("active-tab");
-    navigate(pathname);
+    removeParam("active-tab");
   };
 
   return (

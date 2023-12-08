@@ -1,7 +1,6 @@
-import React from "react";
 import { useAppSelector } from "store/hooks";
-import { useLocation, useNavigate } from "react-router-dom";
 
+import { useSearchParams } from "hooks/utils";
 import { selectProperty } from "store/selectors/properties.selectors";
 
 import * as UI from "./components";
@@ -9,20 +8,13 @@ import { SliderModal } from "components/Layouts";
 import { Box, Stack, Typography } from "@mui/material";
 
 const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-
   const { images } = useAppSelector(selectProperty);
 
-  const searchParams = new URLSearchParams(search);
+  const { getParamValue, appendParam } = useSearchParams();
 
-  const activeTab = searchParams.get("active-tab") || "";
-  const isActiveModal = activeTab === "gallery";
+  const isActiveModal = getParamValue("active-tab") === "gallery";
 
-  const onGoToGallery = () => {
-    searchParams.set("active-tab", "gallery");
-    navigate(`?${searchParams.toString()}`);
-  };
+  const onGoToGallery = () => appendParam("active-tab", "gallery");
 
   return loading ? (
     <UI.ViewSkeleton />

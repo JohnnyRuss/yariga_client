@@ -1,7 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { useNavigate, useLocation } from "react-router-dom";
 
 import { useChatQuery } from "hooks/api/chat";
+import { useSearchParams } from "hooks/utils";
 
 import {
   List,
@@ -9,8 +9,8 @@ import {
   CloseOutlined,
   MarkAsUnreadOutlined,
 } from "@mui/icons-material";
-import { MenuItem } from "@mui/material";
 import { DropdownMenu } from "components/Layouts";
+import { MenuItem } from "@mui/material";
 
 type ConversationOptionsT = {
   showPanelBtn?: boolean;
@@ -23,21 +23,16 @@ const ConversationOptions: React.FC<ConversationOptionsT> = ({
   conversationId,
   showPanelBtn = true,
 }) => {
-  const navigate = useNavigate();
+  const { appendParam, getParamValue, removeParam } = useSearchParams();
 
-  const { pathname, search } = useLocation();
-
-  const searchParams = new URLSearchParams(search);
-  const showControl = searchParams.get("active-tab") === "control";
+  const showControl = getParamValue("active-tab") === "control";
 
   const onShowControl = (onClose: () => void) => {
     showControl
-      ? searchParams.delete("active-tab")
-      : searchParams.set("active-tab", "control");
+      ? removeParam("active-tab")
+      : appendParam("active-tab", "control");
 
     onClose();
-
-    navigate(`${pathname}?${searchParams.toString()}`);
   };
 
   const { deleteConversation, markConversationAsRead } = useChatQuery();

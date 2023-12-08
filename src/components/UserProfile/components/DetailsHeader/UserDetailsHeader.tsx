@@ -1,5 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { useNavigate, useLocation } from "react-router-dom";
+
+import { useSearchParams } from "hooks/utils";
 
 import { Edit } from "@mui/icons-material";
 import { DropdownMenu } from "components/Layouts";
@@ -17,17 +18,13 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
   isAuthenticatedUser,
   loading,
 }) => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { getParamValue, appendParam } = useSearchParams();
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const isEditRoute =
-    searchParams.get("active-tab") === "profile-edit" ? true : false;
+  const isEditRoute = getParamValue("active-tab") === "profile-edit";
 
   const onEdit = (onClose: () => void) => {
     onClose();
-    searchParams.set("active-tab", "profile-edit");
-    navigate(`${pathname}?${searchParams.toString()}`);
+    appendParam("active-tab", "profile-edit");
   };
 
   return loading ? (

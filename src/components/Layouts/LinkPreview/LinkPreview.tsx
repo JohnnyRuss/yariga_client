@@ -1,11 +1,11 @@
-import axios, { AxiosResponse } from "axios";
-import { useState, useEffect } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
+import useUrlMetaQuery from "hooks/api/useUrlMetaQuery";
 
 import { Box, Stack } from "@mui/material";
 import { LineClamp } from "components/Layouts";
 import LinkPreviewSkeleton from "./LinkPreviewSkeleton";
-
-import { LinkMetaT } from "interface/db/utils.types";
 
 type LinkPreviewT = {
   url: string;
@@ -13,43 +13,11 @@ type LinkPreviewT = {
 };
 
 const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
-  const [loading, setLoading] = useState(true);
-
-  const [meta, setMeta] = useState<LinkMetaT>({
-    url: null,
-    date: null,
-    logo: null,
-    image: null,
-    title: null,
-    author: null,
-    publisher: null,
-    description: null,
-  });
+  const { getMeta, loadingMeta: loading, meta } = useUrlMetaQuery();
 
   useEffect(() => {
     if (!url) return;
-
-    async function getMeta() {
-      try {
-        setLoading(true);
-
-        const { data }: AxiosResponse<LinkMetaT> = await axios.post(
-          "http://localhost:4000/api/v1/utils/meta",
-          { url }
-        );
-
-        setMeta((prev) => ({
-          ...prev,
-          ...data,
-        }));
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getMeta();
+    getMeta(url);
   }, [url]);
 
   return loading ? (
