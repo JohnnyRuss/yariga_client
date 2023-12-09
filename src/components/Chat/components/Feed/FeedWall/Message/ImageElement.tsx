@@ -1,3 +1,4 @@
+import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 import { Box } from "@mui/material";
 
 type ImageElementT = {
@@ -5,11 +6,16 @@ type ImageElementT = {
 };
 
 const ImageElement: React.FC<ImageElementT> = ({ image }) => {
+  const { onOpenConversationGallery } = useChatGalleryContext();
+
+  const onOpenGallery = () => onOpenConversationGallery(image);
+
   return (
     <Box
       component="figure"
       width="100%"
       overflow="hidden"
+      onClick={onOpenGallery}
       sx={{ aspectRatio: "1/1", borderRadius: "8px", cursor: "pointer" }}
     >
       <Box

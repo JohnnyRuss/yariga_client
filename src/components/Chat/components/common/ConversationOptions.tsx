@@ -25,12 +25,12 @@ const ConversationOptions: React.FC<ConversationOptionsT> = ({
 }) => {
   const { appendParam, getParamValue, removeParam } = useSearchParams();
 
-  const showControl = getParamValue("active-tab") === "control";
+  const showControl = getParamValue("conversation-panel") === "1";
 
   const onShowControl = (onClose: () => void) => {
     showControl
-      ? removeParam("active-tab")
-      : appendParam("active-tab", "control");
+      ? removeParam("conversation-panel")
+      : appendParam("conversation-panel", "1");
 
     onClose();
   };

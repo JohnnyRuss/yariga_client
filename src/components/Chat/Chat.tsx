@@ -9,33 +9,29 @@ const Chat: React.FC = () => {
   const { conversationId, showControl } = useChatContext();
 
   return (
-    <>
-      <ContentBox>
-        <SectionTitle title="Messages" />
+    <ContentBox>
+      <SectionTitle title="Messages" />
 
-        <Box position="relative" width="100%" height="82vh">
-          <Stack
-            padding={0}
-            width="100%"
-            height="100%"
-            sx={{ inset: 0, overflowX: "hidden" }}
-            direction="row"
-            position="absolute"
-            className="content__box"
-          >
-            <UI.ActiveConversations />
+      <Box position="relative" width="100%" height="82vh">
+        <Stack
+          padding={0}
+          width="100%"
+          height="100%"
+          sx={{ inset: 0, overflowX: "hidden" }}
+          direction="row"
+          position="absolute"
+          className="content__box"
+        >
+          <UI.ActiveConversations />
 
-            <Outlet />
+          <Outlet />
 
-            {!conversationId && <UI.NoSelectedConversation />}
+          {!conversationId && <UI.NoSelectedConversation />}
 
-            {showControl && <UI.ConversationPanel />}
-          </Stack>
-        </Box>
-      </ContentBox>
-
-      <UI.ChatSlider />
-    </>
+          {showControl && <UI.ConversationPanel />}
+        </Stack>
+      </Box>
+    </ContentBox>
   );
 };
 

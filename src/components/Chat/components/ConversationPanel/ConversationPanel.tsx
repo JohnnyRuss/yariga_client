@@ -80,7 +80,7 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
           </Box>
 
           <Button
-            onClick={() => removeParam("active-tab")}
+            onClick={() => removeParam("conversation-panel")}
             sx={{ position: "absolute", top: 0, right: 0 }}
           >
             <Close sx={{ fontSize: 26 }} />

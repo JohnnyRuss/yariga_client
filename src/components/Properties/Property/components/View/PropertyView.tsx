@@ -12,9 +12,9 @@ const PropertyView: React.FC<{ loading: boolean }> = ({ loading }) => {
 
   const { getParamValue, appendParam } = useSearchParams();
 
-  const isActiveModal = getParamValue("active-tab") === "gallery";
+  const isActiveModal = getParamValue("gallery") === "1";
 
-  const onGoToGallery = () => appendParam("active-tab", "gallery");
+  const onGoToGallery = () => appendParam("gallery", "1");
 
   return loading ? (
     <UI.ViewSkeleton />

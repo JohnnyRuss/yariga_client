@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useCallback } from "react";
 import { useAppSelector } from "store/hooks";
 import { useParams, useLocation } from "react-router-dom";
+import { createContext, useContext, useCallback, useState } from "react";
 
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
+import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
 import {
   MessageT,
@@ -31,7 +32,7 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
   const { conversationId } = useParams();
 
   const showControl =
-    new URLSearchParams(search).get("active-tab") === "control";
+    new URLSearchParams(search).get("conversation-panel") === "1";
 
   const { _id: authenticatedUserId } = useAppSelector(selectAuthenticatedUser);
 
@@ -103,10 +104,6 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
 
     return groups;
   }, []);
-
-  // WRITE MESSAGE
-
-  // 0.0 DECLARE STATES
 
   return (
     <ChatContext.Provider

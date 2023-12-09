@@ -1,6 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useAppSelector } from "store/hooks";
 
+import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
 import { ImagesListSkeleton } from "./";
@@ -11,6 +12,8 @@ type ImagesListT = {
 };
 
 const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
+  const { onOpenConversationGallery } = useChatGalleryContext();
+
   const assets = useAppSelector(selectConversationMediaAssets);
 
   return (
@@ -25,6 +28,7 @@ const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
                 component="figure"
                 width="100%"
                 overflow="hidden"
+                onClick={() => onOpenConversationGallery(image)}
                 sx={{
                   aspectRatio: "1/1",
                   borderRadius: "8px",

@@ -17,7 +17,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
 
   const { getParamValue, removeParam } = useSearchParams();
 
-  const isActiveTab = getParamValue("active-tab") === "gallery";
+  const isActiveTab = getParamValue("gallery") === "1";
 
   const onActivateSlider = (index: number) => setActiveSlideIndex(index);
 
@@ -25,7 +25,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
 
   const onClose = () => {
     setActiveSlideIndex(NaN);
-    removeParam("active-tab");
+    removeParam("gallery");
   };
 
   return (

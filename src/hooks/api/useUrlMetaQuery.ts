@@ -46,22 +46,12 @@ export default function useUrlMetaQuery() {
     try {
       setLoadingMetaAssets(true);
 
-      const parsedUrls = await Promise.all(
-        urls.map(async (url) => {
-          try {
-            const { data }: AxiosResponse<LinkMetaT> = await axios.post(
-              `${API_ENDPOINT}/utils/meta`,
-              { url }
-            );
-
-            return data;
-          } catch (error) {
-            throw error;
-          }
-        })
+      const { data }: AxiosResponse<Array<LinkMetaT>> = await axios.post(
+        `${API_ENDPOINT}/utils/meta/all`,
+        { urls }
       );
 
-      setMetaAssets((prev) => parsedUrls);
+      setMetaAssets((prev) => data);
     } catch (error) {
       console.log(error);
     } finally {

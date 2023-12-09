@@ -1,28 +1,39 @@
 import { useAppSelector } from "store/hooks";
+import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 
 import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
-import { Modal, SliderModal } from "components/Layouts";
+import { Modal, SliderView } from "components/Layouts";
 import { Box } from "@mui/material";
 
-type ChatSliderT = {};
+const ChatSlider: React.FC = () => {
+  const {
+    conversationGalleryInitialIndex,
+    setConversationGalleryInitialIndex,
+  } = useChatGalleryContext();
 
-const ChatSlider: React.FC<ChatSliderT> = () => {
   const images = useAppSelector(selectConversationMediaAssets);
 
+  const onCloseGallery = () => setConversationGalleryInitialIndex(NaN);
+
   return (
-    // <Modal open={true} onClose={() => {}}>
-    //   <Box
-    //     sx={{
-    //       padding: 2,
-    //       backgroundColor: "app_text.light",
-    //       borderRadius: "10px",
-    //     }}
-    //   >
-    //     {/* <SliderView images={images} initialSlide={0} /> */}
-    //   </Box>
-    // </Modal>
-    <SliderModal images={images} />
+    <Modal
+      open={!isNaN(conversationGalleryInitialIndex)}
+      onClose={onCloseGallery}
+    >
+      <Box
+        sx={{
+          padding: 2,
+          backgroundColor: "app_text.light",
+          borderRadius: "10px",
+        }}
+      >
+        <SliderView
+          images={images}
+          initialSlide={conversationGalleryInitialIndex}
+        />
+      </Box>
+    </Modal>
   );
 };
 
