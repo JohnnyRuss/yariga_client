@@ -4,7 +4,7 @@ import { useAppSelector } from "store/hooks";
 import { selectAgentCredentials } from "store/selectors/agent.selectors";
 
 import * as UI from "./components";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
 import { Button, HireAgentModal } from "components/Layouts";
 
@@ -29,17 +29,22 @@ const AgentCredentials: React.FC<AgentCredentialsT> = ({ loading }) => {
 
   const onCloseHireAgent = () => setOpenHireAgent(false);
 
+  const theme = useTheme();
+
   return (
     <>
       {loading ? (
         <UI.AgentCredentialsSkeleton />
       ) : (
         <Box
-          boxShadow={3}
           sx={{
             overflow: "hidden",
-            borderRadius: "10px",
             backgroundColor: "app_bg.main",
+
+            [theme.breakpoints.up("app_mobile")]: {
+              borderRadius: "10px",
+              boxShadow: 3,
+            },
           }}
         >
           <UI.AgentCoverImage />

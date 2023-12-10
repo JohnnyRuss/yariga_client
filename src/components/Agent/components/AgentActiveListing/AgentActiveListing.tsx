@@ -17,7 +17,7 @@ const AgentActiveListing: React.FC<AgentActiveListingT> = () => {
 
   return (
     <Box
-      boxShadow={3}
+      boxShadow={{ xs: 0, app_mobile: 3 }}
       sx={{
         padding: "20px",
         borderRadius: "10px",

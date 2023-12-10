@@ -16,7 +16,7 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
     <UI.AgentDetailsSkeleton />
   ) : (
     <Box
-      boxShadow={3}
+      boxShadow={{ xs: 0, app_mobile: 3 }}
       sx={{
         backgroundColor: "app_bg.main",
         borderRadius: "10px",

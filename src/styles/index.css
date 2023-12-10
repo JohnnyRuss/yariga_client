@@ -21,6 +21,7 @@
 
 body {
   font-family: "Manrope", sans-serif;
+  overflow-x: hidden;
 }
 
 a {
@@ -67,16 +68,13 @@ a {
   padding: 20px;
   border-radius: 0px;
   margin-top: 0px;
-  border: 1px solid var(--app-text-contrastText);
-  border-bottom: none;
-  border-right: none;
+  box-sizing: border-box;
 }
 
 @media (min-width: 500px) {
   .content__box {
     border-radius: 15px;
     margin-top: 27px;
-    border: none;
   }
 }
 

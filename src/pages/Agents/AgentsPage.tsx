@@ -42,7 +42,7 @@ const AgentsPage: React.FC = () => {
         path={PATHS.agent_page}
         description="yariga agents listing presentation with agents contact information."
       />
-      <Agents />;
+      <Agents />
     </>
   );
 };

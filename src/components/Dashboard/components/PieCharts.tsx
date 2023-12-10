@@ -5,7 +5,7 @@ import { PieChart } from "components/Layouts";
 
 const PieCharts: React.FC = () => {
   return (
-    <Box mt="20px" display="flex" flexWrap="wrap" gap={4}>
+    <Box display="flex" flexWrap="wrap" gap={4}>
       {DASHBOARD_PIE_CHARTS.map((chart) => (
         <PieChart
           key={chart.id}

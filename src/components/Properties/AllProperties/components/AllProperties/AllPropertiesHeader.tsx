@@ -5,9 +5,11 @@ const AllPropertiesHeader: React.FC = () => {
   return (
     <Stack
       gap="15px"
-      direction={{ sx: "column", md: "row" }}
-      justifyContent={{ sx: "flex-start", md: "space-between" }}
-      alignItems={{ sx: "flex-start", md: "space-between" }}
+      p={{ xs: 2, app_mobile: 0 }}
+      direction={{ xs: "column", md: "row" }}
+      alignItems={{ xs: "flex-start", md: "space-between" }}
+      bgcolor={{ xs: "app_bg.main", app_mobile: "transparent" }}
+      justifyContent={{ xs: "flex-start", md: "space-between" }}
     >
       <SectionTitle title="All Properties" />
 

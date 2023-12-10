@@ -57,14 +57,11 @@ const CreatePropertyForm: React.FC = () => {
 
   return (
     <Box
-      mt={2.5}
-      padding="20px"
-      borderRadius="15px"
-      bgcolor="app_text.light"
       display="flex"
       justifyContent="center"
       alignItems="flex-start"
       position="relative"
+      className="content__box"
     >
       {status.loading && <Spinner />}
 

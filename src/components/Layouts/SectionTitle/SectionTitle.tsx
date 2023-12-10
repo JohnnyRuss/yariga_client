@@ -12,6 +12,7 @@ const SectionTitle: React.FC<SectionTitleT> = ({ title }) => {
       fontWeight={700}
       color="app_text.dark"
       textTransform="capitalize"
+      display={{ xs: "none", app_mobile: "block" }}
     >
       {title}
     </Typography>

@@ -1,5 +1,5 @@
 import * as UI from "./components";
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import { ContentBox, SectionTitle } from "components/Layouts";
 
 const Dashboard: React.FC = () => {
@@ -7,18 +7,20 @@ const Dashboard: React.FC = () => {
     <ContentBox>
       <SectionTitle title="Dashboard" />
 
-      <UI.PieCharts />
+      <Box className="content__box">
+        <UI.PieCharts />
 
-      <Stack
-        mt="25px"
-        width="100%"
-        direction={{ xs: "column", lg: "row" }}
-        gap={4}
-      >
-        <UI.TotalRevenue />
+        <Stack
+          mt="25px"
+          width="100%"
+          direction={{ xs: "column", lg: "row" }}
+          gap={4}
+        >
+          <UI.TotalRevenue />
 
-        <UI.PropertyReferrals />
-      </Stack>
+          <UI.PropertyReferrals />
+        </Stack>
+      </Box>
     </ContentBox>
   );
 };

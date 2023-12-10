@@ -26,6 +26,7 @@ const GoBackButton: React.FC<GoBackButtonT> = ({ children, path }) => {
         color: "app_text.dark",
         lineHeight: 1,
         textTransform: "none",
+        width: "max-content",
       }}
     >
       <ArrowBackIos />
