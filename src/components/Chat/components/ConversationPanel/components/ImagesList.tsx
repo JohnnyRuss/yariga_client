@@ -5,6 +5,7 @@ import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
 import { ImagesListSkeleton } from "./";
+import { ImageListGridItem } from "./index.styled";
 import { Grid, Box } from "@mui/material";
 
 type ImagesListT = {
@@ -23,7 +24,7 @@ const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
           <ImagesListSkeleton />
         ) : (
           assets.map((image) => (
-            <Grid item xs={4} key={nanoid()}>
+            <ImageListGridItem item key={nanoid()}>
               <Box
                 component="figure"
                 width="100%"
@@ -46,7 +47,7 @@ const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
                   sx={{ objectFit: "cover", maxWidth: "100%" }}
                 />
               </Box>
-            </Grid>
+            </ImageListGridItem>
           ))
         )}
       </Grid>

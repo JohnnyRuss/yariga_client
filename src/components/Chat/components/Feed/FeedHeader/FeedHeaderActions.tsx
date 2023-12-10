@@ -12,7 +12,7 @@ const FeedHeaderActions: React.FC<FeedHeaderActionsT> = ({ isRead }) => {
   const { conversationId } = useParams();
 
   return (
-    <Stack direction="row" gap={1} height="100%" alignItems="center">
+    <Stack direction="row" gap={1} height="100%" alignItems="center" ml="auto">
       <UI.FeedHeaderActionTooltips />
 
       <ConversationOptions

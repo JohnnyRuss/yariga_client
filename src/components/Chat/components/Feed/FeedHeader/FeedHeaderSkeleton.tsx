@@ -1,14 +1,23 @@
-import { Box, Stack, Skeleton } from "@mui/material";
+import { Box, Stack, Skeleton, useTheme } from "@mui/material";
 
 const FeedHeaderSkeleton: React.FC = () => {
+  const theme = useTheme();
+
   return (
     <Box p={1} borderBottom="1px solid" borderColor="app_text.contrastText">
-      <Stack
-        gap={1}
-        height="100%"
-        direction="row"
-        justifyContent="space-between"
-      >
+      <Stack gap={1} height="100%" direction="row" alignItems="center">
+        <Skeleton
+          variant="circular"
+          width="35px"
+          height="35px"
+          sx={{
+            minWidth: "35px",
+            [theme.breakpoints.up("app_desktop")]: {
+              display: "none",
+            },
+          }}
+        />
+
         {/* AVATAR */}
         <Stack direction="row" gap={1}>
           <Skeleton
@@ -26,19 +35,31 @@ const FeedHeaderSkeleton: React.FC = () => {
         </Stack>
 
         {/* ACTIONS */}
-        <Stack direction="row" alignItems="center" gap={1}>
+        <Stack direction="row" alignItems="center" gap={1} ml="auto">
           <Skeleton
             variant="circular"
             width="35px"
             height="35px"
-            sx={{ minWidth: "35px" }}
+            sx={{
+              minWidth: "35px",
+              display: "none",
+              [theme.breakpoints.up("app_mobile")]: {
+                display: "flex",
+              },
+            }}
           />
 
           <Skeleton
             variant="circular"
             width="35px"
             height="35px"
-            sx={{ minWidth: "35px" }}
+            sx={{
+              minWidth: "35px",
+              display: "none",
+              [theme.breakpoints.up("app_mobile")]: {
+                display: "flex",
+              },
+            }}
           />
 
           <Skeleton

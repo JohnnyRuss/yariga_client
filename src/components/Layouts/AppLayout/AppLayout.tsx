@@ -11,6 +11,7 @@ interface AppLayoutT {
 const AppLayout: React.FC<AppLayoutT> = ({ children }) => {
   const { pathname } = useLocation();
   const isOnAuthRoute = pathname.includes("auth");
+
   return (
     <MuiStyled.MainContainerBox>
       {!isOnAuthRoute && <Navigation />}

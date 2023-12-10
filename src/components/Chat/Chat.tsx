@@ -10,9 +10,15 @@ const Chat: React.FC = () => {
 
   return (
     <ContentBox>
-      <SectionTitle title="Messages" />
+      <Box display={{ xs: "none", app_mobile: "block" }}>
+        <SectionTitle title="Messages" />
+      </Box>
 
-      <Box position="relative" width="100%" height="82vh">
+      <Box
+        position="relative"
+        width="100%"
+        height={{ xs: "94vh", app_mobile: "82vh" }}
+      >
         <Stack
           padding={0}
           width="100%"

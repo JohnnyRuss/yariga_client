@@ -74,8 +74,8 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
                 borderColor: "app_text.contrastText",
               }}
             >
-              <Tab value="one" label="URL's" />
-              <Tab value="two" label="Media Files" />
+              <Tab value="one" label="Media Files" />
+              <Tab value="two" label="URL's" />
             </Tabs>
           </Box>
 
@@ -96,10 +96,11 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
         sx={{ height: "calc(100% - 212px)" }}
       >
         {value === "one" && (
-          <UI.URLList conversationIsLoading={conversationStatus.loading} />
-        )}
-        {value === "two" && (
           <UI.ImagesList conversationIsLoading={conversationStatus.loading} />
+        )}
+
+        {value === "two" && (
+          <UI.URLList conversationIsLoading={conversationStatus.loading} />
         )}
       </Box>
     </Stack>

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
+import { useSearchParams } from "hooks/utils";
 import { useChatContext } from "providers/chat/ChatProvider";
 
 import {
@@ -38,8 +39,19 @@ const Feed: React.FC = () => {
     conversationStatus.loading,
   ]);
 
+  const { getParamValue } = useSearchParams();
+  const isShowingPanel = getParamValue("conversation-panel") === "1";
+
   return (
-    <Stack flex={5} component="aside" position="relative">
+    <Stack
+      flex={5}
+      component="aside"
+      position="relative"
+      display={{
+        xs: isShowingPanel ? "none" : "flex",
+        app_desktop_large: "flex",
+      }}
+    >
       {deletionStatus.loading && <Spinner />}
 
       <UI.FeedHeader

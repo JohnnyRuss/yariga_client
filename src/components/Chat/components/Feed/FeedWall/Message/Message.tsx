@@ -15,7 +15,10 @@ const Message: React.FC<MessageElT> = ({ message, belongToActiveUser }) => {
     <>
       <Box
         sx={{ padding: message.text ? "5px 10px" : "0" }}
-        maxWidth={message.links.length > 0 ? "320px" : "100%"}
+        maxWidth={{
+          xs: "100%",
+          app_tablet: message.links.length > 0 ? "320px" : "100%",
+        }}
         className={`msg-txt ${belongToActiveUser ? "active-user__msg" : ""}`}
       >
         {message.text && <Text text={message.text} />}

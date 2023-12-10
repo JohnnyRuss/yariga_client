@@ -65,8 +65,19 @@ a {
 .content__box {
   background: var(--app-bg-main);
   padding: 20px;
-  border-radius: 15px;
-  margin-top: 27px;
+  border-radius: 0px;
+  margin-top: 0px;
+  border: 1px solid var(--app-text-contrastText);
+  border-bottom: none;
+  border-right: none;
+}
+
+@media (min-width: 500px) {
+  .content__box {
+    border-radius: 15px;
+    margin-top: 27px;
+    border: none;
+  }
 }
 
 .line-clamp-1 {

@@ -14,10 +14,14 @@ export const BodyContainer = styled(Box)(() => ({
   minHeight: "100%",
 }));
 
-export const ContentContainerBox = styled(Box)(() => ({
+export const ContentContainerBox = styled(Box)(({ theme }) => ({
   flex: 1,
   minHeight: "100%",
   alignSelf: "stretch",
-  padding: "20px",
+  padding: "0px",
   boxSizing: "border-box",
+
+  [theme.breakpoints.up("app_mobile")]: {
+    padding: "20px",
+  },
 }));

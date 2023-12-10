@@ -10,6 +10,7 @@ const NoSelectedConversation: React.FC = () => {
       alignItems="center"
       justifyContent="center"
       gap={2}
+      display={{ xs: "none", app_desktop: "flex" }}
     >
       <Box component="figure" width="300px">
         <img

@@ -31,8 +31,17 @@ const MessageGroup: React.FC<MessageElT> = ({
       flexDirection={belongToActiveUser ? "row-reverse" : "initial"}
     >
       {!belongToActiveUser && (
-        <Box mt="auto">
-          <Avatar src={groupSender.avatar} alt={groupSender.username} />
+        <Box
+          mt="auto"
+          minWidth={{ xs: "40px", app_mobile: "50px" }}
+          width={{ xs: "40px", app_mobile: "50px" }}
+          height={{ xs: "40px", app_mobile: "50px" }}
+        >
+          <Avatar
+            width="100%"
+            src={groupSender.avatar}
+            alt={groupSender.username}
+          />
         </Box>
       )}
 
