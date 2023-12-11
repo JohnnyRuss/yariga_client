@@ -16,10 +16,12 @@ interface AsideNavRouteT {
   path: string;
   id: string;
   title: string;
+  allow: Array<"USER" | "AGENT">;
 }
 
 const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
   {
+    allow: ["USER", "AGENT"],
     label: "dashboard",
     title: "yariga dashboard page",
     icon: <Dashboard />,
@@ -27,6 +29,7 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
+    allow: ["USER", "AGENT"],
     label: "properties",
     title: "yariga properties page",
     icon: <HomeWork />,
@@ -34,6 +37,7 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
+    allow: ["USER"],
     label: "agents",
     title: "yariga agent page",
     icon: <People />,
@@ -41,6 +45,7 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
+    allow: ["USER"],
     label: "reviews",
     title: "yariga reviews page",
     icon: <StarOutline />,
@@ -48,6 +53,7 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
+    allow: ["USER", "AGENT"],
     label: "messages",
     title: "yariga chat page",
     icon: <ChatBubbleOutline />,
@@ -55,6 +61,7 @@ const ASIDE_NAV_ROUTES: AsideNavRouteT[] = [
     id: nanoid(),
   },
   {
+    allow: ["USER", "AGENT"],
     label: "my profile",
     title: "yariga profile page",
     icon: <AccountCircle />,

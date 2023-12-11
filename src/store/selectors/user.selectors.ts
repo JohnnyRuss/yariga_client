@@ -23,6 +23,7 @@ const selectedAuthenticatedUser = ({ user }: RootStateT) => ({
   username: user.user?.username || "",
   phone: user.user?.phone || "",
   location: user.user?.location,
+  role: user.user?.role,
 });
 
 const selectedGuest = ({ user }: RootStateT) => ({
@@ -32,6 +33,7 @@ const selectedGuest = ({ user }: RootStateT) => ({
   username: user.guest?.username || "",
   phone: user.guest?.phone || "",
   location: user.guest?.location,
+  role: user.guest.role,
 });
 
 // SELECTORS

@@ -7,6 +7,7 @@ type AgentShortInfoT = {
   phone: string;
   avatar: string;
   listing: Array<string>;
+  account: string;
   serviceArea: {
     name: string;
     displayName: string;

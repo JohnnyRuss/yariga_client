@@ -22,7 +22,7 @@ const PublishedReviewsPage: React.FC = () => {
       return navigate(`${pathname}?${urlSearchParams.toString()}`);
     }
 
-    getReviews({ query: search, approved: "1" });
+    getReviews({ query: search.replace("?", ""), approved: "1" });
 
     return () => {
       cleanUpReviews();

@@ -66,9 +66,9 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
 
   const onEnter = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key !== "Enter") return;
+      const isSubmitting = e.key === "Enter" && !e.shiftKey;
+      if (!isSubmitting) return;
       e.preventDefault();
-
       onSendMessage();
     },
     [onSendMessage]

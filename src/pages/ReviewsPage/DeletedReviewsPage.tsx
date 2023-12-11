@@ -22,7 +22,7 @@ const DeletedReviewsPage: React.FC = () => {
       return navigate(`${pathname}?${urlSearchParams.toString()}`);
     }
 
-    getReviews({ query: search, approved: "0" });
+    getReviews({ query: search.replace("?", ""), approved: "0" });
 
     return () => {
       cleanUpReviews();

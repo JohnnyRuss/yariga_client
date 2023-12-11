@@ -68,6 +68,7 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
             width="100%"
             height="100%"
             title={username}
+            style={{ objectFit: "cover" }}
           />
         </Box>
 

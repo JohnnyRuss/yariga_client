@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import Text from "./Text";
+// import Text from "./Text";
 import Images from "./Images";
-import { LinkPreview } from "components/Layouts";
+import { LinkPreview, Text } from "components/Layouts";
 
 import { MessageT } from "interface/db/chat.types";
 
@@ -21,7 +21,7 @@ const Message: React.FC<MessageElT> = ({ message, belongToActiveUser }) => {
         }}
         className={`msg-txt ${belongToActiveUser ? "active-user__msg" : ""}`}
       >
-        {message.text && <Text text={message.text} />}
+        {message.text && <Text text={message.text} gap={0} />}
 
         {message.links[0] && !message.media[0] && (
           <LinkPreview url={message.links[0]} />

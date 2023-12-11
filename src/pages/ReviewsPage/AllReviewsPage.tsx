@@ -24,7 +24,7 @@ const AllReviewsPage: React.FC = () => {
       return navigate(`${pathname}?${urlSearchParams.toString()}`);
     }
 
-    getReviews({ query: search, approved: "all" });
+    getReviews({ query: search.replace("?", ""), approved: "all" });
 
     return () => {
       cleanUpReviews();

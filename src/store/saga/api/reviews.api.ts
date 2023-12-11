@@ -11,9 +11,7 @@ export async function addReviewQuery({ data, propertyId }: AddReviewArgsT) {
 
 export async function getReviewsQuery({ query, approved }: GetReviewsArgsT) {
   return axiosPrivateQuery.get(
-    `/reviews${query ? `${query}` : ""}${
-      query ? `&approved=${approved}` : `?approved=${approved}`
-    }`
+    `/reviews?approved=${approved}&limit=12${query ? `&${query}` : ""}`
   );
 }
 

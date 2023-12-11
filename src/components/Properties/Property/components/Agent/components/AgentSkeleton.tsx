@@ -29,7 +29,7 @@ const AgentSkeleton: React.FC = () => {
           <Skeleton variant="text" width="135px" sx={{ fontSize: 16 }} />
 
           <Grid container mt="10px" maxWidth="100%">
-            <Grid xs={12} xl={6} p={1}>
+            <Grid item xs={12} xl={6} p={1}>
               <Skeleton
                 height="40px"
                 variant="rectangular"
@@ -37,7 +37,7 @@ const AgentSkeleton: React.FC = () => {
               />
             </Grid>
 
-            <Grid xs={12} xl={6} p={1}>
+            <Grid item xs={12} xl={6} p={1}>
               <Skeleton
                 height="40px"
                 variant="rectangular"
@@ -45,7 +45,7 @@ const AgentSkeleton: React.FC = () => {
               />
             </Grid>
 
-            <Grid xs={12} p={1}>
+            <Grid item xs={12} p={1}>
               <Skeleton
                 height="40px"
                 variant="rectangular"

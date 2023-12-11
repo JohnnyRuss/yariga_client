@@ -16,12 +16,13 @@ import {
   UpdateProfileImageResponseT,
 } from "interface/db/user.types";
 
-const userDefault = {
+const userDefault: UserT = {
   _id: "",
   avatar: "",
   email: "",
   username: "",
   phone: "",
+  role: "USER",
   location: {
     name: "",
     displayName: "",

@@ -6,6 +6,7 @@ type UserT = {
   username: string;
   avatar: string;
   phone?: string;
+  role: "AGENT" | "USER";
   location?: {
     name: string;
     displayName: string;

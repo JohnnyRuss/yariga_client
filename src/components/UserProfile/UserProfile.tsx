@@ -1,4 +1,7 @@
+import { useAppSelector } from "store/hooks";
+
 import { useSearchParams } from "hooks/utils";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 import useIsAuthenticatedUser from "hooks/utils/useIsAuthenticatedUser";
 
 import * as UI from "./components";
@@ -26,6 +29,8 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
     removeParam("active-tab");
   };
 
+  const currUser = useAppSelector(selectAuthenticatedUser);
+
   return (
     <ContentBox>
       <SectionTitle
@@ -40,6 +45,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         gap="60px"
         width="100%"
         boxShadow={3}
+        pb={{ xs: 0, md: 2 }}
       >
         <UI.ProfileImages
           loading={loading}
@@ -76,10 +82,12 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
         </Box>
       </Stack>
 
-      <UI.UserProperties
-        userId={user._id}
-        username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
-      />
+      {currUser.role !== "AGENT" && (
+        <UI.UserProperties
+          userId={user._id}
+          username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
+        />
+      )}
     </ContentBox>
   );
 };

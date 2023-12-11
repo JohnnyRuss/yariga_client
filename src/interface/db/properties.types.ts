@@ -69,6 +69,7 @@ type PropertyOwnerT = {
   phone: string;
   properties: Array<string>;
   location: PropertyLocationT;
+  account?: string;
 };
 
 type PropertyTypeT = {
