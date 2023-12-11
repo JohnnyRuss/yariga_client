@@ -46,7 +46,7 @@ const AgentPropertiesPage: React.FC = () => {
           path={DYNAMIC_PATHS.agent_properties_page(agentId!)}
         />
       )}
-      <AgentProperties />;
+      <AgentProperties />
     </>
   );
 };

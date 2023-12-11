@@ -62,6 +62,7 @@ const CreatePropertyForm: React.FC = () => {
       alignItems="flex-start"
       position="relative"
       className="content__box"
+      pb={{ md: 3 }}
     >
       {status.loading && <Spinner />}
 

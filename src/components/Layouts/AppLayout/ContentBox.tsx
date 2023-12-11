@@ -13,6 +13,7 @@ const ContentBox: React.FC<ContentBoxT> = ({
 }) => {
   return (
     <Box
+      data-content-box
       flex={1}
       display={flex ? "flex" : "block"}
       height="100%"

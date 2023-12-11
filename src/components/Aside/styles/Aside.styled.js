@@ -26,4 +26,21 @@ export const AsideBox = styled(Box)(({ theme }) => ({
     borderColor: theme.palette.app_text.contrastText,
     boxShadow: "0px 6px 10px rgba(0,0,0,0.4)",
   },
+
+  [theme.breakpoints.down("app_mobile")]: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: "calc(100% - 50px)",
+    height: "50px",
+    width: "100%",
+    flexDirection: "row",
+    zIndex: 9999,
+    justifyContent: "space-between",
+
+    "&::after": {
+      display: "none",
+    },
+  },
 }));

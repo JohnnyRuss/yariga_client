@@ -18,7 +18,7 @@ const AuthLayout: React.FC<AuthLayoutT> = ({
   return (
     <Box position="fixed" sx={{ inset: 0 }}>
       <Stack direction="row" height="100%">
-        <Box flex={1} className={styles.authFormWrapper}>
+        <Box flex={1} className={styles.authFormWrapper} p={2}>
           <Box className={styles.authFormContainer}>
             <Stack gap="10px" width="100%">
               <Box display="flex" justifyContent="center">
@@ -38,7 +38,7 @@ const AuthLayout: React.FC<AuthLayoutT> = ({
           </Box>
         </Box>
 
-        <Box flex={1}>
+        <Box flex={1} display={{ xs: "none", app_tablet: "block" }}>
           <figure className={styles.authDecorationFig}>
             <img src={AuthImg} alt="auth decoration" />
           </figure>

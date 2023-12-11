@@ -7,7 +7,7 @@ const Dashboard: React.FC = () => {
     <ContentBox>
       <SectionTitle title="Dashboard" />
 
-      <Box className="content__box">
+      <Box className="content__box" pb={{ md: 3 }}>
         <UI.PieCharts />
 
         <Stack

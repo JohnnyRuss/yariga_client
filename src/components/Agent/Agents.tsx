@@ -7,7 +7,7 @@ const Agents: React.FC = () => {
     <ContentBox>
       <SectionTitle title="Agents" />
 
-      <Stack className="content__box">
+      <Stack className="content__box" pb={1}>
         <UI.AgentsList />
 
         <UI.AgentsPagination />

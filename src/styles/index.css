@@ -69,12 +69,14 @@ a {
   border-radius: 0px;
   margin-top: 0px;
   box-sizing: border-box;
+  padding-bottom: 55px;
 }
 
 @media (min-width: 500px) {
   .content__box {
     border-radius: 15px;
     margin-top: 27px;
+    padding-bottom: 0px;
   }
 }
 
@@ -86,6 +88,7 @@ a {
 }
 
 .app__card {
+  width: 100%;
   display: inline-flex;
   padding: 8px;
   height: fit-content;

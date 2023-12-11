@@ -35,7 +35,7 @@ const Agent: React.FC = () => {
       </Box>
 
       <Box
-        p={{ xs: "0px 0px 5px 0px", md: "20px" }}
+        p={{ xs: "0px 0px 20px 0px", md: "20px" }}
         bgcolor={{ xs: "app_bg.main", app_mobile: "transparent" }}
       >
         <Grid

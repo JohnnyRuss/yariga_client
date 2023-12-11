@@ -10,9 +10,9 @@ const PropertyAside: React.FC<PropertyAsideT> = ({ children }) => {
       width={{ xs: "100%", md: "25%" }}
       gap={3}
       justifyContent="flex-start"
-      position="sticky"
-      top="70px"
-      height="90vh"
+      position={{ xs: "relative", md: "sticky" }}
+      top={{ xs: 0, md: "70px" }}
+      height={{ xs: "auto", md: "90vh" }}
       p="4px"
       sx={{
         overflowY: ["visible", "auto"],

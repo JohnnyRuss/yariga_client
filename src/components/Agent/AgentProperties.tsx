@@ -19,15 +19,22 @@ const AgentProperties: React.FC = () => {
 
   return (
     <ContentBox>
-      <GoBackButton>{`${agentFirstName}'s Properties`}</GoBackButton>
+      <Box height={{ xs: "92vh", md: "87vh" }}>
+        <Box
+          bgcolor={{ xs: "app_bg.main", app_mobile: "transparent" }}
+          pt={{ xs: 1, md: 0 }}
+        >
+          <GoBackButton>{`${agentFirstName}'s Properties`}</GoBackButton>
+        </Box>
 
-      <Box className="content__box" height="92%">
-        <PropertiesList
-          list={properties}
-          status={status}
-          skeletonCount={12}
-          containerSx={{ marginTop: ["-10px", "0px"] }}
-        />
+        <Box className="content__box" height="92%" pt={{ xs: 0, md: "auto" }}>
+          <PropertiesList
+            list={properties}
+            status={status}
+            skeletonCount={12}
+            containerSx={{ marginTop: ["-10px", "0px"] }}
+          />
+        </Box>
       </Box>
     </ContentBox>
   );

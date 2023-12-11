@@ -24,6 +24,7 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
   gap: "8px",
   boxShadow: "none",
   height: "250px",
+  width: "100%",
 
   img: {
     maxWidth: "40%",
@@ -35,10 +36,12 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
 
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
+    height: "auto",
 
     img: {
       maxWidth: "100%",
-      maxHeight: "40%",
+      height: "100%",
+      maxHeight: "250px",
     },
   },
 }));

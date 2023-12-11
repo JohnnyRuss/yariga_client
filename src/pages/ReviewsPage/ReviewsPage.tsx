@@ -27,7 +27,8 @@ const ReviewsPage: React.FC = () => {
         path={PATHS.reviews_page}
         description="reviews got user on all of the properties from other users"
       />
-      <Reviews />;
+
+      <Reviews />
     </>
   );
 };

@@ -7,10 +7,11 @@ type ReviewsContentBoxT = {
 const ReviewsContentBox: React.FC<ReviewsContentBoxT> = ({ children }) => {
   return (
     <Stack
-      minHeight="35vw"
-      gap={3}
-      className="content__box"
-      sx={{ backgroundColor: "unset", padding: 0 }}
+      flex={1}
+      height="100%"
+      gap={{ xs: 1, md: 3 }}
+      minHeight={{ xs: "100%", md: "35vw" }}
+      data-reviews-content-box
     >
       {children}
     </Stack>

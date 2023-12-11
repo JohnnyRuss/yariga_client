@@ -29,6 +29,7 @@ const AllProperties: React.FC = () => {
           flexDirection="column"
           gap={1}
           className="content__box"
+          pb={{ md: 3 }}
         >
           <UI.Filter loading={filterStatus.loading} />
 

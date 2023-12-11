@@ -21,6 +21,8 @@ const Navigation: React.FC = () => {
       top={0}
       overflow="hidden"
       boxSizing="border-box"
+      borderBottom={{ xs: "1px solid #f3f3f3", md: "none" }}
+      boxShadow={{ xs: 3, md: 0 }}
     >
       <Box component={Link} to={PATHS.root_page} position="relative">
         <h1>
