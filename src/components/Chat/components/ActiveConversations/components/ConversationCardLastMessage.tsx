@@ -1,3 +1,5 @@
+import { matchEmoticons } from "utils";
+
 import { Typography } from "@mui/material";
 import { LineClamp } from "components/Layouts";
 
@@ -48,7 +50,7 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
           color: "inherit",
         }}
       >
-        {lastMessageText}
+        {matchEmoticons(lastMessageText)}
       </LineClamp>
     </Typography>
   );

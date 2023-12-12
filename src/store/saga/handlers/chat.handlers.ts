@@ -75,11 +75,24 @@ export function* deleteConversation({
 }
 
 export function* createConversationAndGetAll({
-  payload,
-}: PayloadAction<ChatApiT.CreateConversationArgsT>) {
+  payload: { args, load },
+}: PayloadAction<{ args: ChatApiT.CreateConversationArgsT; load: boolean }>) {
   try {
     const { data: newConversation }: AxiosResponse<ChatApiT.ConversationT> =
-      yield call(chatAPI.createConversationQuery, payload);
+      yield call(chatAPI.createConversationQuery, args);
+
+    if (!load) {
+      const activeUserId: string = yield select(
+        ({ user }: RootStateT) => user.user._id
+      );
+
+      yield put(
+        chatActions.setNewConversationCard({
+          activeUserId,
+          conversation: newConversation,
+        })
+      );
+    }
 
     RouterHistory.navigate(
       DYNAMIC_PATHS.chat_conversation__page(newConversation._id)

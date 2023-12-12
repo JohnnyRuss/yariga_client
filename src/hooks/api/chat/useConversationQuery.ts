@@ -28,8 +28,13 @@ export default function useConversationQuery() {
   const sendMessage = (args: SendMessageArgsT) =>
     dispatch(chatActions.sendMessage(args));
 
-  const createConversationAndGetAll = (args: CreateConversationArgsT) =>
-    dispatch(chatActions.createConversationAndGetAll(args));
+  const createConversationAndGetAll = ({
+    args,
+    load,
+  }: {
+    args: CreateConversationArgsT;
+    load: boolean;
+  }) => dispatch(chatActions.createConversationAndGetAll({ args, load }));
 
   useEffect(() => {
     if (messagesCount.current > 0) return;

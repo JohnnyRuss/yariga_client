@@ -16,7 +16,7 @@ const ChatWithButton: React.FC<ChatWithButtonT> = ({
 
   const onStartConversation = () => {
     if (!adressatId) return;
-    createConversationAndGetAll({ adressat: adressatId });
+    createConversationAndGetAll({ args:{adressat: adressatId },load:true});
   };
 
   return (

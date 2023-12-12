@@ -19,6 +19,14 @@ type UserT = {
   } | null;
 };
 
+type UserSearchT = {
+  username: string;
+  email: string;
+  _id: string;
+  avatar: string;
+  role: "AGENT" | "USER";
+};
+
 type LoginResponseT = {
   user: UserT;
   accessToken: string;
@@ -44,6 +52,7 @@ type UpdateProfileImageResponseT = {
 
 export type {
   UserT,
+  UserSearchT,
   LoginResponseT,
   GetGuestArgsT,
   UpdateUserArgsT,

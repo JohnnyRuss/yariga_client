@@ -18,3 +18,7 @@ export function updateProfileImageQuery(data: UpdateProfileImageArgsT) {
     file: data.file,
   });
 }
+
+export function searchUsersQuery(key: string) {
+  return axiosPrivateQuery.get(`/users/search?search=${key}`);
+}

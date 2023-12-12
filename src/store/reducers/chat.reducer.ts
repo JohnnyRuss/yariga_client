@@ -164,9 +164,38 @@ const chatSlice = createSlice({
     // CREATE CONVERSATION AND GET ALL
     createConversationAndGetAll(
       state,
-      { payload }: PayloadAction<ChatApiT.CreateConversationArgsT>
+      {
+        payload: { load },
+      }: PayloadAction<{
+        args: ChatApiT.CreateConversationArgsT;
+        load: boolean;
+      }>
     ) {
-      state.conversationsStatus = status.loading();
+      if (load) state.conversationsStatus = status.loading();
+    },
+
+    setNewConversationCard(
+      state,
+      {
+        payload: { conversation, activeUserId },
+      }: PayloadAction<{
+        conversation: ChatApiT.ConversationT;
+        activeUserId: string;
+      }>
+    ) {
+      state.conversations = [
+        {
+          _id: conversation._id,
+          adressat:
+            conversation.participants.find(
+              (participant) => participant._id !== activeUserId
+            ) || null,
+          isReadBy: conversation.isReadBy,
+          participants: conversation.participants,
+          updatedAt: conversation.updatedAt,
+        },
+        ...state.conversations,
+      ];
     },
 
     // SEND MESSAGE
