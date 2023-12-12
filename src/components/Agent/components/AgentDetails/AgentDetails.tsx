@@ -3,7 +3,8 @@ import { useAppSelector } from "store/hooks";
 import { selectAgentDetails } from "store/selectors/agent.selectors";
 
 import * as UI from "./components";
-import { Box, Typography, Divider, Stack } from "@mui/material";
+import { Box, Typography, Divider, Stack, Grid } from "@mui/material";
+import { ChatWithButton, EmailButton, PhoneButton } from "components/Layouts";
 
 interface AgentDetailsT {
   loading: boolean;
@@ -63,6 +64,25 @@ const AgentDetails: React.FC<AgentDetailsT> = ({ loading }) => {
       </Typography>
 
       <UI.AgentDetailsPieCharts />
+
+      <Grid container mt={1} spacing={1}>
+        {details.phone && (
+          <Grid item xs={12} md={4}>
+            <PhoneButton phone={details.phone} />
+          </Grid>
+        )}
+
+        <Grid item xs={12} md={4}>
+          <EmailButton email={details.email} subject="Yariga" />
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <ChatWithButton
+            adressatId={details.account}
+            adressatName={details.username}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 };

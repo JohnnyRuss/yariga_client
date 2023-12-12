@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAppSelector } from "store/hooks";
 import { useParams, useLocation } from "react-router-dom";
-import { createContext, useContext, useCallback, useState } from "react";
+import { createContext, useContext, useCallback } from "react";
 
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
-import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
 import {
   MessageT,
@@ -13,7 +12,13 @@ import {
 } from "interface/db/chat.types";
 import { ChatContextT, ChartProviderT } from "./index.types";
 
-const PARTICIPANT_DEFAULT = { _id: "", avatar: "", email: "", username: "" };
+const PARTICIPANT_DEFAULT: ConversationParticipantT = {
+  _id: "",
+  avatar: "",
+  email: "",
+  username: "",
+  role: "USER",
+};
 
 const ChatContext = createContext<ChatContextT>({
   conversationId: "",

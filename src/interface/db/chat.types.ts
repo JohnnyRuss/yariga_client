@@ -16,6 +16,7 @@ type ConversationParticipantT = {
   username: string;
   email: string;
   avatar: string;
+  role: "AGENT" | "USER";
 };
 
 type MessageT = {

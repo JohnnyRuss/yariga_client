@@ -4,6 +4,7 @@ import { useSearchParams } from "hooks/utils";
 import { searchUsersQuery } from "store/saga/api/user.api";
 import { useConversationQuery } from "hooks/api/chat";
 
+import { UserRoleChip } from "components/Layouts";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { AxiosResponse } from "axios";
@@ -106,6 +107,10 @@ const SearchUsersList: React.FC<SearchUsersListT> = ({ onSelect }) => {
                   {user.email}
                 </Typography>
               </Stack>
+
+              <Box ml="auto">
+                <UserRoleChip role={user.role} />
+              </Box>
             </Stack>
           ))}
         </Stack>

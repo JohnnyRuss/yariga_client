@@ -1,7 +1,7 @@
 import useGoToUser from "hooks/utils/useGoToUser";
 
-import { Avatar } from "components/Layouts";
-import { Stack, Typography } from "@mui/material";
+import { Avatar, UserRoleChip } from "components/Layouts";
+import { Stack, Typography, Box } from "@mui/material";
 
 import { PropertyOwnerShortT } from "interface/db/properties.types";
 
@@ -15,11 +15,12 @@ const User: React.FC<UserT> = ({ owner, isAgent }) => {
 
   return (
     <Stack
-      direction="row"
       gap={1}
-      justifyContent="flex-start"
-      flexWrap="wrap"
       width="100%"
+      flexWrap="wrap"
+      direction="row"
+      alignItems="center"
+      justifyContent="flex-start"
     >
       <Avatar src={owner.avatar} alt={owner.username} width="35px" />
 
@@ -37,6 +38,10 @@ const User: React.FC<UserT> = ({ owner, isAgent }) => {
           {owner.email}
         </Typography>
       </Stack>
+
+      <Box ml="auto">
+        <UserRoleChip role={owner.role} />
+      </Box>
     </Stack>
   );
 };

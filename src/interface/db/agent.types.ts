@@ -60,6 +60,7 @@ type AgentT = {
   };
   rent: number;
   sold: number;
+  account: string;
 };
 
 enum HIRED_BY {

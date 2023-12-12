@@ -10,6 +10,7 @@ import { useSearchParams } from "hooks/utils";
 
 import * as UI from "./components";
 import { Close } from "@mui/icons-material";
+import { UserRoleChip } from "components/Layouts";
 import { Avatar } from "components/Chat/components/common";
 import { Stack, Typography, Tabs, Tab, Box, Button } from "@mui/material";
 
@@ -40,7 +41,7 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
       {conversationStatus.loading ? (
         <UI.PanelHeadSkeleton />
       ) : (
-        <Box height="215px" overflow="hidden" position="relative">
+        <Box height="250px" overflow="hidden" position="relative">
           <Stack width="100%" alignItems="center" p={1} pt={2} gap={1}>
             <Avatar
               src={adressat?.avatar || ""}
@@ -61,6 +62,8 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
             <Typography fontSize={14} color="app_text.main">
               {adressat?.email}
             </Typography>
+
+            <UserRoleChip role={adressat?.role || "USER"} />
           </Stack>
 
           <Box sx={{ width: "100%" }}>
@@ -93,7 +96,7 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
         pr={1}
         pb={1}
         overflow="hidden"
-        sx={{ height: "calc(100% - 212px)" }}
+        sx={{ height: "calc(100% - 255px)" }}
       >
         {value === "one" && (
           <UI.ImagesList conversationIsLoading={conversationStatus.loading} />

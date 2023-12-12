@@ -59,6 +59,7 @@ type PropertyOwnerShortT = {
   email: string;
   username: string;
   avatar: string;
+  role: "AGENT" | "USER";
 };
 
 type PropertyOwnerT = {

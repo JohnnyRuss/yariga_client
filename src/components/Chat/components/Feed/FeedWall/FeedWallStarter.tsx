@@ -3,6 +3,7 @@ import { useAppSelector } from "store/hooks";
 import { selectConversationAdressat } from "store/selectors/chat.selectors";
 
 import * as UI from "./";
+import { UserRoleChip } from "components/Layouts";
 import { Stack, Typography } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
 
@@ -33,6 +34,8 @@ const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
       <Typography fontSize={14} color="app_text.main">
         {adressat?.email}
       </Typography>
+
+      <UserRoleChip role={adressat?.role || "USER"} />
 
       <Typography fontWeight={600} fontSize={16} color="app_text.main">
         Yariga

@@ -6,7 +6,10 @@ import * as UI from "./components";
 import * as MuiStyled from "./PropertyCard.styled";
 import { CardMedia, Divider, Rating } from "@mui/material";
 
-import { PropertyShortInfoT } from "interface/db/properties.types";
+import {
+  PropertyOwnerShortT,
+  PropertyShortInfoT,
+} from "interface/db/properties.types";
 
 interface PropertyCardHorizontalT {
   property: PropertyShortInfoT;
@@ -15,7 +18,9 @@ interface PropertyCardHorizontalT {
 const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
   property,
 }) => {
-  const ownerData = property.agent ? property.agent : property.owner;
+  const ownerData: PropertyOwnerShortT = property.agent
+    ? { ...property.agent, role: "AGENT" }
+    : property.owner;
 
   return (
     <Link to={DYNAMIC_PATHS.property_page(property._id)} className="app__card">

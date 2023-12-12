@@ -42,6 +42,10 @@ const selectedAgentDetails = ({ agent }: RootStateT) => ({
   listing: agent.agent.listing,
   rent: agent.agent.rent,
   sold: agent.agent.sold,
+  email: agent.agent.email,
+  phone: agent.agent.phone,
+  account: agent.agent.account,
+  username: agent.agent.username,
 });
 
 const selectedAgentsPagination = ({ agent }: RootStateT) => ({

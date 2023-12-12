@@ -14,6 +14,8 @@ const FeedWallStarterSkeleton: React.FC = () => {
 
       <Skeleton variant="text" width="120px" />
 
+      <Skeleton variant="rounded" width="70px" height="25px" />
+
       <Typography fontWeight={600} fontSize={16} color="app_text.main">
         Yariga
       </Typography>

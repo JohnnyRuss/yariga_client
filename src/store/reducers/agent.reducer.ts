@@ -67,6 +67,7 @@ const initialState: AgentStateT = {
     },
     rent: 0,
     sold: 0,
+    account: "",
   },
 };
 
