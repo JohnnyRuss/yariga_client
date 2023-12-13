@@ -17,7 +17,7 @@ const ActiveConversations: React.FC = () => {
   const searchParam = getParamValue("search");
   const isSearching = typeof searchParam === "string" && searchParam !== "";
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(searchParam || "");
 
   const onSearchFocus = () => {
     if (!searchParam) appendParam("search", "");
@@ -37,10 +37,9 @@ const ActiveConversations: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!search && searchParam) setSearch(searchParam);
-
     const timeoutId = setTimeout(() => {
       if (search) appendParam("search", search);
+      else if (!search && searchParam) removeParam("search");
     }, 600);
 
     return () => {

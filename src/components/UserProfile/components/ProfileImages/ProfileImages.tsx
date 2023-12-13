@@ -1,3 +1,4 @@
+import { YarigaCover } from "assets/images";
 import * as UI from "./components";
 import { Box } from "@mui/material";
 
@@ -35,6 +36,7 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
           width="100%"
           height="100%"
           sx={{ borderRadius: "inherit" }}
+          className="image-placeholder"
         >
           <img
             alt="cover"
@@ -43,7 +45,7 @@ const ProfileImages: React.FC<ProfileImagesT> = ({
             height="100%"
             loading="eager"
             style={{ objectFit: "cover", borderRadius: "inherit" }}
-            src="https://www.trendycovers.com/covers/abstract_3d_facebook_cover_1370594397.jpg"
+            src={YarigaCover}
           />
         </Box>
 

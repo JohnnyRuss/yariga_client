@@ -1,8 +1,13 @@
+import { YarigaCover } from "assets/images";
 import { Box } from "@mui/material";
 
 const AgentCoverImage: React.FC = () => {
   return (
-    <Box component="figure" sx={{ width: "100%", height: "200px" }}>
+    <Box
+      component="figure"
+      sx={{ width: "100%", height: "200px" }}
+      className="image-placeholder"
+    >
       <img
         alt="cover"
         width="100%"
@@ -10,7 +15,7 @@ const AgentCoverImage: React.FC = () => {
         loading="eager"
         title="user cover"
         style={{ objectFit: "cover" }}
-        src="https://www.trendycovers.com/covers/abstract_3d_facebook_cover_1370594397.jpg"
+        src={YarigaCover}
       />
     </Box>
   );

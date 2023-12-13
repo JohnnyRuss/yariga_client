@@ -9,6 +9,7 @@ const AgentCardMedia: React.FC<AgentCardMediaT> = ({ src, username }) => {
   return (
     <CardMedia
       component="figure"
+      className="image-placeholder"
       sx={{
         width: ["100%", "35%"],
         height: "200px",

@@ -9,10 +9,13 @@ export function isLatinLetters(value: string): boolean {
 }
 
 export const isBase64Str = (value: string) => {
-  const reg =
-    /^(data:image\/[a-zA-Z+]+;base64,)?([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/;
+  // Remove data URI prefix if present
+  const base64String = value.split(",")[1] || value;
 
-  return reg.test(value);
+  // Check if the string is a valid Base64 string
+  const reg = /^[A-Za-z0-9+/]+={0,2}$/;
+
+  return reg.test(base64String) && base64String.length % 4 === 0;
 };
 
 export const isNumeric = {

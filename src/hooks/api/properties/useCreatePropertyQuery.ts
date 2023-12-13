@@ -45,9 +45,7 @@ export default function useCreatePropertyQuery(isUpdateProcess: boolean) {
       const propertyId = new URLSearchParams(window.location.search).get(
         "property"
       );
-
       if (!propertyId) return navigate(-1);
-
       dispatch(
         createPropertyFormActions.updateProperty({
           data: values,

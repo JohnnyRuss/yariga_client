@@ -10,6 +10,7 @@ type ImagesT = {
 
 const Images: React.FC<ImagesT> = ({ images, belongToActiveUser }) => {
   const imagesLength = images.length;
+
   return (
     <Grid
       container

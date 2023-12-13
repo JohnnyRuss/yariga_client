@@ -3,3 +3,4 @@ export { default as ConversationCard } from "./ConversationCard";
 export { default as ConversationCardSkeleton } from "./ConversationCardSkeleton";
 export { default as ConversationsList } from "./ConversationsList";
 export { default as SearchUsersList } from "./SearchUsersList";
+export { default as SearchUserListSkeleton } from "./SearchUserListSkeleton";

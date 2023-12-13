@@ -36,7 +36,7 @@ const Navigation: React.FC = () => {
             Yariga. Website helps people for RENT or SALE properties.
           </span>
 
-          <figure>
+          <figure data-logo>
             <img
               src={AppLogo.toString()}
               alt="yariga logo"

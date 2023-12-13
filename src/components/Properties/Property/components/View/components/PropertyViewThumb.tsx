@@ -12,6 +12,7 @@ const PropertyViewThumb: React.FC<PropertyViewThumbT> = ({
   return (
     <figure
       onClick={onClick}
+      className="image-placeholder"
       style={{
         flex: 1,
         width: "100%",

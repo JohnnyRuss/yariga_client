@@ -16,7 +16,7 @@ function* setError({
   location,
   error,
   errorSetter,
-  errorSetterArgs,
+  errorSetterArgs = { stage: "error" },
 }: SetErrorArgsT) {
   try {
     let message: string = "";
@@ -25,8 +25,7 @@ function* setError({
       message = error.response?.data.message || "";
     else if (error instanceof Error) message = error.message;
 
-    if (errorSetter && errorSetterArgs)
-      yield put(errorSetter({ ...errorSetterArgs, message, stage: "error" }));
+    if (errorSetter) yield put(errorSetter({ ...errorSetterArgs, message }));
 
     if (process.env.REACT_APP_ENV_MODE !== "DEV") return;
 

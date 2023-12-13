@@ -4,6 +4,7 @@ import { useSearchParams } from "hooks/utils";
 import { searchUsersQuery } from "store/saga/api/user.api";
 import { useConversationQuery } from "hooks/api/chat";
 
+import * as UI from "./";
 import { UserRoleChip } from "components/Layouts";
 import { Box, Stack, Typography } from "@mui/material";
 
@@ -55,7 +56,7 @@ const SearchUsersList: React.FC<SearchUsersListT> = ({ onSelect }) => {
   return (
     <Box className="custom_scrollbar" mt="15px">
       {loading ? (
-        <Stack>skeleton</Stack>
+        <UI.SearchUserListSkeleton />
       ) : (
         <Stack gap={2} pr={1}>
           {users.map((user) => (

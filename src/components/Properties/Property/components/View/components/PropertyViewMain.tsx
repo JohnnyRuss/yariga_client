@@ -20,6 +20,7 @@ const PropertyViewMain: React.FC<PropertyViewMainT> = ({ onClick, src }) => {
         overflow: "hidden",
         cursor: "pointer",
       }}
+      className="image-placeholder"
     >
       <img
         src={src}

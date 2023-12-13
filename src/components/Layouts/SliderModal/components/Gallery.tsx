@@ -21,7 +21,7 @@ const Gallery: React.FC<GalleryT> = ({ images, onActivateSlider }) => {
     >
       <Masonry columns={{ xs: 2, md: 4 }} spacing={1}>
         {images.map((item, index) => (
-          <div key={nanoid()}>
+          <figure key={nanoid()} className="image-placeholder">
             <img
               onClick={() => onActivateSlider(index)}
               srcSet={`${item}?w=162&auto=format&dpr=2 2x`}
@@ -35,7 +35,7 @@ const Gallery: React.FC<GalleryT> = ({ images, onActivateSlider }) => {
                 cursor: "pointer",
               }}
             />
-          </div>
+          </figure>
         ))}
       </Masonry>
     </Box>

@@ -26,6 +26,7 @@ const Avatar: React.FC<AvatarT> = ({
       height={width}
       overflow="hidden"
       borderRadius={variant === "circular" ? "100%" : "10px"}
+      className="image-placeholder"
     >
       <img
         width="100%"
