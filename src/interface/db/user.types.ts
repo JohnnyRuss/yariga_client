@@ -27,11 +27,6 @@ type UserSearchT = {
   role: "AGENT" | "USER";
 };
 
-type LoginResponseT = {
-  user: UserT;
-  accessToken: string;
-};
-
 type GetGuestArgsT = {
   userId: string;
 };
@@ -53,7 +48,6 @@ type UpdateProfileImageResponseT = {
 export type {
   UserT,
   UserSearchT,
-  LoginResponseT,
   GetGuestArgsT,
   UpdateUserArgsT,
   UpdateProfileImageArgsT,

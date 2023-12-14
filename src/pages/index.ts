@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
 export const NotFoundPage = lazy(() => import("./NotFoundPage"));
+export const DeletedAccountPage = lazy(() => import("./DeletedAccountPage"));
 
 /////////////////
 ///// AUTH /////

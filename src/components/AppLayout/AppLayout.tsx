@@ -1,23 +1,18 @@
-import { useLocation } from "react-router-dom";
-
 import { Aside } from "components/Aside";
 import { Navigation } from "components/Navigation";
 import * as MuiStyled from "./AppLayout.styled";
 
-interface AppLayoutT {
+type AppLayoutT = {
   children: React.ReactNode;
-}
+};
 
 const AppLayout: React.FC<AppLayoutT> = ({ children }) => {
-  const { pathname } = useLocation();
-  const isOnAuthRoute = pathname.includes("auth");
-
   return (
     <MuiStyled.MainContainerBox>
-      {!isOnAuthRoute && <Navigation />}
+      <Navigation />
 
       <MuiStyled.BodyContainer>
-        {!isOnAuthRoute && <Aside />}
+        <Aside />
 
         <MuiStyled.ContentContainerBox>
           {children}

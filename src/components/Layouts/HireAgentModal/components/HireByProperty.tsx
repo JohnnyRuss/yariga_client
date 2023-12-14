@@ -45,7 +45,9 @@ const HireByProperty: React.FC<HireByPropertyT> = ({ searchStr, onHire }) => {
   return (
     <Stack
       gap={3}
+      px="8px"
       pr="15px"
+      height="100%"
       direction="row"
       flexWrap="wrap"
       className="custom_scrollbar"

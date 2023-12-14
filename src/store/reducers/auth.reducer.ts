@@ -5,15 +5,8 @@ import {
 } from "./helpers/controlStatus";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import {
-  AuthStateT,
-  GoogleLoginArgsT,
-  SignInArgsT,
-  SignUpArgsT,
-  ForgotPasswordArgsT,
-  ConfirmEmailArgsT,
-  UpdatePasswordArgsT,
-} from "interface/store/auth.types";
+import { AuthStateT } from "interface/store/auth.types";
+import * as AuthT from "interface/db/auth.types";
 
 import { PATHS } from "config/paths";
 import { setJWT, removeJWT } from "utils/jwt";
@@ -28,7 +21,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     googleLogin: {
-      prepare: (payload: GoogleLoginArgsT) => {
+      prepare: (payload: AuthT.GoogleLoginArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -37,7 +30,7 @@ const authSlice = createSlice({
     },
 
     signIn: {
-      prepare: (payload: SignInArgsT) => {
+      prepare: (payload: AuthT.SignInArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -46,7 +39,7 @@ const authSlice = createSlice({
     },
 
     signUp: {
-      prepare: (payload: SignUpArgsT) => {
+      prepare: (payload: AuthT.SignUpArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -71,7 +64,7 @@ const authSlice = createSlice({
     },
 
     forgotPassword: {
-      prepare: (payload: ForgotPasswordArgsT) => {
+      prepare: (payload: AuthT.ForgotPasswordArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -85,7 +78,7 @@ const authSlice = createSlice({
     },
 
     confirmEmail: {
-      prepare: (payload: ConfirmEmailArgsT) => {
+      prepare: (payload: AuthT.ConfirmEmailArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -99,7 +92,7 @@ const authSlice = createSlice({
     },
 
     updatePassword: {
-      prepare: (payload: UpdatePasswordArgsT) => {
+      prepare: (payload: AuthT.UpdatePasswordArgsT) => {
         return { payload };
       },
       reducer: (state) => {
@@ -119,6 +112,18 @@ const authSlice = createSlice({
       state.status = setStatus({
         stage,
         message: message || "Operation Failed",
+      });
+    },
+
+    deleteAccount(
+      state,
+      { payload }: PayloadAction<AuthT.DeleteAccountArgsT>
+    ) {},
+
+    setDeletedAccount(state, { payload }: PayloadAction) {
+      removeJWT();
+      RouterHistory.navigate(PATHS.deleted_account_page, {
+        state: { deactivated: true },
       });
     },
   },

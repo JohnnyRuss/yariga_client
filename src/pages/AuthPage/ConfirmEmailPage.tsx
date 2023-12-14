@@ -1,14 +1,16 @@
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectAuthorized } from "hooks/auth";
 
 import ConfirmEmail from "components/Auth/ConfirmEmail";
 
-RouterHistory.redirectAuthorized();
-
 const ConfirmEmailPage: React.FC = () => {
-  return (
+  const { loading } = useRedirectAuthorized();
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Confirm Password"

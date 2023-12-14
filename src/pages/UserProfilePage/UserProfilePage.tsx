@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useAppSelector } from "store/hooks";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -11,15 +10,17 @@ import {
 } from "store/selectors/user.selectors";
 import { textCapitalize } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { useUserQuery } from "hooks/api/user";
 import { usePropertiesQuery } from "hooks/api/properties";
 
+import Helmet from "pages/Helmet";
 import UserProfile from "components/UserProfile/UserProfile";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const UserProfilePage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const navigate = useNavigate();
 
   const { userId } = useParams();
@@ -46,7 +47,9 @@ const UserProfilePage: React.FC = () => {
     };
   }, []);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       {status.status === "SUCCESS" && (
         <Helmet
@@ -58,7 +61,9 @@ const UserProfilePage: React.FC = () => {
         />
       )}
 
-      <UserProfile user={user} loading={status.loading} />
+      <AppLayout>
+        <UserProfile user={user} loading={status.loading} />
+      </AppLayout>
     </>
   );
 };

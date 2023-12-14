@@ -1,4 +1,5 @@
 import { DialogContent, DialogContentText, Typography } from "@mui/material";
+import { nanoid } from "@reduxjs/toolkit";
 
 import { DialogT } from "interface/components/common.types";
 
@@ -18,11 +19,14 @@ const DialogBoxContent: React.FC<DialogBoxContentT> = ({
   return (
     <DialogContent>
       <DialogContentText
+        component="div"
         id="alert-dialog-description"
         textAlign={messageAlignment}
       >
-        <Typography component="span">
-          {message}
+        <Typography component="div">
+          {message.split("\n").map((fragment) => (
+            <Typography key={nanoid()}>{fragment}</Typography>
+          ))}
           &nbsp;
           {keyWord && (
             <Typography
@@ -33,7 +37,7 @@ const DialogBoxContent: React.FC<DialogBoxContentT> = ({
               {keyWord}
             </Typography>
           )}
-          &nbsp;?
+          &nbsp;
         </Typography>
       </DialogContentText>
     </DialogContent>

@@ -26,12 +26,13 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
   height: "250px",
   width: "100%",
 
-  img: {
-    maxWidth: "40%",
+  ".cardThumbnail": {
+    maxWidth: "400px",
+    width: "45%",
     height: "100%",
     maxHeight: "100%",
     borderRadius: "10px",
-    objectFit: "cover",
+    overflow: "hidden",
   },
 
   [theme.breakpoints.down("md")]: {
@@ -39,8 +40,9 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
     height: "auto",
 
     img: {
-      maxWidth: "100%",
+      width: "100%",
       height: "100%",
+      maxWidth: "100%",
       maxHeight: "250px",
     },
   },

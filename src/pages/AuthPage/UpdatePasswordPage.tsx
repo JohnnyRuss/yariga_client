@@ -1,14 +1,16 @@
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectAuthorized } from "hooks/auth";
 
 import UpdatePassword from "components/Auth/UpdatePassword";
 
-RouterHistory.redirectAuthorized();
-
 const UpdatePasswordPage: React.FC = () => {
-  return (
+  const { loading } = useRedirectAuthorized();
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Update Password"

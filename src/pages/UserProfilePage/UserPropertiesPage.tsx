@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
@@ -10,16 +9,18 @@ import {
 } from "store/selectors/properties.selectors";
 import { textCapitalize } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { useUserQuery } from "hooks/api/user";
 import { usePropertiesQuery } from "hooks/api/properties";
 import { selectGuest, selectUserStatus } from "store/selectors/user.selectors";
 
+import Helmet from "pages/Helmet";
 import UserProperties from "components/UserProfile/UserProperties";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const UserPropertiesPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { userId } = useParams();
 
   const user = useAppSelector(selectGuest);
@@ -43,7 +44,9 @@ const UserPropertiesPage: React.FC = () => {
     };
   }, [userId]);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       {status.status === "SUCCESS" && (
         <Helmet
@@ -54,12 +57,14 @@ const UserPropertiesPage: React.FC = () => {
         />
       )}
 
-      <UserProperties
-        isIUser={false}
-        user={user}
-        status={propertiesStatus}
-        properties={properties}
-      />
+      <AppLayout>
+        <UserProperties
+          isIUser={false}
+          user={user}
+          status={propertiesStatus}
+          properties={properties}
+        />
+      </AppLayout>
     </>
   );
 };

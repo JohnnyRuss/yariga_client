@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useAppSelector } from "store/hooks";
 import { useParams } from "react-router-dom";
 
 import { textCapitalize } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { useAgentsQuery } from "hooks/api/agents";
 import { usePropertiesQuery } from "hooks/api/properties";
 import { selectAgentHelmet } from "store/selectors/agent.selectors";
 
+import Helmet from "pages/Helmet";
+import AppLayout from "components/AppLayout/AppLayout";
 import AgentProperties from "components/Agent/AgentProperties";
 
-RouterHistory.redirectUnAuthorized();
-
 const AgentPropertiesPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { agentId } = useParams();
 
   const { getAgent, cleanUpAgent } = useAgentsQuery();
@@ -35,7 +36,9 @@ const AgentPropertiesPage: React.FC = () => {
     };
   }, [agentId]);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       {status.status === "SUCCESS" && (
         <Helmet
@@ -46,7 +49,10 @@ const AgentPropertiesPage: React.FC = () => {
           path={DYNAMIC_PATHS.agent_properties_page(agentId!)}
         />
       )}
-      <AgentProperties />
+
+      <AppLayout>
+        <AgentProperties />
+      </AppLayout>
     </>
   );
 };

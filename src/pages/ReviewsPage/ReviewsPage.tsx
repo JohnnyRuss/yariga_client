@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 
+import Helmet from "pages/Helmet";
 import Reviews from "components/Reviews/ReviewsBox";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const ReviewsPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
@@ -19,7 +20,9 @@ const ReviewsPage: React.FC = () => {
     if (pathname === PATHS.reviews_page) navigate(PATHS.all_reviews_page);
   }, []);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Reviews"
@@ -28,7 +31,9 @@ const ReviewsPage: React.FC = () => {
         description="reviews got user on all of the properties from other users"
       />
 
-      <Reviews />
+      <AppLayout>
+        <Reviews />
+      </AppLayout>
     </>
   );
 };

@@ -10,7 +10,7 @@ import {
 import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-import { GoogleLoginArgsT } from "interface/store/auth.types";
+import { GoogleLoginArgsT } from "interface/db/auth.types";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,

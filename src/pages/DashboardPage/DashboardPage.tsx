@@ -1,19 +1,26 @@
-import { RouterHistory } from "config/config";
-import { Dashboard } from "components/Dashboard";
 import { PATHS } from "config/paths";
-import Helmet from "../Helmet";
+import { useRedirectUnAuthorized } from "hooks/auth";
 
-RouterHistory.redirectUnAuthorized();
+import Helmet from "../Helmet";
+import { Dashboard } from "components/Dashboard";
+import AppLayout from "components/AppLayout/AppLayout";
 
 const DashboardPage: React.FC = () => {
-  return (
+  const { loading } = useRedirectUnAuthorized();
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Dashboard"
         description="See statistic of our Website how it helps people"
         path={PATHS.dashboard_page}
       />
-      <Dashboard />
+
+      <AppLayout>
+        <Dashboard />
+      </AppLayout>
     </>
   );
 };

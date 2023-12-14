@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
 import { textCapitalize } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { useAgentsQuery } from "hooks/api/agents";
 import { usePropertiesQuery } from "hooks/api/properties";
 import { selectAgentHelmet } from "store/selectors/agent.selectors";
 
+import Helmet from "pages/Helmet";
 import { Agent } from "components/Agent";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const AgentPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { agentId } = useParams();
 
   const { status, username, bio, image } = useAppSelector(selectAgentHelmet);
@@ -35,7 +36,9 @@ const AgentPage: React.FC = () => {
     };
   }, []);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       {status.status === "SUCCESS" && (
         <Helmet
@@ -46,7 +49,10 @@ const AgentPage: React.FC = () => {
           path={DYNAMIC_PATHS.agent_page(agentId!)}
         />
       )}
-      <Agent />
+
+      <AppLayout>
+        <Agent />
+      </AppLayout>
     </>
   );
 };

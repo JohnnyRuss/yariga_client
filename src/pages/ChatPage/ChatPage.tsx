@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 
 import useChatQuery from "hooks/api/chat/useChatQuery";
 import ChatProvider from "providers/chat/ChatProvider";
 import ChatGalleryProvider from "providers/chat/ChatGalleryProvider";
 
 import { Chat } from "components/Chat";
+import Helmet from "pages/Helmet";
 import { ChatSlider } from "components/Chat/components";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const ChatPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { cleanUpConversations, getConversations } = useChatQuery();
 
   useEffect(() => {
@@ -25,7 +26,9 @@ const ChatPage: React.FC = () => {
     };
   }, []);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Chat"
@@ -37,8 +40,10 @@ const ChatPage: React.FC = () => {
 
       <ChatProvider>
         <ChatGalleryProvider>
-          <Chat />
-          <ChatSlider />
+          <AppLayout>
+            <Chat />
+            <ChatSlider />
+          </AppLayout>
         </ChatGalleryProvider>
       </ChatProvider>
     </>

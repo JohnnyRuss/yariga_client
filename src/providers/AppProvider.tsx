@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import useAuth from "hooks/auth/useAuth";
 import { RouterHistory } from "config/config";
 
 import { Snackbar, Dialog } from "components/Layouts";
@@ -34,12 +33,8 @@ const AppProvider: React.FC<AppProviderT> = ({ children }) => {
   ///////////////////////////////////////////////
   ////////////// Router History ////////////////
 
-  const { redirectUnAuthorized, redirectAuthorized } = useAuth();
-
   RouterHistory.location = location;
   RouterHistory.navigate = navigate;
-  RouterHistory.redirectUnAuthorized = redirectUnAuthorized;
-  RouterHistory.redirectAuthorized = redirectAuthorized;
 
   /////////////////////////////////////////
   ////////////// Snackbar ////////////////

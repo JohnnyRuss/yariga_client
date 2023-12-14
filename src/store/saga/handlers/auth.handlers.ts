@@ -7,19 +7,13 @@ import { authActions } from "store/reducers/auth.reducer";
 import { userActions } from "store/reducers/user.reducer";
 import * as authAPI from "store/saga/api/auth.api";
 
-import {
-  GoogleLoginArgsT,
-  SignInArgsT,
-  SignUpArgsT,
-  ForgotPasswordArgsT,
-  ConfirmEmailArgsT,
-  UpdatePasswordArgsT,
-} from "interface/store/auth.types";
-import { LoginResponseT } from "interface/db/user.types";
+import * as AuthT from "interface/db/auth.types";
 
-export function* googleLogin({ payload }: PayloadAction<GoogleLoginArgsT>) {
+export function* googleLogin({
+  payload,
+}: PayloadAction<AuthT.GoogleLoginArgsT>) {
   try {
-    const { data }: AxiosResponse<LoginResponseT> = yield call(
+    const { data }: AxiosResponse<AuthT.LoginResponseT> = yield call(
       authAPI.googleLoginQuery,
       payload
     );
@@ -38,9 +32,9 @@ export function* googleLogin({ payload }: PayloadAction<GoogleLoginArgsT>) {
   }
 }
 
-export function* signIn({ payload }: PayloadAction<SignInArgsT>) {
+export function* signIn({ payload }: PayloadAction<AuthT.SignInArgsT>) {
   try {
-    const { data }: AxiosResponse<LoginResponseT> = yield call(
+    const { data }: AxiosResponse<AuthT.LoginResponseT> = yield call(
       authAPI.signInQuery,
       payload
     );
@@ -59,9 +53,9 @@ export function* signIn({ payload }: PayloadAction<SignInArgsT>) {
   }
 }
 
-export function* signUp({ payload }: PayloadAction<SignUpArgsT>) {
+export function* signUp({ payload }: PayloadAction<AuthT.SignUpArgsT>) {
   try {
-    const { data }: AxiosResponse<LoginResponseT> = yield call(
+    const { data }: AxiosResponse<AuthT.LoginResponseT> = yield call(
       authAPI.signUpQuery,
       payload
     );
@@ -97,7 +91,7 @@ export function* logout() {
 
 export function* forgotPassword({
   payload,
-}: PayloadAction<ForgotPasswordArgsT>) {
+}: PayloadAction<AuthT.ForgotPasswordArgsT>) {
   try {
     yield call(authAPI.forgotPasswordQuery, payload);
     yield put(authActions.setForgotPassword());
@@ -110,7 +104,9 @@ export function* forgotPassword({
   }
 }
 
-export function* confirmEmail({ payload }: PayloadAction<ConfirmEmailArgsT>) {
+export function* confirmEmail({
+  payload,
+}: PayloadAction<AuthT.ConfirmEmailArgsT>) {
   try {
     yield call(authAPI.confirmEmailQuery, payload);
     yield put(authActions.setConfirmEmail());
@@ -125,7 +121,7 @@ export function* confirmEmail({ payload }: PayloadAction<ConfirmEmailArgsT>) {
 
 export function* updatePassword({
   payload,
-}: PayloadAction<UpdatePasswordArgsT>) {
+}: PayloadAction<AuthT.UpdatePasswordArgsT>) {
   try {
     yield call(authAPI.updatePasswordQuery, payload);
     yield put(authActions.setUpdatePassword());
@@ -134,6 +130,22 @@ export function* updatePassword({
       error,
       location: "updatePassword",
       errorSetter: authActions.setAuthStatus,
+    });
+  }
+}
+
+export function* deleteAccount({
+  payload,
+}: PayloadAction<AuthT.DeleteAccountArgsT>) {
+  try {
+    console.log({ payload });
+    yield put(userActions.cleanUpUser());
+    yield put(authActions.setDeletedAccount());
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "deleteAccount",
+      // errorSetter: authActions.setAuthStatus,
     });
   }
 }

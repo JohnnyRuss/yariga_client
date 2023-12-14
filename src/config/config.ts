@@ -9,8 +9,6 @@ const RouterHistory: RouterHistoryT = {
     search: "",
     state: null,
   },
-  redirectUnAuthorized: () => {},
-  redirectAuthorized: () => {},
 };
 
 const OPEN_STREET_MAP_NOMINATIM_API_END_POINT =

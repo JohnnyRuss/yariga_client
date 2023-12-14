@@ -1,5 +1,5 @@
-import { Close } from "@mui/icons-material";
-import { Modal as MuiModal, Box, Button } from "@mui/material";
+import { Modal as MuiModal, Box } from "@mui/material";
+import CloseButton from "./CloseButton";
 
 interface ModalT {
   open: boolean;
@@ -26,22 +26,7 @@ const Modal: React.FC<ModalT> = ({ open, onClose, children }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Button
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            zIndex: 99,
-          }}
-        >
-          <Close
-            sx={{
-              color: "app_text.dark",
-              fontSize: "32px",
-            }}
-          />
-        </Button>
+        <CloseButton onClose={onClose} />
 
         {children}
       </Box>

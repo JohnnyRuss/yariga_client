@@ -1,23 +1,27 @@
 import { nanoid } from "@reduxjs/toolkit";
 
 import { useSearchParams } from "hooks/utils";
+import { useAppContext } from "providers/AppProvider";
 
-import { Edit } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
 import { DropdownMenu } from "components/Layouts";
 import { Typography, Stack, MenuItem } from "@mui/material";
 import UserDetailsHeaderSkeleton from "./UserDetailsHeaderSkeleton";
 
-interface UserDetailsHeaderT {
+type UserDetailsHeaderT = {
   username: string;
-  isAuthenticatedUser: boolean;
   loading: boolean;
-}
+  onAccountDelete: () => void;
+  isAuthenticatedUser: boolean;
+};
 
 const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
-  username,
-  isAuthenticatedUser,
   loading,
+  username,
+  onAccountDelete,
+  isAuthenticatedUser,
 }) => {
+  const { activateDialog } = useAppContext();
   const { getParamValue, appendParam } = useSearchParams();
 
   const isEditRoute = getParamValue("active-tab") === "profile-edit";
@@ -25,6 +29,17 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
   const onEdit = (onClose: () => void) => {
     onClose();
     appendParam("active-tab", "profile-edit");
+  };
+
+  const onDeleteAccount = (onClose: () => void) => {
+    onClose();
+    activateDialog({
+      variant: "danger",
+      title: "Delete Account",
+      message:
+        "Are you sure you want to delete Account ? \n If you do all of your information will be lost.",
+      onConfirm: onAccountDelete,
+    });
   };
 
   return loading ? (
@@ -42,6 +57,10 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
               <MenuItem onClick={() => onEdit(onClose)} key={nanoid()}>
                 Edit
                 <Edit />
+              </MenuItem>,
+              <MenuItem onClick={() => onDeleteAccount(onClose)} key={nanoid()}>
+                Delete Account
+                <Delete />
               </MenuItem>,
             ]}
           />

@@ -7,15 +7,16 @@ import {
   usePropertiesQuery,
   usePropertiesFilterQuery,
 } from "hooks/api/properties";
-
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
-import { AllProperties } from "components/Properties";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import PropertyFilterProvider from "providers/FilterProvider/PropertyFilterProvider";
 
-RouterHistory.redirectUnAuthorized();
+import { AllProperties } from "components/Properties";
+import AppLayout from "components/AppLayout/AppLayout";
 
 const PropertiesPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { search } = useLocation();
 
   const { getAllProperties, cleanUpProperties, setAllPropertiesStatus } =
@@ -42,7 +43,9 @@ const PropertiesPage: React.FC = () => {
     };
   }, [search]);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Properties"
@@ -50,9 +53,11 @@ const PropertiesPage: React.FC = () => {
         description="Yariga properties listing presentation with basic details of each property. Filter, sort and search properties you are looking for."
       />
 
-      <PropertyFilterProvider>
-        <AllProperties />
-      </PropertyFilterProvider>
+      <AppLayout>
+        <PropertyFilterProvider>
+          <AllProperties />
+        </PropertyFilterProvider>
+      </AppLayout>
     </>
   );
 };

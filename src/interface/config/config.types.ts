@@ -1,10 +1,10 @@
 import { NavigateFunction, Location } from "react-router-dom";
 
 type RouterHistoryT = {
-  navigate: NavigateFunction | ((path: string) => void);
+  navigate:
+    | NavigateFunction
+    | ((path: string, state?: { [key: string]: any }) => void);
   location: Location;
-  redirectUnAuthorized: () => void;
-  redirectAuthorized: () => void;
 };
 
 type DecodedUserT = {

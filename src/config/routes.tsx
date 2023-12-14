@@ -165,4 +165,12 @@ export const routes: RouteT[] = [
     path: "*",
     element: <Pages.NotFoundPage />,
   },
+
+  // DELETED ACCOUNT
+
+  {
+    name: "deleted-account-page",
+    path: PATHS.deleted_account_page,
+    element: <Pages.DeletedAccountPage />,
+  },
 ];

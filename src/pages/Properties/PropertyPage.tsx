@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useAppSelector } from "store/hooks";
 import { useParams } from "react-router-dom";
 
 import { textCapitalize } from "utils";
 import { useScrollTo } from "hooks/utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { selectPropertyHelmet } from "store/selectors/properties.selectors";
 import { usePropertiesQuery, useRoomTypesQuery } from "hooks/api/properties";
 
+import Helmet from "pages/Helmet";
 import { Property } from "components/Properties";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const PropertyPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const { propertyId } = useParams();
 
   const { windowScrollToTop } = useScrollTo();
@@ -40,7 +41,9 @@ const PropertyPage: React.FC = () => {
     };
   }, [propertyId]);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       {status.status === "SUCCESS" && (
         <Helmet
@@ -53,7 +56,9 @@ const PropertyPage: React.FC = () => {
         />
       )}
 
-      <Property />
+      <AppLayout>
+        <Property />
+      </AppLayout>
     </>
   );
 };

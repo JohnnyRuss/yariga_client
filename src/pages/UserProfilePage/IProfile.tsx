@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useAppSelector } from "store/hooks";
 
 import { PATHS } from "config/paths";
 import { textCapitalize } from "utils";
-import { RouterHistory } from "config/config";
+import { useRedirectUnAuthorized } from "hooks/auth";
 import { usePropertiesQuery } from "hooks/api/properties";
 import ImageCropProvider from "providers/ImageCropProvide";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
+import Helmet from "pages/Helmet";
 import UserProfile from "components/UserProfile/UserProfile";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const IProfile: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const user = useAppSelector(selectAuthenticatedUser);
 
   const { getUserProperties, cleanUpUserProperties } = usePropertiesQuery();
@@ -27,7 +28,9 @@ const IProfile: React.FC = () => {
     };
   }, []);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         type="profile"
@@ -38,7 +41,9 @@ const IProfile: React.FC = () => {
       />
 
       <ImageCropProvider>
-        <UserProfile user={user} />
+        <AppLayout>
+          <UserProfile user={user} />
+        </AppLayout>
       </ImageCropProvider>
     </>
   );

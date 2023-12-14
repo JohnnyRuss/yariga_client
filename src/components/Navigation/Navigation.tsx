@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 import { PATHS } from "config/paths";
@@ -54,4 +55,4 @@ const Navigation: React.FC = () => {
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

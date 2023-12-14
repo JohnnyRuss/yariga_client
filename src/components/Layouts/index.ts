@@ -1,6 +1,5 @@
 // App Layout
-export { default as AppLayout } from "./AppLayout/AppLayout";
-export { default as ContentBox } from "./AppLayout/ContentBox";
+export { default as ContentBox } from "../AppLayout/ContentBox";
 
 // UI
 export { default as AgentCard } from "./AgentCard/AgentCard";

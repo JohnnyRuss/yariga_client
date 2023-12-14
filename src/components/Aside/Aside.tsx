@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSearchParams } from "hooks/utils";
 import { useAppSelector } from "store/hooks";
@@ -43,4 +44,4 @@ const Aside: React.FC = () => {
   );
 };
 
-export default Aside;
+export default memo(Aside);

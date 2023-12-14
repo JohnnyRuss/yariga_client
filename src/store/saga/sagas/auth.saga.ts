@@ -10,4 +10,5 @@ export default function* authSaga() {
   yield takeLatest(authActions.forgotPassword, authHandlers.forgotPassword);
   yield takeLatest(authActions.confirmEmail, authHandlers.confirmEmail);
   yield takeLatest(authActions.updatePassword, authHandlers.updatePassword);
+  yield takeLatest(authActions.deleteAccount, authHandlers.deleteAccount);
 }

@@ -1,14 +1,16 @@
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
+import { useRedirectAuthorized } from "hooks/auth";
 
 import SignIn from "components/Auth/SignIn";
 
-RouterHistory.redirectAuthorized();
-
 const SignInPage: React.FC = () => {
-  return (
+  const { loading } = useRedirectAuthorized();
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         title="Login"

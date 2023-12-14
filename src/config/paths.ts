@@ -1,5 +1,6 @@
 const PATHS = {
   root_page: "/",
+  deleted_account_page: "/deactivated-user",
   // AUTH
   auth_page_root: "/auth",
   auth_page_signin: "/auth/signin",

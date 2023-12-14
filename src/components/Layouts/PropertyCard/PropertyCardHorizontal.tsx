@@ -4,7 +4,7 @@ import { DYNAMIC_PATHS } from "config/paths";
 
 import * as UI from "./components";
 import * as MuiStyled from "./PropertyCard.styled";
-import { CardMedia, Divider, Rating } from "@mui/material";
+import { CardMedia, Divider, Rating, Box } from "@mui/material";
 
 import {
   PropertyOwnerShortT,
@@ -20,20 +20,26 @@ const PropertyCardHorizontal: React.FC<PropertyCardHorizontalT> = ({
 }) => {
   const ownerData: PropertyOwnerShortT = property.agent
     ? { ...property.agent, role: "AGENT" }
-    : property.owner;
+    : { ...property.owner, role: "USER" };
 
   return (
     <Link to={DYNAMIC_PATHS.property_page(property._id)} className="app__card">
       <MuiStyled.CardHorizontal>
         <CardMedia
-          component="img"
-          width="100%"
-          height="100%"
-          loading="lazy"
-          title={property.title + " - image"}
-          src={property.images[0]}
-          alt={property.images[0]}
-        />
+          component="figure"
+          className="image-placeholder cardThumbnail"
+        >
+          <Box
+            component="img"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            sx={{ minWidth: "100%", objectFit: "cover" }}
+            title={property.title + " - image"}
+            src={property.images[0]}
+            alt={property.images[0]}
+          />
+        </CardMedia>
 
         <MuiStyled.CardContent>
           <UI.Title title={property.title} />

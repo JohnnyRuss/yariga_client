@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import Helmet from "pages/Helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { PATHS } from "config/paths";
-import { RouterHistory } from "config/config";
 import { useAgentsQuery } from "hooks/api/agents";
+import { useRedirectUnAuthorized } from "hooks/auth";
 
+import Helmet from "pages/Helmet";
 import { Agents } from "components/Agent";
-
-RouterHistory.redirectUnAuthorized();
+import AppLayout from "components/AppLayout/AppLayout";
 
 const AgentsPage: React.FC = () => {
+  const { loading } = useRedirectUnAuthorized();
+
   const navigate = useNavigate();
 
   const { getAllAgents, cleanUpAgents } = useAgentsQuery();
@@ -34,7 +35,9 @@ const AgentsPage: React.FC = () => {
     };
   }, [search]);
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <>
       <Helmet
         type="website"
@@ -42,7 +45,10 @@ const AgentsPage: React.FC = () => {
         path={PATHS.agent_page}
         description="yariga agents listing presentation with agents contact information."
       />
-      <Agents />
+
+      <AppLayout>
+        <Agents />
+      </AppLayout>
     </>
   );
 };
