@@ -30,5 +30,7 @@ export async function updatePasswordQuery(data: AuthT.UpdatePasswordArgsT) {
 }
 
 export async function deleteAccountQuery(data: AuthT.DeleteAccountArgsT) {
-  return "";
+  return axiosPrivateQuery.post(`/users/${data.userId}/delete`, {
+    password: data.password,
+  });
 }

@@ -9,7 +9,19 @@ const selectedAuthStatus = ({ auth }: RootStateT) => ({
   status: auth.status.status,
 });
 
+const selectedDeleteAccountStatus = ({ auth }: RootStateT) => ({
+  error: auth.deleteAccountStatus.error,
+  loading: auth.deleteAccountStatus.loading,
+  message: auth.deleteAccountStatus.message,
+  status: auth.deleteAccountStatus.status,
+});
+
 // SELECTORS
 const selectAuthStatus = createSelector(selectedAuthStatus, (status) => status);
 
-export { selectAuthStatus };
+const selectDeleteAccountStatus = createSelector(
+  selectedDeleteAccountStatus,
+  (status) => status
+);
+
+export { selectAuthStatus, selectDeleteAccountStatus };

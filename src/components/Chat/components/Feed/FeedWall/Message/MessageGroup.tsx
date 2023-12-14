@@ -17,7 +17,7 @@ const MessageGroup: React.FC<MessageElT> = ({
   authenticatedUserId,
 }) => {
   const groupSender = messageGroup[0].sender;
-  const belongToActiveUser = groupSender._id === authenticatedUserId;
+  const belongToActiveUser = groupSender?._id === authenticatedUserId;
 
   const isMultiMessageGroup = messageGroup.length > 1;
 
@@ -39,8 +39,8 @@ const MessageGroup: React.FC<MessageElT> = ({
         >
           <Avatar
             width="100%"
-            src={groupSender.avatar}
-            alt={groupSender.username}
+            src={groupSender?.avatar || ""}
+            alt={groupSender?.username || "Unknown User"}
           />
         </Box>
       )}

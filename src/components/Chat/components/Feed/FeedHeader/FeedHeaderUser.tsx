@@ -15,22 +15,24 @@ const FeedHeaderUser: React.FC<FeedHeaderUserT> = () => {
 
       <Stack mt="4px">
         <Typography fontWeight={600} textTransform="capitalize">
-          {adressat?.username}
+          {adressat?.username || "Unknown User"}
         </Typography>
 
-        <Typography
-          fontSize={14}
-          color="app_text.main"
-          className="conversation-text"
-          sx={{
-            display: "-webkit-box",
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
-          {adressat?.email}
-        </Typography>
+        {adressat?.email && (
+          <Typography
+            fontSize={14}
+            color="app_text.main"
+            className="conversation-text"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 1,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {adressat.email}
+          </Typography>
+        )}
       </Stack>
     </Stack>
   );

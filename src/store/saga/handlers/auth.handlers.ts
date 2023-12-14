@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { call, put } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { setError } from "./helpers/AppError";
+import { setError, triggerError } from "./helpers/AppError";
 
 import { authActions } from "store/reducers/auth.reducer";
 import { userActions } from "store/reducers/user.reducer";
@@ -138,14 +138,14 @@ export function* deleteAccount({
   payload,
 }: PayloadAction<AuthT.DeleteAccountArgsT>) {
   try {
-    console.log({ payload });
+    yield call(authAPI.deleteAccountQuery, payload);
     yield put(userActions.cleanUpUser());
     yield put(authActions.setDeletedAccount());
   } catch (error: any) {
     yield setError({
       error,
       location: "deleteAccount",
-      // errorSetter: authActions.setAuthStatus,
+      errorSetter: authActions.setDeleteAccountStatus,
     });
   }
 }

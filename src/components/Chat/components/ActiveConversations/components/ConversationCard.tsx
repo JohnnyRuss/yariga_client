@@ -44,13 +44,13 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
     >
       <Stack direction="row" gap={1} position="relative">
         <Avatar
-          src={conversation.adressat?.avatar || ""}
-          alt={conversation.adressat?.username || ""}
+          src={conversation.adressat?.avatar}
+          alt={conversation.adressat?.username}
         />
 
         <Stack mt="4px" flex={1} sx={{ maxWidth: "calc(100% - 65px)" }}>
           <Typography fontWeight={600} textTransform="capitalize">
-            {conversation.adressat?.username}
+            {conversation.adressat?.username || "Unknown User"}
           </Typography>
 
           <Stack direction="row" alignItems="center" width="100%">

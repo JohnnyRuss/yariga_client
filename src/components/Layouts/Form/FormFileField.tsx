@@ -62,10 +62,12 @@ const FormFileField: React.FC<FormFileFieldT> = ({
         onChange={(e) => onFileChange(e, fieldProps.onChange)}
       />
 
-      <FormFileFieldSelectedList
-        value={fieldProps.value}
-        onRemoveFile={onRemoveFile}
-      />
+      {fieldProps.value.length > 0 && (
+        <FormFileFieldSelectedList
+          value={fieldProps.value}
+          onRemoveFile={onRemoveFile}
+        />
+      )}
 
       {fieldStateProps.error && (
         <FormHelperText text={fieldStateProps.error.message || ""} />

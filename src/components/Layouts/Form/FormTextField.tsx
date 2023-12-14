@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 import {
   TextField,
   FormControl,
   InputAdornment,
+  IconButton,
   AutocompleteRenderInputParams,
 } from "@mui/material";
 import FormHelperText from "./FormHelperText";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import {
   ReactHookFormTextFieldPropsT,
@@ -30,13 +34,15 @@ const FormTextField: React.FC<FormTextFieldT> = ({
   required = false,
   autoCompleteParams,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <FormControl sx={{ flex: 1 }}>
       <TextField
         fullWidth
         required={required}
         variant="outlined"
-        type={type}
+        type={type !== "password" ? type : showPassword ? "text" : "password"}
         label={label}
         name={fieldProps.name}
         value={fieldProps.value}
@@ -48,9 +54,16 @@ const FormTextField: React.FC<FormTextFieldT> = ({
         sx={{ background: "#fff" }}
         InputProps={{
           ...autoCompleteParams?.InputProps,
-          startAdornment: icon ? (
-            <InputAdornment position="start">{icon}</InputAdornment>
-          ) : undefined,
+          startAdornment:
+            type === "password" ? (
+              <InputAdornment position="start">
+                <IconButton onClick={() => setShowPassword((prev) => !prev)}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ) : icon ? (
+              <InputAdornment position="start">{icon}</InputAdornment>
+            ) : undefined,
         }}
       />
 

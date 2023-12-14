@@ -44,8 +44,8 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
         <Box height="250px" overflow="hidden" position="relative">
           <Stack width="100%" alignItems="center" p={1} pt={2} gap={1}>
             <Avatar
-              src={adressat?.avatar || ""}
-              alt={adressat?.username || ""}
+              src={adressat?.avatar}
+              alt={adressat?.username}
               width="70px"
             />
 
@@ -55,15 +55,17 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
                 fontSize={20}
                 textTransform="capitalize"
               >
-                {adressat?.username}
+                {adressat?.username || "Unknown User"}
               </Typography>
             </Link>
 
-            <Typography fontSize={14} color="app_text.main">
-              {adressat?.email}
-            </Typography>
+            {adressat?.email && (
+              <Typography fontSize={14} color="app_text.main">
+                {adressat.email}
+              </Typography>
+            )}
 
-            <UserRoleChip role={adressat?.role || "USER"} />
+            {adressat?.role && <UserRoleChip role={adressat.role} />}
           </Stack>
 
           <Box sx={{ width: "100%" }}>

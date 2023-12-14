@@ -1,9 +1,11 @@
+import { USER_DEFAULT_AVATAR } from "config/config";
+
 import { Avatar as UserAvatar } from "components/Layouts";
 import { Badge, Box } from "@mui/material";
 
 type AvatarT = {
-  src: string;
-  alt: string;
+  src?: string;
+  alt?: string;
   width?: string;
   showBadge?: boolean;
 };
@@ -16,7 +18,11 @@ const Avatar: React.FC<AvatarT> = ({
 }) => {
   return (
     <Box position="relative" width={width} minWidth={width} height={width}>
-      <UserAvatar src={src} width="100%" alt={alt} />
+      <UserAvatar
+        src={src || USER_DEFAULT_AVATAR}
+        width="100%"
+        alt={alt || "Unknown User"}
+      />
       {showBadge && (
         <Badge
           invisible={true}

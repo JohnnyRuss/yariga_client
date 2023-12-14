@@ -14,6 +14,7 @@ import { RouterHistory } from "config/config";
 
 const initialState: AuthStateT = {
   status: status.default(),
+  deleteAccountStatus: status.default(),
 };
 
 const authSlice = createSlice({
@@ -115,15 +116,25 @@ const authSlice = createSlice({
       });
     },
 
-    deleteAccount(
-      state,
-      { payload }: PayloadAction<AuthT.DeleteAccountArgsT>
-    ) {},
+    deleteAccount(state, { payload }: PayloadAction<AuthT.DeleteAccountArgsT>) {
+      // state.deleteAccountStatus = status.loading();
+    },
 
     setDeletedAccount(state, { payload }: PayloadAction) {
       removeJWT();
+      state.deleteAccountStatus = status.default();
       RouterHistory.navigate(PATHS.deleted_account_page, {
         state: { deactivated: true },
+      });
+    },
+
+    setDeleteAccountStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.deleteAccountStatus = setStatus({
+        stage,
+        message: message || "Operation Failed",
       });
     },
   },

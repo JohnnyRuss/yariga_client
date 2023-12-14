@@ -21,7 +21,7 @@ type ConversationParticipantT = {
 
 type MessageT = {
   _id: string;
-  sender: ConversationParticipantT;
+  sender: ConversationParticipantT | null;
   text: string;
   links: Array<string>;
   files: Array<string>;

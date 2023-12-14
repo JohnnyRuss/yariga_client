@@ -21,21 +21,19 @@ const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
       py={{ xs: 8, app_mobile: 15 }}
       gap={1}
     >
-      <Avatar
-        src={adressat?.avatar || ""}
-        alt={adressat?.username || ""}
-        width="70px"
-      />
+      <Avatar src={adressat?.avatar} alt={adressat?.username} width="70px" />
 
       <Typography fontWeight={600} fontSize={20} textTransform="capitalize">
-        {adressat?.username}
+        {adressat?.username || "Unknown User"}
       </Typography>
 
-      <Typography fontSize={14} color="app_text.main">
-        {adressat?.email}
-      </Typography>
+      {adressat?.email && (
+        <Typography fontSize={14} color="app_text.main">
+          {adressat.email}
+        </Typography>
+      )}
 
-      <UserRoleChip role={adressat?.role || "USER"} />
+      {adressat?.role && <UserRoleChip role={adressat.role || "USER"} />}
 
       <Typography fontWeight={600} fontSize={16} color="app_text.main">
         Yariga

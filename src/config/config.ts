@@ -31,6 +31,9 @@ const MAX_IMAGE_SIZE_ON_CHAT = 10000000;
 
 const YARIGA_JWT_KEY = "YARIGA_PASSPORT";
 
+const USER_DEFAULT_AVATAR =
+  "https://firebasestorage.googleapis.com/v0/b/mimitha-e1a81.appspot.com/o/user%2Favatar.jpg?alt=media&token=a8b2b035-af5f-42e3-be29-afa789303b84";
+
 export {
   RouterHistory,
   MAP_TILE_ATTRIBUTION,
@@ -40,4 +43,5 @@ export {
   MAX_IMAGE_COUNT_PER_SMS,
   MAX_IMAGE_SIZE_ON_CHAT,
   YARIGA_JWT_KEY,
+  USER_DEFAULT_AVATAR,
 };

@@ -1,11 +1,12 @@
 import { Modal as MuiModal, Box } from "@mui/material";
 import CloseButton from "./CloseButton";
 
-interface ModalT {
+type ModalT = {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
-}
+  disableClose?: boolean;
+};
 
 const style = {
   position: "absolute" as "absolute",
@@ -17,16 +18,26 @@ const style = {
   outline: "none",
 };
 
-const Modal: React.FC<ModalT> = ({ open, onClose, children }) => {
+const Modal: React.FC<ModalT> = ({
+  open,
+  onClose,
+  children,
+  disableClose = false,
+}) => {
+  const onCloseModal = () => {
+    if (disableClose) return;
+    onClose();
+  };
+
   return (
     <MuiModal
       open={open}
-      onClose={onClose}
+      onClose={onCloseModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <CloseButton onClose={onClose} />
+        <CloseButton onClose={onCloseModal} />
 
         {children}
       </Box>

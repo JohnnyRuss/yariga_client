@@ -49,7 +49,7 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
     PARTICIPANT_DEFAULT;
 
   const checkConversationIsRead = (conversation: ConversationShortT) => {
-    const lastMessageSenderId = conversation.lastMessage?.sender._id || "";
+    const lastMessageSenderId = conversation.lastMessage?.sender?._id || "";
 
     const adressat = getLastMessageAdressat(
       conversation.participants,
@@ -69,8 +69,8 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
     let temp: Array<MessageT> = [];
 
     data.forEach((message, index, row) => {
-      const senderId = message.sender._id;
-      const previousSenderId = index > 0 ? row[index - 1].sender._id : "";
+      const senderId = message.sender?._id;
+      const previousSenderId = index > 0 ? row[index - 1].sender?._id : "";
 
       const isInRow = senderId === previousSenderId;
 

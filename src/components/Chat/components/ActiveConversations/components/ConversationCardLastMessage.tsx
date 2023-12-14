@@ -38,7 +38,9 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
         fontWeight="inherit"
         color="inherit"
       >
-        {belongsToActiveUser ? "You" : message.sender.username}
+        {belongsToActiveUser
+          ? "You"
+          : message.sender?.username || "Unknown User"}
         {": "}
       </Typography>
 

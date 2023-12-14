@@ -24,7 +24,7 @@ const Feed: React.FC = () => {
   const { getLastMessageAdressat, checkConversationIsRead } = useChatContext();
   const adressat = getLastMessageAdressat(
     conversationRoot.participants,
-    conversationRoot.lastMessage?.sender._id || ""
+    conversationRoot.lastMessage?.sender?._id || ""
   );
 
   const [conversationIsRead, setConversationIsRead] = useState(false);
@@ -65,9 +65,11 @@ const Feed: React.FC = () => {
         loading={conversationStatus.loading}
       />
 
-      <UI.FeedForm
-        disabled={deletionStatus.loading || conversationStatus.loading}
-      />
+      {conversationRoot.participants.length >= 2 && (
+        <UI.FeedForm
+          disabled={deletionStatus.loading || conversationStatus.loading}
+        />
+      )}
     </Stack>
   );
 };
