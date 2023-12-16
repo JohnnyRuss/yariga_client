@@ -6,3 +6,4 @@ export { default as useForgotPasswordQuery } from "./useForgotPasswordQuery";
 export { default as useConfirmEmailQuery } from "./useConfirmEmailQuery";
 export { default as useUpdatePasswordQuery } from "./useUpdatePasswordQuery";
 export { default as useDeleteAccountQuery } from "./useDeleteAccountQuery";
+export { default as useCleanUpAuthStatus } from "./useCleanUpAuthStatus";

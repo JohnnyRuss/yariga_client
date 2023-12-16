@@ -33,6 +33,7 @@ export { default as LinkPreview } from "./LinkPreview/LinkPreview";
 export { default as LineClamp } from "./LineClamp/LineClamp";
 export { default as Avatar } from "./Avatar/Avatar";
 export { default as UserRoleChip } from "./UserRoleChip/UserRoleChip";
+export { default as Error } from "./Error/Error";
 
 // CARDS
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";

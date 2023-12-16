@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAppSelector } from "store/hooks";
 import { selectDeleteAccountStatus } from "store/selectors/auth.selectors";
 
-import { Modal, Spinner } from "components/Layouts";
 import {
   Stack,
   Typography,
@@ -11,6 +10,7 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import { Modal, Spinner, Error } from "components/Layouts";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 type ConfirmAccountDeletionModalT = {
@@ -76,11 +76,7 @@ const ConfirmAccountDeletionModal: React.FC<ConfirmAccountDeletionModalT> = ({
           </Typography>
         )}
 
-        {status.error && (
-          <Typography color="error.main" textAlign="center">
-            {status.message}
-          </Typography>
-        )}
+        {status.error && <Error message={status.message} />}
 
         <Button
           variant="contained"

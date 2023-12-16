@@ -1,20 +1,21 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
-
 import { Controller } from "react-hook-form";
+
 import { PATHS } from "config/paths";
-import { useSignInQuery } from "hooks/api/auth";
 import { selectAuthStatus } from "store/selectors/auth.selectors";
+import { useSignInQuery, useCleanUpAuthStatus } from "hooks/api/auth";
 
 import * as UI from "./components";
 import * as Form from "components/Layouts/Form";
-import { Button, Spinner } from "components/Layouts";
 import styles from "./components/auth.module.css";
+import { Button, Spinner, Error } from "components/Layouts";
 
 const SignIn: React.FC = () => {
   const status = useAppSelector(selectAuthStatus);
 
   const { form, onSignin } = useSignInQuery();
+  useCleanUpAuthStatus();
 
   return (
     <UI.AuthLayout
@@ -49,6 +50,8 @@ const SignIn: React.FC = () => {
             />
           )}
         />
+
+        {status.error && <Error message={status.message} />}
 
         <Link
           to={PATHS.auth_page_forgot_password}

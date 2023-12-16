@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { call, put } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { setError, triggerError } from "./helpers/AppError";
+import { setError } from "./helpers/AppError";
 
 import { authActions } from "store/reducers/auth.reducer";
 import { userActions } from "store/reducers/user.reducer";

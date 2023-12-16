@@ -18,14 +18,17 @@ export async function logoutQuery() {
 }
 
 export async function forgotPasswordQuery(data: AuthT.ForgotPasswordArgsT) {
+  console.log(data);
   return "";
 }
 
 export async function confirmEmailQuery(data: AuthT.ConfirmEmailArgsT) {
+  console.log(data);
   return "";
 }
 
 export async function updatePasswordQuery(data: AuthT.UpdatePasswordArgsT) {
+  console.log(data);
   return "";
 }
 

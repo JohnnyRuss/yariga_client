@@ -74,7 +74,9 @@ const authSlice = createSlice({
     },
 
     setForgotPassword(state) {
-      RouterHistory.navigate(PATHS.auth_page_confirm_email);
+      RouterHistory.navigate(PATHS.auth_page_confirm_email, {
+        state: { isProcessingPasswordUpdate: true },
+      });
       state.status = status.default();
     },
 
@@ -88,7 +90,9 @@ const authSlice = createSlice({
     },
 
     setConfirmEmail(state) {
-      RouterHistory.navigate(PATHS.auth_page_update_password);
+      RouterHistory.navigate(PATHS.auth_page_update_password, {
+        state: { emailIsConfirmed: true },
+      });
       state.status = status.default();
     },
 
@@ -114,6 +118,10 @@ const authSlice = createSlice({
         stage,
         message: message || "Operation Failed",
       });
+    },
+
+    cleanUpAuthStatus(state) {
+      state.status = status.default();
     },
 
     deleteAccount(state, { payload }: PayloadAction<AuthT.DeleteAccountArgsT>) {
