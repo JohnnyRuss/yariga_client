@@ -49,7 +49,10 @@ const DYNAMIC_PATHS = {
     PATHS.user_properties_page.replace(":userId", userId),
   // MESSAGES
   chat_conversation__page: (conversationId: string) =>
-    PATHS.chat_conversation_page.replace(":conversationId", conversationId),
+    `${PATHS.chat_conversation_page.replace(
+      ":conversationId",
+      conversationId
+    )}?feed=1`,
 };
 
 export { PATHS, DYNAMIC_PATHS };

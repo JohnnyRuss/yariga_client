@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
+import { useIO } from "providers/IOProvider";
 import { useLogoutQuery } from "hooks/api/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
@@ -21,6 +22,15 @@ const UserToolbar: React.FC = () => {
   const handleClose = () => setAnchorEl(null);
 
   const { onLogout } = useLogoutQuery();
+
+  const { socket, io_keys } = useIO();
+
+  const onLogoutUser = () => {
+    handleClose();
+    onLogout();
+
+    if (socket) socket.emit(io_keys.user_disconnection, { userId: user._id });
+  };
 
   return (
     <div>
@@ -53,10 +63,7 @@ const UserToolbar: React.FC = () => {
                   background: "transparent",
                 },
               }}
-              onClick={() => {
-                handleClose();
-                onLogout();
-              }}
+              onClick={onLogoutUser}
             >
               Logout
             </Button>

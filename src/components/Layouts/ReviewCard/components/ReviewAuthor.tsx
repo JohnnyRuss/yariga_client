@@ -11,7 +11,7 @@ const ReviewAuthor: React.FC<ReviewAuthorElT> = ({ author }) => {
   return (
     <Stack direction="row" gap="15px">
       <Avatar
-        width="70px"
+        width={{ xs: "50px", md: "70px" }}
         variant="rounded"
         src={author.avatar}
         alt={author.username}

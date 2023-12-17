@@ -15,6 +15,7 @@ const ImageCrop: React.FC<ImageCropT> = ({ disabled }) => {
   return (
     <Box
       sx={{
+        margin: "auto 0",
         maxHeight: "50vh",
         display: "flex",
         alignItems: "center",

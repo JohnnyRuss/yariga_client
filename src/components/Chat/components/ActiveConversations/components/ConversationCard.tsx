@@ -39,7 +39,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
 
   return (
     <MuiStyled.ConversationCard
-      to={`${DYNAMIC_PATHS.chat_conversation__page(conversation._id)}?feed=1`}
+      to={DYNAMIC_PATHS.chat_conversation__page(conversation._id)}
       className={({ isActive }) => (isActive ? "active-conversation" : "")}
     >
       <Stack direction="row" gap={1} position="relative">

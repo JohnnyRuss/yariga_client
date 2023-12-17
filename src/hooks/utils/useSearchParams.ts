@@ -6,9 +6,11 @@ export default function useSearchParams() {
 
   const searchParams = new URLSearchParams(search);
 
-  const removeParam = (key: string) => {
+  const removeParam = (key: string, replace?: boolean) => {
     searchParams.delete(key);
-    navigate(`${pathname}?${searchParams.toString()}`);
+    navigate(`${pathname}?${searchParams.toString()}`, {
+      replace: replace ? true : false,
+    });
   };
 
   const appendParam = (key: string, value: string) => {

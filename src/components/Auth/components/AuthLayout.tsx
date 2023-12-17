@@ -40,7 +40,14 @@ const AuthLayout: React.FC<AuthLayoutT> = ({
 
         <Box flex={1} display={{ xs: "none", app_tablet: "block" }}>
           <figure className={styles.authDecorationFig}>
-            <img src={AuthImg} alt="auth decoration" />
+            <img
+              src={AuthImg}
+              alt="auth decoration"
+              width="100%"
+              height="100%"
+              title="Yariga"
+              loading="eager"
+            />
           </figure>
         </Box>
       </Stack>

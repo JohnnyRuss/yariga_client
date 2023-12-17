@@ -39,7 +39,7 @@ export const CardHorizontal = styled(MuiCard)(({ theme }) => ({
     flexDirection: "column",
     height: "auto",
 
-    img: {
+    ".cardThumbnail": {
       width: "100%",
       height: "100%",
       maxWidth: "100%",

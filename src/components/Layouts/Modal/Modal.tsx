@@ -30,12 +30,7 @@ const Modal: React.FC<ModalT> = ({
   };
 
   return (
-    <MuiModal
-      open={open}
-      onClose={onCloseModal}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <MuiModal open={open} onClose={onCloseModal} sx={{ zIndex: 999 }}>
       <Box sx={style}>
         <CloseButton onClose={onCloseModal} />
 

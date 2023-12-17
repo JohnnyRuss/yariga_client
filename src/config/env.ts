@@ -1,4 +1,5 @@
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+const API_ORIGIN = process.env.REACT_APP_API_ORIGIN || "";
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || "";
 
 const APP_ORIGIN = process.env.REACT_APP_ORIGIN;
 
@@ -20,6 +21,7 @@ const FIREBASE_MEASUREMENT_ID =
   process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "";
 
 export {
+  API_ORIGIN,
   API_ENDPOINT,
   APP_ORIGIN,
   CLOUDINARY_API_KEY,

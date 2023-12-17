@@ -44,7 +44,7 @@ const Reviews: React.FC<ReviewsT> = ({ loading }) => {
       />
 
       {showReviews && (
-        <Stack mt="15px">
+        <Stack mt="15px" gap={1}>
           {reviews[0] ? (
             reviews.map((review) => (
               <ReviewCard

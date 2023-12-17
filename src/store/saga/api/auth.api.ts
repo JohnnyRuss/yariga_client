@@ -18,18 +18,15 @@ export async function logoutQuery() {
 }
 
 export async function forgotPasswordQuery(data: AuthT.ForgotPasswordArgsT) {
-  console.log(data);
-  return "";
+  return axiosPrivateQuery.patch("/auth/forgot-password", data);
 }
 
 export async function confirmEmailQuery(data: AuthT.ConfirmEmailArgsT) {
-  console.log(data);
-  return "";
+  return axiosPrivateQuery.put("/auth/forgot-password", data);
 }
 
 export async function updatePasswordQuery(data: AuthT.UpdatePasswordArgsT) {
-  console.log(data);
-  return "";
+  return axiosPrivateQuery.post("/auth/forgot-password", data);
 }
 
 export async function deleteAccountQuery(data: AuthT.DeleteAccountArgsT) {

@@ -56,12 +56,13 @@ const ChangeImageModal: React.FC = () => {
   return (
     <Modal open={openChangeProfileModal} onClose={onCloseModal}>
       <Stack
+        width={{ xs: "100vw", md: "50vw" }}
+        height={{ xs: "100vh", md: "auto" }}
+        borderRadius={{ xs: "none", md: "10px" }}
         sx={{
           padding: 2,
           gap: 2,
           paddingTop: 7,
-          width: "50vw",
-          borderRadius: "10px",
           backgroundColor: "app_text.light",
           position: "relative",
         }}
@@ -70,7 +71,7 @@ const ChangeImageModal: React.FC = () => {
 
         {file && <ChangeImageRoundedButton />}
 
-        <Box sx={{ justifySelf: "flex-start", mb: "auto" }}>
+        <Box sx={{ justifySelf: "flex-start" }}>
           <Typography fontSize={22} fontWeight={600}>
             Update Profile Image
           </Typography>

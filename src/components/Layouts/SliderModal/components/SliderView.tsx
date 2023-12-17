@@ -9,9 +9,9 @@ interface SliderViewT {
 const SliderView: React.FC<SliderViewT> = ({ images, initialSlide }) => {
   return (
     <Box
+      width={{ xs: "95vw", md: "85vw" }}
+      height={{ xs: "90vh", md: "85vh" }}
       sx={{
-        width: "85vw",
-        height: "85vh",
         overflowY: "auto",
         paddingRight: 2,
         display: "flex",

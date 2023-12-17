@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAppSelector } from "store/hooks";
 import { selectPropertyFilter } from "store/selectors/propertiesFilter.selectors";
 import { usePropertyFilterContext } from "providers/FilterProvider/PropertyFilterProvider";
@@ -19,134 +20,147 @@ const Filter: React.FC<{ loading: boolean }> = ({ loading }) => {
     onMultipleSelectSearchParams,
   } = usePropertyFilterContext();
 
+  const [toggleFilter, setToggleFilter] = useState(false);
+
+  const onToggle = () => setToggleFilter((prev) => !prev);
+
   return loading ? (
     <UI.FilterSkeleton />
   ) : (
-    <Stack direction={{ xs: "column", md: "row" }} flexWrap="wrap" gap={3}>
-      <TextField
-        name="search"
-        value={searchParams.search}
-        onChange={onChangeSearchParams}
-        placeholder="Enter an address, city or title"
-        sx={{ flex: 1, flexBasis: ["auto", "140px"] }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          ),
-        }}
-      />
+    <>
+      <UI.ToggleFilterButton toggle={toggleFilter} onToggle={onToggle} />
 
-      <Form.FormSelectField
-        label="Sort By"
-        passEvent={true}
-        list={filter.sort}
-        fieldProps={{
-          name: "sort",
-          onChange: onSelectSearchParams,
-          value: searchParams.sort,
-        }}
-      />
+      <Stack
+        display={{ xs: toggleFilter ? "flex" : "none", md: "flex" }}
+        direction={{ xs: "column", md: "row" }}
+        flexWrap="wrap"
+        gap={3}
+      >
+        <TextField
+          name="search"
+          value={searchParams.search}
+          onChange={onChangeSearchParams}
+          placeholder="Enter an address, city or title"
+          sx={{ flex: 1, flexBasis: ["auto", "140px"] }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
 
-      <Form.FormSelectField
-        label="Status"
-        passEvent={true}
-        list={filter.propertyStatus}
-        fieldProps={{
-          name: "propertyStatus",
-          onChange: onSelectSearchParams,
-          value: searchParams.propertyStatus,
-        }}
-      />
+        <Form.FormSelectField
+          label="Sort By"
+          passEvent={true}
+          list={filter.sort}
+          fieldProps={{
+            name: "sort",
+            onChange: onSelectSearchParams,
+            value: searchParams.sort,
+          }}
+        />
 
-      <Form.FormSelectField
-        label="Type"
-        passEvent={true}
-        list={filter.propertyType}
-        fieldProps={{
-          name: "propertyType",
-          onChange: onSelectSearchParams,
-          value: searchParams.propertyType,
-        }}
-      />
+        <Form.FormSelectField
+          label="Status"
+          passEvent={true}
+          list={filter.propertyStatus}
+          fieldProps={{
+            name: "propertyStatus",
+            onChange: onSelectSearchParams,
+            value: searchParams.propertyStatus,
+          }}
+        />
 
-      <Form.FormSelectField
-        label="Country"
-        passEvent={true}
-        list={filter.country}
-        fieldProps={{
-          name: "country",
-          onChange: onSelectSearchParams,
-          value: searchParams.country,
-        }}
-      />
+        <Form.FormSelectField
+          label="Type"
+          passEvent={true}
+          list={filter.propertyType}
+          fieldProps={{
+            name: "propertyType",
+            onChange: onSelectSearchParams,
+            value: searchParams.propertyType,
+          }}
+        />
 
-      <div>
-        <UI.MoreFilterButton />
+        <Form.FormSelectField
+          label="Country"
+          passEvent={true}
+          list={filter.country}
+          fieldProps={{
+            name: "country",
+            onChange: onSelectSearchParams,
+            value: searchParams.country,
+          }}
+        />
 
-        <UI.MoreFilterBody>
-          <MenuItem sx={menuItemStyles}>
-            <Form.FormSelectField
-              label="State"
-              passEvent={true}
-              list={filter.state}
-              fieldProps={{
-                name: "state",
-                onChange: onSelectSearchParams,
-                value: searchParams.state,
-              }}
-            />
-          </MenuItem>
+        <div>
+          <UI.MoreFilterButton />
 
-          <MenuItem sx={menuItemStyles}>
-            <Form.FormMultipleSelectField
-              label="Room Types"
-              passEvent={true}
-              list={filter.rooms}
-              fieldProps={{
-                name: "rooms",
-                onChange: onMultipleSelectSearchParams,
-                value: searchParams.rooms,
-              }}
-            />
-          </MenuItem>
+          <UI.MoreFilterBody>
+            <MenuItem sx={menuItemStyles}>
+              <Form.FormSelectField
+                label="State"
+                passEvent={true}
+                list={filter.state}
+                fieldProps={{
+                  name: "state",
+                  onChange: onSelectSearchParams,
+                  value: searchParams.state,
+                }}
+              />
+            </MenuItem>
 
-          <MenuItem sx={menuItemStyles}>
-            <Form.FormMultipleSelectField
-              label="Features"
-              passEvent={true}
-              list={filter.features}
-              fieldProps={{
-                name: "features",
-                onChange: onMultipleSelectSearchParams,
-                value: searchParams.features,
-              }}
-            />
-          </MenuItem>
+            <MenuItem sx={menuItemStyles}>
+              <Form.FormMultipleSelectField
+                label="Room Types"
+                passEvent={true}
+                list={filter.rooms}
+                fieldProps={{
+                  name: "rooms",
+                  onChange: onMultipleSelectSearchParams,
+                  value: searchParams.rooms,
+                }}
+              />
+            </MenuItem>
 
-          <MenuItem sx={menuItemStyles}>
-            <TextField
-              name="price[gte]"
-              value={searchParams["price[gte]"]}
-              onChange={onChangeSearchParams}
-              placeholder="Min Price"
-              fullWidth
-            />
-          </MenuItem>
+            <MenuItem sx={menuItemStyles}>
+              <Form.FormMultipleSelectField
+                label="Features"
+                passEvent={true}
+                list={filter.features}
+                fieldProps={{
+                  name: "features",
+                  onChange: onMultipleSelectSearchParams,
+                  value: searchParams.features,
+                }}
+              />
+            </MenuItem>
 
-          <MenuItem sx={menuItemStyles}>
-            <TextField
-              name="price[lte]"
-              value={searchParams["price[lte]"]}
-              onChange={onChangeSearchParams}
-              placeholder="Max Price"
-              fullWidth
-            />
-          </MenuItem>
-        </UI.MoreFilterBody>
-      </div>
-    </Stack>
+            <MenuItem sx={menuItemStyles}>
+              <TextField
+                name="price[gte]"
+                value={searchParams["price[gte]"]}
+                onChange={onChangeSearchParams}
+                placeholder="Min Price"
+                fullWidth
+              />
+            </MenuItem>
+
+            <MenuItem sx={menuItemStyles}>
+              <TextField
+                name="price[lte]"
+                value={searchParams["price[lte]"]}
+                onChange={onChangeSearchParams}
+                placeholder="Max Price"
+                fullWidth
+              />
+            </MenuItem>
+          </UI.MoreFilterBody>
+        </div>
+      </Stack>
+    </>
   );
 };
 

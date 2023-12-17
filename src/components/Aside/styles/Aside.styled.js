@@ -36,7 +36,7 @@ export const AsideBox = styled(Box)(({ theme }) => ({
     height: "50px",
     width: "100%",
     flexDirection: "row",
-    zIndex: 9999,
+    zIndex: 99,
     justifyContent: "space-between",
 
     "&::after": {

@@ -27,7 +27,7 @@ type ConfirmEmailArgsT = {
 };
 
 type UpdatePasswordArgsT = {
-  new_password: string;
+  password: string;
   confirm_password: string;
 };
 

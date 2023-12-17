@@ -11,6 +11,7 @@ const ImageCropPlaceholder: React.FC = () => {
       component="label"
       htmlFor="profile-image"
       sx={{
+        margin: "auto 0",
         width: "100%",
         height: "50vh",
         border: "1px dashed",

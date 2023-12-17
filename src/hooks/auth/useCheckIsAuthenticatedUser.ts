@@ -21,5 +21,5 @@ export default function useCheckIsAuthenticatedUser() {
     return { isAuthenticatedUser };
   }
 
-  return { check };
+  return { check, user };
 }

@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 type AvatarT = {
   src: string;
   alt: string;
-  width?: string;
+  width?: string | { [key: string]: string };
   fit?: "contain" | "cover";
   loading?: "lazy" | "eager";
   variant?: "circular" | "rounded";

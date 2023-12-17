@@ -12,6 +12,7 @@ import MuiTheme from "styles/MuiTheme";
 import { ThemeProvider } from "@mui/material/styles";
 
 import AppProvider from "providers/AppProvider";
+import IOProvider from "providers/IOProvider";
 
 import App from "./App";
 
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <PersistGate persistor={persistore}>
           <HelmetProvider>
             <AppProvider>
-              <App />
+              <IOProvider>
+                <App />
+              </IOProvider>
             </AppProvider>
           </HelmetProvider>
         </PersistGate>

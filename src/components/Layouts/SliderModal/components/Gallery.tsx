@@ -11,12 +11,9 @@ interface GalleryT {
 const Gallery: React.FC<GalleryT> = ({ images, onActivateSlider }) => {
   return (
     <Box
-      sx={{
-        width: "85vw",
-        height: "85vh",
-        overflowY: "auto",
-        paddingRight: 2,
-      }}
+      width={{ xs: "95vw", md: "85vw" }}
+      height={{ xs: "90vh", md: "85vh" }}
+      sx={{ overflowY: "auto", paddingRight: 2 }}
       className="custom_scrollbar"
     >
       <Masonry columns={{ xs: 2, md: 4 }} spacing={1}>

@@ -17,7 +17,7 @@ const Dialog: React.FC<DialogT> = ({ dialog, onClose }) => {
     <MuiDialog
       open={dialog.open || false}
       onClose={handleClose}
-      PaperProps={{ sx: { minWidth: "450px" } }}
+      PaperProps={{ sx: { xs: { width: "95vw" }, md: { width: "450px" } } }}
     >
       {dialog.title && (
         <UI.DialogBoxTitle

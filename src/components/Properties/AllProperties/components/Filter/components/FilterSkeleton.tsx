@@ -5,6 +5,7 @@ import { Stack, Skeleton } from "@mui/material";
 const FilterSkeleton: React.FC = () => {
   return (
     <Stack
+      display={{ xs: "none", md: "flex" }}
       gap={3}
       width="100%"
       flexWrap="wrap"

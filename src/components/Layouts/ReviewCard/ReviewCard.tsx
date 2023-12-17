@@ -11,10 +11,12 @@ interface ReviewCardT {
 const ReviewCard: React.FC<ReviewCardT> = ({ review, showActions = true }) => {
   return (
     <Stack
-      p="25px"
-      pb="30px"
-      gap="30px"
-      borderRadius="20px"
+      p={{ xs: "5px", md: "25px" }}
+      pb={{ xs: "15px", md: "30px" }}
+      gap={{ xs: "15px", md: "30px" }}
+      borderRadius={{ xs: "0px", md: "20px" }}
+      borderBottom={{ xs: "1px solid", md: "none" }}
+      style={{ borderColor: "#e4e8ef" }}
       bgcolor="app_bg.main"
       direction={{ xs: "column", md: "row" }}
     >

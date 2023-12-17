@@ -25,7 +25,7 @@ const SliderModal: React.FC<SliderModalT> = ({ images }) => {
 
   const onClose = () => {
     setActiveSlideIndex(NaN);
-    removeParam("gallery");
+    removeParam("gallery", true);
   };
 
   return (
