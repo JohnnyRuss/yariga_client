@@ -11,12 +11,13 @@ type ChatStateT = {
   activeConversationStatus: LoadingStatusT;
   deleteConversationStatus: LoadingStatusT & { conversationId: string };
   conversations: Array<ConversationShortInfoT>;
-  activeConversation: ConversationT;
+  activeConversation: ConversationT & { isRead: boolean };
   conversationAssets: ConversationAssetsT;
 };
 
 type ConversationShortInfoT = ConversationShortT & {
   adressat: ConversationParticipantT | null;
+  isRead: boolean;
 };
 
 export type { ChatStateT, ConversationShortInfoT };

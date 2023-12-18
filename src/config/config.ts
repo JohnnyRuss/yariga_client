@@ -39,6 +39,8 @@ const io_keys = {
   user_connection: "user_connection",
   user_disconnection: "user_disconnection",
   disconnect: "disconnect",
+  new_message: "new_message",
+  read_message: "read_message",
 };
 
 export {

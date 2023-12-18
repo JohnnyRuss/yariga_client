@@ -9,6 +9,7 @@ type FeedFormTextFieldT = {
   disabled: boolean;
   imagesCount: number;
   isUploadingImages: boolean;
+  onFocus: () => void;
   onEnter: (e: React.KeyboardEvent) => void;
   onEmojiSelection: (value: EmojiT) => void;
   onImagesChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,6 +18,7 @@ type FeedFormTextFieldT = {
 };
 
 const FeedFormTextField: React.FC<FeedFormTextFieldT> = ({
+  onFocus,
   onEnter,
   text,
   onTextChange,
@@ -36,6 +38,7 @@ const FeedFormTextField: React.FC<FeedFormTextFieldT> = ({
         maxRows={4}
         fullWidth
         autoFocus={true}
+        onFocus={onFocus}
         value={text}
         onChange={onTextChange}
         onBlur={handleBlur}

@@ -115,7 +115,7 @@ export function* sendMessage({
       payload
     );
 
-    yield put(chatActions.sendSentMessage(data));
+    yield put(chatActions.setSentMessage(data));
   } catch (error: any) {
     yield setError({
       error,

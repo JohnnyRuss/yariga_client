@@ -1,14 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useAppSelector } from "store/hooks";
+import { useAppSelector, useAppDispatch } from "store/hooks";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { io_keys } from "config/config";
 import { API_ORIGIN } from "config/env";
 import { io as io_client, Socket } from "socket.io-client";
-// import { ioUserConnection } from "services/socket.io";
+
+import { chatActions } from "store/reducers/chat.reducer";
 
 import { useCheckIsAuthenticatedUser } from "hooks/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
+
+import {
+  SendMessageResponseT,
+  MarkConversationAsReadResponseT,
+} from "interface/db/chat.types";
 
 type IOProviderT = { children: React.ReactNode };
 
@@ -23,6 +29,8 @@ const IOContext = createContext<IOContextT>({
 });
 
 const IOProvider: React.FC<IOProviderT> = ({ children }) => {
+  const dispatch = useAppDispatch();
+
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
 
@@ -67,6 +75,23 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
       socket?.close();
     };
   }, [isAuthenticatedUser]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on(io_keys.new_message, (data: SendMessageResponseT) => {
+      dispatch(chatActions.setSentMessage(data));
+    });
+
+    socket.on(io_keys.read_message, (data: MarkConversationAsReadResponseT) => {
+      console.log(data);
+      dispatch(chatActions.setMarkConversationAsRead(data));
+    });
+
+    return () => {
+      // socket.off(io_keys,)
+    };
+  }, [socket]);
 
   return (
     <IOContext.Provider value={{ socket, io_keys }}>

@@ -29,7 +29,7 @@ const FeedWall: React.FC<FeedWallT> = ({ isRead, loading, adressat }) => {
     if (!containerRef.current) return;
 
     containerRef.current.scrollIntoView({ block: "end", behavior: "auto" });
-  }, [messages]);
+  }, [messages, isRead]);
 
   return (
     <Box position="relative" width="100%" height="100%">

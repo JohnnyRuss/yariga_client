@@ -41,7 +41,7 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
         {belongsToActiveUser
           ? "You"
           : message.sender?.username || "Unknown User"}
-        {": "}
+        :&nbsp;
       </Typography>
 
       <LineClamp

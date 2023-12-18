@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
 import { useSearchParams } from "hooks/utils";
@@ -21,23 +19,11 @@ const Feed: React.FC = () => {
 
   const conversationRoot = useAppSelector(selectConversationOrigin);
 
-  const { getLastMessageAdressat, checkConversationIsRead } = useChatContext();
+  const { getLastMessageAdressat } = useChatContext();
   const adressat = getLastMessageAdressat(
     conversationRoot.participants,
     conversationRoot.lastMessage?.sender?._id || ""
   );
-
-  const [conversationIsRead, setConversationIsRead] = useState(false);
-
-  useEffect(() => {
-    if (conversationStatus.loading || !conversationRoot._id) return;
-    const { isRead } = checkConversationIsRead(conversationRoot);
-    setConversationIsRead(isRead);
-  }, [
-    conversationRoot._id,
-    conversationRoot.isReadBy,
-    conversationStatus.loading,
-  ]);
 
   const { getParamValue } = useSearchParams();
   const isShowingPanel = getParamValue("conversation-panel") === "1";
@@ -56,17 +42,18 @@ const Feed: React.FC = () => {
 
       <UI.FeedHeader
         loading={conversationStatus.loading}
-        isRead={conversationIsRead}
+        isRead={conversationRoot.isRead}
       />
 
       <UI.FeedWall
         adressat={adressat}
-        isRead={conversationIsRead}
+        isRead={conversationRoot.isRead}
         loading={conversationStatus.loading}
       />
 
       {conversationRoot.participants.length >= 2 && (
         <UI.FeedForm
+          loading={conversationStatus.loading}
           disabled={deletionStatus.loading || conversationStatus.loading}
         />
       )}

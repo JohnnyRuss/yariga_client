@@ -1,20 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useConversationQuery } from "hooks/api/chat";
+import { useAppSelector } from "store/hooks";
 
-import * as UI from "./";
-import { Box, Stack } from "@mui/material";
+import { useChatQuery } from "hooks/api/chat";
+import { useIsCurrentUser } from "hooks/utils";
+import { selectConversationOrigin } from "store/selectors/chat.selectors";
 
 import useFeedFormText from "./hooks/useFeedFormText";
 import useImageUpload from "./hooks/useImageUpload";
 
+import * as UI from "./";
+import { Box, Stack } from "@mui/material";
+
 type FeedFormT = {
   disabled: boolean;
+  loading: boolean;
 };
 
-const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
+const FeedForm: React.FC<FeedFormT> = ({ disabled, loading }) => {
   const { conversationId } = useParams();
+
   const { sendMessage } = useConversationQuery();
+  const { markConversationAsRead } = useChatQuery();
+
+  const conversationRoot = useAppSelector(selectConversationOrigin);
 
   const {
     isUploadingImages,
@@ -74,6 +85,20 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
     [onSendMessage]
   );
 
+  const { isAuthenticatedUser } = useIsCurrentUser(
+    conversationRoot.lastMessage.sender?._id || ""
+  );
+
+  const onFocus = () => {
+    if (!conversationRoot.isRead && !isAuthenticatedUser) {
+      console.log("runs mark as read onFocus");
+      markConversationAsRead({
+        read: "1",
+        conversationId: conversationRoot._id,
+      });
+    }
+  };
+
   return (
     <>
       <Box
@@ -93,6 +118,7 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled }) => {
           />
 
           <UI.FeedFormTextField
+            onFocus={onFocus}
             onEnter={onEnter}
             text={text}
             onTextChange={onTextChange}

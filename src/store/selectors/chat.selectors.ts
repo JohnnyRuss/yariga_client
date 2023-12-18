@@ -27,6 +27,7 @@ const selectedDeleteConversationStatus = ({ chat }: RootStateT) => ({
 const selectedActiveConversation = ({ chat }: RootStateT) => ({
   createdAt: chat.activeConversation.createdAt,
   isReadBy: chat.activeConversation.isReadBy,
+  isRead: chat.activeConversation.isRead,
   messages: chat.activeConversation.messages,
   participants: chat.activeConversation.participants,
 });
@@ -40,6 +41,7 @@ const selectedConversationOrigin = ({ chat }: RootStateT) => ({
   _id: chat.activeConversation._id,
   participants: chat.activeConversation.participants,
   isReadBy: chat.activeConversation.isReadBy,
+  isRead: chat.activeConversation.isRead,
   updatedAt: chat.activeConversation.updatedAt,
   lastMessage:
     chat.activeConversation.messages[

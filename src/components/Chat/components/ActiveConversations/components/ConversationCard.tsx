@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
+import { useAppSelector } from "store/hooks";
 
 import { getTimeString } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
-import { useChatContext } from "providers/chat/ChatProvider";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 import * as MuiStyled from "./styles/ConversationCard.styled";
 import { Stack, Typography, Box, Badge } from "@mui/material";
@@ -22,18 +23,13 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
     belongsToActiveUser: false,
   });
 
-  const { checkConversationIsRead } = useChatContext();
+  const user = useAppSelector(selectAuthenticatedUser);
 
   useEffect(() => {
-    const { belongsToActiveUser, isRead } =
-      checkConversationIsRead(conversation);
-
-    const conversationIsRead = belongsToActiveUser || isRead;
-
     setConversationStatus((prev) => ({
       ...prev,
-      isRead: conversationIsRead,
-      belongsToActiveUser: belongsToActiveUser,
+      isRead: conversation.isRead,
+      belongsToActiveUser: conversation.lastMessage?.sender?._id === user._id,
     }));
   }, [conversation]);
 

@@ -5,12 +5,8 @@ import { createContext, useContext, useCallback } from "react";
 
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
-import {
-  MessageT,
-  ConversationShortT,
-  ConversationParticipantT,
-} from "interface/db/chat.types";
 import { ChatContextT, ChartProviderT } from "./index.types";
+import { MessageT, ConversationParticipantT } from "interface/db/chat.types";
 
 const PARTICIPANT_DEFAULT: ConversationParticipantT = {
   _id: "",
@@ -24,10 +20,6 @@ const ChatContext = createContext<ChatContextT>({
   conversationId: "",
   showControl: false,
   authenticatedUserId: "",
-  checkConversationIsRead: () => ({
-    isRead: false,
-    belongsToActiveUser: false,
-  }),
   getLastMessageAdressat: () => PARTICIPANT_DEFAULT,
   groupMessages: () => [],
 });
@@ -47,21 +39,6 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
   ) =>
     participants.find((user) => user._id !== lastMessageSenderId) ||
     PARTICIPANT_DEFAULT;
-
-  const checkConversationIsRead = (conversation: ConversationShortT) => {
-    const lastMessageSenderId = conversation.lastMessage?.sender?._id || "";
-
-    const adressat = getLastMessageAdressat(
-      conversation.participants,
-      lastMessageSenderId
-    );
-
-    const isRead = conversation.isReadBy.includes(adressat._id);
-
-    const belongsToActiveUser = lastMessageSenderId === authenticatedUserId;
-
-    return { isRead, belongsToActiveUser };
-  };
 
   const groupMessages = useCallback((data: Array<MessageT>) => {
     const groups: Array<Array<MessageT>> = [];
@@ -117,7 +94,6 @@ const ChatProvider: React.FC<ChartProviderT> = ({ children }) => {
         getLastMessageAdressat,
         groupMessages,
         authenticatedUserId,
-        checkConversationIsRead,
         conversationId: conversationId || "",
       }}
     >
