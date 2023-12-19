@@ -7,13 +7,13 @@ import { MessageT } from "interface/db/chat.types";
 
 type ConversationCardLastMessageT = {
   message: MessageT;
-  conversationIsRead: boolean;
+  showAsUnread: boolean;
   belongsToActiveUser: boolean;
 };
 
 const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
   message,
-  conversationIsRead,
+  showAsUnread,
   belongsToActiveUser,
 }) => {
   const lastMessageText = message.text
@@ -27,22 +27,25 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
   return (
     <Typography
       fontSize={14}
-      fontWeight={conversationIsRead ? 400 : 600}
+      fontWeight={!showAsUnread ? 400 : 600}
       className="conversation-text last-message"
-      color={conversationIsRead ? "app_text.main" : "app_text.dark"}
+      color={!showAsUnread ? "app_text.main" : "app_text.dark"}
     >
-      <Typography
-        component="span"
-        textTransform="capitalize"
-        fontSize="inherit"
-        fontWeight="inherit"
-        color="inherit"
-      >
-        {belongsToActiveUser
+      {belongsToActiveUser && (
+        <Typography
+          component="span"
+          textTransform="capitalize"
+          fontSize="inherit"
+          fontWeight="inherit"
+          color="inherit"
+        >
+          You:&nbsp;
+          {/* {belongsToActiveUser
           ? "You"
           : message.sender?.username || "Unknown User"}
-        :&nbsp;
-      </Typography>
+        :&nbsp; */}
+        </Typography>
+      )}
 
       <LineClamp
         clamp={1}

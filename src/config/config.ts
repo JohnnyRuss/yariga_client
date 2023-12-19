@@ -9,6 +9,15 @@ const RouterHistory: RouterHistoryT = {
     search: "",
     state: null,
   },
+  activeUser: {
+    _id: "",
+    avatar: "",
+    email: "",
+    role: "USER",
+    username: "",
+    location: null,
+    phone: "",
+  },
 };
 
 const OPEN_STREET_MAP_NOMINATIM_API_END_POINT =

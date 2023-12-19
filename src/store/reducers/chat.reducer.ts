@@ -12,6 +12,8 @@ import * as ChatApiT from "interface/db/chat.types";
 import { ChatStateT, ConversationShortInfoT } from "interface/store/chat.types";
 
 const initialState: ChatStateT = {
+  unreadConversations: [],
+
   conversationsStatus: status.default(),
 
   activeConversationStatus: status.default(),
@@ -65,6 +67,9 @@ const chatSlice = createSlice({
         }));
 
       state.conversations = transformedConversations;
+      state.unreadConversations = getUnreadConversationIds(
+        transformedConversations
+      );
 
       state.conversationsStatus = status.default();
     },
@@ -116,6 +121,8 @@ const chatSlice = createSlice({
       };
 
       state.activeConversationStatus = status.default();
+
+      state.unreadConversations = getUnreadConversationIds(state.conversations);
     },
 
     setConversationAssets(
@@ -163,6 +170,8 @@ const chatSlice = createSlice({
         (conversation) => conversation._id !== conversationId
       );
 
+      state.unreadConversations = getUnreadConversationIds(state.conversations);
+
       RouterHistory.navigate(PATHS.chat_page);
 
       state.deleteConversationStatus = {
@@ -192,10 +201,12 @@ const chatSlice = createSlice({
         payload,
       }: PayloadAction<{
         activeUserId: string;
-        conversation: ChatApiT.ConversationT;
+        conversation: ChatApiT.ConversationCardT;
       }>
     ) {
       const { conversation, activeUserId } = payload;
+
+      if (state.conversations.some((c) => c._id === conversation._id)) return;
 
       state.conversations = [
         {
@@ -208,9 +219,12 @@ const chatSlice = createSlice({
           isReadBy: conversation.isReadBy,
           participants: conversation.participants,
           updatedAt: conversation.updatedAt,
+          lastMessage: conversation.lastMessage,
         },
         ...state.conversations,
       ];
+
+      state.unreadConversations = getUnreadConversationIds(state.conversations);
     },
 
     // SEND MESSAGE
@@ -284,6 +298,15 @@ const chatSlice = createSlice({
         ...state.conversations[index],
         isReadBy,
       });
+
+      state.unreadConversations = getUnreadConversationIds(state.conversations);
+    },
+
+    // UNREAD  CONVERSATIONS
+    setUnreadConversationsCount(state, { payload }: PayloadAction<string>) {
+      state.unreadConversations = [
+        ...Array.from(new Set([...state.unreadConversations, payload])),
+      ];
     },
   },
 });
@@ -291,15 +314,27 @@ const chatSlice = createSlice({
 export default chatSlice.reducer;
 export const chatActions = chatSlice.actions;
 
+const getLastMessageAdressat = (conversation: ChatApiT.ConversationShortT) =>
+  conversation.participants.find(
+    (user) => user._id !== conversation.lastMessage?.sender?._id || ""
+  );
+
 function checkConversationIsRead(conversation: ChatApiT.ConversationShortT) {
-  const getLastMessageAdressat = (conversation: ChatApiT.ConversationShortT) =>
-    conversation.participants.find(
-      (user) => user._id !== conversation.lastMessage?.sender?._id || ""
-    );
+  return conversation.isReadBy.includes(
+    getLastMessageAdressat(conversation)?._id || ""
+  );
+}
 
-  const adressat = getLastMessageAdressat(conversation);
+function getUnreadConversationIds(
+  conversations: Array<ConversationShortInfoT>
+) {
+  const user = RouterHistory.activeUser;
 
-  const isRead = conversation.isReadBy.includes(adressat?._id || "");
-
-  return isRead;
+  return conversations
+    .filter(
+      (conversation) =>
+        !conversation.isRead &&
+        getLastMessageAdressat(conversation)?._id === user._id
+    )
+    .map((conversation) => conversation._id);
 }

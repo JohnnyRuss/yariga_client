@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAppSelector, useAppDispatch } from "store/hooks";
+import { useLocation } from "react-router-dom";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { io_keys } from "config/config";
@@ -11,10 +12,8 @@ import { chatActions } from "store/reducers/chat.reducer";
 import { useCheckIsAuthenticatedUser } from "hooks/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
-import {
-  SendMessageResponseT,
-  MarkConversationAsReadResponseT,
-} from "interface/db/chat.types";
+import { NewMessageT } from "interface/config/socket.io.types";
+import { MarkConversationAsReadResponseT } from "interface/db/chat.types";
 
 type IOProviderT = { children: React.ReactNode };
 
@@ -30,6 +29,8 @@ const IOContext = createContext<IOContextT>({
 
 const IOProvider: React.FC<IOProviderT> = ({ children }) => {
   const dispatch = useAppDispatch();
+
+  const { pathname } = useLocation();
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false);
@@ -79,19 +80,48 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on(io_keys.new_message, (data: SendMessageResponseT) => {
-      dispatch(chatActions.setSentMessage(data));
+    const reg = /^\/messages(?:\/\w+)?$/;
+
+    socket.on(io_keys.new_message, (data: NewMessageT) => {
+      dispatch(chatActions.setUnreadConversationsCount(data.conversation._id));
+
+      if (!reg.test(pathname)) return;
+
+      dispatch(
+        chatActions.setSentMessage({
+          message: data.message,
+          conversation: {
+            _id: data.conversation._id,
+            isReadBy: data.conversation.isReadBy,
+            updatedAt: data.conversation.updatedAt,
+            lastMessage: data.conversation.lastMessage,
+          },
+        })
+      );
+
+      dispatch(
+        chatActions.setNewConversationCard({
+          activeUserId: authenticatedUser._id,
+          conversation: {
+            _id: data.conversation._id,
+            isReadBy: data.conversation.isReadBy,
+            updatedAt: data.conversation.updatedAt,
+            createdAt: data.conversation.createdAt,
+            lastMessage: data.conversation.lastMessage,
+            participants: data.conversation.participants,
+          },
+        })
+      );
     });
 
     socket.on(io_keys.read_message, (data: MarkConversationAsReadResponseT) => {
-      console.log(data);
       dispatch(chatActions.setMarkConversationAsRead(data));
     });
 
     return () => {
       // socket.off(io_keys,)
     };
-  }, [socket]);
+  }, [socket, pathname]);
 
   return (
     <IOContext.Provider value={{ socket, io_keys }}>

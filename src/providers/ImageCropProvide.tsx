@@ -56,6 +56,7 @@ const ImageCropProvider: React.FC<ImageCropProviderT> = ({ children }) => {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target.files?.[0];
+
     if (!target) return;
 
     const imgURL = URL.createObjectURL(target);
@@ -66,6 +67,7 @@ const ImageCropProvider: React.FC<ImageCropProviderT> = ({ children }) => {
     imgEl.onload = () => {
       setFile(imgURL);
       setOriginalImage(imgEl);
+      setCrop(() => CROP_DEFAULTS);
     };
   };
 

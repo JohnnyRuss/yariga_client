@@ -86,7 +86,7 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled, loading }) => {
   );
 
   const { isAuthenticatedUser } = useIsCurrentUser(
-    conversationRoot.lastMessage.sender?._id || ""
+    conversationRoot.lastMessage?.sender?._id || ""
   );
 
   const onFocus = () => {

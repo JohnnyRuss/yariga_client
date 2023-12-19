@@ -1,3 +1,5 @@
+import { MessageT, ConversationParticipantT } from "interface/db/chat.types";
+
 type UserConnectionT = {
   userId: string;
   socketId: string;
@@ -6,4 +8,16 @@ type UserConnectionT = {
   avatar: string;
 };
 
-export type { UserConnectionT };
+type NewMessageT = {
+  message: MessageT;
+  conversation: {
+    _id: string;
+    createdAt: string;
+    isReadBy: Array<string>;
+    lastMessage: MessageT;
+    participants: Array<ConversationParticipantT>;
+    updatedAt: string;
+  };
+};
+
+export type { UserConnectionT, NewMessageT };

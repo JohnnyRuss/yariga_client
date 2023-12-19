@@ -1,10 +1,12 @@
 import { NavigateFunction, Location } from "react-router-dom";
+import { UserT } from "interface/db/user.types";
 
 type RouterHistoryT = {
   navigate:
     | NavigateFunction
     | ((path: string, state?: { [key: string]: any }) => void);
   location: Location;
+  activeUser: UserT;
 };
 
 type DecodedUserT = {

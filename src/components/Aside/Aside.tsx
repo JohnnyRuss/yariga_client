@@ -1,13 +1,15 @@
 import { memo } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import { useSearchParams } from "hooks/utils";
 import { useAppSelector } from "store/hooks";
+import { NavLink, useLocation } from "react-router-dom";
 
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
+import { selectUnreadConversationsCount } from "store/selectors/chat.selectors";
 
-import { ASIDE_NAV_ROUTES } from "./utils/asideRoutes";
-import * as MuiStyled from "./styles/Aside.styled";
+import { Box } from "@mui/material";
 import styles from "./styles/aside.module.css";
+import * as MuiStyled from "./styles/Aside.styled";
+import { ASIDE_NAV_ROUTES } from "./utils/asideRoutes";
 
 const Aside: React.FC = () => {
   const { pathname } = useLocation();
@@ -17,6 +19,10 @@ const Aside: React.FC = () => {
 
   const isOnFeed =
     getParamValue("feed") === "1" && pathname.includes("messages");
+
+  const unreadConversationCount = useAppSelector(
+    selectUnreadConversationsCount
+  );
 
   return (
     <MuiStyled.AsideBox
@@ -35,9 +41,28 @@ const Aside: React.FC = () => {
           }
           key={route.id}
           to={route.path}
+          style={{ position: "relative" }}
         >
           {route.icon}
           <span>{route.label}</span>
+
+          {route.label === "messages" && unreadConversationCount > 0 && (
+            <Box
+              position="absolute"
+              right="7px"
+              width="20px"
+              height="20px"
+              borderRadius="100%"
+              bgcolor="error.main"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              fontSize={13}
+              color="app_text.light"
+            >
+              {unreadConversationCount}
+            </Box>
+          )}
         </NavLink>
       ))}
     </MuiStyled.AsideBox>

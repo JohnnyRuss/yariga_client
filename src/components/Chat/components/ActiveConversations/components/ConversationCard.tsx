@@ -25,6 +25,9 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
 
   const user = useAppSelector(selectAuthenticatedUser);
 
+  const showAsUnread =
+    !conversationStatus.belongsToActiveUser && !conversationStatus.isRead;
+
   useEffect(() => {
     setConversationStatus((prev) => ({
       ...prev,
@@ -53,7 +56,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
             {conversation.lastMessage && (
               <ConversationCardLastMessage
                 message={conversation.lastMessage}
-                conversationIsRead={conversationStatus.isRead}
+                showAsUnread={showAsUnread}
                 belongsToActiveUser={conversationStatus.belongsToActiveUser}
               />
             )}
@@ -61,7 +64,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
             <Badge
               variant="dot"
               className="badge"
-              sx={{ opacity: conversationStatus.isRead ? 0 : 1 }}
+              sx={{ opacity: showAsUnread ? 1 : 0 }}
             />
 
             <Box
@@ -82,7 +85,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
 
         <Box className="conversation-date">
           <Typography fontSize={12} color="app_text.main" width="100%">
-            {getTimeString(conversation.updatedAt)}
+            {getTimeString(conversation.lastMessage?.createdAt || "")}
           </Typography>
         </Box>
       </Stack>

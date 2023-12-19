@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
+import { PATHS } from "config/paths";
 import { useIO } from "providers/IOProvider";
 import { useLogoutQuery } from "hooks/api/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
@@ -45,11 +46,16 @@ const UserToolbar: React.FC = () => {
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuList sx={{ width: "200px", fontSize: "16px" }}>
-          <MenuItem onClick={handleClose}>
-            <Link to={`/user/${user?._id}`}>Profile</Link>
+          <MenuItem onClick={handleClose} sx={{ padding: 0 }}>
+            <Link
+              to={PATHS.user_iprofile_page}
+              style={{ width: "100%", padding: "5px 15px" }}
+            >
+              Profile
+            </Link>
           </MenuItem>
 
-          <MenuItem>
+          <MenuItem sx={{ padding: 0 }}>
             <Button
               fullWidth
               variant="text"
@@ -57,7 +63,7 @@ const UserToolbar: React.FC = () => {
                 justifyContent: "flex-start",
                 textTransform: "capitalize",
                 fontSize: "inherit",
-                padding: 0,
+                padding: "5px 15px",
 
                 "&:hover": {
                   background: "transparent",

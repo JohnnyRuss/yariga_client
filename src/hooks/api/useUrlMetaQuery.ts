@@ -38,7 +38,7 @@ export default function useUrlMetaQuery() {
     }
   };
 
-  const [loadingMetaAssets, setLoadingMetaAssets] = useState(true);
+  const [loadingMetaAssets, setLoadingMetaAssets] = useState(false);
 
   const [metaAssets, setMetaAssets] = useState<Array<LinkMetaT>>([]);
 

@@ -2,6 +2,7 @@ import { styled, Grid } from "@mui/material";
 
 export const ImageListGridItem = styled(Grid)(({ theme }) => ({
   width: "33.33333%",
+  aspectRatio: "1/1",
 
   [theme.breakpoints.up("app_tablet")]: {
     width: "20%",

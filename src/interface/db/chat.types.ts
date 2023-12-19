@@ -6,8 +6,12 @@ type ConversationShortT = {
   lastMessage?: MessageT;
 };
 
-type ConversationT = Omit<ConversationShortT, "lastMessage"> & {
+type ConversationT = ConversationShortT & {
   messages: Array<MessageT>;
+  createdAt: string;
+};
+
+type ConversationCardT = ConversationShortT & {
   createdAt: string;
 };
 
@@ -86,6 +90,7 @@ export type {
   ConversationShortT,
   ConversationAssetsT,
   ConversationParticipantT,
+  ConversationCardT,
   // API
   GetConversationArgsT,
   DeleteConversationArgsT,

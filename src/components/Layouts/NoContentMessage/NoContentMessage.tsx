@@ -11,6 +11,7 @@ const NoContentMessage: React.FC<NoContentMessageT> = ({ message }) => {
       width="100%"
       alignItems="center"
       justifyContent="center"
+      textAlign="center"
     >
       <Typography
         fontWeight={600}

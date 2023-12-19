@@ -91,6 +91,9 @@ const selectConversationMediaAssets = ({ chat }: RootStateT) =>
 const selectConversationUrlAssets = ({ chat }: RootStateT) =>
   chat.conversationAssets.links;
 
+const selectUnreadConversationsCount = ({ chat }: RootStateT) =>
+  chat.unreadConversations.length;
+
 export {
   selectConversationsStatus,
   selectConversationStatus,
@@ -102,4 +105,5 @@ export {
   selectConversationOrigin,
   selectConversationMediaAssets,
   selectConversationUrlAssets,
+  selectUnreadConversationsCount,
 };

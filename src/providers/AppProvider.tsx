@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useAppSelector } from "store/hooks";
 import { createContext, useContext, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -36,6 +37,7 @@ const AppProvider: React.FC<AppProviderT> = ({ children }) => {
 
   RouterHistory.location = location;
   RouterHistory.navigate = navigate;
+  RouterHistory.activeUser = useAppSelector((state) => state.user.user);
 
   /////////////////////////////////////////
   ////////////// Snackbar ////////////////

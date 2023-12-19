@@ -21,6 +21,15 @@ const persistedUserReducer = persistReducer(
   userReducer
 );
 
+const persistedChatReducer = persistReducer(
+  {
+    storage,
+    key: "YARIGA_CHAT",
+    whitelist: ["unreadConversations"],
+  },
+  chatReducer
+);
+
 const rootReducer = combineReducers({
   user: persistedUserReducer,
   agent: agentReducer,
@@ -30,7 +39,7 @@ const rootReducer = combineReducers({
   createPropertyForm: createPropertyFormReducer,
   roomTypes: roomTypesReducer,
   reviews: reviewReducer,
-  chat: chatReducer,
+  chat: persistedChatReducer,
 });
 
 export default rootReducer;

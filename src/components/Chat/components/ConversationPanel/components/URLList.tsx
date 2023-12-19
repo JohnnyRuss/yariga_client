@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
-import { LineClamp } from "components/Layouts";
+import { LineClamp, NoContentMessage } from "components/Layouts";
 import useUrlMetaQuery from "hooks/api/useUrlMetaQuery";
 import { selectConversationUrlAssets } from "store/selectors/chat.selectors";
 
@@ -28,53 +28,61 @@ const URLList: React.FC<URLListT> = ({ conversationIsLoading }) => {
   ) : (
     <Box px={1} pr={0} width="100%" height="100%" className="custom_scrollbar">
       <Stack gap={1}>
-        {metaAssets.map((meta, index) => (
-          <a
-            href={meta.url || "#empty_url"}
-            rel="noreferrer"
-            target="_blank"
-            key={`meta__${meta.title}-${index}`}
-          >
-            <Stack direction="row" gap={1} alignItems="flex-start">
-              <Box
-                component="figure"
-                width="85px"
-                height="85px"
-                minWidth="85px"
-                borderRadius="5px"
-                overflow="hidden"
-              >
+        {metaAssets.length > 0 ? (
+          metaAssets.map((meta, index) => (
+            <a
+              href={meta.url || "#empty_url"}
+              rel="noreferrer"
+              target="_blank"
+              key={`meta__${meta.title}-${index}`}
+            >
+              <Stack direction="row" gap={1} alignItems="flex-start">
                 <Box
-                  component="img"
-                  src={meta.image || ""}
-                  loading="lazy"
-                  title={meta.title || "meta preview"}
-                  alt={meta.title || "meta.preview"}
-                  width="100%"
-                  height="100%"
-                  sx={{
-                    objectFit: "cover",
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                  }}
-                />
-              </Box>
-
-              <Stack pt="3px">
-                <LineClamp clamp={2} sx={{ fontWeight: 600, fontSize: 14 }}>
-                  {meta.title}
-                </LineClamp>
-
-                <LineClamp
-                  clamp={2}
-                  sx={{ fontWeight: 400, fontSize: 12, color: "app_text.main" }}
+                  component="figure"
+                  width="85px"
+                  height="85px"
+                  minWidth="85px"
+                  borderRadius="5px"
+                  overflow="hidden"
                 >
-                  {meta.description}
-                </LineClamp>
+                  <Box
+                    component="img"
+                    src={meta.image || ""}
+                    loading="lazy"
+                    title={meta.title || "meta preview"}
+                    alt={meta.title || "meta.preview"}
+                    width="100%"
+                    height="100%"
+                    sx={{
+                      objectFit: "cover",
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                    }}
+                  />
+                </Box>
+
+                <Stack pt="3px">
+                  <LineClamp clamp={2} sx={{ fontWeight: 600, fontSize: 14 }}>
+                    {meta.title}
+                  </LineClamp>
+
+                  <LineClamp
+                    clamp={2}
+                    sx={{
+                      fontWeight: 400,
+                      fontSize: 12,
+                      color: "app_text.main",
+                    }}
+                  >
+                    {meta.description}
+                  </LineClamp>
+                </Stack>
               </Stack>
-            </Stack>
-          </a>
-        ))}
+            </a>
+          ))
+        ) : (
+          <NoContentMessage message="There are now shared url's in conversation" />
+        )}
       </Stack>
     </Box>
   );
