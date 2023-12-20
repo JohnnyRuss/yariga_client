@@ -57,9 +57,19 @@ const reviewsSlice = createSlice({
     },
 
     setReviews(state, { payload }: PayloadAction<GetReviewsResponseT>) {
-      state.reviews = payload.reviews;
-      state.currentPage = payload.currentPage;
+      state.reviews = payload.reviews.map((review) => ({
+        ...review,
+        property: {
+          _id: review.property._id,
+          price: review.property.price,
+          title: review.property.title,
+          thumbnail: review.property.images[0],
+          propertyStatus: review.property.propertyStatus,
+        },
+      }));
+
       state.pagesCount = payload.pagesCount;
+      state.currentPage = payload.currentPage;
 
       state.status = status.default();
     },

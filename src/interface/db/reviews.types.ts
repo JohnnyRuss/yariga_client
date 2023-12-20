@@ -15,6 +15,7 @@ type ReviewPropertyT = {
   title: string;
   propertyStatus: keyof typeof PROPERTY_STATUS;
   price: number;
+  images: Array<string>;
 };
 
 type ReviewAuthorT = {
@@ -22,6 +23,7 @@ type ReviewAuthorT = {
   avatar: string;
   username: string;
   createdAt?: string;
+  role: "AGENT" | "USER";
 };
 
 // API
@@ -52,6 +54,7 @@ type ApproveReviewArgsT = {
 
 export type {
   ReviewShortInfoT,
+  ReviewPropertyT,
   // PARTIALS
   ReviewAuthorT,
   // API

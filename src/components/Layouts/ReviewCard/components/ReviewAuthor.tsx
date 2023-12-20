@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import { DYNAMIC_PATHS } from "config/paths";
+
 import { Avatar } from "components/Layouts";
 import { Stack, Typography } from "@mui/material";
 
@@ -18,9 +22,21 @@ const ReviewAuthor: React.FC<ReviewAuthorElT> = ({ author }) => {
       />
 
       <Stack>
-        <Typography fontWeight={600} textTransform="capitalize">
-          {author.username}
-        </Typography>
+        <Link
+          to={
+            author.role === "USER"
+              ? DYNAMIC_PATHS.user_profile_page(author._id)
+              : DYNAMIC_PATHS.agent_page(author._id)
+          }
+        >
+          <Typography
+            fontWeight={600}
+            textTransform="capitalize"
+            sx={{ "&:hover": { textDecoration: "underline" } }}
+          >
+            {author.username}
+          </Typography>
+        </Link>
 
         {author.createdAt && (
           <Typography fontSize={14} color="app_text.main">

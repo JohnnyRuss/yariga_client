@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import { selectProperty } from "store/selectors/properties.selectors";
@@ -16,9 +16,15 @@ interface ReviewsT {
 
 const Reviews: React.FC<ReviewsT> = ({ loading }) => {
   const { propertyId } = useParams();
+  const { state } = useLocation();
+
+  const receivedReviewId = state?.reviewId || "";
+
   const { reviews } = useAppSelector(selectProperty);
 
-  const [showReviews, setShowReviews] = useState(false);
+  const [showReviews, setShowReviews] = useState(
+    receivedReviewId ? true : false
+  );
 
   const { ref, inView } = useInView({ threshold: 0 });
 
@@ -49,8 +55,9 @@ const Reviews: React.FC<ReviewsT> = ({ loading }) => {
             reviews.map((review) => (
               <ReviewCard
                 review={review}
-                showActions={false}
                 key={review._id}
+                showActions={false}
+                scrollToView={receivedReviewId === review._id}
               />
             ))
           ) : (

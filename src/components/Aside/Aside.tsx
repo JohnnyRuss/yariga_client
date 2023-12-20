@@ -49,7 +49,8 @@ const Aside: React.FC = () => {
           {route.label === "messages" && unreadConversationCount > 0 && (
             <Box
               position="absolute"
-              right="7px"
+              right={{ xs: "-2px", md: "7px" }}
+              top={{ xs: "-2px", md: "auto" }}
               width="20px"
               height="20px"
               borderRadius="100%"

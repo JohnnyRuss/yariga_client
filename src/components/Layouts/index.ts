@@ -34,6 +34,7 @@ export { default as LineClamp } from "./LineClamp/LineClamp";
 export { default as Avatar } from "./Avatar/Avatar";
 export { default as UserRoleChip } from "./UserRoleChip/UserRoleChip";
 export { default as Error } from "./Error/Error";
+export { default as PropertyPrice } from "./PropertyPrice/PropertyPrice";
 
 // CARDS
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";

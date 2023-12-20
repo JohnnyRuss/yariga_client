@@ -1,16 +1,32 @@
+import {
+  ApproveReviewArgsT,
+  ReviewPropertyT,
+  ReviewShortInfoT,
+} from "interface/db/reviews.types";
 import { LoadingStatusT } from "./common.types";
-import { ReviewShortInfoT } from "interface/db/reviews.types";
-import { ApproveReviewArgsT } from "interface/db/reviews.types";
 
 type ReviewsStateT = {
   status: LoadingStatusT;
-  reviews: Array<ReviewShortInfoT>;
+  reviews: Array<StateReviewT>;
   currentPage: number;
   pagesCount: number;
+};
+
+type StateReviewT = Omit<ReviewShortInfoT, "property"> & {
+  property: Omit<ReviewPropertyT, "images"> & { thumbnail: string };
+};
+
+type ReviewPropertyInfoT = Omit<ReviewPropertyT, "images"> & {
+  thumbnail: string;
 };
 
 type ApproveReviewActionT = ApproveReviewArgsT & {
   filterOut: boolean;
 };
 
-export type { ReviewsStateT, ApproveReviewActionT };
+export type {
+  StateReviewT,
+  ReviewsStateT,
+  ApproveReviewActionT,
+  ReviewPropertyInfoT,
+};

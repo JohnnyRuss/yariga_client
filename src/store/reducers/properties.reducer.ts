@@ -227,7 +227,19 @@ const propertiesSlice = createSlice({
     },
 
     setProperty(state, { payload }: PayloadAction<PropertyT>) {
-      state.property = payload;
+      state.property = {
+        ...payload,
+        reviews: payload.reviews.map((review) => ({
+          ...review,
+          property: {
+            _id: review.property._id,
+            price: review.property.price,
+            title: review.property.title,
+            thumbnail: review.property.images[0],
+            propertyStatus: review.property.propertyStatus,
+          },
+        })),
+      };
       state.singlePropertyStatus = status.success("SUCCESS");
     },
 

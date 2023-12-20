@@ -6,7 +6,7 @@ interface ReviewRatingT {
 
 const ReviewRating: React.FC<ReviewRatingT> = ({ score }) => {
   return (
-    <Stack direction="row" alignItems="center" gap="10px">
+    <Stack direction="row" alignItems="center" gap="10px" ml="auto">
       <Typography fontSize={22} fontWeight={600}>
         {score.toFixed(1)}
       </Typography>

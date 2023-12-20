@@ -1,4 +1,5 @@
 import { AgentShortInfoT } from "./agent.types";
+// import { StateReviewT } from "interface/store/review.types";
 import { ReviewShortInfoT } from "./reviews.types";
 
 type PropertyT = {
