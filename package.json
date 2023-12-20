@@ -33,6 +33,7 @@
     "react-helmet-async": "^2.0.3",
     "react-hook-form": "^7.47.0",
     "react-image-crop": "^10.1.8",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^9.5.3",
     "react-leaflet": "^4.2.1",
     "react-linkify": "^1.0.0-alpha",
