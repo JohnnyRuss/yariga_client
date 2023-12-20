@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { useAppSelector } from "store/hooks";
+import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { textCapitalize } from "utils";
@@ -9,9 +10,9 @@ import { usePropertiesQuery } from "hooks/api/properties";
 import ImageCropProvider from "providers/ImageCropProvide";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
-import Helmet from "pages/Helmet";
-import UserProfile from "components/UserProfile/UserProfile";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+const UserProfile = lazy(() => import("components/UserProfile/UserProfile"));
 
 const IProfile: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -42,7 +43,9 @@ const IProfile: React.FC = () => {
 
       <ImageCropProvider>
         <AppLayout>
-          <UserProfile user={user} />
+          <Suspense fallback={<Spinner />}>
+            <UserProfile user={user} />
+          </Suspense>
         </AppLayout>
       </ImageCropProvider>
     </>

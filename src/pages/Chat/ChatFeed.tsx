@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useParams } from "react-router-dom";
 
-import { Feed } from "components/Chat";
 import { useConversationQuery } from "hooks/api/chat";
+
+import { Spinner } from "components/Layouts";
+const Feed = lazy(() => import("components/Chat/Feed"));
 
 const ChatFeed: React.FC = () => {
   const { conversationId } = useParams();
@@ -20,7 +22,11 @@ const ChatFeed: React.FC = () => {
     };
   }, [conversationId]);
 
-  return <Feed />;
+  return (
+    <Suspense fallback={<Spinner />}>
+      <Feed />
+    </Suspense>
+  );
 };
 
 export default ChatFeed;

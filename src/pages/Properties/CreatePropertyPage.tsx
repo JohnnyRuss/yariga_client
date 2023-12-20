@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
+import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { useRedirectUnAuthorized } from "hooks/auth";
 import { usePropertyFormSuggestionsQuery } from "hooks/api/properties";
 
-import Helmet from "pages/Helmet";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
-import { CreateProperty } from "components/Properties";
+const CreateProperty = lazy(
+  () => import("components/Properties/CreateProperty/CreateProperty")
+);
 
 const CreatePropertyPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -35,7 +38,9 @@ const CreatePropertyPage: React.FC = () => {
       />
 
       <AppLayout>
-        <CreateProperty />
+        <Suspense fallback={<Spinner />}>
+          <CreateProperty />
+        </Suspense>
       </AppLayout>
     </>
   );

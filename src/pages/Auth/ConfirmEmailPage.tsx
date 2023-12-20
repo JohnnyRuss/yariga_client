@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { useRedirectAuthorized } from "hooks/auth";
 
-import ConfirmEmail from "components/Auth/ConfirmEmail";
+import { Spinner } from "components/Layouts";
+const ConfirmEmail = lazy(() => import("components/Auth/ConfirmEmail"));
 
 const ConfirmEmailPage: React.FC = () => {
   const { loading } = useRedirectAuthorized();
@@ -19,7 +21,9 @@ const ConfirmEmailPage: React.FC = () => {
         disAllowCrawler={true}
       />
 
-      <ConfirmEmail />
+      <Suspense fallback={<Spinner />}>
+        <ConfirmEmail />
+      </Suspense>
     </>
   );
 };

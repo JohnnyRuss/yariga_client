@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import useReviewsQuery from "hooks/api/reviews/useReviewsQuery";
 
-import DeletedReviews from "components/Reviews/DeletedReviews";
+import { Spinner } from "components/Layouts";
+const PublishedReviews = lazy(
+  () => import("components/Reviews/PublishedReviews")
+);
 
-const DeletedReviewsPage: React.FC = () => {
+const PublishedReviewsPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { search, pathname } = useLocation();
@@ -22,14 +25,18 @@ const DeletedReviewsPage: React.FC = () => {
       return navigate(`${pathname}?${urlSearchParams.toString()}`);
     }
 
-    getReviews({ query: search.replace("?", ""), approved: "0" });
+    getReviews({ query: search.replace("?", ""), approved: "1" });
 
     return () => {
       cleanUpReviews();
     };
   }, [search]);
 
-  return <DeletedReviews />;
+  return (
+    <Suspense fallback={<Spinner />}>
+      <PublishedReviews />
+    </Suspense>
+  );
 };
 
-export default DeletedReviewsPage;
+export default PublishedReviewsPage;

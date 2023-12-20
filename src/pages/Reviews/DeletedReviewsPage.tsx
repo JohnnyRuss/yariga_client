@@ -1,14 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import Helmet from "pages/Helmet";
+import { useEffect, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { PATHS } from "config/paths";
 import useReviewsQuery from "hooks/api/reviews/useReviewsQuery";
 
-import AllReviews from "components/Reviews/AllReviews";
+import { Spinner } from "components/Layouts";
+const DeletedReviews = lazy(() => import("components/Reviews/DeletedReviews"));
 
-const AllReviewsPage: React.FC = () => {
+const DeletedReviewsPage: React.FC = () => {
   const navigate = useNavigate();
 
   const { search, pathname } = useLocation();
@@ -24,7 +23,7 @@ const AllReviewsPage: React.FC = () => {
       return navigate(`${pathname}?${urlSearchParams.toString()}`);
     }
 
-    getReviews({ query: search.replace("?", ""), approved: "all" });
+    getReviews({ query: search.replace("?", ""), approved: "0" });
 
     return () => {
       cleanUpReviews();
@@ -32,17 +31,10 @@ const AllReviewsPage: React.FC = () => {
   }, [search]);
 
   return (
-    <>
-      <Helmet
-        title="Reviews"
-        disAllowCrawler={true}
-        path={PATHS.reviews_page}
-        description="reviews got user on all of the properties from other users"
-      />
-
-      <AllReviews />
-    </>
+    <Suspense fallback={<Spinner />}>
+      <DeletedReviews />
+    </Suspense>
   );
 };
 
-export default AllReviewsPage;
+export default DeletedReviewsPage;

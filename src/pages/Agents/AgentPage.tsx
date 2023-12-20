@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "store/hooks";
 
@@ -11,8 +11,10 @@ import { usePropertiesQuery } from "hooks/api/properties";
 import { selectAgentHelmet } from "store/selectors/agent.selectors";
 
 import Helmet from "pages/Helmet";
-import { Agent } from "components/Agent";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+
+const Agent = lazy(() => import("components/Agent/Agent"));
 
 const AgentPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -51,7 +53,9 @@ const AgentPage: React.FC = () => {
       )}
 
       <AppLayout>
-        <Agent />
+        <Suspense fallback={<Spinner />}>
+          <Agent />
+        </Suspense>
       </AppLayout>
     </>
   );

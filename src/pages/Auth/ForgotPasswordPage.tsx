@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { useRedirectAuthorized } from "hooks/auth";
 
-import ForgotPassword from "components/Auth/ForgotPassword";
+import { Spinner } from "components/Layouts";
+const ForgotPassword = lazy(() => import("components/Auth/ForgotPassword"));
 
 const ForgotPasswordPage: React.FC = () => {
   const { loading } = useRedirectAuthorized();
@@ -19,7 +21,9 @@ const ForgotPasswordPage: React.FC = () => {
         disAllowCrawler={true}
       />
 
-      <ForgotPassword />
+      <Suspense fallback={<Spinner />}>
+        <ForgotPassword />
+      </Suspense>
     </>
   );
 };

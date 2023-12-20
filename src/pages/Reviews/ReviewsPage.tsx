@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { useRedirectUnAuthorized } from "hooks/auth";
 
-import Helmet from "pages/Helmet";
-import Reviews from "components/Reviews/ReviewsBox";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+const Reviews = lazy(() => import("components/Reviews/ReviewsBox"));
 
 const ReviewsPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -32,7 +33,9 @@ const ReviewsPage: React.FC = () => {
       />
 
       <AppLayout>
-        <Reviews />
+        <Suspense fallback={<Spinner />}>
+          <Reviews />
+        </Suspense>
       </AppLayout>
     </>
   );

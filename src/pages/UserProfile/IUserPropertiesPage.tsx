@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { useAppSelector } from "store/hooks";
+import Helmet from "pages/Helmet";
 
 import {
   selectUserProperties,
@@ -12,9 +13,11 @@ import { useRedirectUnAuthorized } from "hooks/auth";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 import { usePropertiesQuery } from "hooks/api/properties";
 
-import Helmet from "pages/Helmet";
-import UserProperties from "components/UserProfile/UserProperties";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+const UserProperties = lazy(
+  () => import("components/UserProfile/UserProperties")
+);
 
 const IUserPropertiesPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -46,12 +49,14 @@ const IUserPropertiesPage: React.FC = () => {
       />
 
       <AppLayout>
-        <UserProperties
-          isIUser={true}
-          user={user}
-          status={propertiesStatus}
-          properties={properties}
-        />
+        <Suspense fallback={<Spinner />}>
+          <UserProperties
+            isIUser={true}
+            user={user}
+            status={propertiesStatus}
+            properties={properties}
+          />
+        </Suspense>
       </AppLayout>
     </>
   );

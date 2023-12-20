@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import Helmet from "pages/Helmet";
+import { useEffect, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
+import Helmet from "pages/Helmet";
 
 import {
   usePropertiesQuery,
@@ -11,8 +11,11 @@ import { PATHS } from "config/paths";
 import { useRedirectUnAuthorized } from "hooks/auth";
 import PropertyFilterProvider from "providers/FilterProvider/PropertyFilterProvider";
 
-import { AllProperties } from "components/Properties";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+const AllProperties = lazy(
+  () => import("components/Properties/AllProperties/AllProperties")
+);
 
 const PropertiesPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -54,9 +57,11 @@ const PropertiesPage: React.FC = () => {
       />
 
       <AppLayout>
-        <PropertyFilterProvider>
-          <AllProperties />
-        </PropertyFilterProvider>
+        <Suspense fallback={<Spinner />}>
+          <PropertyFilterProvider>
+            <AllProperties />
+          </PropertyFilterProvider>
+        </Suspense>
       </AppLayout>
     </>
   );

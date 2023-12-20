@@ -1,95 +1,58 @@
-import { lazy } from "react";
-
-export const NotFoundPage = lazy(() => import("./NotFoundPage"));
-export const DeletedAccountPage = lazy(() => import("./DeletedAccountPage"));
-
+export { default as NotFoundPage } from "./NotFoundPage";
+export { default as DeletedAccountPage } from "./DeletedAccountPage";
 /////////////////
 ///// AUTH /////
 ///////////////
 
-export const SignInPage = lazy(() => import("./AuthPage/SignInPage"));
-export const SignUpPage = lazy(() => import("./AuthPage/SignUpPage"));
-export const ForgotPasswordPage = lazy(
-  () => import("./AuthPage/ForgotPasswordPage")
-);
-export const ConfirmEmailPage = lazy(
-  () => import("./AuthPage/ConfirmEmailPage")
-);
-export const UpdatePasswordPage = lazy(
-  () => import("./AuthPage/UpdatePasswordPage")
-);
+export { default as SignInPage } from "./Auth/SignInPage";
+export { default as SignUpPage } from "./Auth/SignUpPage";
+export { default as ForgotPasswordPage } from "./Auth/ForgotPasswordPage";
+export { default as ConfirmEmailPage } from "./Auth/ConfirmEmailPage";
+export { default as UpdatePasswordPage } from "./Auth/UpdatePasswordPage";
 
 //////////////////////
 ///// DASHBOARD /////
 ////////////////////
 
-export const DashboardPage = lazy(
-  () => import("./DashboardPage/DashboardPage")
-);
+export { default as DashboardPage } from "./Dashboard/DashboardPage";
 
 ///////////////////////
 ///// PROPERTIES /////
 /////////////////////
 
-export const PropertiesPage = lazy(() => import("./Properties/PropertiesPage"));
-
-export const CreatePropertyPage = lazy(
-  () => import("./Properties/CreatePropertyPage")
-);
-
-export const PropertyPage = lazy(() => import("./Properties/PropertyPage"));
+export { default as PropertiesPage } from "./Properties/PropertiesPage";
+export { default as CreatePropertyPage } from "./Properties/CreatePropertyPage";
+export { default as PropertyPage } from "./Properties/PropertyPage";
 
 //////////////////
 ///// AGENT /////
 ////////////////
 
-export const AgentsPage = lazy(() => import("./Agents/AgentsPage"));
-
-export const AgentPage = lazy(() => import("./Agents/AgentPage"));
-
-export const AgentPropertiesPage = lazy(
-  () => import("./Agents/AgentPropertiesPage")
-);
+export { default as AgentPage } from "./Agents/AgentPage";
+export { default as AgentsPage } from "./Agents/AgentsPage";
+export { default as AgentPropertiesPage } from "./Agents/AgentPropertiesPage";
 
 ////////////////////
 ///// REVIEWS /////
 //////////////////
 
-export const ReviewsPage = lazy(() => import("./ReviewsPage/ReviewsPage"));
-
-export const AllReviewsPage = lazy(
-  () => import("./ReviewsPage/AllReviewsPage")
-);
-
-export const PublishedReviewsPage = lazy(
-  () => import("./ReviewsPage/PublishedReviewsPage")
-);
-
-export const DeletedReviewsPage = lazy(
-  () => import("./ReviewsPage/DeletedReviewsPage")
-);
+export { default as ReviewsPage } from "./Reviews/ReviewsPage";
+export { default as AllReviewsPage } from "./Reviews/AllReviewsPage";
+export { default as PublishedReviewsPage } from "./Reviews/PublishedReviewsPage";
+export { default as DeletedReviewsPage } from "./Reviews/DeletedReviewsPage";
 
 /////////////////////
 ///// MESSAGES /////
 ///////////////////
 
-export const ChatPage = lazy(() => import("./ChatPage/ChatPage"));
-export const ChatFeed = lazy(() => import("./ChatPage/ChatFeed"));
+export { default as ChatPage } from "./Chat/ChatPage";
+export { default as ChatFeed } from "./Chat/ChatFeed";
 
 /////////////////////////
 ///// USER PROFILE /////
 ///////////////////////
 
-export const UserProfilePage = lazy(
-  () => import("./UserProfilePage/UserProfilePage")
-);
-
-export const IProfilePage = lazy(() => import("./UserProfilePage/IProfile"));
-
-export const UserPropertiesPage = lazy(
-  () => import("./UserProfilePage/UserPropertiesPage")
-);
-
-export const IUserPropertiesPage = lazy(
-  () => import("./UserProfilePage/IUserPropertiesPage")
-);
+export { default as UserProfilePage } from "./UserProfile/UserProfilePage";
+export { default as IProfilePage } from "./UserProfile/IProfilePage";
+export { default as UserPropertiesPage } from "./UserProfile/UserPropertiesPage";
+export { default as IUserPropertiesPage } from "./UserProfile/IUserPropertiesPage";

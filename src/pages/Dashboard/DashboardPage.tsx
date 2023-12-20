@@ -1,9 +1,12 @@
+import { lazy, Suspense } from "react";
+import Helmet from "../Helmet";
+
 import { PATHS } from "config/paths";
 import { useRedirectUnAuthorized } from "hooks/auth";
 
-import Helmet from "../Helmet";
-import { Dashboard } from "components/Dashboard";
+import { Spinner } from "components/Layouts";
 import AppLayout from "components/AppLayout/AppLayout";
+const Dashboard = lazy(() => import("components/Dashboard/Dashboard"));
 
 const DashboardPage: React.FC = () => {
   const { loading } = useRedirectUnAuthorized();
@@ -19,7 +22,9 @@ const DashboardPage: React.FC = () => {
       />
 
       <AppLayout>
-        <Dashboard />
+        <Suspense fallback={<Spinner />}>
+          <Dashboard />
+        </Suspense>
       </AppLayout>
     </>
   );

@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import Helmet from "pages/Helmet";
 
 import { PATHS } from "config/paths";
 import { useRedirectAuthorized } from "hooks/auth";
 
-import SignUp from "components/Auth/SignUp";
+import { Spinner } from "components/Layouts";
+const SignUp = lazy(() => import("components/Auth/SignUp"));
 
 const SignUpPage: React.FC = () => {
   const { loading } = useRedirectAuthorized();
@@ -18,7 +20,9 @@ const SignUpPage: React.FC = () => {
         path={PATHS.auth_page_signup}
       />
 
-      <SignUp />
+      <Suspense fallback={<Spinner />}>
+        <SignUp />
+      </Suspense>
     </>
   );
 };
