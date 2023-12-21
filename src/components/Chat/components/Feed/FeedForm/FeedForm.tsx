@@ -91,7 +91,6 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled, loading }) => {
 
   const onFocus = () => {
     if (!conversationRoot.isRead && !isAuthenticatedUser) {
-      console.log("runs mark as read onFocus");
       markConversationAsRead({
         read: "1",
         conversationId: conversationRoot._id,

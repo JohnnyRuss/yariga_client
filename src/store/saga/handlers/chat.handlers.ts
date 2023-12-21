@@ -1,5 +1,5 @@
 import { setError } from "./helpers/AppError";
-import { call, put, select } from "redux-saga/effects";
+import { call, put, select, all } from "redux-saga/effects";
 
 import { DYNAMIC_PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
@@ -31,23 +31,31 @@ export function* getConversations() {
 }
 
 export function* getConversation({
-  payload,
+  payload: { conversationId },
 }: PayloadAction<ChatApiT.GetConversationArgsT>) {
   try {
-    const { data }: AxiosResponse<ChatApiT.ConversationT> = yield call(
-      chatAPI.getConversationQuery,
-      payload
-    );
+    const [
+      { data: conversation },
+      { data: conversationAssets },
+      { data: messages },
+    ]: [
+      AxiosResponse<ChatApiT.ConversationShortT>,
+      AxiosResponse<ChatApiT.ConversationAssetsT>,
+      AxiosResponse<ChatApiT.GetConversationMessagesResponseT>
+    ] = yield all([
+      call(chatAPI.getConversationQuery, { conversationId }),
+      call(chatAPI.getConversationAssetsQuery, { conversationId }),
+      call(chatAPI.getConversationMessages, { conversationId, page: 1 }),
+    ]);
 
-    const {
-      data: conversationAssets,
-    }: AxiosResponse<ChatApiT.ConversationAssetsT> = yield call(
-      chatAPI.getConversationAssetsQuery,
-      payload
-    );
-
-    yield put(chatActions.setConversation(data));
     yield put(chatActions.setConversationAssets(conversationAssets));
+    yield put(
+      chatActions.setConversation({
+        hasMore: messages.hasMore,
+        currentPage: messages.currentPage,
+        conversation: { ...conversation, messages: messages.messages },
+      })
+    );
   } catch (error: any) {
     yield setError({
       error,
@@ -78,8 +86,12 @@ export function* createConversationAndGetAll({
   payload: { args, load },
 }: PayloadAction<{ args: ChatApiT.CreateConversationArgsT; load: boolean }>) {
   try {
-    const { data: newConversation }: AxiosResponse<ChatApiT.ConversationT> =
-      yield call(chatAPI.createConversationQuery, args);
+    const {
+      data: newConversation,
+    }: AxiosResponse<ChatApiT.GetConversationResponseT> = yield call(
+      chatAPI.createConversationQuery,
+      args
+    );
 
     if (!load) {
       const activeUserId: string = yield select(

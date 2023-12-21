@@ -3,11 +3,17 @@ type ConversationShortT = {
   participants: Array<ConversationParticipantT>;
   isReadBy: Array<string>;
   updatedAt: string;
+  createdAt: string;
   lastMessage?: MessageT;
 };
 
-type ConversationT = ConversationShortT & {
-  messages: Array<MessageT>;
+type MessageT = {
+  _id: string;
+  sender: ConversationParticipantT | null;
+  text: string;
+  links: Array<string>;
+  files: Array<string>;
+  media: Array<string>;
   createdAt: string;
 };
 
@@ -23,16 +29,6 @@ type ConversationParticipantT = {
   role: "AGENT" | "USER";
 };
 
-type MessageT = {
-  _id: string;
-  sender: ConversationParticipantT | null;
-  text: string;
-  links: Array<string>;
-  files: Array<string>;
-  media: Array<string>;
-  createdAt: string;
-};
-
 type ConversationAssetsT = {
   media: Array<string>;
   links: Array<string>;
@@ -43,11 +39,21 @@ type GetConversationArgsT = {
   conversationId: string;
 };
 
-type DeleteConversationArgsT = {
-  conversationId: string;
+type GetConversationResponseT = ConversationShortT & {
+  messages: Array<MessageT>;
 };
 
 type GetConversationAssetsArgsT = {
+  conversationId: string;
+};
+
+type GetConversationMessagesResponseT = {
+  messages: Array<MessageT>;
+  hasMore: boolean;
+  currentPage: number;
+};
+
+type DeleteConversationArgsT = {
   conversationId: string;
 };
 
@@ -86,13 +92,14 @@ type SendMessageResponseT = {
 
 export type {
   MessageT,
-  ConversationT,
   ConversationShortT,
   ConversationAssetsT,
   ConversationParticipantT,
   ConversationCardT,
   // API
   GetConversationArgsT,
+  GetConversationMessagesResponseT,
+  GetConversationResponseT,
   DeleteConversationArgsT,
   CreateConversationArgsT,
   SendMessageArgsT,

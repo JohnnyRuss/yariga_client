@@ -52,9 +52,12 @@ const io_keys = {
   read_message: "read_message",
 };
 
+const MAX_MESSAGE_PER_PAGE = 30;
+
 export {
   io_keys,
   RouterHistory,
+  MAX_MESSAGE_PER_PAGE,
   MAP_TILE_ATTRIBUTION,
   MAP_TILE_RAPID_API_URL,
   OPEN_STREET_MAP_NOMINATIM_API_END_POINT,

@@ -8,7 +8,7 @@ type SeenBadgeT = {
 
 const SeenBadge: React.FC<SeenBadgeT> = ({ avatar, username }) => {
   return (
-    <Box ml="auto" sx={{ transform: "translate(-5px,-10px)" }}>
+    <Box ml="auto" sx={{ transform: "translate(-18px,0px)" }}>
       <Avatar width="16px" showBadge={false} src={avatar} alt={username} />
     </Box>
   );

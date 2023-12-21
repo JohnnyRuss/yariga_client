@@ -16,10 +16,11 @@ const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
     <UI.FeedWallStarterSkeleton />
   ) : (
     <Stack
+      gap={1}
+      order={1}
       width="100%"
       alignItems="center"
       py={{ xs: 8, app_mobile: 15 }}
-      gap={1}
     >
       <Avatar src={adressat?.avatar} alt={adressat?.username} width="70px" />
 

@@ -37,17 +37,23 @@ const selectedConversationAdressat = ({ chat, user }: RootStateT) =>
     (participant) => participant._id !== user.user._id
   );
 
-const selectedConversationOrigin = ({ chat }: RootStateT) => ({
-  _id: chat.activeConversation._id,
-  participants: chat.activeConversation.participants,
-  isReadBy: chat.activeConversation.isReadBy,
-  isRead: chat.activeConversation.isRead,
-  updatedAt: chat.activeConversation.updatedAt,
-  lastMessage:
-    chat.activeConversation.messages[
-      chat.activeConversation.messages.length - 1
-    ],
-});
+const selectedConversationOrigin = ({ chat }: RootStateT) => {
+  const lastGroupIndex = chat.activeConversation.messages.length - 1;
+  const lastMessageIndex =
+    chat.activeConversation.messages[lastGroupIndex]?.messages.length - 1;
+
+  return {
+    _id: chat.activeConversation._id,
+    participants: chat.activeConversation.participants,
+    isReadBy: chat.activeConversation.isReadBy,
+    isRead: chat.activeConversation.isRead,
+    updatedAt: chat.activeConversation.updatedAt,
+    lastMessage:
+      chat.activeConversation.messages[lastGroupIndex]?.messages[
+        lastMessageIndex
+      ],
+  };
+};
 
 // SELECTORS
 const selectConversationsStatus = createSelector(

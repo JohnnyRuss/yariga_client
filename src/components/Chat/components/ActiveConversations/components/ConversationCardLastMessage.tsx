@@ -18,7 +18,7 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
 }) => {
   const lastMessageText = message.text
     ? message.text
-    : message.media[0]
+    : message.media?.[0]
     ? belongsToActiveUser
       ? "Send images"
       : "Send you images"

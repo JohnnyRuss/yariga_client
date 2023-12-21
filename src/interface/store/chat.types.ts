@@ -1,5 +1,5 @@
 import {
-  ConversationT,
+  MessageT,
   ConversationShortT,
   ConversationAssetsT,
   ConversationParticipantT,
@@ -12,8 +12,21 @@ type ChatStateT = {
   activeConversationStatus: LoadingStatusT;
   deleteConversationStatus: LoadingStatusT & { conversationId: string };
   conversations: Array<ConversationShortInfoT>;
-  activeConversation: ConversationT & { isRead: boolean };
+  activeConversation: ConversationShortT & {
+    isRead: boolean;
+    messages: Array<MessagesGroupT>;
+  };
   conversationAssets: ConversationAssetsT;
+  hasMore: boolean;
+  currentPage: number;
+};
+
+type MessagesGroupT = {
+  groupId: string;
+  groupAuthor: string;
+  date: string;
+  messages: Array<MessageT>;
+  divider: boolean;
 };
 
 type ConversationShortInfoT = ConversationShortT & {
@@ -21,4 +34,4 @@ type ConversationShortInfoT = ConversationShortT & {
   isRead: boolean;
 };
 
-export type { ChatStateT, ConversationShortInfoT };
+export type { ChatStateT, MessagesGroupT, ConversationShortInfoT };

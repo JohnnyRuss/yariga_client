@@ -1,16 +1,18 @@
 import { CircularProgress, Box } from "@mui/material";
 
-interface SpinnerT {}
+interface SpinnerT {
+  absolute?: boolean;
+}
 
-const Spinner: React.FC<SpinnerT> = () => {
+const Spinner: React.FC<SpinnerT> = ({ absolute = true }) => {
   return (
     <Box
-      position="absolute"
-      sx={{ inset: 0 }}
       zIndex={9}
       display="flex"
-      justifyContent="center"
+      sx={{ inset: 0 }}
       alignItems="center"
+      justifyContent="center"
+      position={absolute ? "absolute" : "unset"}
     >
       <CircularProgress />
     </Box>

@@ -18,7 +18,6 @@ export default function useChatQuery() {
     dispatch(chatActions.deleteConversation(args));
 
   const markConversationAsRead = (args: MarkConversationAsReadArgsT) => {
-    console.log("runs mark as read");
     dispatch(chatActions.markConversationAsRead(args));
   };
 

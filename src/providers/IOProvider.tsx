@@ -119,7 +119,8 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
     });
 
     return () => {
-      // socket.off(io_keys,)
+      socket.off(io_keys.new_message);
+      socket.off(io_keys.read_message);
     };
   }, [socket, pathname]);
 

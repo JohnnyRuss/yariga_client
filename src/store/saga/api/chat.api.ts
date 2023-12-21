@@ -1,19 +1,33 @@
 import {
   SendMessageArgsT,
-  GetConversationArgsT,
   DeleteConversationArgsT,
   CreateConversationArgsT,
   MarkConversationAsReadArgsT,
-  GetConversationAssetsArgsT,
 } from "interface/db/chat.types";
 import { axiosPrivateQuery } from "services/axios";
+import { MAX_MESSAGE_PER_PAGE } from "config/config";
 
 export async function getConversationsQuery() {
   return axiosPrivateQuery.get("/chat");
 }
 
-export async function getConversationQuery(args: GetConversationArgsT) {
+export async function getConversationQuery(args: { conversationId: string }) {
   return axiosPrivateQuery.get(`/chat/${args.conversationId}`);
+}
+
+export async function getConversationAssetsQuery(args: {
+  conversationId: string;
+}) {
+  return axiosPrivateQuery.get(`/chat/${args.conversationId}/assets`);
+}
+
+export async function getConversationMessages(args: {
+  page: number;
+  conversationId: string;
+}) {
+  return axiosPrivateQuery.get(
+    `/chat/${args.conversationId}/message?page=${args.page}&limit=${MAX_MESSAGE_PER_PAGE}`
+  );
 }
 
 export async function deleteConversationQuery(args: DeleteConversationArgsT) {
@@ -37,10 +51,4 @@ export async function markConversationAsReadQuery(
   return axiosPrivateQuery.patch(
     `/chat/${args.conversationId}/read?read=${args.read}`
   );
-}
-
-export async function getConversationAssetsQuery(
-  args: GetConversationAssetsArgsT
-) {
-  return axiosPrivateQuery.get(`/chat/${args.conversationId}/assets`);
 }

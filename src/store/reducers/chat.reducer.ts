@@ -3,15 +3,23 @@ import {
   SetStatusArgsT,
   controlStatus as status,
 } from "./helpers/controlStatus";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 
 import { PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
 
+import {
+  ChatStateT,
+  ConversationShortInfoT,
+  MessagesGroupT,
+} from "interface/store/chat.types";
 import * as ChatApiT from "interface/db/chat.types";
-import { ChatStateT, ConversationShortInfoT } from "interface/store/chat.types";
 
 const initialState: ChatStateT = {
+  hasMore: false,
+
+  currentPage: 1,
+
   unreadConversations: [],
 
   conversationsStatus: status.default(),
@@ -24,8 +32,8 @@ const initialState: ChatStateT = {
 
   activeConversation: {
     _id: "",
-    isRead: false,
     createdAt: "",
+    isRead: false,
     updatedAt: "",
     isReadBy: [],
     messages: [],
@@ -101,11 +109,21 @@ const chatSlice = createSlice({
 
     setConversation(
       state,
-      { payload: conversation }: PayloadAction<ChatApiT.ConversationT>
+      {
+        payload: { conversation, hasMore, currentPage },
+      }: PayloadAction<{
+        hasMore: boolean;
+        currentPage: number;
+        conversation: ChatApiT.GetConversationResponseT;
+      }>
     ) {
       const isRead = checkConversationIsRead(conversation);
 
-      state.activeConversation = { ...conversation, isRead };
+      state.activeConversation = {
+        ...conversation,
+        messages: groupMessages(conversation.messages),
+        isRead,
+      };
 
       const index = state.conversations.findIndex(
         (listedConversation) => listedConversation._id === conversation._id
@@ -119,6 +137,9 @@ const chatSlice = createSlice({
         isReadBy: conversation.isReadBy,
         isRead,
       };
+
+      state.hasMore = hasMore;
+      state.currentPage = currentPage;
 
       state.activeConversationStatus = status.default();
 
@@ -135,6 +156,8 @@ const chatSlice = createSlice({
     cleanUpConversation(state) {
       state.activeConversation = initialState.activeConversation;
       state.conversationAssets = initialState.conversationAssets;
+      state.hasMore = initialState.hasMore;
+      state.currentPage = initialState.currentPage;
     },
 
     setConversationStatus(
@@ -220,6 +243,7 @@ const chatSlice = createSlice({
           participants: conversation.participants,
           updatedAt: conversation.updatedAt,
           lastMessage: conversation.lastMessage,
+          createdAt: conversation.createdAt,
         },
         ...state.conversations,
       ];
@@ -251,7 +275,37 @@ const chatSlice = createSlice({
           lastMessage: conversation.lastMessage,
         };
 
-      if (state.activeConversation._id === conversation._id)
+      if (state.activeConversation._id === conversation._id) {
+        const lastGroup = state.activeConversation.messages.find(
+          (gr) => gr.divider === false
+        );
+
+        const lastGroupLastMessage =
+          lastGroup?.messages[lastGroup.messages.length - 1];
+
+        const belongsLastGroup =
+          lastGroupLastMessage?.sender?._id === message.sender?._id;
+
+        const isDateMissing = isDateDiff(
+          lastGroupLastMessage?.createdAt || "",
+          message.createdAt
+        );
+
+        if (belongsLastGroup && !isDateMissing) {
+          lastGroup?.messages.unshift(message);
+        } else if (!belongsLastGroup && !isDateMissing) {
+          state.activeConversation.messages.unshift(
+            getGroup(message, [message])
+          );
+        } else if (isDateMissing) {
+          state.activeConversation.messages.unshift(
+            getDivider(message.createdAt)
+          );
+          state.activeConversation.messages.unshift(
+            getGroup(message, [message])
+          );
+        }
+
         state.activeConversation = {
           ...state.activeConversation,
           isReadBy: conversation.isReadBy,
@@ -259,8 +313,8 @@ const chatSlice = createSlice({
             ...state.activeConversation,
             isReadBy: conversation.isReadBy,
           }),
-          messages: [...state.activeConversation.messages, message],
         };
+      }
     },
 
     // MARK CONVERSATION AS READ
@@ -277,12 +331,13 @@ const chatSlice = createSlice({
     ) {
       if (state.activeConversation._id === conversationId) {
         state.activeConversation.isReadBy = isReadBy;
+
         state.activeConversation.isRead = checkConversationIsRead({
           ...state.activeConversation,
           lastMessage:
             state.activeConversation.messages[
               state.activeConversation.messages.length - 1
-            ],
+            ]?.messages[0],
           isReadBy,
         });
       }
@@ -314,6 +369,8 @@ const chatSlice = createSlice({
 export default chatSlice.reducer;
 export const chatActions = chatSlice.actions;
 
+// UTILS
+
 const getLastMessageAdressat = (conversation: ChatApiT.ConversationShortT) =>
   conversation.participants.find(
     (user) => user._id !== conversation.lastMessage?.sender?._id || ""
@@ -337,4 +394,116 @@ function getUnreadConversationIds(
         getLastMessageAdressat(conversation)?._id === user._id
     )
     .map((conversation) => conversation._id);
+}
+
+function getDate(dateStr: string) {
+  return new Date(dateStr).getTime();
+}
+
+function isDateDiff(previousDate: string, currentDate: string) {
+  const _20m = 1000 * 60 * 20;
+
+  const previousDateTime = getDate(previousDate);
+
+  const currentDateTime = getDate(currentDate);
+
+  return currentDateTime - previousDateTime > _20m;
+}
+
+function groupMessages(
+  messages: Array<ChatApiT.MessageT>
+): Array<MessagesGroupT> {
+  const groups: Array<MessagesGroupT> = [];
+
+  let temp: Array<ChatApiT.MessageT> = [];
+
+  messages.forEach((message, index, row) => {
+    const lastIndex = row.length - 1;
+    const notIsFirstInRow = index > 0;
+
+    const senderId = message.sender?._id || "";
+
+    const previousMessageSenderId = notIsFirstInRow
+      ? row[index - 1].sender?._id
+      : "";
+
+    const isDateMissing =
+      notIsFirstInRow &&
+      isDateDiff(row[index - 1].createdAt, message.createdAt);
+
+    const messagePlacement = isDateMissing
+      ? "DIVIDER"
+      : senderId === previousMessageSenderId
+      ? "IN_GROUP"
+      : "";
+
+    const transformAsGroup = (
+      groupedMessages: Array<ChatApiT.MessageT>,
+      cleanUpTemp = true
+    ) => {
+      groups.push(getGroup(message, groupedMessages));
+      if (cleanUpTemp) temp = [];
+    };
+
+    const transformAsDivider = () => {
+      groups.push(getDivider(message.createdAt));
+      temp = [];
+    };
+
+    switch (index) {
+      case 0:
+        temp.push(message);
+        if (!row[index + 1]) transformAsGroup(temp);
+        break;
+      case lastIndex:
+        if (messagePlacement === "IN_GROUP") {
+          temp.push(message);
+          transformAsGroup(temp);
+        } else if (messagePlacement === "DIVIDER") {
+          transformAsDivider();
+          transformAsGroup([message]);
+        } else {
+          if (temp.length > 0) transformAsGroup(temp);
+          transformAsGroup([message]);
+        }
+        break;
+      default:
+        if (messagePlacement === "IN_GROUP") {
+          temp.push(message);
+        } else if (messagePlacement === "DIVIDER") {
+          if (temp.length > 0) transformAsGroup(temp);
+          transformAsDivider();
+          temp.push(message);
+        } else {
+          transformAsGroup(temp);
+          temp.push(message);
+        }
+        break;
+    }
+  });
+
+  return groups;
+}
+
+function getGroup(
+  message: ChatApiT.MessageT,
+  groupedMessages: Array<ChatApiT.MessageT>
+) {
+  return {
+    divider: false,
+    groupId: nanoid(),
+    date: message.createdAt,
+    messages: groupedMessages,
+    groupAuthor: message.sender?._id || "",
+  };
+}
+
+function getDivider(date: string) {
+  return {
+    date,
+    divider: true,
+    messages: [],
+    groupAuthor: "",
+    groupId: nanoid(),
+  };
 }

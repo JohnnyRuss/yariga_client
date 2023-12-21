@@ -1,4 +1,4 @@
-import { MessageT, ConversationParticipantT } from "interface/db/chat.types";
+import { ConversationParticipantT } from "interface/db/chat.types";
 
 type ChartProviderT = {
   children: React.ReactNode;
@@ -12,7 +12,6 @@ type ChatContextT = {
     participants: Array<ConversationParticipantT>,
     lastMessageSenderId: string
   ) => ConversationParticipantT;
-  groupMessages: (data: Array<MessageT>) => Array<Array<MessageT>>;
 };
 
 export type { ChartProviderT, ChatContextT };
