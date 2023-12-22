@@ -8,6 +8,7 @@ import {
   SendMessageArgsT,
   GetConversationArgsT,
   CreateConversationArgsT,
+  GetConversationMessagesArgsT,
 } from "interface/db/chat.types";
 
 export default function useConversationQuery() {
@@ -18,6 +19,9 @@ export default function useConversationQuery() {
 
   const getConversation = (args: GetConversationArgsT) =>
     dispatch(chatActions.getConversation(args));
+
+  const getConversationMessages = (args: GetConversationMessagesArgsT) =>
+    dispatch(chatActions.getConversationMessages(args));
 
   const cleanUpConversation = (conversationId: string) => {
     dispatch(chatActions.cleanUpConversation());
@@ -42,9 +46,10 @@ export default function useConversationQuery() {
   }, [messages]);
 
   return {
+    sendMessage,
     getConversation,
     cleanUpConversation,
-    sendMessage,
+    getConversationMessages,
     createConversationAndGetAll,
   };
 }

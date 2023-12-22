@@ -26,6 +26,8 @@ const initialState: ChatStateT = {
 
   activeConversationStatus: status.default(),
 
+  conversationMessagesStatus: status.default(),
+
   deleteConversationStatus: { ...status.default(), conversationId: "" },
 
   conversations: [],
@@ -110,10 +112,9 @@ const chatSlice = createSlice({
     setConversation(
       state,
       {
-        payload: { conversation, hasMore, currentPage },
+        payload: { conversation, hasMore },
       }: PayloadAction<{
         hasMore: boolean;
-        currentPage: number;
         conversation: ChatApiT.GetConversationResponseT;
       }>
     ) {
@@ -139,7 +140,7 @@ const chatSlice = createSlice({
       };
 
       state.hasMore = hasMore;
-      state.currentPage = currentPage;
+      state.currentPage = 1;
 
       state.activeConversationStatus = status.default();
 
@@ -165,6 +166,39 @@ const chatSlice = createSlice({
       { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
     ) {
       state.activeConversationStatus = setStatus({ stage, message });
+    },
+
+    // CONVERSATION MESSAGES
+    getConversationMessages: {
+      prepare: (payload: ChatApiT.GetConversationMessagesArgsT) => {
+        return { payload };
+      },
+
+      reducer: (state) => {
+        state.conversationMessagesStatus = status.loading();
+      },
+    },
+
+    setConversationMessages(
+      state,
+      { payload }: PayloadAction<ChatApiT.GetConversationMessagesResponseT>
+    ) {
+      state.activeConversation.messages = [
+        ...state.activeConversation.messages,
+        ...groupMessages(payload.messages),
+      ];
+
+      state.hasMore = payload.hasMore;
+      state.currentPage = state.currentPage + 1;
+
+      state.conversationMessagesStatus = status.default();
+    },
+
+    setConversationMessagesStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      state.conversationMessagesStatus = setStatus({ stage, message });
     },
 
     // DELETE CONVERSATION
@@ -407,7 +441,7 @@ function isDateDiff(previousDate: string, currentDate: string) {
 
   const currentDateTime = getDate(currentDate);
 
-  return currentDateTime - previousDateTime > _20m;
+  return Math.abs(currentDateTime - previousDateTime) >= _20m;
 }
 
 function groupMessages(
@@ -416,6 +450,20 @@ function groupMessages(
   const groups: Array<MessagesGroupT> = [];
 
   let temp: Array<ChatApiT.MessageT> = [];
+
+  const transformAsGroup = (
+    message: ChatApiT.MessageT,
+    groupedMessages: Array<ChatApiT.MessageT>,
+    cleanUpTemp = true
+  ) => {
+    groups.push(getGroup(message, groupedMessages));
+    if (cleanUpTemp) temp = [];
+  };
+
+  const transformAsDivider = (message: ChatApiT.MessageT) => {
+    groups.push(getDivider(message.createdAt));
+    temp = [];
+  };
 
   messages.forEach((message, index, row) => {
     const lastIndex = row.length - 1;
@@ -437,45 +485,32 @@ function groupMessages(
       ? "IN_GROUP"
       : "";
 
-    const transformAsGroup = (
-      groupedMessages: Array<ChatApiT.MessageT>,
-      cleanUpTemp = true
-    ) => {
-      groups.push(getGroup(message, groupedMessages));
-      if (cleanUpTemp) temp = [];
-    };
-
-    const transformAsDivider = () => {
-      groups.push(getDivider(message.createdAt));
-      temp = [];
-    };
-
     switch (index) {
       case 0:
         temp.push(message);
-        if (!row[index + 1]) transformAsGroup(temp);
+        if (!row[index + 1]) transformAsGroup(message, temp);
         break;
       case lastIndex:
         if (messagePlacement === "IN_GROUP") {
           temp.push(message);
-          transformAsGroup(temp);
+          transformAsGroup(message, temp);
         } else if (messagePlacement === "DIVIDER") {
-          transformAsDivider();
-          transformAsGroup([message]);
+          transformAsDivider(row[index - 1]);
+          transformAsGroup(message, [message]);
         } else {
-          if (temp.length > 0) transformAsGroup(temp);
-          transformAsGroup([message]);
+          if (temp.length > 0) transformAsGroup(message, temp);
+          transformAsGroup(message, [message]);
         }
         break;
       default:
         if (messagePlacement === "IN_GROUP") {
           temp.push(message);
         } else if (messagePlacement === "DIVIDER") {
-          if (temp.length > 0) transformAsGroup(temp);
-          transformAsDivider();
+          if (temp.length > 0) transformAsGroup(message, temp);
+          transformAsDivider(row[index - 1]);
           temp.push(message);
         } else {
-          transformAsGroup(temp);
+          transformAsGroup(message, temp);
           temp.push(message);
         }
         break;

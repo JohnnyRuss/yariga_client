@@ -16,6 +16,13 @@ const selectedConversationStatus = ({ chat }: RootStateT) => ({
   status: chat.activeConversationStatus.status,
 });
 
+const selectedConversationMessagesStatus = ({ chat }: RootStateT) => ({
+  error: chat.conversationMessagesStatus.error,
+  loading: chat.conversationMessagesStatus.loading,
+  message: chat.conversationMessagesStatus.message,
+  status: chat.conversationMessagesStatus.status,
+});
+
 const selectedDeleteConversationStatus = ({ chat }: RootStateT) => ({
   error: chat.deleteConversationStatus.error,
   loading: chat.deleteConversationStatus.loading,
@@ -55,6 +62,11 @@ const selectedConversationOrigin = ({ chat }: RootStateT) => {
   };
 };
 
+const selectedConversationPagination = ({ chat }: RootStateT) => ({
+  hasMore: chat.hasMore,
+  currentPage: chat.currentPage,
+});
+
 // SELECTORS
 const selectConversationsStatus = createSelector(
   selectedConversationsStatus,
@@ -63,6 +75,11 @@ const selectConversationsStatus = createSelector(
 
 const selectConversationStatus = createSelector(
   selectedConversationStatus,
+  (status) => status
+);
+
+const selectConversationMessagesStatus = createSelector(
+  selectedConversationMessagesStatus,
   (status) => status
 );
 
@@ -100,9 +117,15 @@ const selectConversationUrlAssets = ({ chat }: RootStateT) =>
 const selectUnreadConversationsCount = ({ chat }: RootStateT) =>
   chat.unreadConversations.length;
 
+const selectConversationPagination = createSelector(
+  selectedConversationPagination,
+  (pagination) => pagination
+);
+
 export {
   selectConversationsStatus,
   selectConversationStatus,
+  selectConversationMessagesStatus,
   selectDeleteConversationStatus,
   selectConversations,
   selectActiveConversation,
@@ -112,4 +135,5 @@ export {
   selectConversationMediaAssets,
   selectConversationUrlAssets,
   selectUnreadConversationsCount,
+  selectConversationPagination,
 };

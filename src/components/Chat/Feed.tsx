@@ -49,6 +49,7 @@ const Feed: React.FC = () => {
         adressat={adressat}
         isRead={conversationRoot.isRead}
         loading={conversationStatus.loading}
+        conversationId={conversationRoot._id}
       />
 
       {conversationRoot.participants.length >= 2 && (

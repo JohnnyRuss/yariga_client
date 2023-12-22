@@ -52,7 +52,6 @@ export function* getConversation({
     yield put(
       chatActions.setConversation({
         hasMore: messages.hasMore,
-        currentPage: messages.currentPage,
         conversation: { ...conversation, messages: messages.messages },
       })
     );
@@ -61,6 +60,22 @@ export function* getConversation({
       error,
       location: "getConversation",
       errorSetter: chatActions.setConversationStatus,
+    });
+  }
+}
+
+export function* getConversationMessages({
+  payload,
+}: PayloadAction<ChatApiT.GetConversationMessagesArgsT>) {
+  try {
+    const { data }: AxiosResponse<ChatApiT.GetConversationMessagesResponseT> =
+      yield call(chatAPI.getConversationMessages, payload);
+    yield put(chatActions.setConversationMessages(data));
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getConversationMessages",
+      errorSetter: chatActions.setConversationMessagesStatus,
     });
   }
 }

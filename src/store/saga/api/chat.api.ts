@@ -3,6 +3,7 @@ import {
   DeleteConversationArgsT,
   CreateConversationArgsT,
   MarkConversationAsReadArgsT,
+  GetConversationMessagesArgsT,
 } from "interface/db/chat.types";
 import { axiosPrivateQuery } from "services/axios";
 import { MAX_MESSAGE_PER_PAGE } from "config/config";
@@ -21,10 +22,9 @@ export async function getConversationAssetsQuery(args: {
   return axiosPrivateQuery.get(`/chat/${args.conversationId}/assets`);
 }
 
-export async function getConversationMessages(args: {
-  page: number;
-  conversationId: string;
-}) {
+export async function getConversationMessages(
+  args: GetConversationMessagesArgsT
+) {
   return axiosPrivateQuery.get(
     `/chat/${args.conversationId}/message?page=${args.page}&limit=${MAX_MESSAGE_PER_PAGE}`
   );

@@ -9,6 +9,11 @@ export default function* chatSaga() {
   yield takeLatest(chatActions.getConversation, chatHandlers.getConversation);
 
   yield takeLatest(
+    chatActions.getConversationMessages,
+    chatHandlers.getConversationMessages
+  );
+
+  yield takeLatest(
     chatActions.deleteConversation,
     chatHandlers.deleteConversation
   );

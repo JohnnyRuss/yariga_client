@@ -47,10 +47,14 @@ type GetConversationAssetsArgsT = {
   conversationId: string;
 };
 
+type GetConversationMessagesArgsT = {
+  page: number;
+  conversationId: string;
+};
+
 type GetConversationMessagesResponseT = {
   messages: Array<MessageT>;
   hasMore: boolean;
-  currentPage: number;
 };
 
 type DeleteConversationArgsT = {
@@ -98,6 +102,7 @@ export type {
   ConversationCardT,
   // API
   GetConversationArgsT,
+  GetConversationMessagesArgsT,
   GetConversationMessagesResponseT,
   GetConversationResponseT,
   DeleteConversationArgsT,

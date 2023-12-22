@@ -10,6 +10,7 @@ type ChatStateT = {
   unreadConversations: Array<string>;
   conversationsStatus: LoadingStatusT;
   activeConversationStatus: LoadingStatusT;
+  conversationMessagesStatus: LoadingStatusT;
   deleteConversationStatus: LoadingStatusT & { conversationId: string };
   conversations: Array<ConversationShortInfoT>;
   activeConversation: ConversationShortT & {
