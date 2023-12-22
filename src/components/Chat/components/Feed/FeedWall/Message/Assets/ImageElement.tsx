@@ -1,5 +1,6 @@
 import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 import { Box } from "@mui/material";
+import * as MuiStyled from "../Message.styled";
 
 type ImageElementT = {
   image: string;
@@ -11,24 +12,18 @@ const ImageElement: React.FC<ImageElementT> = ({ image }) => {
   const onOpenGallery = () => onOpenConversationGallery(image);
 
   return (
-    <Box
-      component="figure"
-      width="100%"
-      overflow="hidden"
-      onClick={onOpenGallery}
-      sx={{ aspectRatio: "1/1", borderRadius: "8px", cursor: "pointer" }}
-    >
+    <MuiStyled.Image onClick={onOpenGallery}>
       <Box
         component="img"
+        className="image-el__img"
         src={image}
         alt={image}
         loading="lazy"
         title={image}
         width="100%"
         height="100%"
-        sx={{ objectFit: "cover", maxWidth: "100%" }}
       />
-    </Box>
+    </MuiStyled.Image>
   );
 };
 

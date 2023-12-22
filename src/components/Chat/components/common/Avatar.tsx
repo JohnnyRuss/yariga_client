@@ -19,17 +19,17 @@ const Avatar: React.FC<AvatarT> = ({
   return (
     <Box position="relative" width={width} minWidth={width} height={width}>
       <UserAvatar
-        src={src || USER_DEFAULT_AVATAR}
         width="100%"
         alt={alt || "Unknown User"}
+        src={src || USER_DEFAULT_AVATAR}
       />
       {showBadge && (
         <Badge
           invisible={true}
           variant="dot"
           sx={{
-            bottom: 1,
             right: 1,
+            bottom: 1,
             width: "12px",
             height: "12px",
             position: "absolute",

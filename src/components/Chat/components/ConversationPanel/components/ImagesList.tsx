@@ -5,8 +5,8 @@ import { useChatGalleryContext } from "providers/chat/ChatGalleryProvider";
 import { selectConversationMediaAssets } from "store/selectors/chat.selectors";
 
 import { ImagesListSkeleton } from "./";
+import * as MuiStyled from "./index.styled";
 import { Grid, Box } from "@mui/material";
-import { ImageListGridItem } from "./index.styled";
 import { NoContentMessage } from "components/Layouts";
 
 type ImagesListT = {
@@ -19,24 +19,21 @@ const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
   const assets = useAppSelector(selectConversationMediaAssets);
 
   return (
-    <Box px={1} pr={0} width="100%" height="100%" className="custom_scrollbar">
+    <MuiStyled.ImagesList className="custom_scrollbar">
       <Grid container width="100%" spacing={1}>
         {conversationIsLoading ? (
           <ImagesListSkeleton />
         ) : assets.length > 0 ? (
           assets.map((image) => (
-            <ImageListGridItem item key={nanoid()}>
+            <Grid
+              item
+              key={nanoid()}
+              className="conversation-panel__images-list__grid-item"
+            >
               <Box
                 component="figure"
-                width="100%"
-                height="100%"
-                overflow="hidden"
                 onClick={() => onOpenConversationGallery(image)}
-                sx={{
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  backgroundColor: "green",
-                }}
+                className="conversation-panel__images-list__grid-item--fig"
               >
                 <Box
                   component="img"
@@ -46,16 +43,15 @@ const ImagesList: React.FC<ImagesListT> = ({ conversationIsLoading }) => {
                   title={image}
                   width="100%"
                   height="100%"
-                  sx={{ objectFit: "cover", maxWidth: "100%", height: "100%" }}
                 />
               </Box>
-            </ImageListGridItem>
+            </Grid>
           ))
         ) : (
           <NoContentMessage message="There are no shared media files in conversation" />
         )}
       </Grid>
-    </Box>
+    </MuiStyled.ImagesList>
   );
 };
 

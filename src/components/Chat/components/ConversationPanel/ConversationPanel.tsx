@@ -9,6 +9,7 @@ import {
 import { useSearchParams } from "hooks/utils";
 
 import * as UI from "./components";
+import * as MuiStyled from "./ConversationPanel.styled";
 import { Close } from "@mui/icons-material";
 import { UserRoleChip } from "components/Layouts";
 import { Avatar } from "components/Chat/components/common";
@@ -29,20 +30,12 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
   const conversationStatus = useAppSelector(selectConversationStatus);
 
   return (
-    <Stack
-      flex={1}
-      gap={1}
-      component="aside"
-      flexBasis="250px"
-      borderLeft="1px solid"
-      borderColor="app_text.contrastText"
-      height="100%"
-    >
+    <MuiStyled.ConversationPanel>
       {conversationStatus.loading ? (
         <UI.PanelHeadSkeleton />
       ) : (
-        <Box height="250px" overflow="hidden" position="relative">
-          <Stack width="100%" alignItems="center" p={1} pt={2} gap={1}>
+        <Box className="conversation-panel__header">
+          <Stack className="conversation-panel__header-user">
             <Avatar
               src={adressat?.avatar}
               alt={adressat?.username}
@@ -50,17 +43,13 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
             />
 
             <Link to={""}>
-              <Typography
-                fontWeight={600}
-                fontSize={20}
-                textTransform="capitalize"
-              >
+              <Typography className="conversation-panel__header-user--username">
                 {adressat?.username || "Unknown User"}
               </Typography>
             </Link>
 
             {adressat?.email && (
-              <Typography fontSize={14} color="app_text.main">
+              <Typography className="conversation-panel__header-user--email">
                 {adressat.email}
               </Typography>
             )}
@@ -68,38 +57,29 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
             {adressat?.role && <UserRoleChip role={adressat.role} />}
           </Stack>
 
-          <Box sx={{ width: "100%" }}>
+          <Box className="conversation-panel__header-tabs--container">
             <Tabs
-              variant="fullWidth"
               value={value}
+              variant="fullWidth"
               onChange={onTabChange}
-              sx={{
-                color: "app_blue.light",
-                borderBottom: "1px solid",
-                borderColor: "app_text.contrastText",
-              }}
+              className="conversation-panel__header-tabs"
             >
               <Tab value="one" label="Media Files" />
+
               <Tab value="two" label="URL's" />
             </Tabs>
           </Box>
 
           <Button
+            className="conversation-panel__close-btn"
             onClick={() => removeParam("conversation-panel")}
-            sx={{ position: "absolute", top: 0, right: 0 }}
           >
-            <Close sx={{ fontSize: 26 }} />
+            <Close className="conversation-panel__close-btn--icon" />
           </Button>
         </Box>
       )}
 
-      <Box
-        width="100%"
-        pr={1}
-        pb={1}
-        overflow="hidden"
-        sx={{ height: "calc(100% - 255px)" }}
-      >
+      <Box className="conversation-panel__content">
         {value === "one" && (
           <UI.ImagesList conversationIsLoading={conversationStatus.loading} />
         )}
@@ -108,7 +88,7 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
           <UI.URLList conversationIsLoading={conversationStatus.loading} />
         )}
       </Box>
-    </Stack>
+    </MuiStyled.ConversationPanel>
   );
 };
 

@@ -24,8 +24,8 @@ const ChatSlider: React.FC = () => {
       <Box
         sx={{
           padding: 2,
-          backgroundColor: "app_text.light",
           borderRadius: "10px",
+          backgroundColor: "app_text.light",
         }}
       >
         <SliderView

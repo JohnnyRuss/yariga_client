@@ -1,8 +1,9 @@
 import { MAX_IMAGE_COUNT_PER_SMS } from "config/config";
 
 import * as UI from "./";
+import * as MuiStyled from "./TextField.styled";
 import { Image } from "@mui/icons-material";
-import { Stack, Box, InputAdornment } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 
 import { EmojiT } from "interface/components/common.types";
 
@@ -26,8 +27,11 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
   const disabledSelectImage = disabled || overLength || isUploadingImages;
 
   return (
-    <InputAdornment position="end">
-      <Stack direction="row" gap={0.5} alignItems="center">
+    <MuiStyled.FeedFormTextFieldActions
+      position="end"
+      disabled_select_image={disabledSelectImage ? "1" : "0"}
+    >
+      <Stack className="messenger-actions__stack">
         <UI.EmojiPicker
           disabled={disabled}
           onEmojiSelection={onEmojiSelection}
@@ -37,17 +41,7 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
           <Box
             component="label"
             htmlFor="send-image"
-            p="8px"
-            borderRadius="100px"
-            sx={{
-              cursor: "pointer",
-              display: "inline-flex",
-              opacity: disabledSelectImage ? 0.5 : 1,
-
-              "&:hover": {
-                backgroundColor: "rgba(0, 0, 0, 0.04)",
-              },
-            }}
+            className="messenger-actions__img-label"
           >
             <Image />
             <input
@@ -62,7 +56,7 @@ const FeedFormTextFieldActions: React.FC<FeedFormTextFieldActionsT> = ({
           </Box>
         </UI.ImageUploadTooltip>
       </Stack>
-    </InputAdornment>
+    </MuiStyled.FeedFormTextFieldActions>
   );
 };
 

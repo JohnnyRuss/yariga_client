@@ -26,34 +26,22 @@ const ConversationCardLastMessage: React.FC<ConversationCardLastMessageT> = ({
 
   return (
     <Typography
-      fontSize={14}
       fontWeight={!showAsUnread ? 400 : 600}
-      className="conversation-text last-message"
       color={!showAsUnread ? "app_text.main" : "app_text.dark"}
+      className="conversation-text conversation-card__last-message"
     >
       {belongsToActiveUser && (
         <Typography
           component="span"
-          textTransform="capitalize"
-          fontSize="inherit"
-          fontWeight="inherit"
-          color="inherit"
+          className="conversation-card__last-message--sender"
         >
           You:&nbsp;
-          {/* {belongsToActiveUser
-          ? "You"
-          : message.sender?.username || "Unknown User"}
-        :&nbsp; */}
         </Typography>
       )}
 
       <LineClamp
         clamp={1}
-        sx={{
-          fontSize: "inherit",
-          fontWeight: "inherit",
-          color: "inherit",
-        }}
+        sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit" }}
       >
         {matchEmoticons(lastMessageText)}
       </LineClamp>

@@ -3,8 +3,9 @@ import { useAppSelector } from "store/hooks";
 import { selectConversationAdressat } from "store/selectors/chat.selectors";
 
 import * as UI from "./";
+import * as MuiStyled from "./Feed.styled";
+import { Typography } from "@mui/material";
 import { UserRoleChip } from "components/Layouts";
-import { Stack, Typography } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
 
 type FeedWallStarterT = { loading: boolean };
@@ -15,31 +16,23 @@ const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
   return loading ? (
     <UI.FeedWallStarterSkeleton />
   ) : (
-    <Stack
-      gap={1}
-      order={1}
-      width="100%"
-      alignItems="center"
-      py={{ xs: 8, app_mobile: 15 }}
-    >
+    <MuiStyled.FeedWallStarter>
       <Avatar src={adressat?.avatar} alt={adressat?.username} width="70px" />
 
-      <Typography fontWeight={600} fontSize={20} textTransform="capitalize">
+      <Typography className="feed-wall--starter__username">
         {adressat?.username || "Unknown User"}
       </Typography>
 
       {adressat?.email && (
-        <Typography fontSize={14} color="app_text.main">
+        <Typography className="feed-wall--starter__email">
           {adressat.email}
         </Typography>
       )}
 
       {adressat?.role && <UserRoleChip role={adressat.role || "USER"} />}
 
-      <Typography fontWeight={600} fontSize={16} color="app_text.main">
-        Yariga
-      </Typography>
-    </Stack>
+      <Typography className="feed-wall--starter__yariga">Yariga</Typography>
+    </MuiStyled.FeedWallStarter>
   );
 };
 

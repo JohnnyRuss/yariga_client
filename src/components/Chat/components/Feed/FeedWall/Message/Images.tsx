@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
-import SingleImage from "./SingleImage";
-import DualImage from "./DualImage";
-import MultipleImages from "./MultipleImages";
+import SingleImage from "./Assets/SingleImage";
+import DualImage from "./Assets/DualImage";
+import MultipleImages from "./Assets/MultipleImages";
+import * as MuiStyled from "./Message.styled";
 
 type ImagesT = {
   images: Array<string>;
@@ -12,12 +12,10 @@ const Images: React.FC<ImagesT> = ({ images, belongToActiveUser }) => {
   const imagesLength = images.length;
 
   return (
-    <Grid
+    <MuiStyled.ImageGrid
       container
-      width="100%"
-      maxWidth="460px"
       spacing={1}
-      justifyContent={belongToActiveUser ? "flex-end" : "flex-start"}
+      belongs_to_active_user={belongToActiveUser ? "1" : "0"}
     >
       {imagesLength === 1 ? (
         <SingleImage image={images[0]} />
@@ -26,7 +24,7 @@ const Images: React.FC<ImagesT> = ({ images, belongToActiveUser }) => {
       ) : (
         <MultipleImages images={images} />
       )}
-    </Grid>
+    </MuiStyled.ImageGrid>
   );
 };
 

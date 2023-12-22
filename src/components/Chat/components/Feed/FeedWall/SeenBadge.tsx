@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import * as MuiStyled from "./Feed.styled";
 import { Avatar } from "components/Chat/components/common";
 
 type SeenBadgeT = {
@@ -8,9 +8,9 @@ type SeenBadgeT = {
 
 const SeenBadge: React.FC<SeenBadgeT> = ({ avatar, username }) => {
   return (
-    <Box ml="auto" sx={{ transform: "translate(-18px,0px)" }}>
+    <MuiStyled.SeenBadge>
       <Avatar width="16px" showBadge={false} src={avatar} alt={username} />
-    </Box>
+    </MuiStyled.SeenBadge>
   );
 };
 

@@ -6,7 +6,7 @@ import { useSearchParams } from "hooks/utils";
 import { selectConversationsStatus } from "store/selectors/chat.selectors";
 
 import * as UI from "./components";
-import { Stack } from "@mui/material";
+import * as MuiStyled from "./ActiveConversations.styled";
 
 const ActiveConversations: React.FC = () => {
   const status = useAppSelector(selectConversationsStatus);
@@ -48,16 +48,7 @@ const ActiveConversations: React.FC = () => {
   }, [search]);
 
   return (
-    <Stack
-      p={1}
-      flex={1}
-      component="aside"
-      borderRight="1px solid"
-      borderColor="app_text.contrastText"
-      flexBasis={{ xs: "100%", app_desktop: "300px" }}
-      maxWidth={{ xs: "100%", app_desktop: "350px" }}
-      display={{ xs: isOnFeed ? "none" : "flex", app_desktop: "flex" }}
-    >
+    <MuiStyled.ActiveConversations is_on_feed={isOnFeed ? "1" : "0"}>
       <UI.Search
         search={search}
         disabled={status.loading}
@@ -69,7 +60,7 @@ const ActiveConversations: React.FC = () => {
       {isSearching && <UI.SearchUsersList onSelect={onSelectSearchResult} />}
 
       {!isSearching && <UI.ConversationsList loading={status.loading} />}
-    </Stack>
+    </MuiStyled.ActiveConversations>
   );
 };
 

@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { PATHS } from "config/paths";
 
 import * as UI from "./";
+import * as MuiStyled from "./FeedHeader.styled";
 import { ArrowBackIos } from "@mui/icons-material";
-import { Box, Stack, Button, useTheme } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 
 type FeedHeaderT = {
   loading: boolean;
@@ -14,29 +15,18 @@ type FeedHeaderT = {
 
 const FeedHeader: React.FC<FeedHeaderT> = ({ loading, isRead }) => {
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const onGoBack = () => navigate(PATHS.chat_page);
 
   return loading ? (
     <UI.FeedHeaderSkeleton />
   ) : (
-    <Box p={1} borderBottom="1px solid" borderColor="app_text.contrastText">
-      <Stack direction="row" gap={1} height="100%" alignItems="center">
+    <MuiStyled.FeedHeader>
+      <Stack className="feed-header__stack">
         <Button
-          onClick={onGoBack}
           variant="text"
-          sx={{
-            padding: 0,
-            width: "40px",
-            height: "40px",
-            minWidth: "auto",
-            color: "app_text.dark",
-
-            [theme.breakpoints.up("app_desktop")]: {
-              display: "none",
-            },
-          }}
+          onClick={onGoBack}
+          className="feed-header__stack-back--btn"
         >
           <ArrowBackIos />
         </Button>
@@ -45,7 +35,7 @@ const FeedHeader: React.FC<FeedHeaderT> = ({ loading, isRead }) => {
 
         <UI.FeedHeaderActions isRead={isRead} />
       </Stack>
-    </Box>
+    </MuiStyled.FeedHeader>
   );
 };
 

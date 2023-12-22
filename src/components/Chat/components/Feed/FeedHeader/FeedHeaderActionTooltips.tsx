@@ -1,55 +1,32 @@
+import { Tooltip } from "@mui/material";
+import * as MuiStyled from "./FeedHeader.styled";
 import { Phone, VideoCall } from "@mui/icons-material";
-import { Tooltip, Typography, IconButton, useTheme } from "@mui/material";
 
 const FeedHeaderActionTooltips: React.FC = () => {
-  const theme = useTheme();
-
   return (
     <>
       <Tooltip
         title={
-          <>
-            <Typography sx={{ textAlign: "center", wordWrap: "balance" }}>
-              Call functionality will be added soon 🙏
-            </Typography>
-          </>
+          <MuiStyled.FeedHeaderActionTooltipTitle className="feed-header__tooltip">
+            Call functionality will be added soon 🙏
+          </MuiStyled.FeedHeaderActionTooltipTitle>
         }
       >
-        <IconButton
-          sx={{
-            width: "40px",
-            height: "40px",
-            display: "none",
-            [theme.breakpoints.up("app_mobile")]: {
-              display: "flex",
-            },
-          }}
-        >
+        <MuiStyled.FeedHeaderActionTooltipButton>
           <Phone />
-        </IconButton>
+        </MuiStyled.FeedHeaderActionTooltipButton>
       </Tooltip>
 
       <Tooltip
         title={
-          <>
-            <Typography sx={{ textAlign: "center", wordWrap: "balance" }}>
-              VideoCall functionality will be added soon 🙏
-            </Typography>
-          </>
+          <MuiStyled.FeedHeaderActionTooltipTitle>
+            VideoCall functionality will be added soon 🙏
+          </MuiStyled.FeedHeaderActionTooltipTitle>
         }
       >
-        <IconButton
-          sx={{
-            width: "40px",
-            height: "40px",
-            display: "none",
-            [theme.breakpoints.up("app_mobile")]: {
-              display: "flex",
-            },
-          }}
-        >
+        <MuiStyled.FeedHeaderActionTooltipButton>
           <VideoCall />
-        </IconButton>
+        </MuiStyled.FeedHeaderActionTooltipButton>
       </Tooltip>
     </>
   );

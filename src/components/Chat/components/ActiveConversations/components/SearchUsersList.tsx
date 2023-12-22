@@ -5,6 +5,7 @@ import { searchUsersQuery } from "store/saga/api/user.api";
 import { useConversationQuery } from "hooks/api/chat";
 
 import * as UI from "./";
+import * as MuiStyled from "./styles/SearchList.styled";
 import { UserRoleChip } from "components/Layouts";
 import { Box, Stack, Typography } from "@mui/material";
 
@@ -54,57 +55,38 @@ const SearchUsersList: React.FC<SearchUsersListT> = ({ onSelect }) => {
   }, [search]);
 
   return (
-    <Box className="custom_scrollbar" mt="15px">
+    <MuiStyled.SearchList className="custom_scrollbar">
       {loading ? (
         <UI.SearchUserListSkeleton />
       ) : (
-        <Stack gap={2} pr={1}>
+        <Stack className="conversations__search-list">
           {users.map((user) => (
             <Stack
               key={user._id}
               onClick={() => onStartConversation(user)}
-              direction="row"
-              alignItems="center"
-              gap={1}
-              width="100%"
-              sx={{
-                cursor: "pointer",
-                paddingBottom: "5px",
-                boxSizing: "border-box",
-                borderBottom: "1px solid",
-                borderColor: "transparent",
-                transition: "all 0.2s ease",
-
-                "&:hover": {
-                  borderColor: "app_blue.light",
-                },
-              }}
+              className="conversations__search-list--item"
             >
               <Box
                 component="figure"
-                width="50px"
-                height="50px"
-                minWidth="50px"
-                overflow="hidden"
-                borderRadius="100%"
+                className="conversations__search-list--item__fig"
               >
                 <Box
                   component="img"
-                  src={user.avatar}
-                  alt={user.username}
-                  title={user.username}
                   loading="lazy"
                   width="100%"
                   height="100%"
-                  sx={{ objectFit: "cover" }}
+                  src={user.avatar}
+                  alt={user.username}
+                  title={user.username}
                 />
               </Box>
 
               <Stack>
-                <Typography fontWeight={600} textTransform="capitalize">
+                <Typography className="conversations__search-list--item__username">
                   {user.username}
                 </Typography>
-                <Typography fontSize={14} color="app_text.main">
+
+                <Typography className="conversations__search-list--item__email">
                   {user.email}
                 </Typography>
               </Stack>
@@ -116,7 +98,7 @@ const SearchUsersList: React.FC<SearchUsersListT> = ({ onSelect }) => {
           ))}
         </Stack>
       )}
-    </Box>
+    </MuiStyled.SearchList>
   );
 };
 

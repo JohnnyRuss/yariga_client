@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
-// import Text from "./Text";
 import Images from "./Images";
+import * as MuiStyled from "./Message.styled";
 import { LinkPreview, Text } from "components/Layouts";
 
 import { MessageT } from "interface/db/chat.types";
@@ -13,12 +12,9 @@ type MessageElT = {
 const Message: React.FC<MessageElT> = ({ message, belongToActiveUser }) => {
   return (
     <>
-      <Box
-        sx={{ padding: message.text ? "5px 10px" : "0" }}
-        maxWidth={{
-          xs: "100%",
-          app_tablet: message.links.length > 0 ? "320px" : "100%",
-        }}
+      <MuiStyled.Message
+        has_text={message.text ? "1" : "0"}
+        is_multi_link={message.links.length > 0 ? "1" : "0"}
         className={`msg-txt ${belongToActiveUser ? "active-user__msg" : ""}`}
       >
         {message.text && <Text text={message.text} gap={0} />}
@@ -26,7 +22,7 @@ const Message: React.FC<MessageElT> = ({ message, belongToActiveUser }) => {
         {message.links[0] && !message.media[0] && (
           <LinkPreview url={message.links[0]} />
         )}
-      </Box>
+      </MuiStyled.Message>
 
       {message.media.length > 0 && (
         <Images

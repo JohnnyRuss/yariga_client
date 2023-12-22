@@ -9,7 +9,7 @@ const Image: React.FC<ImageT> = ({ src }) => {
     <Box
       component="img"
       src={src}
-      alt="test"
+      alt="uploading"
       width="100%"
       height="100%"
       loading="eager"

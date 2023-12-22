@@ -101,11 +101,11 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled, loading }) => {
   return (
     <>
       <Box
-        component="form"
         p={1}
         mt="auto"
-        position="sticky"
         bottom={0}
+        component="form"
+        position="sticky"
         onSubmit={onSendMessage}
       >
         <Stack gap={1}>

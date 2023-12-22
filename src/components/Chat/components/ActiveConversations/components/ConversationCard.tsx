@@ -28,6 +28,11 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
   const showAsUnread =
     !conversationStatus.belongsToActiveUser && !conversationStatus.isRead;
 
+  const onOptions = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   useEffect(() => {
     setConversationStatus((prev) => ({
       ...prev,
@@ -41,18 +46,18 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
       to={DYNAMIC_PATHS.chat_conversation__page(conversation._id)}
       className={({ isActive }) => (isActive ? "active-conversation" : "")}
     >
-      <Stack direction="row" gap={1} position="relative">
+      <Stack className="conversation-card__stack">
         <Avatar
           src={conversation.adressat?.avatar}
           alt={conversation.adressat?.username}
         />
 
-        <Stack mt="4px" flex={1} sx={{ maxWidth: "calc(100% - 65px)" }}>
-          <Typography fontWeight={600} textTransform="capitalize">
+        <Stack className="conversation-card__stack-details">
+          <Typography className="conversation-card__stack-details--username">
             {conversation.adressat?.username || "Unknown User"}
           </Typography>
 
-          <Stack direction="row" alignItems="center" width="100%">
+          <Stack className="conversation-card__stack-details--message">
             {conversation.lastMessage && (
               <ConversationCardLastMessage
                 message={conversation.lastMessage}
@@ -63,16 +68,13 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
 
             <Badge
               variant="dot"
-              className="badge"
               sx={{ opacity: showAsUnread ? 1 : 0 }}
+              className="conversation-card__stack-details--message__badge"
             />
 
             <Box
-              className="conversation-options__box"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
+              onClick={onOptions}
+              className="conversation-card__stack-details--message__options"
             >
               <ConversationOptions
                 showPanelBtn={false}
@@ -83,10 +85,8 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
           </Stack>
         </Stack>
 
-        <Box className="conversation-date">
-          <Typography fontSize={12} color="app_text.main" width="100%">
-            {getTimeString(conversation.lastMessage?.createdAt || "")}
-          </Typography>
+        <Box className="conversation-card__stack-date">
+          {getTimeString(conversation.lastMessage?.createdAt || "")}
         </Box>
       </Stack>
     </MuiStyled.ConversationCard>

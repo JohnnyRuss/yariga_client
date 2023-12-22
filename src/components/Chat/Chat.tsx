@@ -2,7 +2,8 @@ import { Outlet } from "react-router-dom";
 import { useChatContext } from "providers/chat/ChatProvider";
 
 import * as UI from "./components";
-import { Stack, Box } from "@mui/material";
+import { Stack } from "@mui/material";
+import * as MuiStyled from "./Chat.styled";
 import { ContentBox, SectionTitle } from "components/Layouts";
 
 const Chat: React.FC = () => {
@@ -12,20 +13,8 @@ const Chat: React.FC = () => {
     <ContentBox>
       <SectionTitle title="Messages" />
 
-      <Box
-        position="relative"
-        width="100%"
-        height={{ xs: "94vh", app_mobile: "82vh" }}
-      >
-        <Stack
-          padding={0}
-          width="100%"
-          height="100%"
-          sx={{ inset: 0, overflowX: "hidden" }}
-          direction="row"
-          position="absolute"
-          className="content__box"
-        >
+      <MuiStyled.ChatContainer>
+        <Stack className="content__box chat__content-box">
           <UI.ActiveConversations />
 
           <Outlet />
@@ -34,7 +23,7 @@ const Chat: React.FC = () => {
 
           {showControl && <UI.ConversationPanel />}
         </Stack>
-      </Box>
+      </MuiStyled.ChatContainer>
     </ContentBox>
   );
 };

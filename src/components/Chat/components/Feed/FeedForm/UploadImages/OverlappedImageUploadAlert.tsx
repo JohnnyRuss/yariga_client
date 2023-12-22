@@ -1,5 +1,6 @@
+import * as MuiStyled from "./UploadImages.styled";
 import { Close } from "@mui/icons-material";
-import { Alert, AlertTitle, IconButton, Typography } from "@mui/material";
+import { AlertTitle, IconButton, Typography } from "@mui/material";
 
 type OverlappedImageUploadAlertT = {
   message: string;
@@ -11,18 +12,18 @@ const OverlappedImageUploadAlert: React.FC<OverlappedImageUploadAlertT> = ({
   onCloseOverlappedImageSizeAlert,
 }) => {
   return (
-    <Alert severity="warning" sx={{ position: "relative" }}>
+    <MuiStyled.OverlappedImageUploadAlert severity="warning">
       <AlertTitle>Warning</AlertTitle>
 
       <Typography>{message}</Typography>
 
       <IconButton
-        sx={{ position: "absolute", top: 0, right: 0 }}
+        className="alert__close-btn"
         onClick={onCloseOverlappedImageSizeAlert}
       >
         <Close />
       </IconButton>
-    </Alert>
+    </MuiStyled.OverlappedImageUploadAlert>
   );
 };
 

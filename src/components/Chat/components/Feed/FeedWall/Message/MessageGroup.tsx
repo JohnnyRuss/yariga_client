@@ -6,6 +6,7 @@ import { Stack, Box } from "@mui/material";
 import { Avatar } from "components/Chat/components/common";
 
 import { MessagesGroupT } from "interface/store/chat.types";
+import { MessageT } from "interface/db/chat.types";
 
 type MessageElT = {
   messageGroup: MessagesGroupT;
@@ -20,6 +21,10 @@ const MessageGroup: React.FC<MessageElT> = ({
   const belongToActiveUser = groupSender?._id === authenticatedUserId;
 
   const isMultiMessageGroup = messageGroup.messages.length > 1;
+
+  const sortFn = (messageA: MessageT, messageB: MessageT) =>
+    new Date(messageA.createdAt).getTime() -
+    new Date(messageB.createdAt).getTime();
 
   return (
     <Stack
@@ -52,18 +57,13 @@ const MessageGroup: React.FC<MessageElT> = ({
         alignItems={belongToActiveUser ? "flex-end" : "flex-start"}
         className={isMultiMessageGroup ? "group__multi-msg" : ""}
       >
-        {[...messageGroup.messages]
-          .sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-          )
-          .map((message) => (
-            <Message
-              key={message._id}
-              message={message}
-              belongToActiveUser={belongToActiveUser}
-            />
-          ))}
+        {[...messageGroup.messages].sort(sortFn).map((message) => (
+          <Message
+            key={message._id}
+            message={message}
+            belongToActiveUser={belongToActiveUser}
+          />
+        ))}
       </Stack>
     </Stack>
   );

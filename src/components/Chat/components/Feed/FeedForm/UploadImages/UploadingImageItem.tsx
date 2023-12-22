@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 
 import * as UI from "./";
-import { Box } from "@mui/material";
+import * as MuiStyled from "./UploadImages.styled";
 
 import { CloudinaryUploadItemT } from "services/cloudinary";
 
@@ -18,13 +18,7 @@ const UploadingImageItem: React.FC<UploadingImageItemT> = ({
   const src = useMemo(() => URL.createObjectURL(image.file), []);
 
   return (
-    <Box
-      width="70px"
-      height="70px"
-      borderRadius="5px"
-      overflow="hidden"
-      position="relative"
-    >
+    <MuiStyled.UploadingImageItem>
       <UI.UploadingImage
         src={src}
         fileId={image.fileId}
@@ -33,7 +27,7 @@ const UploadingImageItem: React.FC<UploadingImageItemT> = ({
       />
 
       {image.progress < 100 && <UI.Progress progress={image.progress} />}
-    </Box>
+    </MuiStyled.UploadingImageItem>
   );
 };
 

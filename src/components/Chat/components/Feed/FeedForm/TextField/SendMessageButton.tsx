@@ -1,25 +1,13 @@
 import { Send } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import * as MuiStyled from "./TextField.styled";
 
 type SendMessageButtonT = { disabled: boolean };
 
 const SendMessageButton: React.FC<SendMessageButtonT> = ({ disabled }) => {
   return (
-    <IconButton
-      type="submit"
-      disabled={disabled}
-      sx={{
-        color: "app_blue.light",
-        marginTop: "auto",
-
-        "&:disabled": {
-          opacity: 0.5,
-          pointerEvents: "none",
-        },
-      }}
-    >
-      <Send sx={{ fontSize: 42 }} />
-    </IconButton>
+    <MuiStyled.SendMessageButton type="submit" disabled={disabled}>
+      <Send className="send-message__btn" />
+    </MuiStyled.SendMessageButton>
   );
 };
 

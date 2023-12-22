@@ -7,6 +7,7 @@ import useUrlMetaQuery from "hooks/api/useUrlMetaQuery";
 import { selectConversationUrlAssets } from "store/selectors/chat.selectors";
 
 import { URLListSkeleton } from "./";
+import * as MuiStyled from "./index.styled";
 import { Stack, Box } from "@mui/material";
 
 type URLListT = {
@@ -26,24 +27,21 @@ const URLList: React.FC<URLListT> = ({ conversationIsLoading }) => {
   return loadingMetaAssets || conversationIsLoading ? (
     <URLListSkeleton />
   ) : (
-    <Box px={1} pr={0} width="100%" height="100%" className="custom_scrollbar">
-      <Stack gap={1}>
+    <MuiStyled.URLList className="custom_scrollbar">
+      <Stack className="conversation-panel__url-list">
         {metaAssets.length > 0 ? (
           metaAssets.map((meta, index) => (
             <a
-              href={meta.url || "#empty_url"}
               rel="noreferrer"
               target="_blank"
+              href={meta.url || "#empty_url"}
               key={`meta__${meta.title}-${index}`}
+              className="conversation-panel__url-list__item"
             >
-              <Stack direction="row" gap={1} alignItems="flex-start">
+              <Stack className="conversation-panel__url-list__item-stack">
                 <Box
                   component="figure"
-                  width="85px"
-                  height="85px"
-                  minWidth="85px"
-                  borderRadius="5px"
-                  overflow="hidden"
+                  className="conversation-panel__url-list__item-stack--fig"
                 >
                   <Box
                     component="img"
@@ -53,15 +51,10 @@ const URLList: React.FC<URLListT> = ({ conversationIsLoading }) => {
                     alt={meta.title || "meta.preview"}
                     width="100%"
                     height="100%"
-                    sx={{
-                      objectFit: "cover",
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                    }}
                   />
                 </Box>
 
-                <Stack pt="3px">
+                <Stack className="conversation-panel__url-list__item-stack--content">
                   <LineClamp clamp={2} sx={{ fontWeight: 600, fontSize: 14 }}>
                     {meta.title}
                   </LineClamp>
@@ -84,7 +77,7 @@ const URLList: React.FC<URLListT> = ({ conversationIsLoading }) => {
           <NoContentMessage message="There are now shared url's in conversation" />
         )}
       </Stack>
-    </Box>
+    </MuiStyled.URLList>
   );
 };
 
