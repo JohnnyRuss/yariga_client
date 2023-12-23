@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "hooks/utils";
 
-import { searchUsersQuery } from "store/saga/api/user.api";
+import { useSearchParams } from "hooks/utils";
 import { useConversationQuery } from "hooks/api/chat";
+import { searchUsersQuery } from "store/saga/api/user.api";
 
 import * as UI from "./";
 import * as MuiStyled from "./styles/SearchList.styled";

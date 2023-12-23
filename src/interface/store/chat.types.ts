@@ -7,19 +7,25 @@ import {
 import { LoadingStatusT } from "interface/store/common.types";
 
 type ChatStateT = {
-  unreadConversations: Array<string>;
   conversationsStatus: LoadingStatusT;
   activeConversationStatus: LoadingStatusT;
   conversationMessagesStatus: LoadingStatusT;
   deleteConversationStatus: LoadingStatusT & { conversationId: string };
+
+  unreadConversations: Array<string>;
+
+  hasMoreConversations: boolean;
+  allConversationsCurrentPage: number;
   conversations: Array<ConversationShortInfoT>;
+
+  hasMoreMessages: boolean;
+  conversationCurrentPage: number;
   activeConversation: ConversationShortT & {
     isRead: boolean;
     messages: Array<MessagesGroupT>;
   };
+
   conversationAssets: ConversationAssetsT;
-  hasMore: boolean;
-  currentPage: number;
 };
 
 type MessagesGroupT = {

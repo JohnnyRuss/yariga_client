@@ -34,17 +34,16 @@ type ConversationAssetsT = {
   links: Array<string>;
 };
 
-// API
+//________      API      ________//
+
+//________      SINGLE CONVERSATION
+
 type GetConversationArgsT = {
   conversationId: string;
 };
 
 type GetConversationResponseT = ConversationShortT & {
   messages: Array<MessageT>;
-};
-
-type GetConversationAssetsArgsT = {
-  conversationId: string;
 };
 
 type GetConversationMessagesArgsT = {
@@ -57,23 +56,11 @@ type GetConversationMessagesResponseT = {
   hasMore: boolean;
 };
 
-type DeleteConversationArgsT = {
+type GetConversationAssetsArgsT = {
   conversationId: string;
 };
 
-type MarkConversationAsReadArgsT = {
-  conversationId: string;
-  read: "1" | "0";
-};
-
-type MarkConversationAsReadResponseT = {
-  conversationId: string;
-  isReadBy: Array<string>;
-};
-
-type CreateConversationArgsT = {
-  adressat: string;
-};
+//________     SEND/READ MESSAGE
 
 type SendMessageArgsT = {
   params: { conversationId: string };
@@ -94,6 +81,37 @@ type SendMessageResponseT = {
   message: MessageT;
 };
 
+type MarkConversationAsReadArgsT = {
+  conversationId: string;
+  read: "1" | "0";
+};
+
+type MarkConversationAsReadResponseT = {
+  conversationId: string;
+  isReadBy: Array<string>;
+};
+
+//________     ALL CONVERSATIONS
+
+type GetAllConversationsArgsT = {
+  page: number;
+};
+
+type GetAllConversationsResponseT = {
+  hasMore: boolean;
+  conversations: Array<ConversationShortT>;
+};
+
+//________     CREATE/DELETE CONVERSATION
+
+type DeleteConversationArgsT = {
+  conversationId: string;
+};
+
+type CreateConversationArgsT = {
+  adressat: string;
+};
+
 export type {
   MessageT,
   ConversationShortT,
@@ -101,15 +119,21 @@ export type {
   ConversationParticipantT,
   ConversationCardT,
   // API
+  //________     SINGLE CONVERSATION
   GetConversationArgsT,
+  GetConversationResponseT,
   GetConversationMessagesArgsT,
   GetConversationMessagesResponseT,
-  GetConversationResponseT,
-  DeleteConversationArgsT,
-  CreateConversationArgsT,
+  GetConversationAssetsArgsT,
+  //________     SEND/READ MESSAGE
   SendMessageArgsT,
   SendMessageResponseT,
   MarkConversationAsReadArgsT,
   MarkConversationAsReadResponseT,
-  GetConversationAssetsArgsT,
+  //________     ALL CONVERSATIONS
+  GetAllConversationsArgsT,
+  GetAllConversationsResponseT,
+  //________     CREATE/DELETE CONVERSATION
+  DeleteConversationArgsT,
+  CreateConversationArgsT,
 };

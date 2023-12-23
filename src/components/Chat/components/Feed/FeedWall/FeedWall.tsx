@@ -59,7 +59,7 @@ const FeedWall: React.FC<FeedWallT> = ({
               loader={<Spinner absolute={false} />}
               className="custom_scrollbar infinite-scroll__def"
             >
-              {<MessageList />}
+              <MessageList />
 
               {isRead && (
                 <UI.SeenBadge

@@ -80,13 +80,6 @@ a {
   }
 }
 
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 .app__card {
   width: 100%;
   display: inline-flex;
@@ -115,6 +108,14 @@ a {
 
 .underline {
   text-decoration: underline !important;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 figure.image-placeholder {

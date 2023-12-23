@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
+import { memo, useState, useEffect } from "react";
 
 import { useSearchParams } from "hooks/utils";
 import { selectConversationsStatus } from "store/selectors/chat.selectors";

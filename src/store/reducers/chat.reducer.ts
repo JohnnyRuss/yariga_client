@@ -16,21 +16,13 @@ import {
 import * as ChatApiT from "interface/db/chat.types";
 
 const initialState: ChatStateT = {
-  hasMore: false,
+  //________     ACTIVE CONVERSATION
 
-  currentPage: 1,
-
-  unreadConversations: [],
-
-  conversationsStatus: status.default(),
+  hasMoreMessages: false,
+  conversationCurrentPage: 1,
 
   activeConversationStatus: status.default(),
-
   conversationMessagesStatus: status.default(),
-
-  deleteConversationStatus: { ...status.default(), conversationId: "" },
-
-  conversations: [],
 
   activeConversation: {
     _id: "",
@@ -46,13 +38,31 @@ const initialState: ChatStateT = {
     links: [],
     media: [],
   },
+
+  //________     UNREAD CONVERSATIONS COUNT
+
+  unreadConversations: [],
+
+  //________     ALL CONVERSATIONS
+
+  hasMoreConversations: false,
+  allConversationsCurrentPage: 1,
+
+  conversationsStatus: status.default(),
+
+  conversations: [],
+
+  //________     DELETE CONVERSATION
+
+  deleteConversationStatus: { ...status.default(), conversationId: "" },
 };
 
 const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    // ALL CONVERSATIONS
+    //_________________________________           ALL CONVERSATIONS
+
     getConversations(state) {
       state.conversationsStatus = status.loading();
     },
@@ -60,10 +70,13 @@ const chatSlice = createSlice({
     setConversations(
       state,
       {
-        payload: { data: conversations, activeUserId },
+        payload: {
+          activeUserId,
+          data: { conversations, hasMore },
+        },
       }: PayloadAction<{
-        data: Array<ChatApiT.ConversationShortT>;
         activeUserId: string;
+        data: ChatApiT.GetAllConversationsResponseT;
       }>
     ) {
       const transformedConversations: Array<ConversationShortInfoT> =
@@ -76,7 +89,10 @@ const chatSlice = createSlice({
             ) || null,
         }));
 
+      state.hasMoreConversations = hasMore;
+      state.allConversationsCurrentPage = 1;
       state.conversations = transformedConversations;
+
       state.unreadConversations = getUnreadConversationIds(
         transformedConversations
       );
@@ -98,7 +114,60 @@ const chatSlice = createSlice({
       });
     },
 
-    // CONVERSATION
+    //_________________________________           PAGINATE ALL CONVERSATIONS
+
+    getPaginatedConversations: {
+      prepare: (payload: ChatApiT.GetAllConversationsArgsT) => {
+        return { payload };
+      },
+
+      reducer: () => {},
+    },
+
+    setPaginatedConversations(
+      state,
+      {
+        payload: {
+          activeUserId,
+          data: { hasMore, conversations },
+        },
+      }: PayloadAction<{
+        activeUserId: string;
+        data: ChatApiT.GetAllConversationsResponseT;
+      }>
+    ) {
+      state.allConversationsCurrentPage =
+        state.allConversationsCurrentPage += 1;
+      state.hasMoreConversations = hasMore;
+
+      const transformedConversations: Array<ConversationShortInfoT> =
+        conversations.map((conversation) => ({
+          ...conversation,
+          isRead: checkConversationIsRead(conversation),
+          adressat:
+            conversation.participants.find(
+              (participant) => participant._id !== activeUserId
+            ) || null,
+        }));
+
+      state.conversations = [
+        ...state.conversations,
+        ...transformedConversations,
+      ];
+    },
+
+    setPaginatedConversationsStatus(
+      state,
+      { payload: { stage, message } }: PayloadAction<SetStatusArgsT>
+    ) {
+      // state. = setStatus({
+      //   stage,
+      //   message: message || "Failed to create property",
+      // });
+    },
+
+    //_________________________________           CONVERSATION
+
     getConversation: {
       prepare: (payload: ChatApiT.GetConversationArgsT) => {
         return { payload };
@@ -139,8 +208,8 @@ const chatSlice = createSlice({
         isRead,
       };
 
-      state.hasMore = hasMore;
-      state.currentPage = 1;
+      state.hasMoreMessages = hasMore;
+      state.conversationCurrentPage = 1;
 
       state.activeConversationStatus = status.default();
 
@@ -157,8 +226,8 @@ const chatSlice = createSlice({
     cleanUpConversation(state) {
       state.activeConversation = initialState.activeConversation;
       state.conversationAssets = initialState.conversationAssets;
-      state.hasMore = initialState.hasMore;
-      state.currentPage = initialState.currentPage;
+      state.hasMoreMessages = initialState.hasMoreMessages;
+      state.conversationCurrentPage = initialState.conversationCurrentPage;
     },
 
     setConversationStatus(
@@ -168,7 +237,8 @@ const chatSlice = createSlice({
       state.activeConversationStatus = setStatus({ stage, message });
     },
 
-    // CONVERSATION MESSAGES
+    //_________________________________           CONVERSATION MESSAGES
+
     getConversationMessages: {
       prepare: (payload: ChatApiT.GetConversationMessagesArgsT) => {
         return { payload };
@@ -188,8 +258,8 @@ const chatSlice = createSlice({
         ...groupMessages(payload.messages),
       ];
 
-      state.hasMore = payload.hasMore;
-      state.currentPage = state.currentPage + 1;
+      state.hasMoreMessages = payload.hasMore;
+      state.conversationCurrentPage = state.conversationCurrentPage + 1;
 
       state.conversationMessagesStatus = status.default();
     },
@@ -201,45 +271,8 @@ const chatSlice = createSlice({
       state.conversationMessagesStatus = setStatus({ stage, message });
     },
 
-    // DELETE CONVERSATION
-    deleteConversation(
-      state,
-      {
-        payload: { conversationId },
-      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
-    ) {
-      state.deleteConversationStatus = { ...status.loading(), conversationId };
-    },
+    //_________________________________           CREATE CONVERSATION AND GET ALL
 
-    setDeletedConversation(
-      state,
-      {
-        payload: { conversationId },
-      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
-    ) {
-      if (
-        state.activeConversation &&
-        state.activeConversation._id === conversationId
-      )
-        state.activeConversation = initialState.activeConversation;
-
-      state.conversations = state.conversations.filter(
-        (conversation) => conversation._id !== conversationId
-      );
-
-      state.unreadConversations = getUnreadConversationIds(state.conversations);
-
-      RouterHistory.navigate(PATHS.chat_page);
-
-      state.deleteConversationStatus = {
-        ...status.default(),
-        conversationId: "",
-      };
-    },
-
-    setDeleteConversationStatus(state, { payload }: PayloadAction<any>) {},
-
-    // CREATE CONVERSATION AND GET ALL
     createConversationAndGetAll(
       state,
       {
@@ -285,7 +318,8 @@ const chatSlice = createSlice({
       state.unreadConversations = getUnreadConversationIds(state.conversations);
     },
 
-    // SEND MESSAGE
+    //_________________________________           SEND MESSAGE
+
     sendMessage(_, { payload }: PayloadAction<ChatApiT.SendMessageArgsT>) {},
 
     setSentMessage(
@@ -351,7 +385,8 @@ const chatSlice = createSlice({
       }
     },
 
-    // MARK CONVERSATION AS READ
+    //_________________________________           MARK CONVERSATION AS READ
+
     markConversationAsRead(
       state,
       { payload }: PayloadAction<ChatApiT.MarkConversationAsReadArgsT>
@@ -391,7 +426,47 @@ const chatSlice = createSlice({
       state.unreadConversations = getUnreadConversationIds(state.conversations);
     },
 
-    // UNREAD  CONVERSATIONS
+    //_________________________________           DELETE CONVERSATION
+
+    deleteConversation(
+      state,
+      {
+        payload: { conversationId },
+      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
+    ) {
+      state.deleteConversationStatus = { ...status.loading(), conversationId };
+    },
+
+    setDeletedConversation(
+      state,
+      {
+        payload: { conversationId },
+      }: PayloadAction<ChatApiT.DeleteConversationArgsT>
+    ) {
+      if (
+        state.activeConversation &&
+        state.activeConversation._id === conversationId
+      )
+        state.activeConversation = initialState.activeConversation;
+
+      state.conversations = state.conversations.filter(
+        (conversation) => conversation._id !== conversationId
+      );
+
+      state.unreadConversations = getUnreadConversationIds(state.conversations);
+
+      RouterHistory.navigate(PATHS.chat_page);
+
+      state.deleteConversationStatus = {
+        ...status.default(),
+        conversationId: "",
+      };
+    },
+
+    setDeleteConversationStatus(state, { payload }: PayloadAction<any>) {},
+
+    //_________________________________           UNREAD  CONVERSATIONS
+
     setUnreadConversationsCount(state, { payload }: PayloadAction<string>) {
       state.unreadConversations = [
         ...Array.from(new Set([...state.unreadConversations, payload])),
@@ -403,7 +478,7 @@ const chatSlice = createSlice({
 export default chatSlice.reducer;
 export const chatActions = chatSlice.actions;
 
-// UTILS
+//_________________________________           UTILS
 
 const getLastMessageAdressat = (conversation: ChatApiT.ConversationShortT) =>
   conversation.participants.find(

@@ -2,19 +2,21 @@ import { styled } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export const ConversationCard = styled(NavLink)(({ theme }) => ({
-  padding: "8px 7px",
-  borderRadius: "10px",
+  width: "100%",
   overflow: "hidden",
+  borderRadius: "10px",
+  display: "inline-block",
 
   ".conversation-card__stack": {
-    flexDirection: "row",
     gap: "8px",
+    padding: "8px 7px",
+    flexDirection: "row",
     position: "relative",
   },
 
   ".conversation-card__stack-details": {
-    marginTop: "4px",
     flex: 1,
+    marginTop: "4px",
     maxWidth: "calc(100% - 65px)",
 
     "&--username": {
@@ -40,7 +42,7 @@ export const ConversationCard = styled(NavLink)(({ theme }) => ({
 
     "&--message__options": {
       position: "absolute",
-      right: "-15px",
+      right: "0px",
       display: "block",
 
       "@media (hover:hover)": {

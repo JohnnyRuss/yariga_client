@@ -11,10 +11,12 @@ import { AxiosResponse } from "axios";
 import { RootStateT } from "store/store";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+//_________________________________           ALL CONVERSATIONS
+
 export function* getConversations() {
   try {
-    const { data }: AxiosResponse<Array<ChatApiT.ConversationShortT>> =
-      yield call(chatAPI.getConversationsQuery);
+    const { data }: AxiosResponse<ChatApiT.GetAllConversationsResponseT> =
+      yield call(chatAPI.getConversationsQuery, { page: 1 });
 
     const activeUserId: string = yield select(
       ({ user }: RootStateT) => user.user._id
@@ -29,6 +31,31 @@ export function* getConversations() {
     });
   }
 }
+
+//_________________________________           PAGINATE ALL CONVERSATIONS
+
+export function* getPaginatedConversations({
+  payload,
+}: PayloadAction<ChatApiT.GetAllConversationsArgsT>) {
+  try {
+    const { data }: AxiosResponse<ChatApiT.GetAllConversationsResponseT> =
+      yield call(chatAPI.getConversationsQuery, payload);
+
+    const activeUserId: string = yield select(
+      ({ user }: RootStateT) => user.user._id
+    );
+
+    yield put(chatActions.setPaginatedConversations({ data, activeUserId }));
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getPaginatedConversations",
+      errorSetter: chatActions.setPaginatedConversationsStatus,
+    });
+  }
+}
+
+//_________________________________           CONVERSATION
 
 export function* getConversation({
   payload: { conversationId },
@@ -64,6 +91,8 @@ export function* getConversation({
   }
 }
 
+//_________________________________           CONVERSATION MESSAGES
+
 export function* getConversationMessages({
   payload,
 }: PayloadAction<ChatApiT.GetConversationMessagesArgsT>) {
@@ -80,22 +109,7 @@ export function* getConversationMessages({
   }
 }
 
-export function* deleteConversation({
-  payload,
-}: PayloadAction<ChatApiT.DeleteConversationArgsT>) {
-  try {
-    const { data }: AxiosResponse<ChatApiT.DeleteConversationArgsT> =
-      yield call(chatAPI.deleteConversationQuery, payload);
-
-    yield put(chatActions.setDeletedConversation(data));
-  } catch (error: any) {
-    yield setError({
-      error,
-      location: "deleteConversation",
-      errorSetter: chatActions.setDeleteConversationStatus,
-    });
-  }
-}
+//_________________________________           CREATE CONVERSATION AND GET ALL
 
 export function* createConversationAndGetAll({
   payload: { args, load },
@@ -133,6 +147,8 @@ export function* createConversationAndGetAll({
   }
 }
 
+//_________________________________           SEND MESSAGE
+
 export function* sendMessage({
   payload,
 }: PayloadAction<ChatApiT.SendMessageArgsT>) {
@@ -152,6 +168,8 @@ export function* sendMessage({
   }
 }
 
+//_________________________________           MARK CONVERSATION AS READ
+
 export function* markConversationAsRead({
   payload,
 }: PayloadAction<ChatApiT.MarkConversationAsReadArgsT>) {
@@ -165,6 +183,25 @@ export function* markConversationAsRead({
       error,
       location: "markConversationAsRead",
       // errorSetter: chatActions.setDeleteConversationStatus,
+    });
+  }
+}
+
+//_________________________________           DELETE CONVERSATION
+
+export function* deleteConversation({
+  payload,
+}: PayloadAction<ChatApiT.DeleteConversationArgsT>) {
+  try {
+    const { data }: AxiosResponse<ChatApiT.DeleteConversationArgsT> =
+      yield call(chatAPI.deleteConversationQuery, payload);
+
+    yield put(chatActions.setDeletedConversation(data));
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "deleteConversation",
+      errorSetter: chatActions.setDeleteConversationStatus,
     });
   }
 }
