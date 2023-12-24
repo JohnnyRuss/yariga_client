@@ -9,7 +9,7 @@ const MessageGroupSkeleton: React.FC = () => {
 
   return (
     <Stack width="100%" gap={2}>
-      {Array.from(new Array(5)).map((groupe, index) => (
+      {Array.from(new Array(10)).map((groupe, index) => (
         <Stack
           key={nanoid()}
           direction="row"

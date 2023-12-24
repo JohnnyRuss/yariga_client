@@ -3,6 +3,7 @@ import { call, put } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { setError } from "./helpers/AppError";
 
+import { chatActions } from "store/reducers/chat.reducer";
 import { authActions } from "store/reducers/auth.reducer";
 import { userActions } from "store/reducers/user.reducer";
 import * as authAPI from "store/saga/api/auth.api";
@@ -80,6 +81,7 @@ export function* logout() {
 
     yield put(authActions.cleanUpUser());
     yield put(userActions.cleanUpUser());
+    yield put(chatActions.cleanUpUnreadConversations());
   } catch (error: any) {
     yield setError({
       error,

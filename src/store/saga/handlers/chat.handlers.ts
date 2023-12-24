@@ -1,5 +1,5 @@
 import { setError } from "./helpers/AppError";
-import { call, put, select, all } from "redux-saga/effects";
+import { call, put, all } from "redux-saga/effects";
 
 import { DYNAMIC_PATHS } from "config/paths";
 import { RouterHistory } from "config/config";
@@ -8,7 +8,6 @@ import { chatActions } from "store/reducers/chat.reducer";
 
 import * as ChatApiT from "interface/db/chat.types";
 import { AxiosResponse } from "axios";
-import { RootStateT } from "store/store";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 //_________________________________           ALL CONVERSATIONS
@@ -18,11 +17,7 @@ export function* getConversations() {
     const { data }: AxiosResponse<ChatApiT.GetAllConversationsResponseT> =
       yield call(chatAPI.getConversationsQuery, { page: 1 });
 
-    const activeUserId: string = yield select(
-      ({ user }: RootStateT) => user.user._id
-    );
-
-    yield put(chatActions.setConversations({ data, activeUserId }));
+    yield put(chatActions.setConversations(data));
   } catch (error: any) {
     yield setError({
       error,
@@ -41,11 +36,7 @@ export function* getPaginatedConversations({
     const { data }: AxiosResponse<ChatApiT.GetAllConversationsResponseT> =
       yield call(chatAPI.getConversationsQuery, payload);
 
-    const activeUserId: string = yield select(
-      ({ user }: RootStateT) => user.user._id
-    );
-
-    yield put(chatActions.setPaginatedConversations({ data, activeUserId }));
+    yield put(chatActions.setPaginatedConversations(data));
   } catch (error: any) {
     yield setError({
       error,
@@ -122,18 +113,7 @@ export function* createConversationAndGetAll({
       args
     );
 
-    if (!load) {
-      const activeUserId: string = yield select(
-        ({ user }: RootStateT) => user.user._id
-      );
-
-      yield put(
-        chatActions.setNewConversationCard({
-          activeUserId,
-          conversation: newConversation,
-        })
-      );
-    }
+    if (!load) yield put(chatActions.setNewConversationCard(newConversation));
 
     RouterHistory.navigate(
       DYNAMIC_PATHS.chat_conversation__page(newConversation._id)
@@ -169,6 +149,22 @@ export function* sendMessage({
 }
 
 //_________________________________           MARK CONVERSATION AS READ
+
+export function* getUnreadConversations() {
+  try {
+    const { data }: AxiosResponse<Array<string>> = yield call(
+      chatAPI.getUnreadConversationsQuery
+    );
+
+    yield put(chatActions.setUnreadConversations(data));
+  } catch (error: any) {
+    yield setError({
+      error,
+      location: "getUnreadConversations",
+      // errorSetter: chatActions.setDeleteConversationStatus,
+    });
+  }
+}
 
 export function* markConversationAsRead({
   payload,

@@ -83,7 +83,7 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
     const reg = /^\/messages(?:\/\w+)?$/;
 
     socket.on(io_keys.new_message, (data: NewMessageT) => {
-      dispatch(chatActions.setUnreadConversationsCount(data.conversation._id));
+      dispatch(chatActions.setUnreadConversation(data.conversation._id));
 
       if (!reg.test(pathname)) return;
 
@@ -101,26 +101,32 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
 
       dispatch(
         chatActions.setNewConversationCard({
-          activeUserId: authenticatedUser._id,
-          conversation: {
-            _id: data.conversation._id,
-            isReadBy: data.conversation.isReadBy,
-            updatedAt: data.conversation.updatedAt,
-            createdAt: data.conversation.createdAt,
-            lastMessage: data.conversation.lastMessage,
-            participants: data.conversation.participants,
-          },
+          _id: data.conversation._id,
+          isReadBy: data.conversation.isReadBy,
+          updatedAt: data.conversation.updatedAt,
+          createdAt: data.conversation.createdAt,
+          lastMessage: data.conversation.lastMessage,
+          participants: data.conversation.participants,
         })
       );
     });
 
     socket.on(io_keys.read_message, (data: MarkConversationAsReadResponseT) => {
       dispatch(chatActions.setMarkConversationAsRead(data));
+      dispatch(chatActions.removeUnreadConversation(data.conversationId));
     });
+
+    socket.on(
+      io_keys.unread_message,
+      (data: MarkConversationAsReadResponseT) => {
+        dispatch(chatActions.setMarkConversationAsUnread(data));
+      }
+    );
 
     return () => {
       socket.off(io_keys.new_message);
       socket.off(io_keys.read_message);
+      socket.off(io_keys.unread_message);
     };
   }, [socket, pathname]);
 

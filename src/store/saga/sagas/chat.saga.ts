@@ -40,6 +40,11 @@ export default function* chatSaga() {
   //_________________________________           MARK CONVERSATION AS READ
 
   yield takeLatest(
+    chatActions.getUnreadConversations,
+    chatHandlers.getUnreadConversations
+  );
+
+  yield takeLatest(
     chatActions.markConversationAsRead,
     chatHandlers.markConversationAsRead
   );

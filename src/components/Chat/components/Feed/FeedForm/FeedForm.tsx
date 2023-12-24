@@ -5,7 +5,6 @@ import { useConversationQuery } from "hooks/api/chat";
 import { useAppSelector } from "store/hooks";
 
 import { useChatQuery } from "hooks/api/chat";
-import { useIsCurrentUser } from "hooks/utils";
 import { selectConversationOrigin } from "store/selectors/chat.selectors";
 
 import useFeedFormText from "./hooks/useFeedFormText";
@@ -85,17 +84,13 @@ const FeedForm: React.FC<FeedFormT> = ({ disabled, loading }) => {
     [onSendMessage]
   );
 
-  const { isAuthenticatedUser } = useIsCurrentUser(
-    conversationRoot.lastMessage?.sender?._id || ""
-  );
-
   const onFocus = () => {
-    if (!conversationRoot.isRead && !isAuthenticatedUser) {
-      markConversationAsRead({
-        read: "1",
-        conversationId: conversationRoot._id,
-      });
-    }
+    if (conversationRoot.isRead) return;
+
+    markConversationAsRead({
+      read: "1",
+      conversationId: conversationRoot._id,
+    });
   };
 
   return (

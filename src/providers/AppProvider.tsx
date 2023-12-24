@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useAppSelector } from "store/hooks";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { RouterHistory } from "config/config";
+import { useChatQuery } from "hooks/api/chat";
+import { useCheckIsAuthenticatedUser } from "hooks/auth";
 
 import { Snackbar, Dialog } from "components/Layouts";
 import { SnackbarT, DialogT } from "interface/components/common.types";
@@ -89,6 +91,18 @@ const AppProvider: React.FC<AppProviderT> = ({ children }) => {
       variant: args.variant || "danger",
     }));
   };
+
+  ////////////////////////////////////////////
+  ////////////// APP GLOBALS ////////////////
+
+  const { isAuthenticated } = useCheckIsAuthenticatedUser(true);
+  const { getUnreadConversations } = useChatQuery();
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    getUnreadConversations();
+  }, [isAuthenticated]);
 
   return (
     <AppContext.Provider value={{ setSnackbar, activateDialog }}>

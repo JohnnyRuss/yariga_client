@@ -50,6 +50,7 @@ const io_keys = {
   disconnect: "disconnect",
   new_message: "new_message",
   read_message: "read_message",
+  unread_message: "unread_message",
 };
 
 const MAX_MESSAGE_PER_PAGE = 30;

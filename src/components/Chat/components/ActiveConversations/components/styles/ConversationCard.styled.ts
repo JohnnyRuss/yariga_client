@@ -32,7 +32,7 @@ export const ConversationCard = styled(NavLink)(({ theme }) => ({
 
     "&--message__badge": {
       position: "absolute",
-      right: "40px",
+      right: "55px",
       width: "12px",
       height: "12px",
       marginLeft: "auto",

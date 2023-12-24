@@ -24,10 +24,14 @@ export default function useChatQuery() {
   const markConversationAsRead = (args: MarkConversationAsReadArgsT) =>
     dispatch(chatActions.markConversationAsRead(args));
 
+  const getUnreadConversations = () =>
+    dispatch(chatActions.getUnreadConversations());
+
   return {
     getConversations,
     deleteConversation,
     cleanUpConversations,
+    getUnreadConversations,
     markConversationAsRead,
     getPaginatedConversations,
   };

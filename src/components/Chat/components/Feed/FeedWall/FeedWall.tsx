@@ -3,11 +3,13 @@ import { useAppSelector } from "store/hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import {
-  selectConversationMessagesStatus,
+  selectConversationOrigin,
   selectConversationPagination,
+  selectConversationMessagesStatus,
 } from "store/selectors/chat.selectors";
-import { useConversationQuery } from "hooks/api/chat";
 import { MAX_MESSAGE_PER_PAGE } from "config/config";
+import { useConversationQuery } from "hooks/api/chat";
+import { useChatContext } from "providers/chat/ChatProvider";
 
 import * as UI from "./";
 import * as MuiStyled from "./Feed.styled";
@@ -15,29 +17,36 @@ import { Spinner } from "components/Layouts";
 import MessageList from "./Message/MessageList";
 import { Stack, Box } from "@mui/material";
 
-import { ConversationParticipantT } from "interface/db/chat.types";
-
 type FeedWallT = {
-  isRead: boolean;
   loading: boolean;
-  conversationId: string;
-  adressat: ConversationParticipantT;
 };
 
-const FeedWall: React.FC<FeedWallT> = ({
-  isRead,
-  loading,
-  adressat,
-  conversationId,
-}) => {
+const FeedWall: React.FC<FeedWallT> = ({ loading }) => {
   const status = useAppSelector(selectConversationMessagesStatus);
   const { currentPage, hasMore } = useAppSelector(selectConversationPagination);
+
+  const {
+    isRead,
+    lastMessage,
+    participants,
+    _id: conversationId,
+  } = useAppSelector(selectConversationOrigin);
+
+  const { getLastMessageAdressat } = useChatContext();
+  const adressat = getLastMessageAdressat(
+    participants,
+    lastMessage?.sender?._id || ""
+  );
 
   const { getConversationMessages } = useConversationQuery();
 
   const onNextPage = () => {
     if (!conversationId || !currentPage) return;
-    getConversationMessages({ conversationId, page: currentPage + 1 });
+
+    getConversationMessages({
+      page: currentPage + 1,
+      conversationId: conversationId,
+    });
   };
 
   return (

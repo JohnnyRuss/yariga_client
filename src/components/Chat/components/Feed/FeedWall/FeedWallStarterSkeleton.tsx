@@ -2,7 +2,7 @@ import { Stack, Skeleton, Typography } from "@mui/material";
 
 const FeedWallStarterSkeleton: React.FC = () => {
   return (
-    <Stack width="100%" alignItems="center" py={15} gap={1}>
+    <Stack width="100%" alignItems="center" py={15} gap={1} order={1}>
       <Skeleton
         variant="circular"
         width="70px"

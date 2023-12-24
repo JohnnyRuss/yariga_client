@@ -57,20 +57,14 @@ const selectedActiveConversation = ({ chat }: RootStateT) => ({
 });
 
 const selectedConversationOrigin = ({ chat }: RootStateT) => {
-  const lastGroupIndex = chat.activeConversation.messages.length - 1;
-  const lastMessageIndex =
-    chat.activeConversation.messages[lastGroupIndex]?.messages.length - 1;
-
   return {
     _id: chat.activeConversation._id,
     participants: chat.activeConversation.participants,
     isReadBy: chat.activeConversation.isReadBy,
     isRead: chat.activeConversation.isRead,
+    adressat: chat.activeConversation.adressat,
     updatedAt: chat.activeConversation.updatedAt,
-    lastMessage:
-      chat.activeConversation.messages[lastGroupIndex]?.messages[
-        lastMessageIndex
-      ],
+    lastMessage: chat.activeConversation.messages[0]?.messages[0],
   };
 };
 

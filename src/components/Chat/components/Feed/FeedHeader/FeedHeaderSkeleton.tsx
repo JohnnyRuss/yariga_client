@@ -4,7 +4,14 @@ const FeedHeaderSkeleton: React.FC = () => {
   const theme = useTheme();
 
   return (
-    <Box p={1} borderBottom="1px solid" borderColor="app_text.contrastText">
+    <Box
+      p={1}
+      zIndex={9}
+      position="relative"
+      borderBottom="1px solid"
+      borderColor="app_text.contrastText"
+      bgcolor="app_bg.main"
+    >
       <Stack gap={1} height="100%" direction="row" alignItems="center">
         <Skeleton
           variant="circular"

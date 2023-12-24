@@ -57,6 +57,10 @@ export async function sendMessageQuery(data: ChatApiT.SendMessageArgsT) {
 
 //_________________________________           MARK CONVERSATION AS READ
 
+export async function getUnreadConversationsQuery() {
+  return axiosPrivateQuery.get(`/chat/unread`);
+}
+
 export async function markConversationAsReadQuery(
   args: ChatApiT.MarkConversationAsReadArgsT
 ) {

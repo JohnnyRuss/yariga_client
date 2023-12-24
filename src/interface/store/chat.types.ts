@@ -23,6 +23,7 @@ type ChatStateT = {
   activeConversation: ConversationShortT & {
     isRead: boolean;
     messages: Array<MessagesGroupT>;
+    adressat: ConversationParticipantT | null;
   };
 
   conversationAssets: ConversationAssetsT;

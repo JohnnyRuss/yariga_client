@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
 import { useAppSelector } from "store/hooks";
 
 import { getTimeString } from "utils";
@@ -18,28 +16,12 @@ type ConversationCardT = {
 };
 
 const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
-  const [conversationStatus, setConversationStatus] = useState({
-    isRead: false,
-    belongsToActiveUser: false,
-  });
-
   const user = useAppSelector(selectAuthenticatedUser);
-
-  const showAsUnread =
-    !conversationStatus.belongsToActiveUser && !conversationStatus.isRead;
 
   const onOptions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
   };
-
-  useEffect(() => {
-    setConversationStatus((prev) => ({
-      ...prev,
-      isRead: conversation.isRead,
-      belongsToActiveUser: conversation.lastMessage?.sender?._id === user._id,
-    }));
-  }, [conversation]);
 
   return (
     <MuiStyled.ConversationCard
@@ -61,14 +43,16 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
             {conversation.lastMessage && (
               <ConversationCardLastMessage
                 message={conversation.lastMessage}
-                showAsUnread={showAsUnread}
-                belongsToActiveUser={conversationStatus.belongsToActiveUser}
+                showAsUnread={!conversation.isRead}
+                belongsToActiveUser={
+                  conversation?.lastMessage?.sender?._id === user._id
+                }
               />
             )}
 
             <Badge
               variant="dot"
-              sx={{ opacity: showAsUnread ? 1 : 0 }}
+              sx={{ opacity: !conversation.isRead ? 1 : 0 }}
               className="conversation-card__stack-details--message__badge"
             />
 
@@ -79,7 +63,7 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
               <ConversationOptions
                 showPanelBtn={false}
                 conversationId={conversation._id}
-                isRead={conversationStatus.isRead}
+                isRead={conversation.isRead}
               />
             </Box>
           </Stack>
