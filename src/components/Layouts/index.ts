@@ -35,6 +35,7 @@ export { default as Avatar } from "./Avatar/Avatar";
 export { default as UserRoleChip } from "./UserRoleChip/UserRoleChip";
 export { default as Error } from "./Error/Error";
 export { default as PropertyPrice } from "./PropertyPrice/PropertyPrice";
+export { default as OnlineBadge } from "./OnlineBadge/OnlineBadge";
 
 // CARDS
 export { default as PropertyCardVertical } from "./PropertyCard/PropertyCardVertical";

@@ -4,9 +4,10 @@ import { getTimeString } from "utils";
 import { DYNAMIC_PATHS } from "config/paths";
 import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
+import { Avatar } from "components/Layouts";
 import * as MuiStyled from "./styles/ConversationCard.styled";
 import { Stack, Typography, Box, Badge } from "@mui/material";
-import { Avatar, ConversationOptions } from "components/Chat/components/common";
+import { ConversationOptions } from "components/Chat/components/common";
 import ConversationCardLastMessage from "./ConversationCardLastMessage";
 
 import { ConversationShortInfoT } from "interface/store/chat.types";
@@ -30,8 +31,10 @@ const ConversationCard: React.FC<ConversationCardT> = ({ conversation }) => {
     >
       <Stack className="conversation-card__stack">
         <Avatar
-          src={conversation.adressat?.avatar}
-          alt={conversation.adressat?.username}
+          width="50px"
+          showBadge={conversation.adressat?.isOnline}
+          src={conversation.adressat?.avatar || ""}
+          alt={conversation.adressat?.username || ""}
         />
 
         <Stack className="conversation-card__stack-details">

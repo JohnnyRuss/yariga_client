@@ -1,128 +1,99 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { ApexOptions } from "apexcharts";
 
-const PROPERTY_REFERRALS_INFO = [
-  {
-    title: "Social Media",
-    percentage: 64,
-    color: "#475be8",
+const usersRangeOptions = (
+  categories: Array<string>,
+  max: number
+): ApexOptions => ({
+  grid: { show: false },
+  stroke: { width: 5, curve: "smooth" },
+  chart: { type: "line", toolbar: { show: false } },
+  yaxis: {
+    min: 0,
+    max: max * 2,
+    tickAmount: 4,
+    // labels: { formatter: (value) => `${value}` },
   },
-  {
-    title: "Marketplace",
-    percentage: 40,
-    color: "#6C5DD3",
-  },
-  {
-    title: "Websites",
-    percentage: 50,
-    color: "#4ccae4",
-  },
-  {
-    title: "Digital Ads",
-    percentage: 80,
-    color: "#7FBA7A",
-  },
-  {
-    title: "Others",
-    percentage: 15,
-    color: "#F45252",
-  },
-];
-
-const DASHBOARD_PIE_CHARTS = [
-  {
-    id: nanoid(),
-    title: "Properties for Sale",
-    value: 684,
-    series: [75, 25],
-    colors: ["#475be8", "#c4e8ef"],
-  },
-  {
-    id: nanoid(),
-    title: "Properties for Rent",
-    value: 550,
-    series: [60, 40],
-    colors: ["#4ccae4", "#c4e8ef"],
-  },
-  {
-    id: nanoid(),
-    title: "Total Customers",
-    value: 5684,
-    series: [55, 45],
-    colors: ["#7FBA7A", "#c4e8ef"],
-  },
-  {
-    id: nanoid(),
-    title: "Properties for Cities",
-    value: 555,
-    series: [45, 55],
-    colors: ["#7e5ce2", "#c4e8ef"],
-  },
-];
-
-const TOTAL_REVENUE_SERIES = [
-  {
-    name: "Last Month",
-    data: [183, 124, 115, 85, 143, 143, 96],
-  },
-  {
-    name: "Running Month",
-    data: [95, 84, 72, 44, 108, 108, 47],
-  },
-];
-
-const TOTAL_REVENUE_OPTIONS: ApexOptions = {
-  chart: {
-    type: "bar",
-    toolbar: {
-      show: false,
+  xaxis: { categories, tickAmount: categories.length },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      gradientToColors: ["#FDD835"],
+      shadeIntensity: 1,
+      type: "horizontal",
+      opacityFrom: 1,
+      opacityTo: 1,
+      stops: [0, 100, 100, 100],
     },
   },
+});
+
+const addressTypesOptions = (categories: Array<string>): ApexOptions => ({
+  chart: { type: "bar", toolbar: { show: false } },
   colors: ["#475BE8", "#CFC8FF"],
   plotOptions: {
-    bar: {
-      borderRadius: 4,
-      horizontal: false,
-      columnWidth: "55%",
-    },
+    bar: { borderRadius: 4, horizontal: false, columnWidth: "55%" },
   },
-  dataLabels: {
-    enabled: false,
-  },
+  dataLabels: { enabled: false },
+  grid: { show: false },
+  stroke: { colors: ["transparent"], width: 4 },
+  xaxis: { categories },
+  // yaxis: { title: { text: "$ (thousands)" } },
+  fill: { opacity: 1 },
+  legend: { position: "top", horizontalAlign: "right", show: false },
+  tooltip: { y: { formatter: (val: number) => `$ ${val} thousands` } },
+});
+
+const propertyTypesOptions = (
+  categories: Array<string>,
+  max: number
+): ApexOptions => ({
+  chart: { type: "bar", toolbar: { show: false } },
+  colors: ["#2ED480"],
+  plotOptions: { bar: { horizontal: true, barHeight: 30, borderRadius: 5 } },
   grid: {
-    show: false,
+    xaxis: { lines: { show: false } },
+    yaxis: { lines: { show: false } },
   },
-  stroke: {
-    colors: ["transparent"],
-    width: 4,
-  },
-  xaxis: {
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-  },
+  xaxis: { categories },
   yaxis: {
-    title: {
-      text: "$ (thousands)",
-    },
+    reversed: true,
+    axisTicks: { show: true },
+    max: max * 1.5,
   },
+});
+
+const locationOptions = (
+  categories: Array<string>,
+  max: number
+): ApexOptions => ({
+  chart: { width: "100%", type: "line", toolbar: { show: false } },
+  legend: { position: "top", offsetX: 2 },
+  stroke: { width: [2, 0, 0], curve: "smooth" },
+  grid: { show: false },
+  plotOptions: { bar: { columnWidth: "80%" } },
   fill: {
-    opacity: 1,
-  },
-  legend: {
-    position: "top",
-    horizontalAlign: "right",
-  },
-  tooltip: {
-    y: {
-      formatter(val: number) {
-        return `$ ${val} thousands`;
-      },
+    colors: ["#F2C335", "#2ED480", "#475BE8"],
+    opacity: [1, 0.6, 1],
+    gradient: {
+      inverseColors: false,
+      shade: "light",
+      type: "vertical",
+      opacityFrom: 1,
+      opacityTo: 1,
+      stops: [0, 100, 100, 100],
     },
   },
-};
+  labels: categories,
+  markers: { size: 0 },
+  xaxis: { tickAmount: categories.length },
+  yaxis: { min: 0, max: max * 2, tickAmount: 3 },
+  tooltip: { shared: true, intersect: false, y: {} },
+});
 
 export {
-  DASHBOARD_PIE_CHARTS,
-  TOTAL_REVENUE_SERIES,
-  TOTAL_REVENUE_OPTIONS,
-  PROPERTY_REFERRALS_INFO,
+  addressTypesOptions,
+  propertyTypesOptions,
+  usersRangeOptions,
+  locationOptions,
 };

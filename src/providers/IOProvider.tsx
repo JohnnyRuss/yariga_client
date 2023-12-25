@@ -123,6 +123,14 @@ const IOProvider: React.FC<IOProviderT> = ({ children }) => {
       }
     );
 
+    socket.on(io_keys.user_connection, (data: any) => {
+      dispatch({ type: "USER_CONNECTION", payload: data });
+    });
+
+    socket.on(io_keys.user_disconnection, (data: any) => {
+      dispatch({ type: "USER_DISCONNECTION", payload: data });
+    });
+
     return () => {
       socket.off(io_keys.new_message);
       socket.off(io_keys.read_message);

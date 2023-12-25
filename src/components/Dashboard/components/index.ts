@@ -1,4 +1,4 @@
-export { default as PieCharts } from "./PieCharts";
-export { default as ProgressBar } from "./ProgressBar";
-export { default as PropertyReferrals } from "./PropertyReferrals";
-export { default as TotalRevenue } from "./TotalRevenue";
+export { default as PropertyTypes } from "./PropertyTypes";
+export { default as AddressTypes } from "./AddressTypes";
+export { default as UsersRange } from "./UsersRange";
+export { default as Location } from "./Location";

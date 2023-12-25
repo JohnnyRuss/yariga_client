@@ -14,6 +14,7 @@ const PARTICIPANT_DEFAULT: ConversationParticipantT = {
   email: "",
   username: "",
   role: "USER",
+  isOnline: false,
 };
 
 const ChatContext = createContext<ChatContextT>({

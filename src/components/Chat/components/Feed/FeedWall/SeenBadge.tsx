@@ -1,5 +1,5 @@
 import * as MuiStyled from "./Feed.styled";
-import { Avatar } from "components/Chat/components/common";
+import { Avatar } from "components/Layouts";
 
 type SeenBadgeT = {
   avatar: string;
@@ -9,7 +9,7 @@ type SeenBadgeT = {
 const SeenBadge: React.FC<SeenBadgeT> = ({ avatar, username }) => {
   return (
     <MuiStyled.SeenBadge>
-      <Avatar width="16px" showBadge={false} src={avatar} alt={username} />
+      <Avatar width="16px" src={avatar} alt={username} showBadge={false} />
     </MuiStyled.SeenBadge>
   );
 };

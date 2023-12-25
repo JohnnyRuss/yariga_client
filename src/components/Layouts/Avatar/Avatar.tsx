@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { OnlineBadge } from "components/Layouts";
 
 type AvatarT = {
   src: string;
@@ -7,26 +8,28 @@ type AvatarT = {
   fit?: "contain" | "cover";
   loading?: "lazy" | "eager";
   variant?: "circular" | "rounded";
+  showBadge?: boolean;
 };
 
 const Avatar: React.FC<AvatarT> = ({
   alt,
   src,
-  variant = "circular",
   fit = "cover",
   width = "45px",
   loading = "lazy",
+  showBadge = false,
+  variant = "circular",
 }) => {
   return (
     <Box
       component="figure"
       width={width}
+      height={width}
       minWidth={width}
       minHeight={width}
-      height={width}
-      overflow="hidden"
-      borderRadius={variant === "circular" ? "100%" : "10px"}
+      position="relative"
       className="image-placeholder"
+      borderRadius={variant === "circular" ? "100%" : "10px"}
     >
       <img
         width="100%"
@@ -35,8 +38,15 @@ const Avatar: React.FC<AvatarT> = ({
         alt={alt}
         title={alt}
         loading={loading}
-        style={{ maxWidth: "100%", maxHeight: "100%", objectFit: fit }}
+        style={{
+          objectFit: fit,
+          maxWidth: "100%",
+          maxHeight: "100%",
+          borderRadius: "inherit",
+        }}
       />
+
+      {showBadge && <OnlineBadge />}
     </Box>
   );
 };

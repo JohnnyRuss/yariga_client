@@ -9,10 +9,9 @@ import {
 import { useSearchParams } from "hooks/utils";
 
 import * as UI from "./components";
-import * as MuiStyled from "./ConversationPanel.styled";
 import { Close } from "@mui/icons-material";
-import { UserRoleChip } from "components/Layouts";
-import { Avatar } from "components/Chat/components/common";
+import * as MuiStyled from "./ConversationPanel.styled";
+import { UserRoleChip, Avatar } from "components/Layouts";
 import { Stack, Typography, Tabs, Tab, Box, Button } from "@mui/material";
 
 type ConversationPanelT = {};
@@ -37,9 +36,10 @@ const ConversationPanel: React.FC<ConversationPanelT> = () => {
         <Box className="conversation-panel__header">
           <Stack className="conversation-panel__header-user">
             <Avatar
-              src={adressat?.avatar}
-              alt={adressat?.username}
               width="70px"
+              src={adressat?.avatar || ""}
+              alt={adressat?.username || ""}
+              showBadge={adressat?.isOnline}
             />
 
             <Link to={""}>

@@ -27,6 +27,7 @@ type ConversationParticipantT = {
   email: string;
   avatar: string;
   role: "AGENT" | "USER";
+  isOnline: boolean;
 };
 
 type ConversationAssetsT = {

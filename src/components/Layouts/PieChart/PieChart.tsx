@@ -31,7 +31,7 @@ const PieChart: React.FC<PieChartPropsT> = ({
       gap={2}
       borderRadius="15px"
       minHeight="110px"
-      width="fit-content"
+      width="100%"
       bgcolor="app_text.light"
       {...mainBoxProps}
     >

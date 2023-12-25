@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { LineClamp } from "components/Layouts";
 
 interface TitleT {
   title: string;
@@ -6,16 +6,18 @@ interface TitleT {
 
 const Title: React.FC<TitleT> = ({ title }) => {
   return (
-    <Typography
-      fontSize={16}
-      fontWeight={600}
-      color="app_text.dark"
-      className="line-clamp-1"
+    <LineClamp
+      clamp={1}
       title={title}
-      textTransform="capitalize"
+      sx={{
+        fontSize: 16,
+        fontWeight: 600,
+        color: "app_text.dark",
+        textTransform: "capitalize",
+      }}
     >
       {title}
-    </Typography>
+    </LineClamp>
   );
 };
 

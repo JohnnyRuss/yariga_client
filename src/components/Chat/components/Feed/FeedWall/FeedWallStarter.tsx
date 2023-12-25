@@ -5,8 +5,7 @@ import { selectConversationAdressat } from "store/selectors/chat.selectors";
 import * as UI from "./";
 import * as MuiStyled from "./Feed.styled";
 import { Typography } from "@mui/material";
-import { UserRoleChip } from "components/Layouts";
-import { Avatar } from "components/Chat/components/common";
+import { UserRoleChip, Avatar } from "components/Layouts";
 
 type FeedWallStarterT = { loading: boolean };
 
@@ -17,7 +16,12 @@ const FeedWallStarter: React.FC<FeedWallStarterT> = ({ loading }) => {
     <UI.FeedWallStarterSkeleton />
   ) : (
     <MuiStyled.FeedWallStarter>
-      <Avatar src={adressat?.avatar} alt={adressat?.username} width="70px" />
+      <Avatar
+        width="70px"
+        src={adressat?.avatar || ""}
+        alt={adressat?.username || ""}
+        showBadge={adressat?.isOnline}
+      />
 
       <Typography className="feed-wall--starter__username">
         {adressat?.username || "Unknown User"}

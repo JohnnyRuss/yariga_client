@@ -3,10 +3,10 @@ import { memo } from "react";
 import "./message.css";
 import Message from "./Message";
 import { Stack, Box } from "@mui/material";
-import { Avatar } from "components/Chat/components/common";
+import { Avatar } from "components/Layouts";
 
-import { MessagesGroupT } from "interface/store/chat.types";
 import { MessageT } from "interface/db/chat.types";
+import { MessagesGroupT } from "interface/store/chat.types";
 
 type MessageElT = {
   messageGroup: MessagesGroupT;
@@ -44,6 +44,7 @@ const MessageGroup: React.FC<MessageElT> = ({
         >
           <Avatar
             width="100%"
+            showBadge={false}
             src={groupSender?.avatar || ""}
             alt={groupSender?.username || "Unknown User"}
           />

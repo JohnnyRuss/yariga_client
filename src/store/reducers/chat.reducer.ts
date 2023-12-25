@@ -496,6 +496,64 @@ const chatSlice = createSlice({
     cleanUpUnreadConversations(state) {
       state.unreadConversations = initialState.unreadConversations;
     },
+
+    //_________________________________           SET ON/OFF - LINE
+
+    setOnlineUsers(
+      state,
+      { payload: { userId } }: PayloadAction<{ userId: string }>
+    ) {
+      state.conversations = state.conversations.map((conversation) => {
+        const isAdressat = conversation.adressat?._id === userId;
+
+        const conversationShallow = { ...conversation };
+
+        if (isAdressat && conversationShallow.adressat)
+          conversationShallow.adressat.isOnline = true;
+
+        return { ...conversationShallow };
+      });
+
+      const isInActiveConversation = state.activeConversation.participants.some(
+        (participant) => participant._id === userId
+      );
+
+      if (isInActiveConversation) {
+        state.activeConversation.participants =
+          state.activeConversation.participants.map((participant) => ({
+            ...participant,
+            isOnline: participant._id === userId ? true : participant.isOnline,
+          }));
+      }
+    },
+
+    setOfflineUsers(
+      state,
+      { payload: { userId } }: PayloadAction<{ userId: string }>
+    ) {
+      state.conversations = state.conversations.map((conversation) => {
+        const isAdressat = conversation.adressat?._id === userId;
+
+        const conversationShallow = { ...conversation };
+
+        if (isAdressat && conversationShallow.adressat)
+          conversationShallow.adressat.isOnline = false;
+
+        return { ...conversationShallow };
+      });
+
+      const isInActiveConversation = state.activeConversation.participants.some(
+        (participant) => participant._id === userId
+      );
+
+      if (isInActiveConversation) {
+        state.activeConversation.participants =
+          state.activeConversation.participants.map((participant) => ({
+            ...participant,
+            isOnline: participant._id === userId ? false : participant.isOnline,
+          }));
+      }
+    },
   },
 });
 
