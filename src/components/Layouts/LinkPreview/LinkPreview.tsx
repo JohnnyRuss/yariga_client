@@ -67,12 +67,6 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
             {meta.title}
           </LineClamp>
 
-          {meta.author && (
-            <LineClamp clamp={1} sx={{ fontSize: 12 }}>
-              Author:&nbsp;{meta.author}
-            </LineClamp>
-          )}
-
           {meta.publisher && (
             <LineClamp clamp={1} sx={{ fontSize: 12 }}>
               Publisher:&nbsp;{meta.publisher}

@@ -9,11 +9,8 @@ export default function useUrlMetaQuery() {
 
   const [meta, setMeta] = useState<LinkMetaT>({
     url: null,
-    date: null,
-    logo: null,
     image: null,
     title: null,
-    author: null,
     publisher: null,
     description: null,
   });
@@ -21,7 +18,7 @@ export default function useUrlMetaQuery() {
   const getMeta = async (url: string) => {
     try {
       setLoadingMeta(true);
-
+      console.log(13);
       const { data }: AxiosResponse<LinkMetaT> = await axios.post(
         `${API_ENDPOINT}/utils/meta`,
         { url }
