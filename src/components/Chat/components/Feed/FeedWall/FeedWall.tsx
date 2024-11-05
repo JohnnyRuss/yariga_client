@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {
   selectConversationOrigin,
   selectConversationPagination,
-  selectConversationMessagesStatus,
+  // selectConversationMessagesStatus,
 } from "store/selectors/chat.selectors";
 import { MAX_MESSAGE_PER_PAGE } from "config/config";
 import { useConversationQuery } from "hooks/api/chat";
@@ -22,7 +22,7 @@ type FeedWallT = {
 };
 
 const FeedWall: React.FC<FeedWallT> = ({ loading }) => {
-  const status = useAppSelector(selectConversationMessagesStatus);
+  // const status = useAppSelector(selectConversationMessagesStatus);
   const { currentPage, hasMore } = useAppSelector(selectConversationPagination);
 
   const {
@@ -52,14 +52,13 @@ const FeedWall: React.FC<FeedWallT> = ({ loading }) => {
   return (
     <MuiStyled.FeedWall>
       <Box className="custom_scrollbar feed-wall__wrapper">
-        {!status.loading && <UI.FeedWallStarter loading={loading} />}
+        {/* {!status.loading && <UI.FeedWallStarter loading={loading} />} */}
 
         {loading ? (
           <UI.MessageGroupSkeleton />
         ) : (
           <Stack className="feed-wall__scrollbar-wrapper">
             <InfiniteScroll
-              height="62vh"
               hasMore={hasMore}
               inverse={true}
               next={onNextPage}

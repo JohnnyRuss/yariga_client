@@ -25,6 +25,7 @@
   max-height: 100%;
   overflow: hidden;
   border-radius: 10px;
+  box-shadow: none !important;
 }
 
 .app-swiper__main .swiper-slide__img {
@@ -39,15 +40,16 @@
 .app-swiper__thumbnails-container {
   width: 100%;
   height: 15%;
+  padding: 10px 0;
 }
 
 .app-swiper__thumbnails {
-  padding: 10px 0;
 }
 
 .app-swiper__thumbnails .swiper-slide__figs {
   width: 100%;
   height: 100%;
+
   overflow: hidden;
   border-radius: 10px;
   cursor: pointer;
@@ -57,6 +59,7 @@
   width: 100%;
   max-width: 100%;
   height: 100%;
+  max-height: 100%;
   object-fit: cover;
 }
 

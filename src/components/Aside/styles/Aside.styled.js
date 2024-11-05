@@ -32,7 +32,7 @@ export const AsideBox = styled(Box)(({ theme }) => ({
     bottom: 0,
     left: 0,
     right: 0,
-    top: "calc(100% - 50px)",
+    top: "calc(100vh - 50px)",
     height: "50px",
     width: "100%",
     flexDirection: "row",

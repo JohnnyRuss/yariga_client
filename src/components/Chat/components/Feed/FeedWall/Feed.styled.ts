@@ -3,21 +3,27 @@ import { Box, Stack, styled } from "@mui/material";
 export const FeedWall = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
+  position: "relative",
 
   ".feed-wall__wrapper": {
-    inset: 0,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     padding: 1,
     paddingRight: "8px",
     display: "flex",
     flexDirection: "column-reverse",
     width: "100%",
-    height: "74.5vh",
-    position: "absolute",
 
     "&::-webkit-scrollbar": { display: "none" },
   },
 
   ".feed-wall__scrollbar-wrapper": {
+    position: "absolute",
+    top: 5,
+    bottom: 5,
     gap: 2,
     width: "100%",
   },
@@ -30,8 +36,15 @@ export const FeedWall = styled(Box)(({ theme }) => ({
     color: theme.palette.app_text?.main,
   },
 
+  ".infinite-scroll-component__outerdiv": {
+    position: "absolute",
+    inset: 0,
+  },
+
   ".infinite-scroll__def": {
     width: "100%",
+    maxHeight: "100%",
+    overflowY: "auto",
     display: "flex",
     paddingRight: "8px",
     flexDirection: "column-reverse",
@@ -44,7 +57,8 @@ export const FeedWallStarter = styled(Stack)(({ theme }) => ({
   order: 1,
   width: "100%",
   alignItems: "center",
-  padding: "64px 0px",
+  paddingBottom: "60px",
+  paddingTop: "90px",
 
   [theme.breakpoints.up("app_mobile")]: {
     padding: "120px 0px",

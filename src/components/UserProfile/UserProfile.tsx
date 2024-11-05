@@ -65,7 +65,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
           gap="60px"
           width="100%"
           boxShadow={3}
-          pb={{ xs: 0, md: 2 }}
+          pb={{ xs: "50px", md: 2 }}
         >
           <UI.ProfileImages
             loading={loading}
@@ -74,7 +74,7 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
             isAuthenticatedUser={isAuthenticatedUser}
           />
 
-          <Box py={{ xs: "15px", md: "35px" }} width="100%">
+          <Box py={{ xs: "25px", md: "35px" }} width="100%">
             <UI.UserDetailsHeader
               loading={loading}
               username={user.username}

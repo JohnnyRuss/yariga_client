@@ -44,6 +44,7 @@ const Aside: React.FC = () => {
           style={{ position: "relative" }}
         >
           {route.icon}
+
           <span>{route.label}</span>
 
           {route.label === "messages" && unreadConversationCount > 0 && (
