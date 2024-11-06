@@ -20,11 +20,17 @@ export default function useFeedFormText() {
     []
   );
 
-  const onEmojiSelection = useCallback((value: EmojiT): void => {
-    const reg = new RegExp(`.{${cursorPosition}}`);
-    setText((prev) => prev.replace(reg, (match) => match + value.native));
-    setCursorPosition((prev) => prev + 2);
-  }, []);
+  const onEmojiSelection = useCallback(
+    (value: EmojiT): void => {
+      setText((prevText) => {
+        const beforeCursor = prevText.slice(0, cursorPosition);
+        const afterCursor = prevText.slice(cursorPosition);
+        return beforeCursor + value.native + afterCursor;
+      });
+      setCursorPosition((prevPos) => prevPos + value.native.length);
+    },
+    [cursorPosition]
+  );
 
   return { text, setText, onTextChange, handleBlur, onEmojiSelection };
 }

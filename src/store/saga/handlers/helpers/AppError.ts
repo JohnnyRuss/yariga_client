@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { put } from "redux-saga/effects";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { SetStatusArgsT } from "store/reducers/helpers/controlStatus";
+import logger from "utils/logger";
 
 type ErrorSetterT = SetStatusArgsT & Object;
 
@@ -37,7 +38,7 @@ function* setError({
       location: `sagaHandler - ${location}`,
     });
   } catch (error: any) {
-    console.log(`Ocurred Error in ErrorController ${error?.message}`);
+    logger(`Ocurred Error in ErrorController ${error?.message}`);
   }
 }
 

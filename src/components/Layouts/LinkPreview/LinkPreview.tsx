@@ -25,8 +25,6 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
     getMeta(url);
   }, [url]);
 
-  console.log({ title: meta.title, img: meta.image, isUrl });
-
   return loading ? (
     <LinkPreviewSkeleton />
   ) : (

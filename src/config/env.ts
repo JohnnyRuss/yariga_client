@@ -1,3 +1,5 @@
+const ENV_MODE = process.env.REACT_APP_ENV_MODE || "DEV";
+
 const API_ORIGIN = process.env.REACT_APP_API_ORIGIN || "";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || "";
 
@@ -21,6 +23,7 @@ const FIREBASE_MEASUREMENT_ID =
   process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "";
 
 export {
+  ENV_MODE,
   API_ORIGIN,
   API_ENDPOINT,
   APP_ORIGIN,

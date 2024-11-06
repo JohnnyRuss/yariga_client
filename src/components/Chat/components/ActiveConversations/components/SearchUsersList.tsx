@@ -11,6 +11,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 import { AxiosResponse } from "axios";
 import { UserSearchT } from "interface/db/user.types";
+import logger from "utils/logger";
 
 type SearchUsersListT = {
   onSelect: () => void;
@@ -45,7 +46,7 @@ const SearchUsersList: React.FC<SearchUsersListT> = ({ onSelect }) => {
 
         setUsers(() => data);
       } catch (error) {
-        console.log(error);
+        logger(error);
       } finally {
         setLoading(false);
       }

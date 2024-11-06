@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { API_ENDPOINT } from "config/env";
 import { LinkMetaT } from "interface/db/utils.types";
+import logger from "utils/logger";
 
 export default function useUrlMetaQuery() {
   const [loadingMeta, setLoadingMeta] = useState(true);
@@ -18,7 +19,7 @@ export default function useUrlMetaQuery() {
   const getMeta = async (url: string) => {
     try {
       setLoadingMeta(true);
-      console.log(13);
+
       const { data }: AxiosResponse<LinkMetaT> = await axios.post(
         `${API_ENDPOINT}/utils/meta`,
         { url }
@@ -29,7 +30,7 @@ export default function useUrlMetaQuery() {
         ...data,
       }));
     } catch (error) {
-      console.log(error);
+      logger(error);
     } finally {
       setLoadingMeta(false);
     }
@@ -50,7 +51,7 @@ export default function useUrlMetaQuery() {
 
       setMetaAssets((prev) => data);
     } catch (error) {
-      console.log(error);
+      logger(error);
     } finally {
       setLoadingMetaAssets(false);
     }

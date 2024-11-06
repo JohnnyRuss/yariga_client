@@ -11,6 +11,7 @@ import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 import { GoogleLoginArgsT } from "interface/db/auth.types";
+import logger from "utils/logger";
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -39,7 +40,7 @@ async function firebaseGoogleLogin(): Promise<GoogleLoginArgsT> {
 
     return userCredentials;
   } catch (error: any) {
-    console.log(error);
+    logger(error);
     throw Error(error);
   }
 }

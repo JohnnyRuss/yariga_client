@@ -8,6 +8,7 @@ import cloudinaryUpload, {
   CloudinaryUploadItemT,
   CloudinaryProgressCallbackT,
 } from "services/cloudinary";
+import logger from "utils/logger";
 
 type ImageUploadStateT = {
   images: Array<CloudinaryUploadItemT>;
@@ -127,12 +128,12 @@ export default function useImageUpload() {
                 payload: { secure_url, fileId: item.fileId },
               });
             } catch (error) {
-              console.log(error);
+              logger(error);
             }
           })
         );
       } catch (error) {
-        console.log(error);
+        logger(error);
       } finally {
         setIsUploadingImages(false);
       }
