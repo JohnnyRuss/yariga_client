@@ -15,10 +15,17 @@ type LinkPreviewT = {
 const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
   const { getMeta, loadingMeta: loading, meta } = useUrlMetaQuery();
 
+  const isUrl =
+    meta.image?.startsWith("https://") ||
+    meta.image?.startsWith("http://") ||
+    meta.image?.startsWith("www.");
+
   useEffect(() => {
     if (!url) return;
     getMeta(url);
   }, [url]);
+
+  console.log({ title: meta.title, img: meta.image, isUrl });
 
   return loading ? (
     <LinkPreviewSkeleton />
@@ -46,26 +53,34 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
           </LineClamp>
         </Box>
 
-        <Box component="figure" width="100%" sx={{ aspectRatio: "16/9" }}>
-          <img
-            src={meta.image || ""}
-            alt={meta.title || ""}
-            width="100%"
-            height="100%"
-            loading="lazy"
-            title={meta.title || "link preview"}
-            style={{ objectFit: "cover", maxWidth: "100%", maxHeight: "100%" }}
-          />
-        </Box>
+        {meta.image && isUrl && (
+          <Box component="figure" width="100%" sx={{ aspectRatio: "16/9" }}>
+            <img
+              src={meta.image || ""}
+              alt={meta.title || ""}
+              width="100%"
+              height="100%"
+              loading="lazy"
+              title={meta.title || "link preview"}
+              style={{
+                objectFit: "cover",
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+            />
+          </Box>
+        )}
 
         <Box p={1}>
-          <LineClamp
-            clamp={2}
-            sx={{ fontWeight: 600 }}
-            title={meta.title || ""}
-          >
-            {meta.title}
-          </LineClamp>
+          {meta.title && (
+            <LineClamp
+              clamp={2}
+              sx={{ fontWeight: 600 }}
+              title={meta.title || ""}
+            >
+              {meta.title}
+            </LineClamp>
+          )}
 
           {meta.publisher && (
             <LineClamp clamp={1} sx={{ fontSize: 12 }}>
@@ -73,13 +88,15 @@ const LinkPreview: React.FC<LinkPreviewT> = ({ url }) => {
             </LineClamp>
           )}
 
-          <LineClamp
-            clamp={2}
-            title={meta.description || ""}
-            sx={{ fontSize: 14, color: "app_text.main" }}
-          >
-            {meta.description}
-          </LineClamp>
+          {meta.description && (
+            <LineClamp
+              clamp={2}
+              title={meta.description || ""}
+              sx={{ fontSize: 14, color: "app_text.main" }}
+            >
+              {meta.description}
+            </LineClamp>
+          )}
         </Box>
       </Stack>
     </a>

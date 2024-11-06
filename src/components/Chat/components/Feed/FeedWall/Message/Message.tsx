@@ -1,6 +1,6 @@
 import Images from "./Images";
 import * as MuiStyled from "./Message.styled";
-import { LinkPreview, Text } from "components/Layouts";
+import { LineClamp, LinkPreview, Text } from "components/Layouts";
 
 import { MessageT } from "interface/db/chat.types";
 
