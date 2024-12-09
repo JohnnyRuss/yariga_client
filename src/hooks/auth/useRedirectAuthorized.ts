@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { PATHS } from "config/paths";
 import useCheckIsAuthenticatedUser from "./useCheckIsAuthenticatedUser";
+import logger from "utils/logger";
 
 export default function useRedirectAuthorized() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function useRedirectAuthorized() {
         const { isAuthenticatedUser } = await check();
         if (isAuthenticatedUser) navigate(PATHS.root_page);
       } catch (error) {
-        console.error(error);
+        logger(error);
       } finally {
         setLoading(false);
       }

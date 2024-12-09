@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
-import Helmet from "pages/Helmet";
 
 import {
   usePropertiesQuery,
   usePropertiesFilterQuery,
 } from "hooks/api/properties";
+import Helmet from "pages/Helmet";
 import { PATHS } from "config/paths";
+import { useScrollTo } from "hooks/utils";
 import { useRedirectUnAuthorized } from "hooks/auth";
 import PropertyFilterProvider from "providers/FilterProvider/PropertyFilterProvider";
 
@@ -18,6 +19,8 @@ const AllProperties = lazy(
 );
 
 const PropertiesPage: React.FC = () => {
+  const { windowScrollToTop } = useScrollTo();
+
   const { loading } = useRedirectUnAuthorized();
 
   const { search } = useLocation();
@@ -39,7 +42,8 @@ const PropertiesPage: React.FC = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       getAllProperties({ query: search });
-    }, 1500);
+      windowScrollToTop();
+    }, 1000);
 
     return () => {
       clearTimeout(timeoutId);

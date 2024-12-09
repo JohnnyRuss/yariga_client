@@ -1,9 +1,8 @@
-import { useAppSelector } from "store/hooks";
-
 import {
   selectUserProperties,
   selectUserPropertiesStatus,
 } from "store/selectors/properties.selectors";
+import { useAppSelector } from "store/hooks";
 
 import { Stack } from "@mui/material";
 import { PropertiesList } from "components/Layouts";

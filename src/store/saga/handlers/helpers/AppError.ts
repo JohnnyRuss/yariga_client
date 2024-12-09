@@ -29,14 +29,6 @@ function* setError({
     if (errorSetter) yield put(errorSetter({ ...errorSetterArgs, message }));
 
     if (process.env.REACT_APP_ENV_MODE !== "DEV") return;
-
-    console.error({
-      hasError: true,
-      message,
-      error,
-      stack: error.stack,
-      location: `sagaHandler - ${location}`,
-    });
   } catch (error: any) {
     logger(`Ocurred Error in ErrorController ${error?.message}`);
   }

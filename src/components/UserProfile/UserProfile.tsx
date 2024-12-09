@@ -103,12 +103,10 @@ const UserProfile: React.FC<UserProfileT> = ({ user, loading = false }) => {
           </Box>
         </Stack>
 
-        {currUser.role !== "AGENT" && (
-          <UI.UserProperties
-            userId={user._id}
-            username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
-          />
-        )}
+        <UI.UserProperties
+          userId={user._id}
+          username={!isAuthenticatedUser ? `${userFirstName}'s` : "Your"}
+        />
       </ContentBox>
 
       <UI.ConfirmAccountDeletionModal

@@ -7,6 +7,8 @@ import { Edit, Delete } from "@mui/icons-material";
 import { DropdownMenu } from "components/Layouts";
 import { Typography, Stack, MenuItem } from "@mui/material";
 import UserDetailsHeaderSkeleton from "./UserDetailsHeaderSkeleton";
+import { useAppSelector } from "store/hooks";
+import { selectAuthenticatedUser } from "store/selectors/user.selectors";
 
 type UserDetailsHeaderT = {
   username: string;
@@ -21,6 +23,8 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
   onAccountDelete,
   isAuthenticatedUser,
 }) => {
+  const currUser = useAppSelector(selectAuthenticatedUser);
+
   const { activateDialog } = useAppContext();
   const { getParamValue, appendParam } = useSearchParams();
 
@@ -68,7 +72,7 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderT> = ({
       </Stack>
 
       <Typography color="app_text.main" lineHeight="24px">
-        User
+        {currUser.role}
       </Typography>
     </>
   );
