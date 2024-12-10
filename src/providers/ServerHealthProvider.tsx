@@ -32,8 +32,8 @@ const ServerHealthProvider: React.FC<ServerHealthProviderT> = ({
   }
 
   useEffect(() => {
-    checkServerHealth();
     setIsMounted(true);
+    checkServerHealth();
   }, []);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const ServerHealthProvider: React.FC<ServerHealthProviderT> = ({
 
   return (
     <ServerHealthContext.Provider value={{}}>
-      {false ? (
+      {serverIsAlive ? (
         children
       ) : (
         <Box
