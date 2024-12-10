@@ -50,7 +50,7 @@ const ServerHealthProvider: React.FC<ServerHealthProviderT> = ({
 
   return (
     <ServerHealthContext.Provider value={{}}>
-      {false ? (
+      {serverIsAlive ? (
         children
       ) : (
         <Box
