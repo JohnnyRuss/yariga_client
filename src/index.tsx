@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store, { persistore } from "store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { HelmetProvider } from "react-helmet-async";
+import ServerHealthProvider from "providers/ServerHealthProvider";
 
 import "styles/index.css";
 import MuiTheme from "styles/MuiTheme";
@@ -22,11 +23,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Provider store={store}>
         <PersistGate persistor={persistore}>
           <HelmetProvider>
-            <AppProvider>
-              <IOProvider>
-                <App />
-              </IOProvider>
-            </AppProvider>
+            <ServerHealthProvider>
+              <AppProvider>
+                <IOProvider>
+                  <App />
+                </IOProvider>
+              </AppProvider>
+            </ServerHealthProvider>
           </HelmetProvider>
         </PersistGate>
       </Provider>
