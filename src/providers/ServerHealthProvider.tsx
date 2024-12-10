@@ -50,7 +50,7 @@ const ServerHealthProvider: React.FC<ServerHealthProviderT> = ({
 
   return (
     <ServerHealthContext.Provider value={{}}>
-      {serverIsAlive ? (
+      {false ? (
         children
       ) : (
         <Box
@@ -64,7 +64,7 @@ const ServerHealthProvider: React.FC<ServerHealthProviderT> = ({
           sx={{ inset: "0" }}
         >
           <Typography fontWeight={800} fontSize={26} letterSpacing={1.4}>
-            Checking Server Health...
+            Server is Awakening...
           </Typography>
           <Typography textAlign="center" sx={{ textDecoration: "underline" }}>
             <span>This showcase application is hosted as a free service.</span>
